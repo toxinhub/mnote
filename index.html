@@ -199,6 +199,38 @@ html[data-theme="dark"] .more-details summary small{color:#aaa8b8}
 html[data-theme="dark"] .capture-essential .field label{color:#f0edf6}
 html[data-theme="dark"] #editor-overlay .modal-actions{background:#20212b}
 
+
+/* Final polish: image placeholders, clear focus and calmer empty states */
+.cover{isolation:isolate}
+.cover.cover-loading{background-image:linear-gradient(100deg,transparent 20%,#ffffff20 45%,transparent 70%);background-size:220% 100%;animation:cover-shimmer 1.35s ease-in-out infinite}
+.cover.cover-loading img{opacity:0}
+.cover:not(.cover-loading) img{opacity:1;transition:opacity .22s ease}
+@keyframes cover-shimmer{from{background-position:100% 0}to{background-position:-120% 0}}
+.song-card:focus-within,.idea-row:focus-within{outline:2px solid var(--gold);outline-offset:3px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #6c9b7b;outline-offset:3px}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:205px;padding:30px 20px}
+.empty .big{display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#e8f0e8;color:#416c50;font-size:23px;margin-bottom:13px}
+.empty h3{font-size:17px;letter-spacing:-.25px}
+.empty p{line-height:1.6}
+.empty .btn{min-height:44px}
+.more-details summary{user-select:none}
+.nav button,.mobile-nav button,.text-btn,.card-title-row button,.card-footer button{min-height:44px}
+.card-title-row button{min-width:36px}
+@media(max-width:700px){
+ .cover.cover-loading{animation-duration:1.6s}
+ .empty{min-height:185px;padding:26px 16px}
+ .empty p{max-width:290px}
+ .mobile-nav button{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){
+ .cover.cover-loading{animation:none;background-image:none}
+ .cover.cover-loading img{opacity:1}
+ .cover:not(.cover-loading) img{transition:none}
+ .song-card,.btn,.details-chevron{transition:none!important}
+}
+html[data-theme="dark"] .empty .big{background:#2b3040;color:#b7d9bf}
+html[data-theme="dark"] button:focus-visible,html[data-theme="dark"] a:focus-visible,html[data-theme="dark"] input:focus-visible,html[data-theme="dark"] textarea:focus-visible,html[data-theme="dark"] select:focus-visible,html[data-theme="dark"] summary:focus-visible{outline-color:#b6d7c0}
+
 </style>
 </head>
 <body>
@@ -226,10 +258,10 @@ html[data-theme="dark"] #editor-overlay .modal-actions{background:#20212b}
     <button class="quick-capture" id="quick-capture" type="button"><span class="quick-capture-plus" aria-hidden="true">＋</span><span class="quick-capture-copy"><strong>Take a note of this moment…</strong><small>Capture a song, a lyric timestamp, or an idea</small></span><span class="quick-capture-action">Capture <span aria-hidden="true">↗</span></span></button>
     <div class="section-head recent-heading"><div><h2>Recently captured</h2><p>A little trail of songs and moments you’ve saved.</p></div><button class="text-btn" data-view="songs">All songs <span aria-hidden="true">→</span></button></div>
     
-    <div class="cards" id="home-cards"></div>
+    <div class="cards" id="home-cards" aria-live="polite" aria-relevant="additions text" aria-label="Recently captured songs"></div>
   </section>
-  <section class="view" id="view-songs"><div class="section-head"><div><h2>Song library</h2><p>Every saved song, with its moments and memories.</p></div><button class="btn primary" data-new>＋ Add song</button></div><div class="cards" id="song-cards"></div></section>
-  <section class="view" id="view-ideas"><div class="section-head"><div><h2>Idea library</h2><p>The creative sparks you don't want to lose.</p></div><button class="btn primary" data-new>＋ Capture idea</button></div><div class="filters"><button class="chip active" data-status="all">All ideas</button><button class="chip" data-status="Idea">To do</button><button class="chip" data-status="Created">Done</button></div><div class="idea-list" id="idea-list"></div></section>
+  <section class="view" id="view-songs"><div class="section-head"><div><h2>Song library</h2><p>Every saved song, with its moments and memories.</p></div><button class="btn primary" data-new>＋ Add song</button></div><div class="cards" id="song-cards" aria-live="polite" aria-relevant="additions text" aria-label="Song library"></div></section>
+  <section class="view" id="view-ideas"><div class="section-head"><div><h2>Idea library</h2><p>The creative sparks you don't want to lose.</p></div><button class="btn primary" data-new>＋ Capture idea</button></div><div class="filters"><button class="chip active" data-status="all">All ideas</button><button class="chip" data-status="Idea">To do</button><button class="chip" data-status="Created">Done</button></div><div class="idea-list" id="idea-list" aria-live="polite" aria-relevant="additions text" aria-label="Idea library"></div></section>
   
   
   <div class="footer-note"><span>m}note · A personal music & idea journal</span><span>Your notes stay in this browser in this prototype. Export them regularly.</span></div>
@@ -265,7 +297,7 @@ html[data-theme="dark"] #editor-overlay .modal-actions{background:#20212b}
     <div class="modal-actions"><button type="button" class="btn ghost" id="delete-entry" style="display:none">Delete</button><div class="right"><button type="button" class="btn" id="cancel-modal">Cancel</button><button class="btn primary" type="submit">Save to journal</button></div></div>
   </form>
 </div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <script>
 (()=>{
 const KEY='m}note.entries.v1';
@@ -292,7 +324,7 @@ function applyTheme(theme){document.documentElement.dataset.theme=theme;const da
 function initTheme(){let saved=null;try{saved=localStorage.getItem(THEME_KEY)}catch{}const media=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)');applyTheme(saved==='light'||saved==='dark'?saved:(media&&media.matches?'dark':'light'));$('#theme-toggle')?.addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';applyTheme(next);try{localStorage.setItem(THEME_KEY,next)}catch{}});if(media){const update=()=>{try{if(!localStorage.getItem(THEME_KEY))applyTheme(media.matches?'dark':'light')}catch{applyTheme(media.matches?'dark':'light')}};if(media.addEventListener)media.addEventListener('change',update);else if(media.addListener)media.addListener(update)}}
 
 function moodClass(mood){const key=String(mood||'dreamy').toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'');return 'mood-'+(key||'dreamy')}
-function card(e,i){const tags=(e.tags||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,3);return '<article class="song-card '+moodClass(e.mood)+'"><div class="cover" style="background:'+palettes[i%palettes.length]+'"><img loading="lazy" src="'+esc(cover(e,i))+'" alt="" onerror="this.style.display=\'none\'"><span class="moment-count">♫ '+esc(e.start||'Song saved')+(e.end?' – '+esc(e.end):'')+'</span></div><div class="card-body"><div class="card-title-row"><h3>'+esc(e.song)+'</h3><button data-edit="'+esc(e.id)+'" aria-label="Edit '+esc(e.song)+'">···</button></div><div class="artist">'+esc(e.artist||'Artist not added')+'</div><p class="note-preview">'+esc(e.idea)+'</p><div class="card-meta"><span class="tag">'+esc(e.mood)+'</span><span class="tag">'+esc(e.platform)+'</span>'+tags.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div></div><div class="card-footer"><span>'+esc(dateLabel(e.createdAt))+'</span><button data-edit="'+esc(e.id)+'">Open note ↗</button></div></article>'}
+function card(e,i){const tags=(e.tags||'').split(',').map(x=>x.trim()).filter(Boolean).slice(0,3);return '<article class="song-card '+moodClass(e.mood)+'"><div class="cover cover-loading" style="background:'+palettes[i%palettes.length]+'"><img loading="lazy" src="'+esc(cover(e,i))+'" alt="" onload="this.closest(\\'.cover\\')?.classList.remove(\\'cover-loading\\')" onerror="this.closest(\\'.cover\\')?.classList.remove(\\'cover-loading\\');this.style.display=\\'none\\'">><span class="moment-count">♫ '+esc(e.start||'Song saved')+(e.end?' – '+esc(e.end):'')+'</span></div><div class="card-body"><div class="card-title-row"><h3>'+esc(e.song)+'</h3><button data-edit="'+esc(e.id)+'" aria-label="Edit '+esc(e.song)+'">···</button></div><div class="artist">'+esc(e.artist||'Artist not added')+'</div><p class="note-preview">'+esc(e.idea)+'</p><div class="card-meta"><span class="tag">'+esc(e.mood)+'</span><span class="tag">'+esc(e.platform)+'</span>'+tags.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div></div><div class="card-footer"><span>'+esc(dateLabel(e.createdAt))+'</span><button data-edit="'+esc(e.id)+'">Open note ↗</button></div></article>'}
 function empty(title,desc){return '<div class="empty"><div class="big">♫</div><h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p><button class="btn primary" data-new>＋ Capture your first idea</button></div>'}
 function renderCards(target,list){const el=$(target);if(!list.length){el.innerHTML=empty(query?'No matching notes yet':'Your journal starts here',query?'Try another song, mood or keyword.':'Save a song and the moment or idea it gave you.');return}el.innerHTML=list.map(card).join('')}
 function renderIdeas(){let list=filtered();if(statusFilter!=='all')list=list.filter(e=>e.status===statusFilter);const el=$('#idea-list');if(!list.length){el.innerHTML=empty('No ideas found','Capture a thought now; you can organise it later.');return}el.innerHTML=list.map((e,i)=>'<article class="idea-row '+moodClass(e.mood)+'"><img class="idea-thumb" src="'+esc(cover(e,i))+'" alt="" loading="lazy" onerror="this.style.display=\'none\'"><div><h3>'+esc(e.song)+' · '+esc(e.start||'Full song')+'</h3><p>'+esc(e.idea)+'</p><p style="margin-top:7px">'+esc(e.mood)+' · '+esc(e.platform)+' · '+esc(e.status)+' · '+esc(dateLabel(e.createdAt))+'</p></div><button class="btn" data-edit="'+esc(e.id)+'">Edit note</button></article>').join('')}
