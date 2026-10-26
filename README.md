@@ -1,4 +1,4 @@
-# EchoNote
+# m}note
 
 A personal music journal for saving meaningful song moments, creative ideas, and visual inspiration.
 
@@ -27,4 +27,4 @@ In the repository, open **Settings → Pages**. Under **Build and deployment**, 
 3. Migrate browser-only notes to secure cloud storage and add backup/export tools.
 4. Add richer visual references and optional AI-assisted organisation.
 
-EchoNote is a personal project; no music files are hosted by this prototype.
+m}note is a personal project; no music files are hosted by this prototype.
