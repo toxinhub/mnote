@@ -157,6 +157,48 @@ html{background:var(--bg)}body{background:radial-gradient(ellipse at 86% -10%,#e
 }
 @media(prefers-reduced-motion:reduce){.view{animation:none}.quick-capture,.song-card{transition:none!important}}
 
+
+/* Capture flow: essentials first, optional context on demand */
+.capture-essential{grid-template-columns:minmax(0,1fr);gap:15px}
+.capture-essential .field label{font-size:13px;color:var(--text)}
+.capture-essential textarea{min-height:132px;line-height:1.6}
+.more-details{margin-top:16px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);overflow:hidden}
+.more-details summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;padding:13px 15px;min-height:58px}
+.more-details summary::-webkit-details-marker{display:none}
+.more-details summary span:first-child{display:grid;gap:2px}
+.more-details summary strong{font-size:13px;color:var(--text)}
+.more-details summary small{font-size:11px;color:var(--muted)}
+.details-chevron{font-size:20px;color:var(--gold);transition:transform .2s}
+.more-details[open] .details-chevron{transform:rotate(180deg)}
+.capture-extra{padding:2px 14px 15px;gap:12px}
+.capture-extra .field label{font-size:12px}
+.modal-head{margin-bottom:17px}
+.modal-head h2{font-size:24px}
+.modal-actions{position:sticky;bottom:-1px;background:var(--panel);padding-top:12px;padding-bottom:2px}
+@media(max-width:700px){
+ #editor-overlay.overlay{align-items:flex-end;justify-content:center;padding:0;background:rgba(20,29,23,.48);backdrop-filter:blur(7px)}
+ #editor-overlay .modal{width:100%;max-width:none;max-height:min(90dvh,850px);overflow-y:auto;overscroll-behavior:contain;border-radius:23px 23px 0 0;padding:19px 17px calc(15px + env(safe-area-inset-bottom));border-bottom:0;box-shadow:0 -12px 50px #15251b20;animation:capture-sheet-in .24s cubic-bezier(.2,.75,.25,1)}
+ #editor-overlay .modal:before{content:"";display:block;width:38px;height:4px;border-radius:99px;background:#cbd5cb;margin:-7px auto 17px}
+ #editor-overlay .modal-head{margin-bottom:15px}
+ #editor-overlay .modal-head h2{font-size:21px;letter-spacing:-.45px}
+ #editor-overlay .modal-head p{font-size:12px;line-height:1.45;max-width:275px}
+ #editor-overlay .privacy-note{font-size:11px;margin-bottom:14px;padding:9px 11px}
+ .capture-essential textarea{min-height:120px}
+ .more-details{margin-top:13px}
+ .capture-extra{grid-template-columns:minmax(0,1fr);padding:0 12px 13px}
+ .capture-extra .field.full{grid-column:auto}
+ #editor-overlay .modal-actions{margin-top:13px;padding-top:12px;gap:8px}
+ #editor-overlay .modal-actions .right{flex:1}
+ #editor-overlay .modal-actions .right .btn{flex:1;min-height:44px}
+}
+@keyframes capture-sheet-in{from{transform:translateY(22px);opacity:.75}to{transform:translateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){#editor-overlay .modal{animation:none}.details-chevron{transition:none}}
+html[data-theme="dark"] .more-details{background:#23252f;border-color:#393b49}
+html[data-theme="dark"] .more-details summary strong{color:#f0edf6}
+html[data-theme="dark"] .more-details summary small{color:#aaa8b8}
+html[data-theme="dark"] .capture-essential .field label{color:#f0edf6}
+html[data-theme="dark"] #editor-overlay .modal-actions{background:#20212b}
+
 </style>
 </head>
 <body>
@@ -201,20 +243,25 @@ html{background:var(--bg)}body{background:radial-gradient(ellipse at 86% -10%,#e
     <div class="modal-head"><div><h2 id="modal-title">Capture a new idea</h2><p>Save the song, the moment and what it made you imagine.</p></div><button type="button" class="close" id="close-modal" aria-label="Close">×</button></div>
     <p class="privacy-note">Saved on this device for now. Cloud sync isn’t connected yet.</p>
     <input type="hidden" id="entry-id">
-    <div class="form-grid">
-      <div class="field"><label for="song-name">Song title *</label><input id="song-name" required maxlength="180" placeholder="What was playing?"></div>
-      <div class="field"><label for="artist">Artist</label><input id="artist" maxlength="180" placeholder="Artist or band"></div>
-      <div class="field full"><label for="song-url">Song link</label><input id="song-url" type="url" placeholder="https://youtube.com/…"><span class="form-help">Paste a YouTube, Spotify or other music link.</span></div>
-      <div class="field"><label for="start-time">Moment start</label><input id="start-time" placeholder="01:42"></div>
-      <div class="field hidden-field"><label for="end-time">Moment end</label><input id="end-time" placeholder="02:05"></div>
-      <div class="field hidden-field"><label for="moment-type">What stood out?</label><select id="moment-type"><option>Music / instrumental</option><option>Lyrics / vocal</option><option>Beat / transition</option><option>Whole song</option><option>Other moment</option></select></div>
-      <div class="field full"><label for="idea-note">Your idea or memory *</label><textarea id="idea-note" required maxlength="5000" placeholder="Why did you save this? Imagine a rainy street, a quiet photo, a caption…"></textarea></div>
-      <div class="field"><label for="mood">Mood</label><select id="mood"><option>Dreamy</option><option>Melancholic</option><option>Romantic</option><option>Peaceful</option><option>Energetic</option><option>Nostalgic</option><option>Mysterious</option><option>Hopeful</option></select></div>
-      <div class="field"><label for="platform">Where might you use it?</label><select id="platform"><option>Instagram Story</option><option>Facebook Story</option><option>Reel / Short Video</option><option>Post / Caption</option><option>Personal collection</option><option>Other</option></select></div>
-      <div class="field"><label for="status">Progress</label><select id="status"><option>Idea</option><option>In progress</option><option>Created</option></select></div>
-      <div class="field hidden-field"><label for="tags">Tags</label><input id="tags" placeholder="rain, night, travel"></div>
-      <div class="field full"><label for="visual">Visual idea <span class="optional">(optional)</span></label><textarea id="visual" maxlength="2000" placeholder="A scene, photo, colour mood or video idea…" style="min-height:72px"></textarea></div>
+    <div class="form-grid capture-essential">
+      <div class="field full"><label for="song-name">Song title *</label><input id="song-name" required maxlength="180" placeholder="What was playing?"></div>
+      <div class="field full"><label for="idea-note">Your idea or memory *</label><textarea id="idea-note" required maxlength="5000" placeholder="What did this song make you feel, remember, or imagine?"></textarea><span class="form-help">Start with the thought you want to keep. You can add details later.</span></div>
     </div>
+    <details class="more-details">
+      <summary><span><strong>More details</strong><small>Artist, link, mood and other context</small></span><span class="details-chevron" aria-hidden="true">⌄</span></summary>
+      <div class="form-grid capture-extra">
+        <div class="field"><label for="artist">Artist</label><input id="artist" maxlength="180" placeholder="Artist or band"></div>
+        <div class="field full"><label for="song-url">Song link</label><input id="song-url" type="url" placeholder="https://youtube.com/…"><span class="form-help">Paste a YouTube, Spotify or other music link.</span></div>
+        <div class="field"><label for="start-time">Moment start</label><input id="start-time" placeholder="01:42"></div>
+        <div class="field hidden-field"><label for="end-time">Moment end</label><input id="end-time" placeholder="02:05"></div>
+        <div class="field hidden-field"><label for="moment-type">What stood out?</label><select id="moment-type"><option>Music / instrumental</option><option>Lyrics / vocal</option><option>Beat / transition</option><option>Whole song</option><option>Other moment</option></select></div>
+        <div class="field"><label for="mood">Mood</label><select id="mood"><option>Dreamy</option><option>Melancholic</option><option>Romantic</option><option>Peaceful</option><option>Energetic</option><option>Nostalgic</option><option>Mysterious</option><option>Hopeful</option></select></div>
+        <div class="field"><label for="platform">Where might you use it?</label><select id="platform"><option>Instagram Story</option><option>Facebook Story</option><option>Reel / Short Video</option><option>Post / Caption</option><option>Personal collection</option><option>Other</option></select></div>
+        <div class="field"><label for="status">Progress</label><select id="status"><option>Idea</option><option>In progress</option><option>Created</option></select></div>
+        <div class="field hidden-field"><label for="tags">Tags</label><input id="tags" placeholder="rain, night, travel"></div>
+        <div class="field full"><label for="visual">Visual idea <span class="optional">(optional)</span></label><textarea id="visual" maxlength="2000" placeholder="A scene, photo, colour mood or video idea…" style="min-height:72px"></textarea></div>
+      </div>
+    </details>
     <div class="modal-actions"><button type="button" class="btn ghost" id="delete-entry" style="display:none">Delete</button><div class="right"><button type="button" class="btn" id="cancel-modal">Cancel</button><button class="btn primary" type="submit">Save to journal</button></div></div>
   </form>
 </div>
