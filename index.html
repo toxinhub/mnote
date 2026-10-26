@@ -68,6 +68,95 @@ html{background:var(--bg)}body{background:radial-gradient(ellipse at 86% -10%,#e
 @media(max-width:700px){.btn.theme-toggle{width:42px;min-width:42px}.hero h2{font-size:clamp(28px,7vw,34px)}}
 @media(prefers-reduced-motion:reduce){.song-card:active,.btn:active,.chip:active{transform:none}}
 
+
+/* Phase 2 — home experience and responsive navigation. */
+@media(min-width:901px){
+ .sidebar{position:fixed;inset:0 auto 0 0;width:226px;height:100dvh;padding:26px 16px;background:rgba(255,253,250,.86);border-right:1px solid var(--line);border-bottom:0;display:flex;flex-direction:column;align-items:stretch;gap:0;backdrop-filter:blur(22px);z-index:20}
+ .brand{padding:0 8px 32px}
+ .nav-label{display:block;color:var(--muted);padding:0 12px;margin:4px 0 10px}
+ .sidebar>.nav{display:grid;align-items:stretch;gap:5px}
+ .sidebar .utility-nav{display:grid;margin:auto 0 0;padding-top:16px;border-top:1px solid var(--line)}
+ .sidebar .nav button{width:100%;min-height:46px;text-align:left;justify-content:flex-start}
+ .sidebar .nav button.active{box-shadow:inset 3px 0 var(--gold)}
+ .main{margin-left:226px;max-width:none;width:calc(100% - 226px);padding:30px clamp(26px,4vw,64px) 72px}
+ .topbar{position:relative;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:28px}
+ .top-actions{gap:9px}
+ .search-wrap input{width:clamp(190px,21vw,280px)}
+ .mobile-nav{display:none}
+}
+.quick-capture{display:flex;align-items:center;gap:14px;width:100%;min-height:76px;padding:13px 17px;margin:0 0 30px;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);text-align:left;box-shadow:0 4px 16px rgba(49,38,49,.035);cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
+.quick-capture:hover{border-color:#cdb9cc;box-shadow:0 9px 24px rgba(49,38,49,.08);transform:translateY(-1px)}
+.quick-capture:active{transform:scale(.992)}
+.quick-capture-plus{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border-radius:14px;background:var(--accent-soft);color:var(--gold);font-size:25px}
+.quick-capture-copy{display:grid;gap:3px;min-width:0;flex:1}
+.quick-capture-copy strong{font-size:14px;font-weight:600;letter-spacing:-.15px}
+.quick-capture-copy small{font-size:12px;color:var(--muted)}
+.quick-capture-action{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-size:12px;font-weight:700;white-space:nowrap}
+.recent-heading{margin-bottom:14px}
+#home-cards.cards{display:flex;gap:15px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 18px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--line) transparent;overscroll-behavior-inline:contain}
+#home-cards.cards>.song-card{flex:0 0 clamp(245px,28%,310px);scroll-snap-align:start}
+#home-cards.cards>.empty{flex:1 0 100%;min-width:0}
+#home-cards .cover{height:166px}
+.view{animation:viewArrive .24s ease both}
+@keyframes viewArrive{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+:root[data-theme="dark"] .sidebar{background:rgba(29,30,49,.88);border-color:var(--line)}
+:root[data-theme="dark"] .quick-capture{background:var(--panel);border-color:var(--line);box-shadow:0 4px 16px #0000001a}
+:root[data-theme="dark"] .quick-capture:hover{border-color:#62516b;box-shadow:0 9px 24px #00000030}
+@media(max-width:900px){
+ .sidebar{position:sticky;top:0;inset:auto;width:100%;height:70px;padding:0 18px;display:flex;flex-direction:row;align-items:center;gap:16px;background:rgba(255,253,250,.88);border:0;border-bottom:1px solid var(--line);backdrop-filter:blur(20px);z-index:15}
+ .brand{padding:0;flex-shrink:0}
+ .sidebar .nav-label,.sidebar .sidebar-bottom{display:none}
+ .sidebar>.nav{display:flex;align-items:center;gap:4px}
+ .sidebar .utility-nav{display:none}
+ .sidebar>.nav button{min-height:42px;padding:9px 10px;font-size:12px;white-space:nowrap}
+ .sidebar .nav button.active{box-shadow:none}
+ .main{margin:0;width:100%;padding:24px clamp(18px,3.5vw,34px) 100px}
+ .mobile-nav{display:flex}
+}
+@media(max-width:700px){
+ .sidebar{height:62px;padding:0 15px;gap:10px}
+ .brand-mark{width:34px;height:34px}
+ .brand strong{font-size:19px}
+ .sidebar>.nav{margin-left:auto}
+ .sidebar>.nav button{width:39px;min-width:39px;min-height:40px;padding:7px 4px;justify-content:center;font-size:0;gap:0}
+ .sidebar>.nav button .ico{font-size:18px}
+ .main{padding:18px 15px calc(105px + env(safe-area-inset-bottom))}
+ .topbar{display:flex;flex-direction:column;align-items:stretch;gap:15px;margin-bottom:19px;padding-bottom:18px}
+ .topbar h1{font-size:30px;line-height:1.1}
+ .top-actions{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:8px;width:100%}
+ .top-actions .search-wrap{display:block;min-width:0}
+ .top-actions .search-wrap input{width:100%;min-width:0;height:43px;font-size:13px}
+ .top-actions>.btn.primary{min-height:43px;padding:9px 11px;font-size:12px;white-space:nowrap}
+ .top-actions .theme-toggle{height:43px}
+ .hero{min-height:220px;padding:24px 21px;margin-bottom:18px;border-radius:21px}
+ .hero h2{font-size:clamp(29px,8vw,36px)}
+ .hero p{font-size:13px;line-height:1.55}
+ .quick-capture{min-height:72px;padding:11px 12px;gap:10px;margin-bottom:26px;border-radius:16px}
+ .quick-capture-plus{flex-basis:38px;width:38px;height:38px;border-radius:12px}
+ .quick-capture-copy strong{font-size:12px}
+ .quick-capture-copy small{font-size:10px;line-height:1.35}
+ .quick-capture-action{font-size:0;gap:0}
+ .quick-capture-action span{font-size:18px}
+ .section-head h2{font-size:20px}
+ #home-cards.cards{gap:12px;margin-right:-15px;padding-right:15px;padding-bottom:14px}
+ #home-cards.cards>.song-card{flex-basis:min(78vw,290px)}
+ #home-cards .cover{height:160px}
+ .mobile-nav{padding:8px 9px calc(8px + env(safe-area-inset-bottom));gap:5px;background:rgba(255,253,250,.82);border-top:1px solid var(--line);backdrop-filter:blur(22px) saturate(145%);-webkit-backdrop-filter:blur(22px) saturate(145%)}
+ .mobile-nav button{flex:1;min-height:48px;gap:3px;border-radius:13px;font-size:10px}
+ .mobile-nav button.active{background:var(--accent-soft)}
+ .mobile-nav .plus{width:48px;height:43px;border-radius:16px;font-size:26px;line-height:40px;box-shadow:0 5px 14px #86647f38}
+ :root[data-theme="dark"] .sidebar{background:rgba(29,30,49,.9)}
+ :root[data-theme="dark"] .mobile-nav{background:rgba(29,30,49,.84);border-color:var(--line)}
+}
+@media(max-width:390px){
+ .top-actions{grid-template-columns:40px minmax(0,1fr) auto;gap:6px}
+ .top-actions>.btn.primary{font-size:11px;padding:8px}
+ .top-actions .theme-toggle{min-width:40px;width:40px}
+ .quick-capture-action{display:none}
+ .hero h2{font-size:29px}
+}
+@media(prefers-reduced-motion:reduce){.view{animation:none}.quick-capture,.song-card{transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -92,7 +181,8 @@ html{background:var(--bg)}body{background:radial-gradient(ellipse at 86% -10%,#e
   <section class="view active" id="view-home">
     <div class="hero"><div class="hero-copy"><div class="eyebrow">YOUR PERSONAL MUSIC JOURNAL</div><h2>Keep the songs that stay with you.</h2><p>Save a song, mark the moment, and remember the idea it gave you.</p><button class="btn primary" id="hero-new">＋ Save a song moment</button></div></div>
     
-    <div class="section-head"><div><h2>Recently captured</h2><p>Your saved songs and the ideas attached to them.</p></div><button class="text-btn" data-view="songs">All songs →</button></div>
+    <button class="quick-capture" id="quick-capture" type="button"><span class="quick-capture-plus" aria-hidden="true">＋</span><span class="quick-capture-copy"><strong>Take a note of this moment…</strong><small>Capture a song, a lyric timestamp, or an idea</small></span><span class="quick-capture-action">Capture <span aria-hidden="true">↗</span></span></button>
+    <div class="section-head recent-heading"><div><h2>Recently captured</h2><p>A little trail of songs and moments you’ve saved.</p></div><button class="text-btn" data-view="songs">All songs <span aria-hidden="true">→</span></button></div>
     
     <div class="cards" id="home-cards"></div>
   </section>
@@ -169,7 +259,7 @@ function save(e){e.preventDefault();const id=$('#entry-id').value;const old=entr
 function deleteCurrent(){const id=$('#entry-id').value;if(!id)return;if(!confirm('Delete this note permanently from this browser?'))return;entries=entries.filter(e=>e.id!==id);persist();closeEditor();render();toast('Note deleted.')}
 function exportData(){const blob=new Blob([JSON.stringify({app:'m}note',version:1,exportedAt:new Date().toISOString(),entries},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='m}note-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('Backup file exported.')}
 function about(){alert('m}note is a personal music journal for saving songs, meaningful moments and creative ideas. This first prototype stores notes in this browser only. Account login, secure cloud sync and database backups are not connected yet. Export your notes regularly.')}
-document.addEventListener('click',e=>{const view=e.target.closest('[data-view]');if(view){switchView(view.dataset.view);return}const edit=e.target.closest('[data-edit]');if(edit){openEditor(edit.dataset.edit);return}if(e.target.closest('[data-new]')||e.target.closest('#new-top')||e.target.closest('#hero-new')||e.target.closest('#mobile-new')){openEditor();return}const filter=e.target.closest('[data-filter]');if(filter){moodFilter=filter.dataset.filter;render();return}const status=e.target.closest('[data-status]');if(status){statusFilter=status.dataset.status;render();return}const action=e.target.closest('[data-action]');if(action){if(action.dataset.action==='export')exportData();else about()}});
+document.addEventListener('click',e=>{const view=e.target.closest('[data-view]');if(view){switchView(view.dataset.view);return}const edit=e.target.closest('[data-edit]');if(edit){openEditor(edit.dataset.edit);return}if(e.target.closest('[data-new]')||e.target.closest('#new-top')||e.target.closest('#hero-new')||e.target.closest('#quick-capture')||e.target.closest('#mobile-new')){openEditor();return}const filter=e.target.closest('[data-filter]');if(filter){moodFilter=filter.dataset.filter;render();return}const status=e.target.closest('[data-status]');if(status){statusFilter=status.dataset.status;render();return}const action=e.target.closest('[data-action]');if(action){if(action.dataset.action==='export')exportData();else about()}});
 $('#search').addEventListener('input',e=>{query=e.target.value.trim();render()});$('#song-form').addEventListener('submit',save);$('#close-modal').addEventListener('click',closeEditor);$('#cancel-modal').addEventListener('click',closeEditor);$('#delete-entry').addEventListener('click',deleteCurrent);$('#editor-overlay').addEventListener('click',e=>{if(e.target===$('#editor-overlay'))closeEditor()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEditor();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#search').focus()}});
 initTheme();load();render();
 })();
