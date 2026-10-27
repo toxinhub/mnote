@@ -248,6 +248,90 @@
   #detailDialog .dialog-actions{gap:5px;padding:9px 10px calc(10px + var(--safe))}
   #detailDialog .dialog-actions .text-btn{min-height:35px;padding:0 10px;font-size:12px}
 }
+
+/* Main notes gallery refresh: tactile cards, clearer hierarchy, and gentle color */
+#notesGrid{column-gap:18px}
+#notesGrid .note{
+  --card-accent:var(--accent);
+  position:relative;
+  isolation:isolate;
+  margin:0 0 17px;
+  border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
+  border-radius:15px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 93%,var(--accent) 7%),var(--surface) 78%);
+  box-shadow:0 1px 2px #20212408,0 4px 12px #20212408;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background-color .18s ease;
+}
+#notesGrid .note:before{
+  content:'';
+  position:absolute;z-index:2;top:0;left:15px;right:15px;height:3px;
+  border-radius:0 0 5px 5px;background:var(--card-accent);opacity:.82;pointer-events:none;
+}
+#notesGrid .note[data-color=default]{--card-accent:#e4b63d}
+#notesGrid .note[data-color=red]{--card-accent:var(--n1);background:linear-gradient(145deg,color-mix(in srgb,var(--n1) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=orange]{--card-accent:var(--n2);background:linear-gradient(145deg,color-mix(in srgb,var(--n2) 30%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=yellow]{--card-accent:var(--n3);background:linear-gradient(145deg,color-mix(in srgb,var(--n3) 36%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=green]{--card-accent:var(--n4);background:linear-gradient(145deg,color-mix(in srgb,var(--n4) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=teal]{--card-accent:var(--n5);background:linear-gradient(145deg,color-mix(in srgb,var(--n5) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=blue]{--card-accent:var(--n6);background:linear-gradient(145deg,color-mix(in srgb,var(--n6) 38%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=navy]{--card-accent:var(--n7);background:linear-gradient(145deg,color-mix(in srgb,var(--n7) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=purple]{--card-accent:var(--n8);background:linear-gradient(145deg,color-mix(in srgb,var(--n8) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=pink]{--card-accent:var(--n9);background:linear-gradient(145deg,color-mix(in srgb,var(--n9) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=brown]{--card-accent:var(--n10);background:linear-gradient(145deg,color-mix(in srgb,var(--n10) 34%,var(--surface)),var(--surface) 86%)}
+#notesGrid .note[data-color=gray]{--card-accent:var(--n11);background:linear-gradient(145deg,color-mix(in srgb,var(--n11) 34%,var(--surface)),var(--surface) 86%)}
+@media(hover:hover) and (pointer:fine){
+  #notesGrid .note:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--card-accent) 58%,var(--line));box-shadow:0 3px 7px #2021240d,0 10px 24px #20212412}
+}
+#notesGrid .note:focus-within{border-color:color-mix(in srgb,var(--card-accent) 60%,var(--line));box-shadow:0 0 0 2px color-mix(in srgb,var(--card-accent) 20%,transparent),0 5px 16px #2021240d}
+#notesGrid .note-content{padding:17px 15px 12px}
+#notesGrid .note-top{gap:8px}
+#notesGrid .note-title{font-size:16px;line-height:1.42;font-weight:650;letter-spacing:-.018em}
+#notesGrid .pin{display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);background:color-mix(in srgb,var(--surface) 72%,transparent);transition:background .15s,transform .15s,opacity .15s}
+#notesGrid .pin:hover{background:var(--surface);transform:scale(1.04)}
+#notesGrid .pin.pinned{background:color-mix(in srgb,var(--card-accent) 24%,var(--surface));border-color:color-mix(in srgb,var(--card-accent) 55%,var(--line))}
+#notesGrid .artist{font-size:12px;line-height:1.45;color:var(--muted)}
+#notesGrid .video{margin:12px 0 0;aspect-ratio:16/9;max-height:230px;border:1px solid color-mix(in srgb,var(--line) 55%,transparent);border-radius:11px;box-shadow:0 2px 7px #20212410;background:var(--soft)}
+#notesGrid .video img{transition:transform .28s ease}
+@media(hover:hover) and (pointer:fine){#notesGrid .note:hover .video img{transform:scale(1.025)}}
+#notesGrid .play{width:40px;height:40px;border:1px solid #ffffff70;box-shadow:0 2px 8px #0003;background:#202124c9;transition:transform .16s,background .16s}
+@media(hover:hover) and (pointer:fine){#notesGrid .note:hover .play{transform:translate(-50%,-50%) scale(1.06);background:#202124e8}}
+#notesGrid .idea{margin:12px 0 3px;padding-left:11px;border-left:2px solid color-mix(in srgb,var(--card-accent) 74%,transparent);font-size:13.5px;line-height:1.65;overflow-wrap:anywhere}
+#notesGrid .mood{margin:9px 5px 0 0;padding:4px 9px;border:1px solid color-mix(in srgb,var(--card-accent) 34%,var(--line));border-radius:999px;background:color-mix(in srgb,var(--card-accent) 15%,var(--surface));font-size:11px;line-height:1.35;font-weight:500}
+#notesGrid .tags{gap:5px;margin:10px 0 2px}
+#notesGrid .tag{padding:4px 8px;border-color:color-mix(in srgb,var(--card-accent) 30%,var(--line));border-radius:999px;background:color-mix(in srgb,var(--surface) 75%,transparent);font-size:10.5px;line-height:1.3;transition:background .15s,border-color .15s,transform .15s}
+#notesGrid .tag:hover{background:var(--surface);border-color:color-mix(in srgb,var(--card-accent) 65%,var(--line));transform:translateY(-1px)}
+#notesGrid .moment{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:4px 8px;border-radius:7px;background:color-mix(in srgb,var(--card-accent) 14%,var(--surface));color:var(--muted);font-size:10.5px;line-height:1.35}
+#notesGrid .note-actions{gap:3px;min-height:43px;padding:5px 8px 7px;border-top:1px solid color-mix(in srgb,var(--line) 65%,transparent);background:color-mix(in srgb,var(--surface) 35%,transparent)}
+#notesGrid .note-actions .round{width:31px;height:31px;border:1px solid transparent;border-radius:10px;color:var(--muted);transition:background .15s,color .15s,border-color .15s}
+#notesGrid .note-actions .round:hover{background:var(--surface);border-color:var(--line);color:var(--ink)}
+@media(max-width:1050px){#notesGrid{column-gap:14px}}
+@media(max-width:760px){
+  #notesGrid{column-gap:10px}
+  #notesGrid .note{margin-bottom:11px;border-radius:15px;box-shadow:0 1px 3px #20212408}
+  #notesGrid .note:before{left:12px;right:12px;height:3px}
+  #notesGrid .note-content{padding:15px 12px 11px}
+  #notesGrid .note-title{font-size:14.5px;line-height:1.45;letter-spacing:-.01em}
+  #notesGrid .pin{width:27px;height:27px;flex-basis:27px}
+  #notesGrid .video{margin-top:11px;border-radius:10px}
+  #notesGrid .idea{margin-top:10px;font-size:13px;line-height:1.6}
+  #notesGrid .tags{gap:4px}
+  #notesGrid .tag{padding:4px 7px;font-size:10px}
+  #notesGrid .note-actions{gap:2px;min-height:39px;padding:4px 6px 6px}
+  #notesGrid .note-actions .round{flex:0 0 29px;width:29px;height:29px;border-radius:9px}
+}
+@media(max-width:390px){
+  #notesGrid{column-gap:8px}
+  #notesGrid .note{margin-bottom:9px;border-radius:13px}
+  #notesGrid .note-content{padding:13px 10px 9px}
+  #notesGrid .note-title{font-size:14px}
+  #notesGrid .video{margin-top:9px}
+  #notesGrid .idea{font-size:12.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  #notesGrid .note,#notesGrid .video img,#notesGrid .play,#notesGrid .pin,#notesGrid .tag,#notesGrid .note-actions .round{transition:none!important}
+  #notesGrid .note:hover,#notesGrid .note:active{transform:none!important}
+}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="SurKhata"><span class="brand-icon">♫</span><span class="brand-name">SurKhata</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
