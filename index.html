@@ -111,6 +111,35 @@
 }
 @media(min-width:761px){.mobile-create{display:none}}
 
+
+/* Mobile spacing + card geometry polish */
+@media(max-width:760px){
+  .workspace{padding-left:var(--mobile-gutter);padding-right:var(--mobile-gutter)}
+  .grid{column-gap:10px}
+  .note{border-radius:13px;margin-bottom:10px;overflow:hidden}
+  .note-content{padding:12px 12px 5px}
+  .note-top{gap:5px}
+  .note-title{font-size:14.5px;line-height:1.45;overflow-wrap:anywhere}
+  .artist{line-height:1.45}
+  .video{margin:10px -12px 0;aspect-ratio:16/9}
+  .idea{line-height:1.55}
+  .note-actions{min-width:0;gap:0;padding:3px 5px 5px}
+  .note-actions .round{flex:0 0 30px;width:30px;height:30px}
+  /* Keep card actions balanced on narrow screens; these remain available in note detail. */
+  .note-actions [data-color-open],.note-actions [data-copy]{display:none}
+  .dialog-actions{display:flex;align-items:center;gap:6px}
+  .dialog-actions .text-btn{flex:0 1 auto;min-width:0;white-space:nowrap}
+  .mobile-create{right:16px;bottom:calc(18px + var(--safe));width:56px;height:56px;border-radius:18px}
+}
+@media(max-width:390px){
+  .grid{column-gap:8px}
+  .note{border-radius:12px;margin-bottom:8px}
+  .note-content{padding:10px 10px 4px}
+  .video{margin-inline:-10px}
+  .note-title{font-size:14px;line-height:1.42}
+  .note-actions .round{flex-basis:28px;width:28px;height:28px}
+  .dialog-body{padding-left:16px;padding-right:16px}
+}
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="মেনু">☰</button><a class="brand" href="./" aria-label="সুরখাতা"><span class="brand-icon">♫</span><span class="brand-name">সুরখাতা</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="গান, শিল্পী, স্মৃতি বা ট্যাগ খুঁজুন" aria-label="নোট খুঁজুন" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="সার্চ মুছুন">×</button></label><div class="top-actions"><button class="round" id="refresh" title="রিফ্রেশ" aria-label="রিফ্রেশ">⟳</button><button class="round" id="themeBtn" title="থিম বদলান" aria-label="থিম বদলান">◐</button></div></header>
