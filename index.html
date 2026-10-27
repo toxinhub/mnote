@@ -140,11 +140,55 @@
   .note-actions .round{flex-basis:28px;width:28px;height:28px}
   .dialog-body{padding-left:16px;padding-right:16px}
 }
+
+/* Compose form hierarchy and spacing polish */
+.form-group{min-width:0;margin:0 0 14px}
+.form-label{display:flex;align-items:center;gap:8px;margin:0 2px 7px;color:var(--muted);font-size:12px;font-weight:600;line-height:1.4}
+.form-label .optional{font-size:11px;font-weight:400;opacity:.85}
+.form-group .fields{gap:8px}
+.form-group .field{min-width:0;margin:0;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--page);font-size:14px;line-height:1.45}
+.form-group .field:focus{border-color:var(--focus);box-shadow:0 0 0 1px var(--focus)}
+.form-group textarea.field{min-height:104px;resize:vertical}
+.form-group #quickStart{margin-top:8px}
+.compose-foot{gap:8px;padding-top:8px;border-top:1px solid var(--line)}
+.compose-foot small{max-width:270px}
+.compose-foot .text-btn{min-width:72px}
+.compose-foot .text-btn.primary{min-width:90px;border-radius:20px}
+@media(max-width:760px){
+  .composer.open{display:flex;flex-direction:column}
+  .composer.open .compose-head{flex:0 0 auto;min-height:64px;padding:8px 14px;border-bottom:1px solid var(--line)}
+  .composer.open .compose-title{font-size:17px;line-height:1.4}
+  .composer.open .compose-tools .round{width:36px;height:36px}
+  .composer.open .compose-body{flex:1;min-height:0;overflow:auto;padding:16px 16px calc(14px + var(--safe))}
+  .composer.open .form-group{margin-bottom:18px}
+  .composer.open .form-label{font-size:12px;margin-bottom:8px}
+  .composer.open .form-group .fields{grid-template-columns:1fr;gap:8px}
+  .composer.open .form-group .field{padding:12px;border-radius:10px;font-size:15px}
+  .composer.open .form-group textarea.field{min-height:132px}
+  .composer.open .form-group #quickStart{margin-top:8px}
+  .composer.open .compose-foot{position:sticky;bottom:calc(-14px - var(--safe));z-index:2;display:flex;flex-wrap:wrap;align-items:center;margin:18px -16px calc(-14px - var(--safe));padding:12px 16px calc(12px + var(--safe));background:var(--surface);border-top:1px solid var(--line)}
+  .composer.open .compose-foot small{flex:1 1 100%;max-width:none;margin-bottom:2px;font-size:11px;line-height:1.45}
+  .composer.open .compose-foot .text-btn{min-height:42px}
+  .composer.open .compose-foot .text-btn.primary{min-width:100px}
+}
+@media(max-width:390px){
+  .composer.open{inset:6px 5px calc(6px + var(--safe));border-radius:18px}
+  .composer.open .compose-body{padding-left:13px;padding-right:13px}
+  .composer.open .compose-foot{margin-left:-13px;margin-right:-13px;padding-left:13px;padding-right:13px}
+}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="মেনু">☰</button><a class="brand" href="./" aria-label="সুরখাতা"><span class="brand-icon">♫</span><span class="brand-name">সুরখাতা</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="গান, শিল্পী, স্মৃতি বা ট্যাগ খুঁজুন" aria-label="নোট খুঁজুন" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="সার্চ মুছুন">×</button></label><div class="top-actions"><button class="round" id="refresh" title="রিফ্রেশ" aria-label="রিফ্রেশ">⟳</button><button class="round" id="themeBtn" title="থিম বদলান" aria-label="থিম বদলান">◐</button></div></header>
 <div class="app" id="app"><aside class="sidebar" id="sidebar" aria-label="নেভিগেশন"><nav class="side-nav"><button class="nav active" data-view="all"><span class="nav-icon">▤</span><span class="nav-label">নোট</span><span class="count" id="allCount"></span></button><button class="nav" data-view="pinned"><span class="nav-icon">♧</span><span class="nav-label">পিন করা</span><span class="count" id="pinCount"></span></button><button class="nav" data-view="reminders"><span class="nav-icon">◷</span><span class="nav-label">প্রিয় মুহূর্ত</span></button><button class="nav" data-view="archive"><span class="nav-icon">▣</span><span class="nav-label">আর্কাইভ</span></button><button class="nav" data-view="trash"><span class="nav-icon">♲</span><span class="nav-label">ট্র্যাশ</span></button></nav><div class="side-rule"></div><div class="side-head"><span>লেবেল</span><button class="round" id="clearLabel" title="লেবেল ফিল্টার সরান">＋</button></div><div class="labels" id="labels"></div><div class="side-foot">গান আর স্মৃতির ছোট্ট ঠিকানা।<br><br><a href="admin.html">অ্যাডমিন লগইন ↗</a></div></aside><div class="backdrop" id="backdrop"></div>
-<main class="workspace"><div class="inside"><section class="composer" id="composer" aria-label="নতুন গানের নোট"><div class="compose-head"><input id="quickTitle" class="compose-title" maxlength="180" placeholder="একটি গানের নাম বা স্মৃতি লিখুন..." aria-label="গানের নাম"><span class="compose-mark" id="composeMark">♫</span><div class="compose-tools"><button class="round" id="expand" title="বিস্তারিত যোগ করুন">＋</button><button class="round" id="quickLink" title="YouTube লিংক যোগ করুন">▶</button></div></div><div class="compose-body" id="composeBody"><div class="fields"><input class="field" id="quickArtist" placeholder="শিল্পী / ব্যান্ড" aria-label="শিল্পী"><input class="field" id="quickUrl" type="url" placeholder="YouTube লিংক (ঐচ্ছিক)" aria-label="YouTube লিংক"></div><textarea class="field" id="quickIdea" placeholder="এই গানটি কেন মনে রাখতে চান? অনুভূতি, স্মৃতি বা নোট..." aria-label="স্মৃতি"></textarea><div class="fields"><input class="field" id="quickMood" placeholder="মুড / অনুভূতি" aria-label="মুড"><input class="field" id="quickTags" placeholder="ট্যাগ (কমা দিয়ে আলাদা)" aria-label="ট্যাগ"></div><input class="field" id="quickStart" placeholder="প্রিয় মুহূর্ত (যেমন ১:২৩)" aria-label="প্রিয় মুহূর্ত"><div class="compose-foot"><small>জমা দেওয়ার পর অ্যাডমিন অনুমোদন করলে নোটটি প্রকাশিত হবে।</small><button class="text-btn" id="closeComposer">বাতিল</button><button class="text-btn primary" id="saveNote">জমা দিন</button></div></div></section>
+<main class="workspace"><div class="inside"><section class="composer" id="composer" aria-label="নতুন গানের নোট">
+<div class="compose-head"><input id="quickTitle" class="compose-title" maxlength="180" placeholder="গানের নাম লিখুন..." aria-label="গানের নাম"><span class="compose-mark" id="composeMark">♫</span><div class="compose-tools"><button class="round" id="expand" title="বিস্তারিত যোগ করুন" aria-label="বিস্তারিত যোগ করুন">＋</button><button class="round" id="quickLink" title="YouTube লিংক যোগ করুন" aria-label="YouTube লিংক যোগ করুন">▶</button></div></div>
+<div class="compose-body" id="composeBody">
+<div class="form-group"><div class="form-label">গানের তথ্য</div><div class="fields"><input class="field" id="quickArtist" placeholder="শিল্পী / ব্যান্ড" aria-label="শিল্পী"><input class="field" id="quickUrl" type="url" placeholder="YouTube লিংক (ঐচ্ছিক)" aria-label="YouTube লিংক"></div></div>
+<div class="form-group"><label class="form-label" for="quickIdea">গানটি নিয়ে আপনার নোট</label><textarea class="field" id="quickIdea" placeholder="কোন অনুভূতি বা স্মৃতি জড়িয়ে আছে?" aria-label="স্মৃতি"></textarea></div>
+<div class="form-group"><div class="form-label">অতিরিক্ত তথ্য <span class="optional">ঐচ্ছিক</span></div><div class="fields"><input class="field" id="quickMood" placeholder="মুড / অনুভূতি" aria-label="মুড"><input class="field" id="quickTags" placeholder="ট্যাগ — কমা দিয়ে আলাদা" aria-label="ট্যাগ"></div><input class="field" id="quickStart" placeholder="প্রিয় মুহূর্ত (যেমন ১:২৩)" aria-label="প্রিয় মুহূর্ত"></div>
+<div class="compose-foot"><small>জমা দেওয়ার পর অ্যাডমিন অনুমোদন করলে নোটটি প্রকাশিত হবে।</small><button class="text-btn" id="closeComposer">বাতিল</button><button class="text-btn primary" id="saveNote">জমা দিন</button></div>
+</div></section>
 <div class="section-head"><span id="sectionTitle">নোট</span><span class="result-count" id="resultCount"></span></div><section class="grid" id="notesGrid" aria-live="polite"><div class="empty"><div class="empty-icon">♫</div><strong>গানগুলো লোড হচ্ছে</strong></div></section></div></main></div>
 <button class="mobile-create" id="mobileCreate" aria-label="নতুন গানের নোট" title="নতুন নোট">＋</button>
 <nav class="mobile-nav" aria-label="মোবাইল নেভিগেশন"><button class="active" data-view="all"><span class="mobile-symbol">▤</span><span>নোট</span></button><button data-view="pinned"><span class="mobile-symbol">♧</span><span>পিন</span></button><button id="mobileAdd"><span class="mobile-symbol">＋</span><span>নতুন</span></button><button data-view="archive"><span class="mobile-symbol">▣</span><span>আর্কাইভ</span></button><button data-view="trash"><span class="mobile-symbol">♲</span><span>ট্র্যাশ</span></button></nav>
