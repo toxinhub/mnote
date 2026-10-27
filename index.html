@@ -502,6 +502,19 @@
 :root[data-theme=dark] #detailDialog .detail-section:nth-of-type(odd){background-color:hsl(calc(var(--detail-hue,42) + 125) 7% 18%);}
 :root[data-theme=dark] #detailDialog .tag{background:hsl(calc(var(--detail-hue,42) + 65) 9% 20%);border-color:hsl(calc(var(--detail-hue,42) + 65) 8% 28%);color:hsl(calc(var(--detail-hue,42) + 65) 30% 80%);}
 
+
+/* Extra-compact bottom area of grid note cards */
+#notesGrid .note-actions{min-height:27px;padding:0 5px 2px;gap:1px}
+#notesGrid .note-actions .round{width:25px;height:25px;flex:0 0 25px;border-radius:7px}
+@media(max-width:760px){
+  #notesGrid .note-actions{min-height:25px;padding:0 3px 1px}
+  #notesGrid .note-actions .round{width:24px;height:24px;flex-basis:24px}
+}
+@media(max-width:390px){
+  #notesGrid .note-actions{min-height:23px;padding:0 2px}
+  #notesGrid .note-actions .round{width:22px;height:22px;flex-basis:22px}
+}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="SurKhata"><span class="brand-icon">♫</span><span class="brand-name">SurKhata</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
