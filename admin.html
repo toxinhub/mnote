@@ -224,6 +224,43 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
  #list .entry .entry-summary{-webkit-line-clamp:2}
 }
 
+
+/* Edit entry redesign — aligned with the public SurKhata composer */
+#modal{padding:20px;background:#20212455;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+#modal form{position:relative;width:min(620px,100%);max-height:min(88dvh,820px);padding:0;overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 8px 28px #20212426}
+#modal form:before{content:"";display:block;height:4px;background:#fbbc04}
+#modal h2{position:relative;margin:0;padding:20px 24px 5px;font-size:21px;font-weight:600;letter-spacing:-.04em;line-height:1.3}
+#modal h2:after{content:"Update the song note and its details.";display:block;margin-top:5px;color:var(--muted);font-size:12px;font-weight:400;letter-spacing:0;line-height:1.5}
+#modal .grid{padding:8px 24px 16px;gap:0 16px}
+#modal .field{gap:6px;margin:7px 0 9px}
+#modal .field label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.015em}
+#modal .field input,#modal .field textarea,#modal .field select{padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--soft);font-size:13px;line-height:1.45;transition:border-color .15s,background .15s,box-shadow .15s}
+#modal .field input:focus,#modal .field textarea:focus,#modal .field select:focus{border-color:#d6a400;background:var(--surface);box-shadow:0 0 0 2px #fbbc0426;outline:none}
+#modal .field textarea{min-height:84px;resize:vertical}
+#modal .field.full textarea{min-height:96px}
+#modal .field input::placeholder,#modal .field textarea::placeholder{color:#80868b}
+#modal .actions{position:sticky;bottom:0;display:flex;align-items:center;gap:8px;padding:12px 24px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--surface)}
+#modal #cancel{margin-right:auto;background:transparent;border-color:transparent;color:var(--muted)}
+#modal #cancel:hover{background:var(--soft-2);border-color:var(--line);color:var(--ink)}
+#modal .actions .primary{min-height:38px;padding-inline:16px;border-radius:7px;background:#fbbc04;border-color:#fbbc04;color:#202124}
+#modal .actions .primary:hover{background:#f9ab00;border-color:#f9ab00}
+@media(max-width:680px){
+ #modal{align-items:flex-end;padding:0}
+ #modal form{width:100%;max-height:calc(94dvh - var(--safe));border-radius:16px 16px 0 0}
+ #modal form:before{height:4px}
+ #modal h2{padding:18px 17px 5px;font-size:19px}
+ #modal .grid{grid-template-columns:1fr 1fr;padding:7px 17px 14px;gap:0 10px}
+ #modal .field{margin:6px 0 8px}
+ #modal .field.full{grid-column:1/-1}
+ #modal .field input,#modal .field textarea,#modal .field select{padding:10px;font-size:13px}
+ #modal .actions{padding:10px 17px calc(12px + var(--safe))}
+}
+@media(max-width:390px){
+ #modal .grid{grid-template-columns:1fr}
+ #modal .field.full{grid-column:auto}
+ #modal .field textarea{min-height:76px}
+}
+
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="stats" aria-label="Library summary">
  <div class="stat"><span>Loaded entries</span><strong id="count-total">—</strong></div>
