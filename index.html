@@ -474,14 +474,14 @@
 #notesGrid .tag{padding:1px 4px;font-size:8px;line-height:1.2;border-radius:3px}
 
 
-/* Automatic thumbnail ambience: no manual note colours or swatches */
+/* Soft but clearly distinct thumbnail-derived note colours */
 #notesGrid .note.has-thumb{position:relative;isolation:isolate;background:var(--surface);}
-#notesGrid .note.has-thumb::before{content:"";position:absolute;z-index:0;inset:-10px;background-image:var(--thumb-image);background-size:cover;background-position:center;filter:blur(38px) saturate(.78);opacity:.24;transform:scale(1.12);pointer-events:none;transition:opacity .22s ease;}
-#notesGrid .note.has-thumb::after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035) 55%,rgba(255,255,255,.08));pointer-events:none;}
+#notesGrid .note.has-thumb::before{content:"";position:absolute;z-index:0;inset:-10px;background-image:var(--thumb-image);background-size:cover;background-position:center;filter:blur(30px) saturate(1.18);opacity:.43;transform:scale(1.12);pointer-events:none;transition:opacity .22s ease,filter .22s ease;}
+#notesGrid .note.has-thumb::after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008) 55%,rgba(255,255,255,.035));pointer-events:none;}
 #notesGrid .note.has-thumb .note-content,#notesGrid .note.has-thumb .note-actions{position:relative;z-index:1;}
-#notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.10);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-:root[data-theme=dark] #notesGrid .note.has-thumb::before{opacity:.28;filter:blur(40px) saturate(.72) brightness(.78);}
-:root[data-theme=dark] #notesGrid .note.has-thumb::after{background:linear-gradient(145deg,rgba(32,33,36,.16),rgba(32,33,36,.07) 55%,rgba(32,33,36,.18));}
+#notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+:root[data-theme=dark] #notesGrid .note.has-thumb::before{opacity:.39;filter:blur(32px) saturate(1.08) brightness(.82);}
+:root[data-theme=dark] #notesGrid .note.has-thumb::after{background:linear-gradient(145deg,rgba(32,33,36,.06),rgba(32,33,36,.025) 55%,rgba(32,33,36,.08));}
 @media(prefers-reduced-motion:reduce){#notesGrid .note.has-thumb::before{transition:none}}
 </style></head>
 <body>
