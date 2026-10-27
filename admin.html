@@ -292,6 +292,37 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
  #modal .field textarea{min-height:76px}
 }
 
+
+/* Final edit-form overrides */
+#modal h2:after{content:"Make the changes you need. Extra fields are tucked away below."}
+#modal .edit-section{padding:0 24px}
+#modal .edit-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 3px;color:var(--ink);font-size:12px;font-weight:650}
+#modal .edit-section-title span,#modal .optional{color:var(--muted);font-size:10px;font-weight:400}
+#modal .edit-section .grid{padding:5px 0 12px}
+#modal .field-hint{display:block;margin-top:1px;color:var(--muted);font-size:10px;line-height:1.45}
+#modal .extra-details{margin:0 24px 16px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}
+#modal .extra-details summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px;padding:9px 12px;cursor:pointer;list-style:none;font-size:12px;font-weight:600}
+#modal .extra-details summary::-webkit-details-marker{display:none}
+#modal .extra-details summary:after{content:"＋";margin-left:auto;color:var(--muted);font-size:16px}
+#modal .extra-details[open] summary:after{content:"−"}
+#modal .extra-details summary small{color:var(--muted);font-size:10px;font-weight:400;text-align:right}
+#modal .extra-grid{padding:0 12px 10px!important;gap:0 12px!important}
+#modal .extra-grid .field{margin:5px 0 7px}
+#modal .extra-grid .field input,#modal .extra-grid .field textarea,#modal .extra-grid .field select{background:var(--surface)}
+@media(max-width:680px){
+ #modal .edit-section{padding:0 17px}
+ #modal .edit-section-title{margin-top:7px}
+ #modal .edit-section .grid{grid-template-columns:1fr 1fr;padding:4px 0 10px}
+ #modal .extra-details{margin:0 17px 13px}
+ #modal .extra-details summary{flex-wrap:wrap;justify-content:flex-start;gap:4px 8px}
+ #modal .extra-details summary small{flex:1;text-align:left}
+ #modal .extra-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:390px){
+ #modal .edit-section .grid{grid-template-columns:1fr}
+ #modal .extra-grid{grid-template-columns:1fr!important}
+}
+
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
