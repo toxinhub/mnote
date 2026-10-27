@@ -262,12 +262,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 }
 
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
-<div class="stats" aria-label="Library summary">
- <div class="stat"><span>Loaded entries</span><strong id="count-total">—</strong></div>
- <div class="stat"><span>Awaiting review</span><strong id="count-pending">—</strong></div>
- <div class="stat"><span>Approved</span><strong id="count-approved">—</strong></div>
- <div class="stat"><span>Rejected</span><strong id="count-rejected">—</strong></div>
-</div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
  <button class="btn" id="refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button>
@@ -310,13 +304,13 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    return;
   }
   $("#list").innerHTML=filtered.map(r=>{
-   const id=esc(r.id),title=esc(r.title||"Untitled entry"),artist=esc(r.artist||"Artist not added"),mood=esc(r.mood||"Mood not set");
+   const id=esc(r.id),title=esc(r.title||"Untitled entry"),artist=esc(r.artist||"");
    const date=formatDate(r.updated_at||r.created_at);
    const tags=String(r.tags||"").split(/[,;\n]/).map(t=>t.trim()).filter(Boolean).slice(0,8);
    const url=safeUrl(r.song_url);
    const statusActions=r.status==="pending"?'<button class="btn good" data-act="approve" data-id="'+id+'">✓ Approve</button><button class="btn bad" data-act="reject" data-id="'+id+'">Reject</button>':"";
    const links=(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Open song ↗</a>':"")+(r.platform?'<span class="entry-progress">'+esc(r.platform)+'</span>':"")+(r.progress?'<span class="entry-progress">'+esc(r.progress)+'</span>':"");
-   return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+(r.visual?'<div class="entry-meta entry-visual"><span>Visual idea: '+esc(r.visual)+'</span></div>':"")+(links?'<div class="entry-links">'+links+'</div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
+   return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+ (url?'<div class="entry-links"><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Open song ↗</a></div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
   }).join("");
  }
  async function load(preserveMessage=false){
