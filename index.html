@@ -483,6 +483,25 @@
 :root[data-theme=dark] #notesGrid .note.has-thumb::before{opacity:.39;filter:blur(32px) saturate(1.08) brightness(.82);}
 :root[data-theme=dark] #notesGrid .note.has-thumb::after{background:linear-gradient(145deg,rgba(32,33,36,.06),rgba(32,33,36,.025) 55%,rgba(32,33,36,.08));}
 @media(prefers-reduced-motion:reduce){#notesGrid .note.has-thumb::before{transition:none}}
+
+/* Soft colour accents inside opened note details */
+#detailDialog .detail-hero{background:linear-gradient(135deg,#fff0d9 0%,#f8edff 52%,#e9f5ff 100%);border-color:#eadff0;}
+#detailDialog .detail-kicker-icon{background:#fff8e9;color:#9a6b22;}
+#detailDialog .detail-section{background:#fffdf9;border-color:#eee5d9;}
+#detailDialog .memory-section{background:linear-gradient(135deg,#fff3e8,#fffaf4 78%);border-color:#f0dfce;}
+#detailDialog .moment-section{background:#eef7ff;border-color:#d9eaf8;border-left-color:#91bfe6;}
+#detailDialog .mood-section{background:#f5efff;border-color:#e7ddf5;}
+#detailDialog .detail-section:nth-of-type(odd){background-color:#f2f8f1;}
+#detailDialog .tag{background:#f3efff;border-color:#e6dcf6;color:#68528c;}
+:root[data-theme=dark] #detailDialog .detail-hero{background:linear-gradient(135deg,#40372d 0%,#393044 52%,#293943 100%);border-color:#514657;}
+:root[data-theme=dark] #detailDialog .detail-kicker-icon{background:#514535;color:#f0d5a0;}
+:root[data-theme=dark] #detailDialog .detail-section{background:#292a28;border-color:#45433f;}
+:root[data-theme=dark] #detailDialog .memory-section{background:linear-gradient(135deg,#3c3028,#302b28 78%);border-color:#594438;}
+:root[data-theme=dark] #detailDialog .moment-section{background:#283440;border-color:#3b4b5b;border-left-color:#729fc4;}
+:root[data-theme=dark] #detailDialog .mood-section{background:#352d40;border-color:#4d405d;}
+:root[data-theme=dark] #detailDialog .detail-section:nth-of-type(odd){background-color:#2c352d;}
+:root[data-theme=dark] #detailDialog .tag{background:#352d40;border-color:#4d405d;color:#d3c2f0;}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="SurKhata"><span class="brand-icon">♫</span><span class="brand-name">SurKhata</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
