@@ -477,6 +477,13 @@
   #notesGrid .note,#notesGrid .video img,#notesGrid .play{transition:none!important}
 }
 
+
+/* Keep note spacing identical horizontally and vertically in row-wise grid */
+#notesGrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:12px;row-gap:12px;align-items:start}
+@media(max-width:1400px){#notesGrid{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:12px;row-gap:12px}}
+@media(max-width:1050px){#notesGrid{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:10px;row-gap:10px}}
+@media(max-width:760px){#notesGrid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:8px;row-gap:8px}}
+@media(max-width:390px){#notesGrid{column-gap:7px;row-gap:7px}}
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="SurKhata"><span class="brand-icon">♫</span><span class="brand-name">SurKhata</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
