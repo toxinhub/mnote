@@ -1,30 +1,39 @@
-# m}note
+# m}note — Song journal
 
-A personal music journal for saving meaningful song moments, creative ideas, and visual inspiration.
+A small, Keep-inspired journal for saving songs, the memories and feelings attached to them, and favorite moments.
 
-## Current prototype
+## Public journal
 
-The initial interface is a single static page in `index.html`. It includes:
+The GitHub Pages frontend is a static HTML page backed by Supabase.
 
-- Song and idea capture form
-- Song library, idea library, visual archive, and timeline
-- Search, mood filters, and progress status
-- Browser-local storage and JSON export
-- Responsive desktop and mobile navigation
+- Browse the public library of approved song entries
+- Search by song, artist, note, mood, or tag
+- Explore the tag list and pinned songs
+- Open a song detail view with its note, favorite moment, and YouTube links
+- Submit a song entry for admin review
 
-## Important data note
+New public submissions are created with `pending` status. They are not displayed in the public library until an administrator approves them.
 
-This is an early prototype. Entries are stored in the current browser using `localStorage`; they are **not** synced between devices and are not protected by an account. Use **Export notes** to download a backup. Do not store sensitive information in this prototype.
+## Admin workflow
+
+Open [admin.html](./admin.html) or use the Admin sign in link on the public page.
+
+The existing admin page uses Supabase Auth and checks membership in `admin_users`. Admins can review pending entries, approve or reject them, and edit existing entries. The frontend redesign does not change the existing Supabase project, database records, authentication setup, or approval states.
+
+## Data and security
+
+- Supabase is the source of truth for song entries.
+- The public page selects only entries whose status is `approved`.
+- Visitor submissions use `pending` status.
+- Admin operations continue to use the existing admin authentication and database policies.
+- Pinned songs are stored in the current browser only; they are not account-synced.
+
+Do not place Supabase service-role keys or other server secrets in this static repository. Public client configuration must be protected by the project's Supabase Row Level Security policies.
 
 ## GitHub Pages
 
-In the repository, open **Settings → Pages**. Under **Build and deployment**, select **Deploy from a branch**, choose the `main` branch and `/(root)` folder, then save. Wait for the deployment to finish before opening the published site.
+In the repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select the default branch and the root folder, then save. GitHub Pages publishes the static site after the commit is built.
 
-## Planned next steps
+## Notes
 
-1. Test and refine the interface on mobile and desktop.
-2. Add a Supabase database and authentication with row-level security.
-3. Migrate browser-only notes to secure cloud storage and add backup/export tools.
-4. Add richer visual references and optional AI-assisted organisation.
-
-m}note is a personal project; no music files are hosted by this prototype.
+This repository does not host music files. YouTube links and thumbnails are used as references.
