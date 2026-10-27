@@ -210,4 +210,3 @@ button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}a{
  db.auth.onAuthStateChange((ev)=>{if(ev==="SIGNED_OUT"){$("#workspace").classList.add("hidden");$("#login").classList.remove("hidden");$("#password").value="";closeEdit()}});
 })();
 </script></body></html>
-@media(max-width:680px){#edit-form > .actions{gap:6px;padding:10px 12px calc(10px + var(--safe))}#edit-form > .actions .save-hint{display:none}#edit-form > .actions .btn{min-height:39px;padding:8px 12px}#edit-form > .actions #cancel{margin-left:auto}}@media(max-width:390px){#edit-form > .actions{padding-inline:10px}#edit-form > .actions .btn{flex:1}}
