@@ -104,7 +104,194 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
-</style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden"></div><div class="tabs"><button class="tab active" data-status="pending">Pending</button><button class="tab" data-status="approved">Approved library</button><button class="tab" data-status="rejected">Rejected</button></div><div id="list" class="list"></div></section></div><div id="modal" class="modal"><form id="edit-form"><h2>Edit entry</h2><input type="hidden" id="edit-id"><div class="grid"><div class="field full"><label>Title *</label><input id="f-title" maxlength="180" required></div><div class="field"><label>Artist</label><input id="f-artist" maxlength="180"></div><div class="field"><label>Mood</label><input id="f-mood" maxlength="60"></div><div class="field full"><label>Idea / memory *</label><textarea id="f-idea" maxlength="5000" required></textarea></div><div class="field full"><label>Song URL</label><input id="f-url" type="url" maxlength="1000"></div><div class="field"><label>Moment start</label><input id="f-start" maxlength="40"></div><div class="field"><label>Moment end</label><input id="f-end" maxlength="40"></div><div class="field"><label>Platform</label><input id="f-platform" maxlength="80"></div><div class="field"><label>Progress</label><select id="f-progress"><option>Idea</option><option>In progress</option><option>Created</option></select></div><div class="field full"><label>Tags</label><input id="f-tags" maxlength="500"></div><div class="field full"><label>Visual idea</label><textarea id="f-visual" maxlength="2000"></textarea></div></div><div class="actions"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn primary">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://unpkg.com/@supabase/supabase-js@2"></script><script>
-(()=>{if(!window.supabase||typeof window.supabase.createClient!=="function"){const e=document.querySelector("#login-msg");e.textContent="The authentication library could not load. Check your connection, reload the page, or try again.";e.classList.remove("hidden");e.classList.add("error");return}const db=window.supabase.createClient('https://ekaxlxudxpkkozbyslub.supabase.co','sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX'),$=s=>document.querySelector(s);let status='pending',rows=[];function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function msg(id,t,bad=false){const e=$(id);e.textContent=t;e.classList.remove('hidden','error');if(bad)e.classList.add('error')}async function verify(u){const {data,error}=await db.from('admin_users').select('user_id').eq('user_id',u.id).maybeSingle();if(error){await db.auth.signOut();$('#login').classList.remove('hidden');$('#workspace').classList.add('hidden');msg('#login-msg','Signed in, but admin access could not be verified: '+error.message,true);return}if(!data){await db.auth.signOut();$('#login').classList.remove('hidden');$('#workspace').classList.add('hidden');msg('#login-msg','This account is signed in but is not authorised as an admin. Ask the project owner to grant admin access.',true);return}$('#login').classList.add('hidden');$('#workspace').classList.remove('hidden');await load()}async function load(){const {data,error}=await db.from('entries').select('*').order('updated_at',{ascending:false}).limit(500);if(error){msg('#msg','Could not load entries: '+error.message,true);return}rows=data||[];render()}function render(){const list=rows.filter(r=>r.status===status);$('#list').innerHTML=list.length?list.map(r=>'<article class="entry"><div><span class="badge">'+esc(r.status)+'</span><h3>'+esc(r.title)+'</h3><div class="muted">'+esc(r.artist||'Artist not added')+' · '+esc(r.mood)+'</div><p>'+esc(r.idea)+'</p>'+(r.song_url?'<a href="'+esc(r.song_url)+'" target="_blank" rel="noopener noreferrer">Open song ↗</a>':'')+'</div><div class="actions">'+(r.status==='pending'?'<button class="btn good" data-act="approve" data-id="'+r.id+'">Approve</button><button class="btn bad" data-act="reject" data-id="'+r.id+'">Reject</button>':'')+'<button class="btn" data-act="edit" data-id="'+r.id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+r.id+'">Delete</button></div></article>').join(''):'<div class="empty">No '+status+' entries right now.</div>'}async function statusUpdate(id,next){const {error}=await db.from('entries').update({status:next}).eq('id',id);if(error){msg('#msg','Action failed: '+error.message,true);return}msg('#msg','Entry marked '+next+'.');await load()}function edit(id){const r=rows.find(x=>x.id===id);if(!r)return;$('#edit-id').value=id;for(const [k,v] of Object.entries({title:r.title,artist:r.artist,mood:r.mood,idea:r.idea,url:r.song_url,start:r.start_time,end:r.end_time,platform:r.platform,progress:r.progress,tags:r.tags,visual:r.visual}))$('#f-'+k).value=v||'';$('#modal').classList.add('open')}$('#login-form').addEventListener('submit',async e=>{e.preventDefault();const form=$('#login-form'),submit=form.querySelector('button[type="submit"]');if(submit){submit.disabled=true;submit.textContent='Signing in…'}try{const {data,error}=await db.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});if(error){msg('#login-msg','Sign in failed: '+error.message,true);return}if(!data.user){msg('#login-msg','Sign in failed: Supabase returned no user. Please try again.',true);return}await verify(data.user)}catch(err){msg('#login-msg','Could not reach the authentication service: '+(err&&err.message?err.message:'Unknown network error'),true)}finally{if(submit){submit.disabled=false;submit.textContent='Sign in'}}});
-$('#signout').addEventListener('click',async()=>{await db.auth.signOut();$('#workspace').classList.add('hidden');$('#login').classList.remove('hidden')});document.addEventListener('click',async e=>{const tab=e.target.closest('[data-status]');if(tab){status=tab.dataset.status;document.querySelectorAll('[data-status]').forEach(x=>x.classList.toggle('active',x===tab));render();return}const b=e.target.closest('[data-act]');if(!b)return;const id=b.dataset.id;if(b.dataset.act==='approve')await statusUpdate(id,'approved');else if(b.dataset.act==='reject')await statusUpdate(id,'rejected');else if(b.dataset.act==='edit')edit(id);else if(b.dataset.act==='delete'&&confirm('Delete this entry permanently?')){const {error}=await db.from('entries').delete().eq('id',id);if(error)msg('#msg','Delete failed: '+error.message,true);else{msg('#msg','Entry deleted.');await load()}}});$('#edit-form').addEventListener('submit',async e=>{e.preventDefault();const p={title:$('#f-title').value.trim(),artist:$('#f-artist').value.trim(),mood:$('#f-mood').value.trim()||'Dreamy',idea:$('#f-idea').value.trim(),song_url:$('#f-url').value.trim(),start_time:$('#f-start').value.trim(),end_time:$('#f-end').value.trim(),platform:$('#f-platform').value.trim()||'Personal collection',progress:$('#f-progress').value,tags:$('#f-tags').value.trim(),visual:$('#f-visual').value.trim()};const {error}=await db.from('entries').update(p).eq('id',$('#edit-id').value);if(error){msg('#msg','Save failed: '+error.message,true);return}$('#modal').classList.remove('open');msg('#msg','Entry updated.');await load()});$('#cancel').addEventListener('click',()=>$('#modal').classList.remove('open'));$('#modal').addEventListener('click',e=>{if(e.target===$('#modal'))$('#modal').classList.remove('open')});db.auth.getSession().then(({data})=>{if(data.session)verify(data.session.user)});db.auth.onAuthStateChange((ev)=>{if(ev==='SIGNED_OUT'){$('#workspace').classList.add('hidden');$('#login').classList.remove('hidden')}})})();
+
+/* Admin workflow refinements: searchable, countable and responsive */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.stat{display:flex;flex-direction:column;gap:7px;min-width:0;padding:13px 15px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.stat span{color:var(--muted);font-size:11px;line-height:1.4}
+.stat strong{font-size:23px;font-weight:600;letter-spacing:-.04em;line-height:1.1;font-variant-numeric:tabular-nums}
+.dashboard-tools{display:flex;align-items:center;gap:9px;margin:0 0 12px}
+.admin-search{display:flex;align-items:center;gap:9px;flex:1;min-width:0;height:42px;padding:0 11px;border:1px solid transparent;border-radius:9px;background:var(--soft-2);color:var(--muted)}
+.admin-search:focus-within{border-color:var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.admin-search>span{font-size:22px;line-height:1}
+.admin-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:13px}
+.admin-search input::placeholder{color:#80868b}
+.admin-search kbd{flex:0 0 auto;padding:3px 5px;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--muted);font:10px/1.2 inherit}
+.dashboard-tools #refresh{min-height:42px}
+.tabs{align-items:center;gap:6px}
+.tab-count{display:inline-grid;place-items:center;min-width:19px;height:19px;margin-left:4px;padding:0 5px;border-radius:10px;background:var(--soft-2);color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}
+.tab.active .tab-count{background:#f7d96d;color:#5f4300}
+.list-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font-size:12px;font-weight:600}
+.list-head .muted{font-size:11px;font-weight:400}
+.entry .entry-copy{min-width:0;flex:1}
+.entry .entry-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;color:var(--muted);font-size:11px}
+.entry .entry-summary{margin:10px 0 8px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}
+.entry .entry-tags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 0}
+.entry .entry-tag{display:inline-block;max-width:100%;padding:3px 7px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:10px;overflow-wrap:anywhere}
+.entry .entry-links{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:9px}
+.entry .entry-links a{margin:0}
+.entry .entry-progress{display:inline-flex;align-items:center;padding:3px 7px;border-radius:5px;background:var(--soft-2);color:var(--muted);font-size:10px}
+.entry .actions{flex:0 0 auto;max-width:260px}
+.entry .actions .btn{min-height:35px}
+.entry .actions .btn[data-act=delete]{background:transparent}
+.entry .actions .btn[data-act=delete]:hover{background:var(--red-bg)}
+.empty .empty-icon{display:grid;place-items:center;width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:var(--soft-2);font-size:22px;color:var(--muted)}
+.empty strong{display:block;color:var(--ink);font-size:14px;font-weight:600}
+.empty p{margin:5px 0 0;font-size:12px}
+.btn.is-busy{pointer-events:none;opacity:.6}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}.stat{padding:11px 12px}.stat strong{font-size:21px}.dashboard-tools{gap:7px}.admin-search{height:40px;padding:0 9px}.admin-search kbd{display:none}.dashboard-tools #refresh{height:40px;min-height:40px;padding:8px 10px}.entry .actions{max-width:none}.entry .actions .btn{min-height:35px}.list-head{margin-bottom:9px}}
+@media(max-width:420px){.dashboard-tools #refresh{font-size:0;gap:0;width:40px;padding:0}.dashboard-tools #refresh span{font-size:20px}.admin-search{gap:6px}.admin-search input{font-size:12px}.entry .entry-summary{-webkit-line-clamp:5}}
+</style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
+<div class="stats" aria-label="Library summary">
+ <div class="stat"><span>Total entries</span><strong id="count-total">—</strong></div>
+ <div class="stat"><span>Awaiting review</span><strong id="count-pending">—</strong></div>
+ <div class="stat"><span>Approved</span><strong id="count-approved">—</strong></div>
+ <div class="stat"><span>Rejected</span><strong id="count-rejected">—</strong></div>
+</div>
+<div class="dashboard-tools">
+ <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
+ <button class="btn" id="refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button>
+</div>
+<div class="tabs" role="tablist" aria-label="Entry status"><button class="tab active" role="tab" aria-selected="true" data-status="pending">Pending <span class="tab-count" id="tab-pending">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="approved">Approved library <span class="tab-count" id="tab-approved">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="rejected">Rejected <span class="tab-count" id="tab-rejected">0</span></button></div>
+<div class="list-head"><span id="list-heading">Pending submissions</span><span id="visible-count" class="muted">0 entries</span></div>
+<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal"><form id="edit-form"><h2>Edit entry</h2><input type="hidden" id="edit-id"><div class="grid"><div class="field full"><label>Title *</label><input id="f-title" maxlength="180" required></div><div class="field"><label>Artist</label><input id="f-artist" maxlength="180"></div><div class="field"><label>Mood</label><input id="f-mood" maxlength="60"></div><div class="field full"><label>Idea / memory *</label><textarea id="f-idea" maxlength="5000" required></textarea></div><div class="field full"><label>Song URL</label><input id="f-url" type="url" maxlength="1000"></div><div class="field"><label>Moment start</label><input id="f-start" maxlength="40"></div><div class="field"><label>Moment end</label><input id="f-end" maxlength="40"></div><div class="field"><label>Platform</label><input id="f-platform" maxlength="80"></div><div class="field"><label>Progress</label><select id="f-progress"><option>Idea</option><option>In progress</option><option>Created</option></select></div><div class="field full"><label>Tags</label><input id="f-tags" maxlength="500"></div><div class="field full"><label>Visual idea</label><textarea id="f-visual" maxlength="2000"></textarea></div></div><div class="actions"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn primary">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://unpkg.com/@supabase/supabase-js@2"></script><script>
+(()=> {
+ const $=s=>document.querySelector(s);
+ const all=s=>Array.from(document.querySelectorAll(s));
+ if(!window.supabase||typeof window.supabase.createClient!=="function"){
+  const e=$("#login-msg");e.textContent="The authentication library could not load. Check your connection, reload the page, or try again.";e.classList.remove("hidden");e.classList.add("error");return;
+ }
+ const db=window.supabase.createClient("https://ekaxlxudxpkkozbyslub.supabase.co","sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX");
+ let status="pending",rows=[],busy=false,loading=false;
+ const statusNames={pending:"Pending submissions",approved:"Approved library",rejected:"Rejected entries"};
+ function esc(s=""){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+ function safeUrl(raw){try{const u=new URL(String(raw||""));return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}}
+ function msg(id,t,bad=false){const e=$(id);e.textContent=t;e.classList.remove("hidden","error");if(bad)e.classList.add("error")}
+ function clearMsg(id){const e=$(id);e.classList.add("hidden");e.classList.remove("error")}
+ function setBusy(value){busy=value;all("[data-act]").forEach(b=>{b.disabled=value;b.classList.toggle("is-busy",value)});const refresh=$("#refresh");refresh.disabled=value||loading;refresh.classList.toggle("is-busy",value||loading)}
+ function formatDate(raw){if(!raw)return "";const d=new Date(raw);if(Number.isNaN(d.getTime()))return "";return new Intl.DateTimeFormat(undefined,{month:"short",day:"numeric",year:"numeric"}).format(d)}
+ function matchesSearch(r,q){if(!q)return true;return [r.title,r.artist,r.mood,r.idea,r.tags,r.visual,r.platform,r.progress,r.song_url].some(v=>String(v||"").toLocaleLowerCase().includes(q))}
+ function updateCounts(){
+  const counts={pending:0,approved:0,rejected:0};rows.forEach(r=>{if(Object.hasOwn(counts,r.status))counts[r.status]++});
+  $("#count-total").textContent=String(rows.length);$("#count-pending").textContent=String(counts.pending);$("#count-approved").textContent=String(counts.approved);$("#count-rejected").textContent=String(counts.rejected);
+  Object.keys(counts).forEach(k=>{$("#tab-"+k).textContent=String(counts[k])});
+ }
+ function render(){
+  updateCounts();
+  all("[data-status]").forEach(b=>{const active=b.dataset.status===status;b.classList.toggle("active",active);b.setAttribute("aria-selected",String(active))});
+  $("#list-heading").textContent=statusNames[status]||"Entries";
+  const q=$("#entry-search").value.trim().toLocaleLowerCase();
+  const filtered=rows.filter(r=>r.status===status&&matchesSearch(r,q));
+  $("#visible-count").textContent=filtered.length+" "+(filtered.length===1?"entry":"entries")+(q?" found":"");
+  if(!filtered.length){
+   const title=q?"No matching entries":"Nothing here yet";
+   const detail=q?"Try another title, artist, tag or keyword.":"Entries in this section will appear here.";
+   $("#list").innerHTML='<div class="empty"><span class="empty-icon" aria-hidden="true">'+(q?"⌕":"♫")+'</span><strong>'+esc(title)+'</strong><p>'+esc(detail)+'</p>'+(q?'<button type="button" class="btn" id="clear-search" style="margin-top:13px">Clear search</button>':"")+'</div>';
+   return;
+  }
+  $("#list").innerHTML=filtered.map(r=>{
+   const id=esc(r.id),title=esc(r.title||"Untitled entry"),artist=esc(r.artist||"Artist not added"),mood=esc(r.mood||"Mood not set");
+   const date=formatDate(r.updated_at||r.created_at);
+   const tags=String(r.tags||"").split(/[,;\n]/).map(t=>t.trim()).filter(Boolean).slice(0,8);
+   const url=safeUrl(r.song_url);
+   const statusActions=r.status==="pending"?'<button class="btn good" data-act="approve" data-id="'+id+'">✓ Approve</button><button class="btn bad" data-act="reject" data-id="'+id+'">Reject</button>':"";
+   const links=(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Open song ↗</a>':"")+(r.platform?'<span class="entry-progress">'+esc(r.platform)+'</span>':"")+(r.progress?'<span class="entry-progress">'+esc(r.progress)+'</span>':"");
+   return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+(r.visual?'<div class="entry-meta" style="margin-top:8px"><span>Visual idea: '+esc(r.visual)+'</span></div>':"")+(links?'<div class="entry-links">'+links+'</div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
+  }).join("");
+ }
+ async function load(){
+  if(loading)return;loading=true;$("#refresh").disabled=true;$("#refresh").classList.add("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Loading';
+  clearMsg("#msg");
+  try{
+   const {data,error}=await db.from("entries").select("*").order("updated_at",{ascending:false}).limit(500);
+   if(error){msg("#msg","Could not load entries: "+error.message,true);return}
+   rows=data||[];render();
+  }catch(err){msg("#msg","Could not connect to the library: "+(err?.message||"Unknown network error"),true)}
+  finally{loading=false;$("#refresh").disabled=busy;$("#refresh").classList.remove("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Refresh'}
+ }
+ async function verify(u){
+  try{
+   const {data,error}=await db.from("admin_users").select("user_id").eq("user_id",u.id).maybeSingle();
+   if(error){await db.auth.signOut();$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","Signed in, but admin access could not be verified: "+error.message,true);return}
+   if(!data){await db.auth.signOut();$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","This account is not authorised as an admin. Ask the project owner to grant admin access.",true);return}
+   $("#login").classList.add("hidden");$("#workspace").classList.remove("hidden");await load();
+  }catch(err){$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","Could not verify admin access: "+(err?.message||"Unknown error"),true)}
+ }
+ function edit(id){
+  const r=rows.find(x=>String(x.id)===String(id));if(!r)return;
+  $("#edit-id").value=r.id;
+  for(const [k,v] of Object.entries({title:r.title,artist:r.artist,mood:r.mood,idea:r.idea,url:r.song_url,start:r.start_time,end:r.end_time,platform:r.platform,progress:r.progress,tags:r.tags,visual:r.visual}))$("#f-"+k).value=v||"";
+  $("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-title").focus(),30);
+ }
+ function closeEdit(){if(!$("#modal").classList.contains("open"))return;$("#modal").classList.remove("open");document.body.style.overflow=""}
+ async function statusUpdate(id,next){
+  if(busy)return;setBusy(true);
+  try{
+   const {error}=await db.from("entries").update({status:next}).eq("id",id);
+   if(error){msg("#msg","Action failed: "+error.message,true);return}
+   msg("#msg","Entry moved to "+next+".");await load();
+  }catch(err){msg("#msg","Action failed: "+(err?.message||"Unknown error"),true)}
+  finally{setBusy(false)}
+ }
+ $("#login-form").addEventListener("submit",async e=>{
+  e.preventDefault();const form=$("#login-form"),submit=form.querySelector('button[type="submit"]');
+  submit.disabled=true;submit.textContent="Signing in…";clearMsg("#login-msg");
+  try{
+   const {data,error}=await db.auth.signInWithPassword({email:$("#email").value.trim(),password:$("#password").value});
+   if(error){msg("#login-msg","Sign in failed: "+error.message,true);return}
+   if(!data.user){msg("#login-msg","Sign in failed: Supabase returned no user. Please try again.",true);return}
+   await verify(data.user);
+  }catch(err){msg("#login-msg","Could not reach the authentication service: "+(err?.message||"Unknown network error"),true)}
+  finally{submit.disabled=false;submit.textContent="Sign in"}
+ });
+ $("#signout").addEventListener("click",async()=>{
+  const b=$("#signout");b.disabled=true;
+  try{const {error}=await db.auth.signOut();if(error){msg("#msg","Could not sign out: "+error.message,true);return}$("#workspace").classList.add("hidden");$("#login").classList.remove("hidden");$("#password").value="";clearMsg("#login-msg")}
+  catch(err){msg("#msg","Could not sign out: "+(err?.message||"Unknown error"),true)}
+  finally{b.disabled=false}
+ });
+ $("#refresh").addEventListener("click",load);
+ $("#entry-search").addEventListener("input",render);
+ $("#entry-search").addEventListener("keydown",e=>{if(e.key==="Escape"){e.currentTarget.value="";render();e.currentTarget.blur()}});
+ $("#cancel").addEventListener("click",closeEdit);
+ $("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))closeEdit()});
+ $("#edit-form").addEventListener("submit",async e=>{
+  e.preventDefault();if(busy)return;
+  const submit=$("#edit-form").querySelector('button[type="submit"]');
+  const p={title:$("#f-title").value.trim(),artist:$("#f-artist").value.trim(),mood:$("#f-mood").value.trim()||"Dreamy",idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),end_time:$("#f-end").value.trim(),platform:$("#f-platform").value.trim()||"Personal collection",progress:$("#f-progress").value,tags:$("#f-tags").value.trim(),visual:$("#f-visual").value.trim()};
+  const songUrl=safeUrl(p.song_url);if(p.song_url&&!songUrl){msg("#msg","Please enter a valid http or https song URL.",true);return}
+  submit.disabled=true;submit.textContent="Saving…";
+  try{
+   const {error}=await db.from("entries").update(p).eq("id",$("#edit-id").value);
+   if(error){msg("#msg","Save failed: "+error.message,true);return}
+   closeEdit();msg("#msg","Entry updated successfully.");await load();
+  }catch(err){msg("#msg","Save failed: "+(err?.message||"Unknown error"),true)}
+  finally{submit.disabled=false;submit.textContent="Save changes"}
+ });
+ document.addEventListener("click",async e=>{
+  const tab=e.target.closest("[data-status]");
+  if(tab){status=tab.dataset.status;render();return}
+  if(e.target.closest("#clear-search")){$("#entry-search").value="";render();return}
+  const b=e.target.closest("[data-act]");if(!b||busy)return;
+  const id=b.dataset.id,action=b.dataset.act,r=rows.find(x=>String(x.id)===String(id));
+  if(!r)return;
+  if(action==="edit"){edit(id);return}
+  if(action==="delete"){
+   if(!confirm('Delete "'+(r.title||"this entry")+'" permanently? This cannot be undone.'))return;
+   setBusy(true);
+   try{const {error}=await db.from("entries").delete().eq("id",id);if(error){msg("#msg","Delete failed: "+error.message,true);return}msg("#msg","Entry permanently deleted.");await load()}
+   catch(err){msg("#msg","Delete failed: "+(err?.message||"Unknown error"),true)}
+   finally{setBusy(false)}
+   return;
+  }
+  if(action==="approve")await statusUpdate(id,"approved");
+  if(action==="reject"&&confirm('Move "'+(r.title||"this entry")+'" to Rejected?'))await statusUpdate(id,"rejected");
+ });
+ document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(!$("#workspace").classList.contains("hidden"))$("#entry-search").focus()}
+  if(e.key==="Escape"&&$("#modal").classList.contains("open"))closeEdit();
+ });
+ db.auth.getSession().then(({data,error})=>{if(error){msg("#login-msg","Could not restore your session: "+error.message,true);return}if(data.session)verify(data.session.user)}).catch(err=>msg("#login-msg","Could not restore your session: "+(err?.message||"Unknown error"),true));
+ db.auth.onAuthStateChange((ev)=>{if(ev==="SIGNED_OUT"){$("#workspace").classList.add("hidden");$("#login").classList.remove("hidden");$("#password").value="";closeEdit()}});
+})();
 </script></body></html>
