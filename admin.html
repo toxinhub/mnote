@@ -286,9 +286,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
  function formatDate(raw){if(!raw)return "";const d=new Date(raw);if(Number.isNaN(d.getTime()))return "";return new Intl.DateTimeFormat(undefined,{month:"short",day:"numeric",year:"numeric"}).format(d)}
  function matchesSearch(r,q){if(!q)return true;return [r.title,r.artist,r.mood,r.idea,r.tags,r.visual,r.platform,r.progress,r.song_url].some(v=>String(v||"").toLocaleLowerCase().includes(q))}
  function updateCounts(){
-  const counts={pending:0,approved:0,rejected:0};rows.forEach(r=>{if(Object.hasOwn(counts,r.status))counts[r.status]++});
-  $("#count-total").textContent=String(rows.length);$("#count-pending").textContent=String(counts.pending);$("#count-approved").textContent=String(counts.approved);$("#count-rejected").textContent=String(counts.rejected);
-  Object.keys(counts).forEach(k=>{$("#tab-"+k).textContent=String(counts[k])});
+  const counts={pending:0,approved:0,rejected:0};
+  rows.forEach(r=>{if(Object.hasOwn(counts,r.status))counts[r.status]++});
+  Object.keys(counts).forEach(k=>{const el=$("#tab-"+k);if(el)el.textContent=String(counts[k])});
  }
  function render(){
   updateCounts();
