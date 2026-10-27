@@ -304,7 +304,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    return;
   }
   $("#list").innerHTML=filtered.map(r=>{
-   const id=esc(r.id),title=esc(r.title||"Untitled entry"),artist=esc(r.artist||"");
+   const id=esc(r.id),title=esc(r.title||"Untitled entry"),artist=esc(r.artist||"Artist not added"),mood=esc(r.mood||"Mood not set");
    const date=formatDate(r.updated_at||r.created_at);
    const tags=String(r.tags||"").split(/[,;\n]/).map(t=>t.trim()).filter(Boolean).slice(0,8);
    const url=safeUrl(r.song_url);
