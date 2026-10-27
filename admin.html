@@ -143,7 +143,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 @media(max-width:420px){.dashboard-tools #refresh{font-size:0;gap:0;width:40px;padding:0}.dashboard-tools #refresh span{font-size:20px}.admin-search{gap:6px}.admin-search input{font-size:12px}.entry .entry-summary{-webkit-line-clamp:5}}
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="stats" aria-label="Library summary">
- <div class="stat"><span>Total entries</span><strong id="count-total">—</strong></div>
+ <div class="stat"><span>Loaded entries</span><strong id="count-total">—</strong></div>
  <div class="stat"><span>Awaiting review</span><strong id="count-pending">—</strong></div>
  <div class="stat"><span>Approved</span><strong id="count-approved">—</strong></div>
  <div class="stat"><span>Rejected</span><strong id="count-rejected">—</strong></div>
@@ -199,9 +199,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+(r.visual?'<div class="entry-meta" style="margin-top:8px"><span>Visual idea: '+esc(r.visual)+'</span></div>':"")+(links?'<div class="entry-links">'+links+'</div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
   }).join("");
  }
- async function load(){
+ async function load(preserveMessage=false){
   if(loading)return;loading=true;$("#refresh").disabled=true;$("#refresh").classList.add("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Loading';
-  clearMsg("#msg");
+  if(!preserveMessage)clearMsg("#msg");
   try{
    const {data,error}=await db.from("entries").select("*").order("updated_at",{ascending:false}).limit(500);
    if(error){msg("#msg","Could not load entries: "+error.message,true);return}
@@ -229,7 +229,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   try{
    const {error}=await db.from("entries").update({status:next}).eq("id",id);
    if(error){msg("#msg","Action failed: "+error.message,true);return}
-   msg("#msg","Entry moved to "+next+".");await load();
+   msg("#msg","Entry moved to "+next+".");await load(true);
   }catch(err){msg("#msg","Action failed: "+(err?.message||"Unknown error"),true)}
   finally{setBusy(false)}
  }
@@ -264,7 +264,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   try{
    const {error}=await db.from("entries").update(p).eq("id",$("#edit-id").value);
    if(error){msg("#msg","Save failed: "+error.message,true);return}
-   closeEdit();msg("#msg","Entry updated successfully.");await load();
+   closeEdit();msg("#msg","Entry updated successfully.");await load(true);
   }catch(err){msg("#msg","Save failed: "+(err?.message||"Unknown error"),true)}
   finally{submit.disabled=false;submit.textContent="Save changes"}
  });
@@ -279,7 +279,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   if(action==="delete"){
    if(!confirm('Delete "'+(r.title||"this entry")+'" permanently? This cannot be undone.'))return;
    setBusy(true);
-   try{const {error}=await db.from("entries").delete().eq("id",id);if(error){msg("#msg","Delete failed: "+error.message,true);return}msg("#msg","Entry permanently deleted.");await load()}
+   try{const {error}=await db.from("entries").delete().eq("id",id);if(error){msg("#msg","Delete failed: "+error.message,true);return}msg("#msg","Entry permanently deleted.");await load(true)}
    catch(err){msg("#msg","Delete failed: "+(err?.message||"Unknown error"),true)}
    finally{setBusy(false)}
    return;
