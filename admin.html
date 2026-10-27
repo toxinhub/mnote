@@ -140,7 +140,53 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .empty p{margin:5px 0 0;font-size:12px}
 .btn.is-busy{pointer-events:none;opacity:.6}
 @media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:14px}.stat{padding:11px 12px}.stat strong{font-size:21px}.dashboard-tools{gap:7px}.admin-search{height:40px;padding:0 9px}.admin-search kbd{display:none}.dashboard-tools #refresh{height:40px;min-height:40px;padding:8px 10px}.entry .actions{max-width:none}.entry .actions .btn{min-height:35px}.list-head{margin-bottom:9px}}
-@media(max-width:420px){.dashboard-tools #refresh{font-size:0;gap:0;width:40px;padding:0}.dashboard-tools #refresh span{font-size:20px}.admin-search{gap:6px}.admin-search input{font-size:12px}.entry .entry-summary{-webkit-line-clamp:5}}
+/* Compact admin density: less scrolling, same controls */
+.wrap{padding-bottom:32px}
+.head{margin:20px 0 14px}
+.head h1{font-size:clamp(23px,3.5vw,28px)}
+.stats{gap:8px;margin-bottom:12px}
+.stat{gap:4px;padding:10px 12px;border-radius:9px}
+.stat strong{font-size:21px}
+.dashboard-tools{margin-bottom:8px}
+.admin-search{height:39px}
+.dashboard-tools #refresh{min-height:39px}
+.tabs{gap:5px;margin-bottom:10px;padding:2px 0 5px}
+.tab{padding:7px 10px;font-size:11px;border-radius:7px}
+.tab-count{height:17px;min-width:17px;font-size:9px}
+.list-head{margin-bottom:7px}
+.list{gap:7px}
+.entry{gap:12px;padding:12px 13px;border-radius:9px}
+.entry h3{margin:4px 0 3px;font-size:15px;line-height:1.3}
+.entry .entry-meta{gap:3px 7px;font-size:10px}
+.entry .entry-summary{margin:6px 0 5px;-webkit-line-clamp:3;line-height:1.5;font-size:12px}
+.entry .entry-tags{gap:4px;margin-top:5px}
+.entry .entry-tag{padding:2px 6px;font-size:9px}
+.entry .entry-links{gap:7px 11px;margin-top:6px}
+.entry .entry-visual{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;margin-top:5px;font-size:11px}
+.entry .actions{gap:5px;max-width:235px}
+.entry .actions .btn{min-height:31px;padding:6px 9px;font-size:11px}
+.empty{padding:30px 16px}
+.empty .empty-icon{width:40px;height:40px;margin-bottom:8px;font-size:19px}
+@media(max-width:760px){
+ .wrap{padding-bottom:calc(22px + var(--safe))}
+ .head{margin:17px 0 12px}
+ .stats{gap:6px;margin-bottom:10px}
+ .stat{padding:9px 10px}
+ .stat strong{font-size:19px}
+ .dashboard-tools{margin-bottom:7px}
+ .tabs{margin-bottom:8px}
+ .entry{padding:11px 12px}
+ .entry .entry-summary{-webkit-line-clamp:3}
+ .actions{margin-top:8px;padding-top:8px}
+ .entry .actions .btn{min-height:32px;padding:6px 9px}
+}
+@media(max-width:420px){
+ .dashboard-tools #refresh{font-size:0;gap:0;width:39px;padding:0}
+ .dashboard-tools #refresh span{font-size:20px}
+ .admin-search{gap:6px}
+ .admin-search input{font-size:12px}
+ .entry .entry-summary{-webkit-line-clamp:4}
+}
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small class="muted">ADMIN</small></b><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="stats" aria-label="Library summary">
  <div class="stat"><span>Loaded entries</span><strong id="count-total">—</strong></div>
@@ -196,14 +242,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
    const url=safeUrl(r.song_url);
    const statusActions=r.status==="pending"?'<button class="btn good" data-act="approve" data-id="'+id+'">✓ Approve</button><button class="btn bad" data-act="reject" data-id="'+id+'">Reject</button>':"";
    const links=(url?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Open song ↗</a>':"")+(r.platform?'<span class="entry-progress">'+esc(r.platform)+'</span>':"")+(r.progress?'<span class="entry-progress">'+esc(r.progress)+'</span>':"");
-   return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+(r.visual?'<div class="entry-meta" style="margin-top:8px"><span>Visual idea: '+esc(r.visual)+'</span></div>':"")+(links?'<div class="entry-links">'+links+'</div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
+   return '<article class="entry"><div class="entry-copy"><span class="badge">'+esc(r.status||"unknown")+'</span><h3>'+title+'</h3><div class="entry-meta"><span>'+artist+'</span><span>·</span><span>'+mood+'</span>'+(date?'<span>· Updated '+esc(date)+'</span>':"")+'</div><p class="entry-summary">'+esc(r.idea||"No note added.")+'</p>'+(tags.length?'<div class="entry-tags">'+tags.map(t=>'<span class="entry-tag">'+esc(t)+'</span>').join("")+'</div>':"")+(r.visual?'<div class="entry-meta entry-visual"><span>Visual idea: '+esc(r.visual)+'</span></div>':"")+(links?'<div class="entry-links">'+links+'</div>':"")+'</div><div class="actions">'+statusActions+'<button class="btn" data-act="edit" data-id="'+id+'">Edit</button><button class="btn bad" data-act="delete" data-id="'+id+'">Delete</button></div></article>';
   }).join("");
  }
  async function load(preserveMessage=false){
   if(loading)return;loading=true;$("#refresh").disabled=true;$("#refresh").classList.add("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Loading';
   if(!preserveMessage)clearMsg("#msg");
   try{
-   const {data,error}=await db.from("entries").select("*").order("updated_at",{ascending:false}).limit(500);
+   const {data,error}=await db.from("entries").select("id,title,artist,mood,idea,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").order("updated_at",{ascending:false}).limit(500);
    if(error){msg("#msg","Could not load entries: "+error.message,true);return}
    rows=data||[];render();
   }catch(err){msg("#msg","Could not connect to the library: "+(err?.message||"Unknown network error"),true)}
