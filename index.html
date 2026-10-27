@@ -34,17 +34,24 @@
   .top-actions #refresh{display:none}
   .top-actions #themeBtn{width:36px;height:38px;font-size:17px}
   .app{min-height:calc(100dvh - 60px);--side:280px}
-  .sidebar{position:fixed;top:0;left:0;z-index:90;width:min(310px,86vw);height:100dvh;padding:76px 0 calc(20px + var(--safe));background:var(--page);border-radius:0 22px 22px 0;box-shadow:10px 0 30px #0002;transform:translateX(-110%);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+  .sidebar{position:fixed;top:0;left:0;z-index:90;width:min(286px,82vw);height:100dvh;height:100svh;box-sizing:border-box;padding:calc(68px + env(safe-area-inset-top,0px)) 0 calc(14px + var(--safe));overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-right:1px solid var(--line);border-radius:0 18px 18px 0;box-shadow:8px 0 26px #20212424;transform:translateX(-105%);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
   .sidebar.open{transform:translateX(0)}
-  .app.mini .sidebar{width:min(310px,86vw);flex-basis:auto}
-  .app.mini .nav{justify-content:flex-start;padding:0 24px}
+  .app.mini .sidebar{width:min(286px,82vw);flex-basis:auto}
+  .app.mini .nav{justify-content:flex-start;padding:0 20px}
   .app.mini .nav-label,.app.mini .side-foot,.app.mini .side-rule{display:initial}
   .app.mini .count{display:block}
   .app.mini .side-head span{display:inline}
-  .app.mini .side-head{justify-content:space-between;padding:7px 18px 7px 24px}
-  .side-nav{padding-right:12px}
-  .nav{min-height:48px;border-radius:0 26px 26px 0}
-  .backdrop.show{display:block;position:fixed;inset:0;z-index:85;background:#20212455}
+  .app.mini .side-head{justify-content:space-between;padding:6px 14px 6px 20px}
+  .side-nav{gap:3px;padding:0 10px 0 0}
+  .nav{min-height:44px;gap:15px;padding:0 18px;border-radius:0 22px 22px 0;font-size:14px}
+  .nav-icon{flex-basis:22px;width:22px;font-size:19px}
+  .count{font-size:11px}
+  .side-rule{margin:12px 16px 8px}
+  .side-head{padding:5px 14px 5px 20px;font-size:11px}
+  .side-head .round{width:30px;height:30px}
+  .labels .nav{min-height:40px}
+  .side-foot{margin:18px 16px 0 20px;font-size:11px;line-height:1.65}
+  .backdrop.show{display:block;position:fixed;inset:0;z-index:85;background:#20212455;backdrop-filter:blur(1px)}
   .workspace{width:100%;padding:8px var(--mobile-gutter) calc(100px + var(--safe))}
   .inside{width:100%;max-width:100%}
   .composer:not(.open){display:none}
