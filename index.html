@@ -405,6 +405,78 @@
   .note-actions .round{width:25px;height:25px}
 }
 
+
+/* Compact minimal pass: note grid + note detail */
+#notesGrid{column-gap:12px}
+#notesGrid .note{
+  margin-bottom:12px;
+  border-radius:10px;
+  border-color:var(--line);
+  box-shadow:0 1px 3px #2021240a;
+  background:var(--surface);
+}
+#notesGrid .note:before{display:none}
+#notesGrid .note-content{padding:12px 12px 8px}
+#notesGrid .note-top{gap:5px}
+#notesGrid .note-title{font-size:15px;line-height:1.38;letter-spacing:-.01em;font-weight:600}
+#notesGrid .pin{width:27px;height:27px;flex-basis:27px;border:0;background:transparent}
+#notesGrid .artist{margin-top:3px;font-size:11.5px}
+#notesGrid .video{margin-top:9px;border-radius:7px;box-shadow:none}
+#notesGrid .play{width:34px;height:34px}
+#notesGrid .idea{margin:9px 0 2px;padding-left:8px;font-size:12.5px;line-height:1.5;border-left-width:1px}
+#notesGrid .mood{margin-top:7px;padding:3px 7px;font-size:10px}
+#notesGrid .tags{gap:4px;margin-top:7px}
+#notesGrid .tag{padding:3px 7px;font-size:10px}
+#notesGrid .moment{margin-top:7px;padding:3px 7px;font-size:10px}
+#notesGrid .note-actions{min-height:34px;padding:2px 6px 4px;border-top:1px solid var(--line);background:transparent}
+#notesGrid .note-actions .round{width:29px;height:29px;border-radius:8px}
+#detailDialog .dialog-body{padding:15px 16px 9px}
+#detailDialog .detail-hero{margin-bottom:10px;padding:13px 14px 15px;border-radius:10px}
+#detailDialog .detail-hero:after{display:none}
+#detailDialog .detail-hero-top{margin-bottom:8px}
+#detailDialog .detail-kicker{font-size:9px;letter-spacing:.1em}
+#detailDialog .detail-kicker-icon{width:22px;height:22px;border-radius:6px;font-size:13px;box-shadow:none}
+#detailDialog .detail-hero .round{width:30px;height:30px;flex-basis:30px;margin:-3px -3px 0 0}
+#detailDialog .detail-hero h2{font-size:clamp(20px,3.5vw,25px);line-height:1.22;letter-spacing:-.025em}
+#detailDialog .dialog-video{margin-bottom:10px;border-radius:8px;box-shadow:none}
+#detailDialog .detail-section{margin-bottom:7px;padding:9px 10px;border-radius:8px;font-size:13px;line-height:1.5}
+#detailDialog .detail-section label{margin-bottom:3px;font-size:10px}
+#detailDialog .moment-section{padding-left:10px}
+#detailDialog .mood-section{gap:8px}
+#detailDialog .tags{gap:5px;margin:8px 0 2px}
+#detailDialog .tag{padding:4px 8px;font-size:10px}
+#detailDialog .palette{gap:6px;margin-top:8px;padding:9px 1px 1px}
+#detailDialog .swatch{width:23px;height:23px}
+#detailDialog .dialog-actions{gap:5px;padding:8px 12px calc(9px + var(--safe));background:var(--surface);border-top:1px solid var(--line)}
+#detailDialog .dialog-actions .action-chip,
+#detailDialog .dialog-actions .action-chip:hover{height:29px!important;min-height:0!important;padding:0 8px!important;border-radius:6px!important;font-size:10.5px}
+#detailDialog .dialog-actions .action-chip svg{width:12px;height:12px;flex-basis:12px}
+@media(max-width:760px){
+  #notesGrid{column-gap:8px}
+  #notesGrid .note{margin-bottom:9px;border-radius:9px}
+  #notesGrid .note-content{padding:10px 9px 6px}
+  #notesGrid .note-title{font-size:13.5px;line-height:1.38}
+  #notesGrid .pin{width:25px;height:25px;flex-basis:25px}
+  #notesGrid .video{margin-top:8px;border-radius:6px}
+  #notesGrid .idea{font-size:12px;line-height:1.45;margin-top:7px}
+  #notesGrid .note-actions{min-height:31px;padding:1px 4px 3px}
+  #notesGrid .note-actions .round{width:27px;height:27px}
+  #detailOverlay{padding:6px 6px calc(6px + var(--safe))}
+  #detailDialog{max-height:min(92dvh,900px);border-radius:14px}
+  #detailDialog .dialog-body{padding:10px 10px 8px}
+  #detailDialog .detail-hero{padding:11px 12px 13px;margin-bottom:8px;border-radius:9px}
+  #detailDialog .detail-hero h2{font-size:21px}
+  #detailDialog .dialog-video{margin-bottom:8px;border-radius:7px}
+  #detailDialog .detail-section{padding:8px 9px;margin-bottom:6px;border-radius:7px;font-size:12.5px}
+  #detailDialog .palette{margin-top:6px;padding-top:7px}
+  #detailDialog .dialog-actions{gap:4px;padding:7px 8px calc(8px + var(--safe))}
+  #detailDialog .dialog-actions .action-chip,
+  #detailDialog .dialog-actions .action-chip:hover{height:28px!important;padding:0 7px!important;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  #notesGrid .note,#notesGrid .video img,#notesGrid .play{transition:none!important}
+}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="SurKhata"><span class="brand-icon">♫</span><span class="brand-name">SurKhata</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
