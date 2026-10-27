@@ -249,16 +249,33 @@
   #detailDialog .dialog-actions .text-btn{min-height:35px;padding:0 10px;font-size:12px}
 }
 
-/* Balance action-chip borders: identical 1px edges on all four sides. */
-#detailDialog .dialog-actions .action-chip{
+/* Equalize action-chip outlines and neutralize inherited button sizing. */
+#detailDialog .dialog-actions .action-chip,
+#detailDialog .dialog-actions .action-chip:hover{
+  box-sizing:border-box;
+  height:30px !important;
+  min-height:0 !important;
+  padding-block:0 !important;
   border:1px solid var(--line) !important;
+  border-radius:6px !important;
   box-shadow:none !important;
   outline:none;
   background-clip:padding-box;
+  line-height:1 !important;
+  appearance:none;
+  -webkit-appearance:none;
 }
 #detailDialog .dialog-actions .youtube-chip{border-color:rgba(255,0,0,.22) !important}
 #detailDialog .dialog-actions .music-chip{border-color:rgba(255,49,87,.22) !important}
 #detailDialog .dialog-actions .action-chip:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+@media(max-width:760px){
+  #detailDialog .dialog-actions .action-chip,
+  #detailDialog .dialog-actions .action-chip:hover{
+    height:29px !important;
+    min-height:0 !important;
+    padding-block:0 !important;
+  }
+}
 
 /* Main notes gallery refresh: tactile cards, clearer hierarchy, and gentle color */
 #notesGrid{column-gap:18px}
