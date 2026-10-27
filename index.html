@@ -188,6 +188,10 @@
   .composer.open .compose-foot{margin-left:-13px;margin-right:-13px;padding-left:13px;padding-right:13px}
 }
 
+
+/* Keep loading and empty states balanced across the full notes area */
+#notesGrid:has(>.empty){columns:unset;display:block}
+#notesGrid>.empty{width:100%;box-sizing:border-box}
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="মেনু">☰</button><a class="brand" href="./" aria-label="সুরখাতা"><span class="brand-icon">♫</span><span class="brand-name">সুরখাতা</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="গান, শিল্পী, স্মৃতি বা ট্যাগ খুঁজুন" aria-label="নোট খুঁজুন" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="সার্চ মুছুন">×</button></label><div class="top-actions"><button class="round" id="refresh" title="রিফ্রেশ" aria-label="রিফ্রেশ">⟳</button><button class="round" id="themeBtn" title="থিম বদলান" aria-label="থিম বদলান">◐</button></div></header>
