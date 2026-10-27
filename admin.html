@@ -13,14 +13,59 @@
 @media(max-width:820px){#list{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.top{height:54px;padding:0 10px}.top>b{font-size:17px}.top .btn{min-height:33px;padding:6px 8px;font-size:11px}#workspace{padding:17px 10px 30px}.head{align-items:flex-start;margin-bottom:13px}.head h1{font-size:24px}.head .muted{font-size:11px}.dashboard-tools{gap:6px;margin-bottom:11px}.admin-search{height:40px;padding:0 9px}.admin-search input{font-size:12px}.admin-search kbd{display:none}.dashboard-tools #refresh{min-height:40px;padding:6px 9px;font-size:11px}.tabs{margin-bottom:12px}.tab{min-height:36px;padding:0 9px;font-size:11px}.list-head{font-size:12px}#list{gap:8px}#list .entry{border-radius:9px}#list .entry-copy{padding:11px}#list .entry h3{font-size:15px}.entry-detail{grid-template-columns:78px minmax(0,1fr);gap:7px;padding:7px}.entry-extras{grid-template-columns:repeat(2,minmax(0,1fr))}#list .entry .actions{justify-content:flex-start;padding:8px 10px;gap:5px}#list .entry .actions .btn{min-height:33px;padding:7px 9px}.modal{align-items:flex-end;padding:0}#modal form{width:100%;max-height:calc(94dvh - var(--safe));border-radius:14px 14px 0 0;border-bottom:0}.edit-modal-head{padding:13px 14px 11px}.edit-modal-head h2{font-size:19px}.edit-scroll{padding:0 13px 8px}.edit-section{padding-top:11px}.edit-section+.edit-section{padding-top:11px}.edit-fields{gap:0 8px}#modal .field{margin:4px 0 6px}#modal .field input,#modal .field textarea,#modal .field select{min-height:37px;padding:8px;font-size:12px}#modal .field textarea{min-height:68px}#edit-form>.actions{gap:6px;padding:8px 11px calc(9px + var(--safe))}#edit-form>.actions .save-hint{display:none}#edit-form>.actions .btn{min-height:38px;padding:8px 11px}#edit-form>.actions #cancel{margin-left:auto}.login{margin-top:30px;padding:21px 18px}}
 @media(max-width:390px){#workspace{padding-inline:8px}.head h1{font-size:22px}.dashboard-tools #refresh{width:38px;padding:0;font-size:0}.dashboard-tools #refresh span{font-size:18px}.tab{padding-inline:8px}.edit-fields{grid-template-columns:1fr}.field.full{grid-column:auto}.edit-modal-head{padding-inline:12px}.edit-scroll{padding-inline:11px}.edit-section{padding-inline:0}#edit-form>.actions{padding-inline:9px}#edit-form>.actions .btn{flex:1}.entry-detail{grid-template-columns:1fr;gap:2px}.entry-extras{grid-template-columns:1fr 1fr}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}</style></head><body><div class="wrap"><header class="top"><b>SurKhata <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+/* Approved entries should read as distinct records, not one continuous list. */
+#list{gap:14px}
+#list .entry{border:1px solid color-mix(in srgb,var(--muted) 24%,var(--line));border-radius:11px;box-shadow:0 2px 5px #2021240b}
+#list .entry:before{content:"";display:block;flex:0 0 3px;width:100%;height:3px;background:var(--line)}
+#list .entry:has(.badge:first-child){ }
+#list .entry:has(.badge){background:var(--surface)}
+#list .entry-copy{padding:12px 13px 13px}
+#list .entry .badge{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+#list .entry:has(.badge) .entry-card-top{padding-bottom:8px}
+#list .entry .entry-details{margin-top:9px}
+#list .entry .entry-detail{background:var(--page)}
+#list .entry .entry-tags{padding-top:2px}
+#list .entry .actions{background:var(--surface)}
+#modal form{width:min(540px,100%);max-height:min(84dvh,680px)}
+#modal .edit-modal-head{padding:13px 16px 11px}
+#modal .edit-modal-head h2{margin:0;font-size:18px}
+#modal .edit-kicker{display:none}
+#modal .edit-scroll{padding:6px 16px 12px;background:var(--surface)}
+#modal .edit-fields{gap:0 11px}
+#modal .field{margin:5px 0 6px}
+#modal .field label{font-size:11px}
+#modal .field input,#modal .field textarea{background:var(--page);min-height:37px;padding:8px 10px;font-size:12px}
+#modal .field textarea{min-height:76px}
+#modal .field-hint:empty{display:none}
+#modal .label-suggest-wrap{width:100%}
+#modal .label-suggest-wrap>.field,#modal .label-suggest-wrap>input{width:100%;margin:0}
+#modal .label-suggestions{top:calc(100% + 3px);max-height:170px}
+#edit-form>.actions{padding:9px 16px calc(9px + var(--safe))}
+#edit-form>.actions .save-hint{font-size:10px}
+@media(max-width:600px){
+ #list{gap:10px}
+ #list .entry{border-radius:9px}
+ #list .entry-copy{padding:10px}
+ #list .entry .actions{padding:8px 10px}
+ #modal form{max-height:calc(88dvh - var(--safe));border-radius:13px 13px 0 0}
+ #modal .edit-modal-head{padding:12px 13px 10px}
+ #modal .edit-scroll{padding:4px 13px 8px}
+ #modal .edit-fields{grid-template-columns:1fr 1fr;gap:0 9px}
+ #modal .field.full{grid-column:1/-1}
+ #modal .field{margin:4px 0 5px}
+ #modal .field textarea{min-height:65px}
+ #edit-form>.actions{padding:8px 10px calc(9px + var(--safe))}
+}
+@media(max-width:360px){#modal .edit-fields{grid-template-columns:1fr}#modal .field.full{grid-column:auto}}
+</style></head><body><div class="wrap"><header class="top"><b>SurKhata <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
  <button class="btn" id="refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button>
 </div>
 <div class="tabs" role="tablist" aria-label="Entry status"><button class="tab active" role="tab" aria-selected="true" data-status="pending">Pending <span class="tab-count" id="tab-pending">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="approved">Approved library <span class="tab-count" id="tab-approved">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="rejected">Rejected <span class="tab-count" id="tab-rejected">0</span></button></div>
 <div class="list-head"><span id="list-heading">Pending submissions</span><span id="visible-count" class="muted">0 entries</span></div>
-<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal" aria-label="Edit entry dialog" aria-modal="true" role="dialog"><form id="edit-form"><div class="edit-modal-head"><div><span class="edit-kicker">ENTRY EDITOR</span><h2>Edit song note</h2><p>Same simple flow as Add on the main library.</p></div><button type="button" class="btn edit-close" id="cancel-top" aria-label="Close editor">×</button></div><input type="hidden" id="edit-id"><div class="edit-scroll"><section class="edit-section"><div class="edit-section-title"><span class="step">01</span><div><strong>Song and memory</strong><small>The details shown on the main library</small></div></div><div class="edit-fields"><div class="field full"><label for="f-title">Song title <span class="optional">· optional</span></label><input id="f-title" maxlength="180" placeholder="Song title" autocomplete="off"><small class="field-hint">The name shown on the main library card.</small></div><div class="field full"><label for="f-url">Song link</label><input id="f-url" type="url" maxlength="1000" placeholder="Paste a YouTube, Spotify, or SoundCloud link"><small class="field-hint">Link directly to the song or video.</small></div><div class="field full"><label for="f-idea">Your note about this song</label><textarea id="f-idea" maxlength="5000" placeholder="What feeling, thought, or memory does this song bring back?"></textarea><small class="field-hint">The personal note readers see when they open this entry.</small></div><div class="field"><label for="f-tags">Labels</label><input id="f-tags" maxlength="500" placeholder="Separate labels with commas"><small class="field-hint">Group related songs.</small></div><div class="field"><label for="f-start">Favorite moment</label><input id="f-start" maxlength="40" placeholder="e.g. 1:23"><small class="field-hint">A timestamp worth remembering.</small></div></div></section><section class="edit-section secondary-section"><div class="edit-section-title"><span class="step">02</span><div><strong>Extra details</strong><small>Optional context for this entry</small></div></div><div class="edit-fields"><div class="field"><label for="f-artist">Artist / singer</label><input id="f-artist" maxlength="180" placeholder="Artist name"></div><div class="field"><label for="f-mood">Mood</label><input id="f-mood" maxlength="60" placeholder="e.g. Calm, nostalgic"></div><div class="field"><label for="f-end">Moment end</label><input id="f-end" maxlength="40" placeholder="e.g. 1:45"></div><div class="field"><label for="f-platform">Platform / source</label><input id="f-platform" maxlength="80" placeholder="e.g. YouTube"></div><div class="field"><label for="f-progress">Progress</label><select id="f-progress"><option>Idea</option><option>In progress</option><option>Created</option></select></div><div class="field full"><label for="f-visual">Visual idea</label><textarea id="f-visual" maxlength="2000" placeholder="Optional artwork, image, or video idea"></textarea><small class="field-hint">An internal creative note; not needed for a basic entry.</small></div></div></section></div><div class="actions"><span class="save-hint">Changes are saved to the library.</span><button type="button" class="btn" id="cancel">Cancel</button><button type="submit" class="btn primary" id="save-changes"><span aria-hidden="true">✓</span> Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal" aria-label="Edit entry dialog" aria-modal="true" role="dialog"><form id="edit-form"><div class="edit-modal-head"><div><span class="edit-kicker">EDIT ENTRY</span><h2>Edit song note</h2></div><button type="button" class="btn edit-close" id="cancel-top" aria-label="Close editor">×</button></div><input type="hidden" id="edit-id"><div class="edit-scroll"><div class="edit-fields"><div class="field full"><label for="f-title">Song title</label><input id="f-title" maxlength="180" placeholder="Song title" autocomplete="off"></div><div class="field full"><label for="f-url">Song link</label><input id="f-url" type="url" maxlength="1000" placeholder="Paste a YouTube, Spotify, or SoundCloud link" autocomplete="url"><small id="edit-link-status" class="field-hint" aria-live="polite"></small></div><div class="field full"><label for="f-idea">Note / memory</label><textarea id="f-idea" maxlength="5000" placeholder="What does this song make you feel or remember?"></textarea></div><div class="field"><label for="f-tags">Labels</label><div class="label-suggest-wrap"><input id="f-tags" maxlength="500" placeholder="Add labels, separated by commas" autocomplete="off" aria-autocomplete="list" aria-controls="edit-label-suggestions" aria-expanded="false"><div class="label-suggestions hidden" id="edit-label-suggestions" role="listbox" aria-label="Previously used labels"></div></div></div><div class="field"><label for="f-start">Favorite moment</label><input id="f-start" maxlength="40" placeholder="e.g. 1:23"></div></div></div><div class="actions"><span class="save-hint">Changes save to the library.</span><button type="button" class="btn" id="cancel">Cancel</button><button type="submit" class="btn primary" id="save-changes">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 (()=> {
  const $=s=>document.querySelector(s);
  const all=s=>Array.from(document.querySelectorAll(s));
@@ -89,12 +134,47 @@
    $("#login").classList.add("hidden");$("#workspace").classList.remove("hidden");await load();
   }catch(err){$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","Could not verify admin access: "+(err?.message||"Unknown error"),true)}
  }
+ let editTitleTimer=0,editTitleToken=0,lastEditAutoTitle="";
  function edit(id){
   const r=rows.find(x=>String(x.id)===String(id));if(!r)return;
   $("#edit-id").value=r.id;
-  for(const [k,v] of Object.entries({title:r.title,artist:r.artist,mood:r.mood,idea:r.idea,url:r.song_url,start:r.start_time,end:r.end_time,platform:r.platform,progress:r.progress,tags:r.tags,visual:r.visual}))$("#f-"+k).value=v||"";
-  const progress=$("#f-progress"),currentProgress=String(r.progress||"");if(currentProgress&&!Array.from(progress.options).some(o=>o.value===currentProgress)){const option=document.createElement("option");option.value=currentProgress;option.textContent=currentProgress;progress.append(option)}progress.value=currentProgress;
+  for(const [k,v] of Object.entries({title:r.title,idea:r.idea,url:r.song_url,start:r.start_time,tags:r.tags}))$("#f-"+k).value=v||"";
+  lastEditAutoTitle="";$("#edit-link-status").textContent="";hideEditLabelSuggestions();
   $("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-title").focus(),30);
+  if($("#f-url").value.trim())lookupEditTitle($("#f-url").value);
+ }
+ function editCurrentLabelFragment(){const value=$("#f-tags").value,comma=value.lastIndexOf(",");return{value,comma,query:value.slice(comma+1).trim()}}
+ function hideEditLabelSuggestions(){const box=$("#edit-label-suggestions");if(!box)return;box.classList.add("hidden");box.innerHTML="";$("#f-tags").setAttribute("aria-expanded","false");$("#f-tags").removeAttribute("aria-activedescendant")}
+ function updateEditLabelSuggestions(){
+  const input=$("#f-tags"),box=$("#edit-label-suggestions"),part=editCurrentLabelFragment(),query=part.query.toLocaleLowerCase();
+  if(!query){hideEditLabelSuggestions();return}
+  const already=part.value.slice(0,part.comma<0?0:part.comma).split(/[,;\\n]/).map(t=>t.trim().toLocaleLowerCase()).filter(Boolean);
+  const seen=new Set(),matches=[];
+  rows.forEach(r=>String(r.tags||"").split(/[,;\\n]/).map(t=>t.trim()).filter(Boolean).forEach(t=>{const key=t.toLocaleLowerCase();if(key.startsWith(query)&&!already.includes(key)&&!seen.has(key)){seen.add(key);matches.push(t)}}));
+  matches.sort((a,b)=>a.localeCompare(b,"bn",{sensitivity:"base"}));
+  if(!matches.length){hideEditLabelSuggestions();return}
+  box.innerHTML='<div class="label-suggestion-hint">Existing labels</div>'+matches.slice(0,8).map((t,i)=>'<button type="button" role="option" aria-selected="false" class="label-suggestion" data-edit-label="'+esc(t)+'"><span class="label-suggestion-mark">#</span><span class="label-suggestion-text">'+esc(t)+'</span></button>').join("");
+  box.classList.remove("hidden");input.setAttribute("aria-expanded","true");
+ }
+ function chooseEditLabel(value){
+  const input=$("#f-tags"),part=editCurrentLabelFragment(),prefix=part.comma<0?"":part.value.slice(0,part.comma+1)+" ";
+  const previous=part.comma<0?[]:part.value.slice(0,part.comma).split(/[,;\\n]/).map(t=>t.trim()).filter(Boolean);
+  if(!previous.some(t=>t.toLocaleLowerCase()===value.toLocaleLowerCase()))input.value=prefix+value+", ";
+  hideEditLabelSuggestions();input.focus();input.dispatchEvent(new Event("input",{bubbles:true}));
+ }
+ function lookupEditTitle(rawUrl){
+  clearTimeout(editTitleTimer);const token=++editTitleToken,url=String(rawUrl||"").trim(),title=$("#f-title"),hint=$("#edit-link-status");
+  if(!url){hint.textContent="";return}
+  let provider="",lookupUrl="";
+  try{const u=new URL(url),host=u.hostname.toLowerCase(),yt=u.hostname.match(/(?:youtube\\.com|youtu\\.be)$/i);
+   if(yt||/(?:youtube\\.com|youtu\\.be)$/i.test(host)){provider="YouTube";lookupUrl="https://www.youtube.com/oembed?format=json&url="+encodeURIComponent(url)}
+   else if(host==="open.spotify.com"||host.endsWith(".open.spotify.com")){provider="Spotify";lookupUrl="https://open.spotify.com/oembed?url="+encodeURIComponent(url)}
+   else if(host==="soundcloud.com"||host.endsWith(".soundcloud.com")){provider="SoundCloud";lookupUrl="https://soundcloud.com/oembed?format=json&url="+encodeURIComponent(url)}
+  }catch(e){}
+  if(!provider){hint.textContent="";return}
+  if(title.value.trim()&&title.value.trim()!==lastEditAutoTitle){hint.textContent="";return}
+  hint.textContent="Finding song title…";
+  editTitleTimer=setTimeout(async()=>{try{const response=await fetch(lookupUrl,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error();const data=await response.json(),found=String(data.title||"").trim();if(token!==editTitleToken||!found)return;const current=title.value.trim();if(!current||current===lastEditAutoTitle){title.value=found;lastEditAutoTitle=found;hint.textContent="Title found — you can edit it."}else hint.textContent="Title found. Your edited title was kept."}catch(e){if(token===editTitleToken)hint.textContent="Couldn’t fetch title automatically. You can type it."}},350);
  }
  function closeEdit(){if(!$("#modal").classList.contains("open"))return;$("#modal").classList.remove("open");document.body.style.overflow=""}
  async function statusUpdate(id,next){
@@ -127,13 +207,18 @@
  $("#refresh").addEventListener("click",load);
  $("#entry-search").addEventListener("input",render);
  $("#entry-search").addEventListener("keydown",e=>{if(e.key==="Escape"){e.currentTarget.value="";render();e.currentTarget.blur()}});
+ $("#f-url").addEventListener("input",e=>lookupEditTitle(e.currentTarget.value));
+ $("#f-tags").addEventListener("input",updateEditLabelSuggestions);
+ $("#f-tags").addEventListener("focus",updateEditLabelSuggestions);
+ $("#edit-label-suggestions").addEventListener("pointerdown",e=>{const item=e.target.closest("[data-edit-label]");if(item){e.preventDefault();chooseEditLabel(item.dataset.editLabel)}});
+ document.addEventListener("click",e=>{if(!e.target.closest("#edit-form .label-suggest-wrap"))hideEditLabelSuggestions()});
  $("#cancel").addEventListener("click",closeEdit);
  $("#cancel-top").addEventListener("click",closeEdit);
  $("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))closeEdit()});
  $("#edit-form").addEventListener("submit",async e=>{
   e.preventDefault();if(busy)return;
   const submit=$("#edit-form").querySelector('button[type="submit"]');
-  const p={title:$("#f-title").value.trim(),artist:$("#f-artist").value.trim(),mood:$("#f-mood").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),end_time:$("#f-end").value.trim(),platform:$("#f-platform").value.trim(),progress:$("#f-progress").value,tags:$("#f-tags").value.trim(),visual:$("#f-visual").value.trim()};
+  const p={title:$("#f-title").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),tags:$("#f-tags").value.trim()};
   const songUrl=safeUrl(p.song_url);if(p.song_url&&!songUrl){msg("#msg","Please enter a valid http or https song URL.",true);return}
   submit.disabled=true;submit.textContent="Saving…";
   try{
