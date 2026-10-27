@@ -474,33 +474,33 @@
 #notesGrid .tag{padding:1px 4px;font-size:8px;line-height:1.2;border-radius:3px}
 
 
-/* Soft but clearly distinct thumbnail-derived note colours */
+/* Extra-light thumbnail colour wash — soft pastel, never saturated */
 #notesGrid .note.has-thumb{position:relative;isolation:isolate;background:var(--surface);}
-#notesGrid .note.has-thumb::before{content:"";position:absolute;z-index:0;inset:-10px;background-image:var(--thumb-image);background-size:cover;background-position:center;filter:blur(30px) saturate(1.18);opacity:.43;transform:scale(1.12);pointer-events:none;transition:opacity .22s ease,filter .22s ease;}
-#notesGrid .note.has-thumb::after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008) 55%,rgba(255,255,255,.035));pointer-events:none;}
+#notesGrid .note.has-thumb::before{content:"";position:absolute;z-index:0;inset:-10px;background-image:var(--thumb-image);background-size:cover;background-position:center;filter:blur(42px) saturate(.72);opacity:.18;transform:scale(1.12);pointer-events:none;transition:opacity .22s ease,filter .22s ease;}
+#notesGrid .note.has-thumb::after{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.25),rgba(255,255,255,.16) 55%,rgba(255,255,255,.22));pointer-events:none;}
 #notesGrid .note.has-thumb .note-content,#notesGrid .note.has-thumb .note-actions{position:relative;z-index:1;}
-#notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-:root[data-theme=dark] #notesGrid .note.has-thumb::before{opacity:.39;filter:blur(32px) saturate(1.08) brightness(.82);}
-:root[data-theme=dark] #notesGrid .note.has-thumb::after{background:linear-gradient(145deg,rgba(32,33,36,.06),rgba(32,33,36,.025) 55%,rgba(32,33,36,.08));}
+#notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.20);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+:root[data-theme=dark] #notesGrid .note.has-thumb::before{opacity:.17;filter:blur(44px) saturate(.65) brightness(.72);}
+:root[data-theme=dark] #notesGrid .note.has-thumb::after{background:linear-gradient(145deg,rgba(32,33,36,.24),rgba(32,33,36,.17) 55%,rgba(32,33,36,.25));}
 @media(prefers-reduced-motion:reduce){#notesGrid .note.has-thumb::before{transition:none}}
 
-/* Per-note soft pastel accents: each opened note gets its own hue */
-#detailDialog .detail-hero{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 78% 93%),hsl(calc(var(--detail-hue,42) + 34) 72% 96%) 58%,hsl(calc(var(--detail-hue,42) + 65) 75% 94%));border-color:hsl(var(--detail-hue,42) 38% 85%);}
-#detailDialog .detail-kicker-icon{background:hsl(var(--detail-hue,42) 72% 90%);color:hsl(var(--detail-hue,42) 45% 34%);}
-#detailDialog .detail-section{background:hsl(var(--detail-hue,42) 45% 98%);border-color:hsl(var(--detail-hue,42) 28% 90%);}
-#detailDialog .memory-section{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 75% 94%),hsl(var(--detail-hue,42) 55% 98%) 78%);border-color:hsl(var(--detail-hue,42) 35% 87%);}
-#detailDialog .moment-section{background:hsl(calc(var(--detail-hue,42) + 28) 72% 96%);border-color:hsl(calc(var(--detail-hue,42) + 28) 35% 88%);border-left-color:hsl(calc(var(--detail-hue,42) + 28) 48% 72%);}
-#detailDialog .mood-section{background:hsl(calc(var(--detail-hue,42) + 65) 65% 96%);border-color:hsl(calc(var(--detail-hue,42) + 65) 30% 88%);}
-#detailDialog .detail-section:nth-of-type(odd){background-color:hsl(calc(var(--detail-hue,42) + 125) 35% 97%);}
-#detailDialog .tag{background:hsl(calc(var(--detail-hue,42) + 65) 65% 96%);border-color:hsl(calc(var(--detail-hue,42) + 65) 30% 87%);color:hsl(calc(var(--detail-hue,42) + 65) 28% 38%);}
-:root[data-theme=dark] #detailDialog .detail-hero{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 22% 24%),hsl(calc(var(--detail-hue,42) + 34) 20% 22%) 58%,hsl(calc(var(--detail-hue,42) + 65) 24% 23%));border-color:hsl(var(--detail-hue,42) 18% 34%);}
-:root[data-theme=dark] #detailDialog .detail-kicker-icon{background:hsl(var(--detail-hue,42) 22% 30%);color:hsl(var(--detail-hue,42) 70% 82%);}
-:root[data-theme=dark] #detailDialog .detail-section{background:hsl(var(--detail-hue,42) 12% 17%);border-color:hsl(var(--detail-hue,42) 12% 29%);}
-:root[data-theme=dark] #detailDialog .memory-section{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 24% 22%),hsl(var(--detail-hue,42) 14% 19%) 78%);border-color:hsl(var(--detail-hue,42) 18% 32%);}
-:root[data-theme=dark] #detailDialog .moment-section{background:hsl(calc(var(--detail-hue,42) + 28) 22% 21%);border-color:hsl(calc(var(--detail-hue,42) + 28) 16% 31%);border-left-color:hsl(calc(var(--detail-hue,42) + 28) 38% 52%);}
-:root[data-theme=dark] #detailDialog .mood-section{background:hsl(calc(var(--detail-hue,42) + 65) 18% 21%);border-color:hsl(calc(var(--detail-hue,42) + 65) 15% 31%);}
-:root[data-theme=dark] #detailDialog .detail-section:nth-of-type(odd){background-color:hsl(calc(var(--detail-hue,42) + 125) 13% 20%);}
-:root[data-theme=dark] #detailDialog .tag{background:hsl(calc(var(--detail-hue,42) + 65) 18% 23%);border-color:hsl(calc(var(--detail-hue,42) + 65) 15% 34%);color:hsl(calc(var(--detail-hue,42) + 65) 55% 82%);}
+/* Individually tinted open notes: very pale pastels */
+#detailDialog .detail-hero{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 70% 97%),hsl(calc(var(--detail-hue,42) + 34) 62% 98%) 58%,hsl(calc(var(--detail-hue,42) + 65) 65% 97%));border-color:hsl(var(--detail-hue,42) 25% 92%);}
+#detailDialog .detail-kicker-icon{background:hsl(var(--detail-hue,42) 48% 96%);color:hsl(var(--detail-hue,42) 28% 48%);}
+#detailDialog .detail-section{background:hsl(var(--detail-hue,42) 28% 99%);border-color:hsl(var(--detail-hue,42) 18% 94%);}
+#detailDialog .memory-section{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 48% 97%),hsl(var(--detail-hue,42) 32% 99%) 78%);border-color:hsl(var(--detail-hue,42) 22% 92%);}
+#detailDialog .moment-section{background:hsl(calc(var(--detail-hue,42) + 28) 48% 98%);border-color:hsl(calc(var(--detail-hue,42) + 28) 22% 93%);border-left-color:hsl(calc(var(--detail-hue,42) + 28) 35% 83%);}
+#detailDialog .mood-section{background:hsl(calc(var(--detail-hue,42) + 65) 42% 98%);border-color:hsl(calc(var(--detail-hue,42) + 65) 20% 93%);}
+#detailDialog .detail-section:nth-of-type(odd){background-color:hsl(calc(var(--detail-hue,42) + 125) 22% 98%);}
+#detailDialog .tag{background:hsl(calc(var(--detail-hue,42) + 65) 42% 98%);border-color:hsl(calc(var(--detail-hue,42) + 65) 20% 93%);color:hsl(calc(var(--detail-hue,42) + 65) 20% 43%);}
+:root[data-theme=dark] #detailDialog .detail-hero{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 12% 20%),hsl(calc(var(--detail-hue,42) + 34) 10% 19%) 58%,hsl(calc(var(--detail-hue,42) + 65) 12% 20%));border-color:hsl(var(--detail-hue,42) 10% 29%);}
+:root[data-theme=dark] #detailDialog .detail-kicker-icon{background:hsl(var(--detail-hue,42) 12% 25%);color:hsl(var(--detail-hue,42) 38% 78%);}
+:root[data-theme=dark] #detailDialog .detail-section{background:hsl(var(--detail-hue,42) 7% 16%);border-color:hsl(var(--detail-hue,42) 7% 25%);}
+:root[data-theme=dark] #detailDialog .memory-section{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 13% 19%),hsl(var(--detail-hue,42) 8% 17%) 78%);border-color:hsl(var(--detail-hue,42) 10% 27%);}
+:root[data-theme=dark] #detailDialog .moment-section{background:hsl(calc(var(--detail-hue,42) + 28) 10% 18%);border-color:hsl(calc(var(--detail-hue,42) + 28) 8% 26%);border-left-color:hsl(calc(var(--detail-hue,42) + 28) 22% 42%);}
+:root[data-theme=dark] #detailDialog .mood-section{background:hsl(calc(var(--detail-hue,42) + 65) 9% 18%);border-color:hsl(calc(var(--detail-hue,42) + 65) 8% 26%);}
+:root[data-theme=dark] #detailDialog .detail-section:nth-of-type(odd){background-color:hsl(calc(var(--detail-hue,42) + 125) 7% 18%);}
+:root[data-theme=dark] #detailDialog .tag{background:hsl(calc(var(--detail-hue,42) + 65) 9% 20%);border-color:hsl(calc(var(--detail-hue,42) + 65) 8% 28%);color:hsl(calc(var(--detail-hue,42) + 65) 30% 80%);}
 
 </style></head>
 <body>
