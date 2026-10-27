@@ -225,6 +225,37 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 }
 
 
+
+/* Simple, guided edit form */
+#modal h2:after{content:"Make the changes you need. Extra fields are tucked away below."}
+#modal .edit-section{padding:0 24px}
+#modal .edit-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 3px;color:var(--ink);font-size:12px;font-weight:650}
+#modal .edit-section-title span,#modal .optional{color:var(--muted);font-size:10px;font-weight:400}
+#modal .edit-section .grid{padding:5px 0 12px}
+#modal .field-hint{display:block;margin-top:1px;color:var(--muted);font-size:10px;line-height:1.45}
+#modal .extra-details{margin:0 24px 16px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}
+#modal .extra-details summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px;padding:9px 12px;cursor:pointer;list-style:none;font-size:12px;font-weight:600}
+#modal .extra-details summary::-webkit-details-marker{display:none}
+#modal .extra-details summary:after{content:"＋";margin-left:auto;color:var(--muted);font-size:16px}
+#modal .extra-details[open] summary:after{content:"−"}
+#modal .extra-details summary small{color:var(--muted);font-size:10px;font-weight:400;text-align:right}
+#modal .extra-grid{padding:0 12px 10px!important;gap:0 12px!important}
+#modal .extra-grid .field{margin:5px 0 7px}
+#modal .extra-grid .field input,#modal .extra-grid .field textarea,#modal .extra-grid .field select{background:var(--surface)}
+@media(max-width:680px){
+ #modal .edit-section{padding:0 17px}
+ #modal .edit-section-title{margin-top:7px}
+ #modal .edit-section .grid{grid-template-columns:1fr 1fr;padding:4px 0 10px}
+ #modal .extra-details{margin:0 17px 13px}
+ #modal .extra-details summary{flex-wrap:wrap;justify-content:flex-start;gap:4px 8px}
+ #modal .extra-details summary small{flex:1;text-align:left}
+ #modal .extra-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:390px){
+ #modal .edit-section .grid{grid-template-columns:1fr}
+ #modal .extra-grid{grid-template-columns:1fr!important}
+}
+
 /* Edit entry redesign — aligned with the public SurKhata composer */
 #modal{padding:20px;background:#20212455;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 #modal form{position:relative;width:min(620px,100%);max-height:min(88dvh,820px);padding:0;overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 8px 28px #20212426}
@@ -268,7 +299,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 </div>
 <div class="tabs" role="tablist" aria-label="Entry status"><button class="tab active" role="tab" aria-selected="true" data-status="pending">Pending <span class="tab-count" id="tab-pending">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="approved">Approved library <span class="tab-count" id="tab-approved">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="rejected">Rejected <span class="tab-count" id="tab-rejected">0</span></button></div>
 <div class="list-head"><span id="list-heading">Pending submissions</span><span id="visible-count" class="muted">0 entries</span></div>
-<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal"><form id="edit-form"><h2>Edit entry</h2><input type="hidden" id="edit-id"><div class="grid"><div class="field full"><label>Title *</label><input id="f-title" maxlength="180" required></div><div class="field"><label>Artist</label><input id="f-artist" maxlength="180"></div><div class="field"><label>Mood</label><input id="f-mood" maxlength="60"></div><div class="field full"><label>Idea / memory *</label><textarea id="f-idea" maxlength="5000" required></textarea></div><div class="field full"><label>Song URL</label><input id="f-url" type="url" maxlength="1000"></div><div class="field"><label>Moment start</label><input id="f-start" maxlength="40"></div><div class="field"><label>Moment end</label><input id="f-end" maxlength="40"></div><div class="field"><label>Platform</label><input id="f-platform" maxlength="80"></div><div class="field"><label>Progress</label><select id="f-progress"><option>Idea</option><option>In progress</option><option>Created</option></select></div><div class="field full"><label>Tags</label><input id="f-tags" maxlength="500"></div><div class="field full"><label>Visual idea</label><textarea id="f-visual" maxlength="2000"></textarea></div></div><div class="actions"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn primary">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://unpkg.com/@supabase/supabase-js@2"></script><script>
+<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal"><form id="edit-form"><h2>Edit entry</h2><input type="hidden" id="edit-id"><div class="edit-section"><div class="edit-section-title">Song note <span>Required fields are marked *</span></div><div class="grid"><div class="field full"><label for="f-title">Song title *</label><input id="f-title" maxlength="180" required placeholder="Enter the song title"></div><div class="field"><label for="f-artist">Artist</label><input id="f-artist" maxlength="180" placeholder="Singer or artist"></div><div class="field"><label for="f-mood">Mood</label><input id="f-mood" maxlength="60" placeholder="e.g. Calm, nostalgic"></div><div class="field full"><label for="f-idea">Your note / memory *</label><textarea id="f-idea" maxlength="5000" required placeholder="What does this song mean to you?"></textarea><small class="field-hint">Keep the personal memory or thought connected to this song.</small></div><div class="field full"><label for="f-url">Song link</label><input id="f-url" type="url" maxlength="1000" placeholder="https://…"><small class="field-hint">Paste a YouTube, Spotify or other https link.</small></div><div class="field full"><label for="f-tags">Tags <span class="optional">· optional</span></label><input id="f-tags" maxlength="500" placeholder="Separate tags with commas"></div></div></div><details class="extra-details"><summary><span>More details</span><small>Timing, platform and visual idea · optional</small></summary><div class="grid extra-grid"><div class="field"><label for="f-start">Moment start</label><input id="f-start" maxlength="40" placeholder="e.g. 01:12"></div><div class="field"><label for="f-end">Moment end</label><input id="f-end" maxlength="40" placeholder="e.g. 01:45"></div><div class="field"><label for="f-platform">Platform / source</label><input id="f-platform" maxlength="80" placeholder="e.g. YouTube"></div><div class="field"><label for="f-progress">Progress</label><select id="f-progress"><option>Idea</option><option>In progress</option><option>Created</option></select></div><div class="field full"><label for="f-visual">Visual idea</label><textarea id="f-visual" maxlength="2000" placeholder="Optional visual, artwork or video idea"></textarea></div></div></details></div><div class="actions"><button type="button" class="btn" id="cancel">Cancel</button><button class="btn primary">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://unpkg.com/@supabase/supabase-js@2"></script><script>
 (()=> {
  const $=s=>document.querySelector(s);
  const all=s=>Array.from(document.querySelectorAll(s));
