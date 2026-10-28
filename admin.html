@@ -221,7 +221,7 @@
  
  async function logActivity(action,r,details={}){
   if(!adminUserId)return false;
-  try{const {error}=await db.from("admin_activity_log").insert({actor_id:adminUserId,action,entry_id:r&&r.id||null,entry_title:String(r&&r.title||"Untitled entry").slice(0,180),details});if(error)throw error;return true}
+  try{const {error}=await db.from("admin_activity_log").insert({actor_id:adminUserId,action,entry_id:action==="delete"?null:(r&&r.id||null),entry_title:String(r&&r.title||"Untitled entry").slice(0,180),details});if(error)throw error;return true}
   catch(err){console.error("Activity log write failed",err);return false}
  }
  async function loadActivity(){
