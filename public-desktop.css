@@ -484,3 +484,98 @@
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
   .nav{transition:none!important}
 }
+
+
+/* Compact, modern desktop note-detail modal. Strictly desktop-only. */
+@media screen and (min-width:1024px){
+  #detailOverlay{
+    padding:24px!important;
+    background:rgba(28,32,29,.38)!important;
+    -webkit-backdrop-filter:blur(5px);
+    backdrop-filter:blur(5px);
+  }
+  #detailDialog.dialog{
+    width:min(900px,92vw)!important;
+    max-width:900px!important;
+    max-height:min(82vh,780px)!important;
+    overflow:auto!important;
+    border:1px solid color-mix(in srgb,var(--line) 75%,transparent)!important;
+    border-radius:16px!important;
+    box-shadow:0 22px 68px rgba(25,32,27,.20),0 2px 8px rgba(25,32,27,.06)!important;
+    scrollbar-width:thin;
+    scrollbar-color:color-mix(in srgb,var(--muted) 28%,transparent) transparent;
+  }
+  #detailDialog .desktop-detail-layout{
+    grid-template-columns:minmax(210px,.78fr) minmax(0,1.22fr)!important;
+    gap:22px!important;
+    padding:22px!important;
+  }
+  #detailDialog .desktop-detail-media{top:12px!important}
+  #detailDialog .desktop-detail-media .dialog-video,
+  #detailDialog .desktop-detail-media .desktop-media-fallback{
+    max-height:410px;
+    border-radius:10px!important;
+  }
+  #detailDialog .desktop-detail-media .desktop-media-fallback{min-height:250px!important;font-size:46px!important}
+  #detailDialog .desktop-detail-copy .detail-hero{
+    margin:0 0 10px!important;
+    padding:0 0 12px!important;
+    border-bottom:1px solid color-mix(in srgb,var(--line) 75%,transparent);
+  }
+  #detailDialog .desktop-detail-copy .detail-hero-top{margin-bottom:8px!important}
+  #detailDialog .desktop-detail-copy .detail-kicker{font-size:9px!important;letter-spacing:.11em!important}
+  #detailDialog .desktop-detail-copy .detail-kicker-icon{width:23px!important;height:23px!important;border-radius:7px!important}
+  #detailDialog .desktop-detail-copy .detail-hero h2{
+    font-size:clamp(21px,1.8vw,27px)!important;
+    line-height:1.22!important;
+    letter-spacing:-.035em!important;
+  }
+  #detailDialog .desktop-detail-copy .dialog-artist,
+  #detailDialog .desktop-detail-copy .detail-artist{margin:5px 0 0!important;font-size:12px!important}
+  #detailDialog .desktop-detail-copy .detail-section{
+    padding:10px 12px!important;
+    margin:0 0 7px!important;
+    border:1px solid color-mix(in srgb,var(--line) 70%,transparent)!important;
+    border-radius:9px!important;
+    font-size:12.5px!important;
+    line-height:1.55!important;
+    background:color-mix(in srgb,var(--surface) 95%,var(--soft))!important;
+  }
+  #detailDialog .desktop-detail-copy .detail-section label{
+    margin-bottom:4px!important;
+    font-size:10px!important;
+    letter-spacing:.025em;
+  }
+  #detailDialog .desktop-detail-copy .tags{gap:5px!important}
+  #detailDialog .desktop-detail-copy .tag{
+    min-height:27px!important;
+    padding:4px 9px!important;
+    border-radius:7px!important;
+    font-size:11px!important;
+  }
+  #detailDialog .dialog-actions{
+    position:sticky!important;
+    bottom:0!important;
+    gap:6px!important;
+    padding:10px 22px 13px!important;
+    border-top:1px solid var(--line)!important;
+    background:color-mix(in srgb,var(--surface) 94%,transparent)!important;
+    -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px);
+  }
+  #detailDialog .dialog-actions .action-chip{
+    height:29px!important;
+    padding:0 9px!important;
+    border-radius:7px!important;
+    font-size:10.5px!important;
+  }
+  #detailDialog .dialog-actions .action-chip svg{width:13px!important;height:13px!important;flex-basis:13px!important}
+  #detailDialog #closeDetail{flex-basis:34px!important;width:34px!important;height:34px!important;font-size:36px!important}
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #detailDialog .desktop-detail-layout{grid-template-columns:minmax(185px,.72fr) minmax(0,1.28fr)!important;gap:18px!important;padding:18px!important}
+  #detailDialog .dialog-actions{padding-left:18px!important;padding-right:18px!important}
+}
+@media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
+  #detailDialog.dialog{animation:none!important}
+}
