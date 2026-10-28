@@ -562,6 +562,82 @@
 .label-suggestion-text{min-width:0;flex:1;overflow-wrap:anywhere}
 .label-suggestion-hint{padding:5px 10px 3px;color:var(--muted);font-size:10px}
 
+
+/* Desktop-only professional polish. Mobile rules remain untouched. */
+@media (min-width:761px){
+  :root{--desktop-gutter:clamp(24px,2.6vw,44px)}
+  .topbar{
+    height:64px;padding:0 22px;gap:12px;
+    background:color-mix(in srgb,var(--surface) 96%,var(--soft));
+    box-shadow:0 1px 0 color-mix(in srgb,var(--line) 78%,transparent);
+  }
+  .brand{min-width:190px;gap:10px}
+  .brand-icon{width:36px;height:36px;border-radius:11px;box-shadow:0 2px 5px #5f430012}
+  .brand-name{font-size:21px;letter-spacing:-.65px}
+  .search{height:44px;max-width:760px;margin-left:8px;padding:0 15px;border-radius:12px}
+  .search:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 9%,transparent)}
+  .top-actions{gap:4px;margin-left:10px}
+  .menu-btn,.round{transition:background .14s ease,color .14s ease,transform .14s ease}
+  .menu-btn:hover,.round:hover{color:var(--ink)}
+  .app{--side:264px;min-height:calc(100vh - 64px)}
+  .sidebar{top:64px;height:calc(100vh - 64px);padding-top:14px}
+  .side-nav{gap:3px;padding-right:12px}
+  .nav{min-height:46px;gap:17px;padding:0 22px;border-radius:0 24px 24px 0;font-size:13px}
+  .nav.active{box-shadow:inset 3px 0 0 #f9ab00}
+  .side-rule{margin:14px 20px 11px}
+  .side-head{padding-top:8px;padding-bottom:8px}
+  .side-foot{margin-top:28px}
+  .workspace{padding:30px var(--desktop-gutter) 84px}
+  .inside{max-width:1640px}
+  .composer{width:min(660px,100%);margin-bottom:38px;border-radius:12px;box-shadow:0 2px 5px #2021240a,0 8px 24px #20212408}
+  .composer:focus-within{border-color:color-mix(in srgb,var(--focus) 30%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 7%,transparent),0 8px 24px #2021240a}
+  .compose-head{min-height:58px;padding:7px 15px}
+  .compose-title{font-size:16px;padding:11px 3px}
+  .compose-body{padding:2px 18px 15px}
+  .fields{gap:10px 16px}
+  .field{padding:10px 3px;font-size:13px}
+  textarea.field{min-height:86px}
+  .compose-foot{gap:8px;margin-top:12px}
+  .compose-foot small{font-size:11px}
+  .text-btn{min-height:38px;padding-inline:16px;border-radius:7px}
+  .section-head{margin-bottom:15px;font-size:11px;letter-spacing:.075em}
+  .result-count{font-size:12px}
+  #notesGrid{max-width:1640px;column-gap:16px}
+  #notesGrid>.note{margin-bottom:16px!important}
+  #notesGrid .note{
+    border-radius:12px;
+    box-shadow:0 1px 2px #20212408,0 5px 16px #20212408;
+  }
+  #notesGrid .note-content{padding:17px 16px 10px}
+  #notesGrid .note-title{font-size:15.5px;line-height:1.48;letter-spacing:-.012em}
+  #notesGrid .artist{margin-top:5px;font-size:12px;line-height:1.5}
+  #notesGrid .idea{margin-top:11px;font-size:13px;line-height:1.7}
+  #notesGrid .tags{gap:5px;margin-top:10px}
+  #notesGrid .tag{padding:3px 7px;font-size:10px;line-height:1.4;border-radius:5px}
+  #notesGrid .mood{font-size:10.5px;padding:4px 8px}
+  #notesGrid .moment{font-size:10.5px;padding:5px 8px}
+  #notesGrid .note-actions{min-height:42px;padding:5px 9px}
+  #notesGrid .note-actions .round{width:32px;height:32px;border-radius:9px}
+  #notesGrid .pin{width:29px;height:29px;flex-basis:29px}
+  #notesGrid .video{margin-top:12px;border-radius:9px}
+  .empty{min-height:300px;border-radius:14px}
+  .empty-icon{width:92px;height:92px}
+  .overlay{padding:28px}
+  .dialog{width:min(660px,100%);border-radius:13px}
+  .dialog-body{padding:24px 26px 14px}
+  .dialog-head h2{font-size:21px;line-height:1.4}
+  .detail-section{padding:12px 0;font-size:13px;line-height:1.7}
+  .detail-section label{font-size:11px}
+  .dialog-actions{gap:8px;padding:10px 16px 16px}
+  .dialog-actions .action-chip{height:33px;padding:0 11px;font-size:11.5px;border-radius:7px}
+}
+@media (min-width:1051px) and (max-width:1400px){
+  #notesGrid{columns:5 190px;column-gap:14px}
+}
+@media (min-width:1401px){
+  #notesGrid{columns:6 190px;column-gap:16px}
+}
+
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
