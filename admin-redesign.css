@@ -1,0 +1,76 @@
+/* Admin-only responsive redesign. Public-site styles and data paths are not affected. */
+#workspace{width:min(1480px,100%);padding-bottom:100px}
+.admin-nav{gap:6px;scrollbar-width:none}
+.admin-nav::-webkit-scrollbar{display:none}
+.admin-nav .tab{min-height:40px;padding-inline:14px}
+#activity-view{min-width:0}
+.activity-list{display:grid;gap:8px}
+.activity-row{display:flex;align-items:flex-start;gap:11px;min-width:0;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.activity-mark{display:grid;place-items:center;flex:0 0 29px;width:29px;height:29px;border-radius:9px;background:var(--soft);color:var(--muted);font-size:17px}
+.activity-copy{display:grid;gap:3px;min-width:0}
+.activity-copy strong{font-size:12px;font-weight:700;text-transform:capitalize}
+.activity-copy>span{font-size:13px;overflow-wrap:anywhere}
+.activity-copy small{color:var(--muted);font-size:10px;overflow-wrap:anywhere}
+.activity-copy p{margin:3px 0 0;color:var(--muted);font-size:11px;overflow-wrap:anywhere}
+#activity-view .list-head{margin-bottom:12px}
+#activity-view .list-head .btn{font-size:11px}
+#list .entry .actions .btn{min-height:34px}
+#list .entry .actions [data-act="approve"]{font-weight:700}
+#list .entry .actions [data-act="reject"]{background:var(--red-bg);color:var(--red)}
+#list .entry .actions [data-act="reopen"]{background:var(--soft)}
+#list .entry h3{letter-spacing:-.15px}
+@media (min-width:821px){
+  #workspace{padding:28px clamp(22px,3vw,48px) 72px}
+  .head{margin-bottom:22px}
+  .head h1{font-size:30px}
+  .dashboard-tools{max-width:850px;margin-bottom:17px}
+  .admin-nav{padding-bottom:8px;margin-bottom:18px}
+  #list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  #list .entry{border-radius:13px}
+  #list .entry-copy{padding:16px}
+  #list .entry .actions{padding:11px 14px}
+  .activity-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .activity-row{padding:15px}
+}
+@media (min-width:1200px){
+  #list{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .activity-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px){
+  body{padding-bottom:calc(66px + var(--safe))}
+  #workspace{padding:14px 10px calc(35px + var(--safe))}
+  .head{align-items:center;gap:8px}
+  .head h1{font-size:22px;letter-spacing:-.5px}
+  .head>div>.muted:first-child{font-size:9px}
+  #signout{flex:0 0 auto;min-height:32px;padding:6px 9px;font-size:10px}
+  .dashboard-tools{margin-bottom:10px}
+  .admin-nav{position:fixed;z-index:40;left:0;right:0;bottom:0;display:flex;gap:3px;justify-content:space-around;overflow-x:auto;overflow-y:hidden;margin:0;padding:7px 5px calc(7px + var(--safe));border:0;border-top:1px solid var(--line);border-radius:13px 13px 0 0;background:var(--surface);box-shadow:0 -6px 24px #2021240d;scrollbar-width:none}
+  .admin-nav .tab{flex:1 0 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;min-width:0;min-height:44px;padding:3px 8px;border-radius:9px;font-size:10px}
+  .admin-nav .tab.active{background:var(--soft)}
+  .admin-nav .tab.active:after{display:none}
+  .admin-nav .tab-count{min-width:17px;height:17px;font-size:9px}
+  #entries-view,#activity-view{padding-bottom:6px}
+  #list{grid-template-columns:minmax(0,1fr);gap:9px}
+  #list .entry{border-radius:11px}
+  #list .entry-copy{padding:12px}
+  #list .entry .actions{gap:6px}
+  #list .entry .actions .btn{flex:0 0 auto;min-height:36px;padding:8px 10px;font-size:11px}
+  .activity-list{gap:8px}
+  .activity-row{padding:11px;border-radius:10px}
+  #activity-view .list-head{align-items:center}
+  #activity-view .list-head>span{font-size:12px}
+  #activity-view .list-head .btn{min-height:32px;padding:6px 9px}
+}
+@media (max-width:390px){
+  #workspace{padding-inline:8px}
+  .head h1{font-size:20px}
+  .admin-nav .tab{padding-inline:5px;font-size:9px}
+  #list .entry .actions .btn{padding-inline:8px;font-size:10px}
+  .activity-row{gap:8px;padding:10px}
+}
+@media (min-width:601px) and (max-width:820px){
+  .admin-nav{position:sticky;top:58px;z-index:15;background:var(--page);padding-top:7px}
+}
+@media (prefers-reduced-motion:reduce){
+  .admin-nav,.activity-row{scroll-behavior:auto!important;transition:none!important}
+}
