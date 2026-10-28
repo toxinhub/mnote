@@ -25,14 +25,20 @@ To inspect the original version, open the backup branch in GitHub or browse the 
 - Existing admin operations are reads, edits, status updates and permanent deletion on `public.entries`.
 - Supabase RLS is enabled on `entries` and `admin_users`. Admin update/delete policies check the authenticated user's membership in `admin_users`; public reads are limited to approved entries unless the authenticated user is an admin; public inserts must remain pending.
 - Current `entries` fields include title, artist, idea, song_url, start_time, end_time, mood, platform, progress, tags, visual, status, admin_note, submitted_by, created_at and updated_at.
-- The current database has no activity/audit-log table. A durable log of who performed which action and when requires an explicit schema decision; no table or policy will be added without approval.
+- The owner explicitly approved a durable admin activity log. `public.admin_activity_log` has been added as an additive schema change with RLS enabled, admin-only SELECT/INSERT policies, actor identity checks, no authenticated UPDATE/DELETE grants, and a nullable entry reference so delete records can survive entry deletion. Existing `entries` and `admin_users` structures were not changed.
+- The admin UI writes approve, reject, restore, edit and permanent-delete events. If the audit insert fails, the entry action remains completed and the UI warns that the log could not be saved. Bulk actions are not yet implemented and therefore are not logged yet.
 
 ## Planned files
 
 - `index.html`: add only a desktop-media stylesheet link and, if needed, a desktop script include; no existing mobile rule or public-mobile behavior should be edited.
 - `public-desktop.css`: desktop-only public-site presentation.
 - `public-desktop.js`: optional desktop-only keyboard palette, deep-link handling and desktop enhancements; must no-op below 1024px.
-- `admin.html`: retain existing sign-in and Supabase operations while improving the admin UI.
+- `admin.html`: retain existing sign-in and Supabase operations while adding the Activity log view and recording supported admin actions.
+- `admin-redesign.css`: responsive admin-only layout; mobile bottom navigation and desktop card density.
+
+## Database rollback note
+
+The GitHub backup branch rolls back site code only. It intentionally does not drop `public.admin_activity_log` or delete audit records. The table is additive and safe to leave in place if the UI is reverted; removing it would destroy the audit trail and should require a separate explicit decision.
 - `admin-redesign.css`: admin-only responsive styling (the admin page is separate from the public page).
 - This file records the baseline, audit and rollback procedure.
 
