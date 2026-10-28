@@ -918,6 +918,23 @@
 }
 </style>
 
+
+<style id="desktop-sidebar-label-toggle-fix">
+@media (min-width: 761px) {
+  /* Respect the sidebar's Labels disclosure state; desktop.css previously forced it open. */
+  #sidebar #labels { display: none !important; }
+  #sidebar #labels.labels-open { display: flex !important; }
+  #sidebar .side-head { min-height: 40px; }
+  #sidebar .labels .nav { min-height: 36px; }
+}
+@media (min-width: 761px) and (max-width: 1023px) {
+  #app { --side: 232px; }
+  #sidebar { width: 232px; flex-basis: 232px; }
+  #sidebar .nav { gap: 14px; padding-left: 18px; }
+  #sidebar .side-head { padding-left: 18px; }
+}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
