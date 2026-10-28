@@ -170,3 +170,80 @@
 @media (min-width:1024px) and (prefers-reduced-motion:reduce){
   #notesGrid .note-actions .round{transition:none!important}
 }
+
+/* Minimal desktop quick-add: two balanced fields and one clear submit action. */
+@media (min-width:1024px){
+  .composer:not(.open){
+    display:grid;
+    grid-template-columns:minmax(220px,1fr) minmax(300px,1.35fr) auto;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    max-width:1040px;
+    min-height:76px;
+    margin:0 auto 28px;
+    padding:12px 14px;
+    border-radius:12px;
+    box-shadow:0 2px 10px #2021240a;
+  }
+  .composer:not(.open) .compose-head{display:contents}
+  .composer:not(.open) .compose-title{
+    grid-column:1;
+    min-width:0;
+    min-height:42px;
+    margin:0;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--page);
+    font-size:14px;
+    font-weight:500;
+  }
+  .composer:not(.open) .compose-title:focus{border-color:var(--focus)}
+  .composer:not(.open) .compose-mark,
+  .composer:not(.open) .compose-tools{display:none!important}
+  .composer:not(.open) .compose-body{display:contents!important;padding:0!important}
+  .composer:not(.open) .compose-body>.form-group:first-child{
+    display:block!important;
+    grid-column:2;
+    min-width:0;
+    margin:0;
+  }
+  .composer:not(.open) .compose-body>.form-group:first-child .form-label{display:none}
+  .composer:not(.open) #quickUrl{
+    display:block;
+    width:100%;
+    min-width:0;
+    min-height:42px;
+    margin:0;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--page);
+    font-size:13px;
+  }
+  .composer:not(.open) #quickUrl:focus{border-color:var(--focus)}
+  .composer:not(.open) #linkStatus{display:none}
+  .composer:not(.open) .compose-body>.form-group:not(:first-child){display:none!important}
+  .composer:not(.open) .compose-foot{
+    display:flex;
+    grid-column:3;
+    align-items:center;
+    gap:0;
+    margin:0;
+    white-space:nowrap;
+  }
+  .composer:not(.open) .compose-foot small,
+  .composer:not(.open) #closeComposer{display:none!important}
+  .composer:not(.open) #saveNote{
+    min-height:42px;
+    padding:0 17px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+  }
+  .composer:not(.open) #saveNote:disabled{opacity:.6}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  .composer:not(.open){grid-template-columns:minmax(180px,.9fr) minmax(240px,1.25fr) auto;gap:10px;padding:11px}
+}
