@@ -743,6 +743,9 @@
 #detailDialog .detail-section label{margin-bottom:6px;font-size:10px;letter-spacing:.075em;color:var(--muted)}
 #detailDialog .detail-section label:before{width:7px;height:7px;border-radius:50%;background:hsl(var(--detail-hue,42) 42% 62%)}
 #detailDialog .memory-section{background:linear-gradient(135deg,hsl(var(--detail-hue,42) 45% 97%),var(--surface) 88%);border-color:hsl(var(--detail-hue,42) 24% 91%)}
+#detailDialog .memory-section label{padding-bottom:7px;border-bottom:1px solid color-mix(in srgb,hsl(var(--detail-hue,42) 32% 64%) 24%,var(--line));margin-bottom:9px}
+:root[data-theme=dark] #detailDialog .memory-section label{border-bottom-color:color-mix(in srgb,hsl(var(--detail-hue,42) 30% 66%) 20%,var(--line))}
+
 #detailDialog .moment-section{border-left:3px solid hsl(calc(var(--detail-hue,42) + 28) 40% 70%);padding-left:12px}
 #detailDialog .mood-section{gap:9px;background:color-mix(in srgb,var(--surface) 90%,hsl(calc(var(--detail-hue,42) + 65) 42% 92%))}
 #detailDialog .mood-section label:before{background:hsl(calc(var(--detail-hue,42) + 65) 42% 64%)}
