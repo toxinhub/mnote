@@ -899,7 +899,44 @@ window.addEventListener('popstate',function(){if($('detailOverlay').classList.co
  document.addEventListener('keydown',function(ev){if((ev.key==='Enter'||ev.key===' ')&&ev.target.closest&&ev.target.closest('[data-inline-play]')){ev.preventDefault();ev.target.closest('[data-inline-play]').click();return}if(ev.key==='Escape'){toggleModal(false);closeSidebar();if(composerOpen)hideComposer()}if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='k'){ev.preventDefault();$('search').focus()}if(ev.key==='n'&&!ev.ctrlKey&&!ev.metaKey&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){ev.preventDefault();showComposer()}if(ev.key==='Enter'&&ev.target.classList.contains('note'))openDetail(ev.target.dataset.id)});
 load();
 })();
-</script><script src="public-desktop.js?v=20261028-2" defer></script></body></html>
+</script><script src="public-desktop.js?v=20261028-2" defer></script>
+<style>
+/* Give the note's actual text room to breathe on small screens. */
+@media(max-width:760px){
+  #detailOverlay #detailDialog .detail-section{
+    box-sizing:border-box!important;
+    padding:12px 14px!important;
+    font-size:13.5px!important;
+    line-height:1.75!important;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+  #detailOverlay #detailDialog .memory-section{
+    padding:13px 14px!important;
+    text-align:left;
+  }
+  #detailOverlay #detailDialog .memory-section label{
+    margin-bottom:10px!important;
+    padding-bottom:8px!important;
+    line-height:1.4;
+  }
+  #detailOverlay #detailDialog .moment-section{
+    padding-left:13px!important;
+  }
+}
+@media(max-width:390px){
+  #detailOverlay #detailDialog .detail-section{
+    padding:11px 12px!important;
+    font-size:13px!important;
+    line-height:1.72!important;
+  }
+  #detailOverlay #detailDialog .memory-section{
+    padding:12px 13px!important;
+  }
+}
+</style>
+
+</body></html>
 <style>
 /* Compact sidebar label typography */
 /* Keep the drawer's label list visually compact without shrinking the main navigation. */
