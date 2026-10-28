@@ -454,6 +454,36 @@
   if(action==="reject"&&confirm('Move "'+(r.title||"this entry")+'" to Rejected?'))await statusUpdate(id,"rejected");
   if(action==="reopen"&&confirm('Move "'+(r.title||"this entry")+'" back to Pending?'))await statusUpdate(id,"pending");
  });
+
+ let touchStart=null;
+ document.addEventListener("touchstart",e=>{
+  const card=e.target.closest("#list .entry");
+  if(!card||e.touches.length!==1||e.target.closest("button,a,input,label,textarea,select")){touchStart=null;return}
+  const r=rows.find(x=>String(x.id)===String(card.querySelector("[data-id]")?.dataset.id));
+  if(!r||r.status!=="pending"){touchStart=null;return}
+  touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY,id:String(r.id),status:r.status,title:r.title||"Entry"};
+ },{passive:true});
+ document.addEventListener("touchend",async e=>{
+  if(!touchStart||!e.changedTouches.length)return;
+  const start=touchStart;touchStart=null;const end=e.changedTouches[0],dx=end.clientX-start.x,dy=end.clientY-start.y;
+  if(Math.abs(dx)<105||Math.abs(dx)<Math.abs(dy)*1.35||busy)return;
+  const next=dx>0?"approved":"rejected";
+  if(next==="rejected"&&!confirm('Reject "'+start.title+'"?'))return;
+  await statusUpdate(start.id,next);
+  showUndo(start.id,start.status,start.title,next);
+ },{passive:true});
+ function showUndo(id,previous,title,action){
+  const toast=$("#undo-toast");if(undoTimer)clearTimeout(undoTimer);
+  undoState={id,previous,title,action};$("#undo-message").textContent=(action==="approved"?"Approved: ":"Rejected: ")+title;
+  toast.classList.remove("hidden");undoTimer=setTimeout(()=>{toast.classList.add("hidden");undoState=null},7000);
+ }
+ $("#undo-action").addEventListener("click",async()=>{
+  if(!undoState||busy)return;const state=undoState;undoState=null;
+  if(undoTimer)clearTimeout(undoTimer);$("#undo-toast").classList.add("hidden");
+  await statusUpdate(state.id,state.previous);
+  msg("#msg","Undo applied: "+state.title+" returned to "+state.previous+".");
+ });
+
  document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(!$("#workspace").classList.contains("hidden"))$("#entry-search").focus()}
   if(e.key==="Escape"&&$("#modal").classList.contains("open")){e.preventDefault();closeEdit();return}
