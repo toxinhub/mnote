@@ -897,3 +897,11 @@ window.addEventListener('popstate',function(){if($('detailOverlay').classList.co
 load();
 })();
 </script></body></html>
+<style>
+/* Compact sidebar label typography */
+/* Keep the drawer's label list visually compact without shrinking the main navigation. */
+#sidebar .labels .nav{min-height:34px;padding-top:0;padding-bottom:0;gap:14px}
+#sidebar .labels .nav-label{font-size:12px;line-height:1.25;font-weight:400}
+#sidebar .labels .nav.active .nav-label{font-weight:600}
+@media(max-width:760px){#sidebar .labels .nav{min-height:32px}#sidebar .labels .nav-label{font-size:11.5px}}
+</style>
