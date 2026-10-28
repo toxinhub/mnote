@@ -132,3 +132,7 @@
  .entry-select{min-height:28px}
  .undo-toast{bottom:calc(76px + var(--safe));width:max-content}
 }
+
+@media (max-width:600px){
+  #list .entry{touch-action:pan-y}
+}
