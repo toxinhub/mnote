@@ -26,7 +26,7 @@ To inspect the original version, open the backup branch in GitHub or browse the 
 - Supabase RLS is enabled on `entries` and `admin_users`. Admin update/delete policies check the authenticated user's membership in `admin_users`; public reads are limited to approved entries unless the authenticated user is an admin; public inserts must remain pending.
 - Current `entries` fields include title, artist, idea, song_url, start_time, end_time, mood, platform, progress, tags, visual, status, admin_note, submitted_by, created_at and updated_at.
 - The owner explicitly approved a durable admin activity log. `public.admin_activity_log` has been added as an additive schema change with RLS enabled, admin-only SELECT/INSERT policies, actor identity checks, no authenticated UPDATE/DELETE grants, and a nullable entry reference so delete records can survive entry deletion. Existing `entries` and `admin_users` structures were not changed.
-- The admin UI writes approve, reject, restore, edit and permanent-delete events. If the audit insert fails, the entry action remains completed and the UI warns that the log could not be saved. Bulk actions are not yet implemented and therefore are not logged yet.
+- The admin UI writes approve, reject, restore, edit, permanent-delete, bulk-approve and bulk-reject events. Bulk events record the count and entry IDs. If the audit insert fails, the entry action remains completed and the UI warns that the log could not be saved.
 
 ## Planned files
 
