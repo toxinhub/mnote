@@ -190,14 +190,12 @@
 }
 @media (min-width:1200px){#list{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 @media (prefers-reduced-motion:reduce) and (min-width:821px){#list .entry{transition:none!important}}
-</style></head><body><div class="wrap"><header class="top"><b>m}note <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
+</style><link rel="stylesheet" href="admin-redesign.css"></head><body><div class="wrap"><header class="top"><b>m}note <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
  <button class="btn" id="refresh" type="button"><span aria-hidden="true">↻</span> Refresh</button>
 </div>
-<div class="tabs" role="tablist" aria-label="Entry status"><button class="tab active" role="tab" aria-selected="true" data-status="pending">Pending <span class="tab-count" id="tab-pending">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="approved">Approved library <span class="tab-count" id="tab-approved">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="rejected">Rejected <span class="tab-count" id="tab-rejected">0</span></button></div>
-<div class="list-head"><span id="list-heading">Pending submissions</span><span id="visible-count" class="muted">0 entries</span></div>
-<div id="list" class="list" aria-live="polite"></div></section></div><div id="modal" class="modal" aria-label="Edit entry dialog" aria-modal="true" role="dialog"><form id="edit-form"><div class="edit-modal-head"><div><span class="edit-kicker">LIBRARY EDITOR</span><h2>Edit song note</h2><p>Keep the song, memory and labels in sync.</p></div><button type="button" class="btn edit-close" id="cancel-top" aria-label="Close editor">×</button></div><input type="hidden" id="edit-id"><div class="edit-scroll"><section class="edit-section"><div class="edit-section-title"><span class="step">01</span><div><strong>Song details</strong><small>Update the title and the original song link.</small></div></div><div class="edit-fields"><div class="field full"><label for="f-title">Song title</label><input id="f-title" maxlength="180" placeholder="Enter the song title" autocomplete="off"></div><div class="field full"><label for="f-url">Song link</label><input id="f-url" type="url" maxlength="1000" placeholder="Paste a YouTube, Spotify, or SoundCloud link" autocomplete="url"><small id="edit-link-status" class="field-hint" aria-live="polite"></small></div></div></section><section class="edit-section"><div class="edit-section-title"><span class="step">02</span><div><strong>Note & memory</strong><small>The personal thought or memory attached to this song.</small></div></div><div class="edit-fields"><div class="field full"><label for="f-idea">Your note</label><textarea id="f-idea" maxlength="5000" placeholder="What does this song make you feel or remember?"></textarea></div></div></section><section class="edit-section"><div class="edit-section-title"><span class="step">03</span><div><strong>Labels & moment</strong><small>Make this entry easier to find later.</small></div></div><div class="edit-fields"><div class="field"><label for="f-tags">Labels <span class="optional">· optional</span></label><div class="label-suggest-wrap"><input id="f-tags" maxlength="500" placeholder="e.g. nostalgia, night" autocomplete="off" aria-autocomplete="list" aria-controls="edit-label-suggestions" aria-expanded="false"><div class="label-suggestions hidden" id="edit-label-suggestions" role="listbox" aria-label="Previously used labels"></div></div><small class="field-hint">Separate multiple labels with commas. Existing labels will be suggested.</small></div><div class="field"><label for="f-start">Favorite moment <span class="optional">· optional</span></label><input id="f-start" maxlength="40" placeholder="e.g. 1:23"><small class="field-hint">Add a timestamp for the part you love.</small></div></div></section></div><div class="actions"><span class="save-hint">Your changes will be saved to the library.</span><button type="button" class="btn" id="cancel">Cancel</button><button type="submit" class="btn primary" id="save-changes">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+<div class="tabs admin-nav" role="tablist" aria-label="Admin sections"><button class="tab active" role="tab" aria-selected="true" data-status="pending">Review queue <span class="tab-count" id="tab-pending">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="approved">Library <span class="tab-count" id="tab-approved">0</span></button><button class="tab" role="tab" aria-selected="false" data-status="rejected">Rejected <span class="tab-count" id="tab-rejected">0</span></button><button class="tab" role="tab" aria-selected="false" data-view="activity">Activity log</button></div><div id="entries-view"><div class="list-head"><span id="list-heading">Pending submissions</span><span id="visible-count" class="muted">0 entries</span></div><div id="list" class="list" aria-live="polite"></div></div><section id="activity-view" class="hidden" aria-live="polite"><div class="list-head"><span>Recent admin activity</span><button type="button" class="btn" id="refresh-activity">Refresh log</button></div><div id="activity-list" class="activity-list"><div class="empty">Activity will appear here after admin actions.</div></div></section></section></div><div id="modal" class="modal" aria-label="Edit entry dialog" aria-modal="true" role="dialog"><form id="edit-form"><div class="edit-modal-head"><div><span class="edit-kicker">LIBRARY EDITOR</span><h2>Edit song note</h2><p>Keep the song, memory and labels in sync.</p></div><button type="button" class="btn edit-close" id="cancel-top" aria-label="Close editor">×</button></div><input type="hidden" id="edit-id"><div class="edit-scroll"><section class="edit-section"><div class="edit-section-title"><span class="step">01</span><div><strong>Song details</strong><small>Update the title and the original song link.</small></div></div><div class="edit-fields"><div class="field full"><label for="f-title">Song title</label><input id="f-title" maxlength="180" placeholder="Enter the song title" autocomplete="off"></div><div class="field full"><label for="f-url">Song link</label><input id="f-url" type="url" maxlength="1000" placeholder="Paste a YouTube, Spotify, or SoundCloud link" autocomplete="url"><small id="edit-link-status" class="field-hint" aria-live="polite"></small></div></div></section><section class="edit-section"><div class="edit-section-title"><span class="step">02</span><div><strong>Note & memory</strong><small>The personal thought or memory attached to this song.</small></div></div><div class="edit-fields"><div class="field full"><label for="f-idea">Your note</label><textarea id="f-idea" maxlength="5000" placeholder="What does this song make you feel or remember?"></textarea></div></div></section><section class="edit-section"><div class="edit-section-title"><span class="step">03</span><div><strong>Labels & moment</strong><small>Make this entry easier to find later.</small></div></div><div class="edit-fields"><div class="field"><label for="f-tags">Labels <span class="optional">· optional</span></label><div class="label-suggest-wrap"><input id="f-tags" maxlength="500" placeholder="e.g. nostalgia, night" autocomplete="off" aria-autocomplete="list" aria-controls="edit-label-suggestions" aria-expanded="false"><div class="label-suggestions hidden" id="edit-label-suggestions" role="listbox" aria-label="Previously used labels"></div></div><small class="field-hint">Separate multiple labels with commas. Existing labels will be suggested.</small></div><div class="field"><label for="f-start">Favorite moment <span class="optional">· optional</span></label><input id="f-start" maxlength="40" placeholder="e.g. 1:23"><small class="field-hint">Add a timestamp for the part you love.</small></div></div></section></div><div class="actions"><span class="save-hint">Your changes will be saved to the library.</span><button type="button" class="btn" id="cancel">Cancel</button><button type="submit" class="btn primary" id="save-changes">Save changes</button></div></form></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 (()=> {
  const $=s=>document.querySelector(s);
  const all=s=>Array.from(document.querySelectorAll(s));
@@ -211,7 +209,7 @@
   const e=$("#login-msg");e.textContent="The authentication library could not load. Check your connection, reload the page, or try again.";e.classList.remove("hidden");e.classList.add("error");return;
  }
  const db=window.supabase.createClient("https://ekaxlxudxpkkozbyslub.supabase.co","sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX");
- let status="pending",rows=[],busy=false,loading=false;
+ let status="pending",rows=[],busy=false,loading=false,adminUserId=null;
  const statusNames={pending:"Pending submissions",approved:"Approved library",rejected:"Rejected entries"};
  function esc(s=""){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
  function safeUrl(raw){try{const u=new URL(String(raw||""));return ["http:","https:"].includes(u.protocol)?u.href:""}catch{return ""}}
@@ -220,12 +218,34 @@
  function setBusy(value){busy=value;all("[data-act]").forEach(b=>{b.disabled=value;b.classList.toggle("is-busy",value)});const refresh=$("#refresh");refresh.disabled=value||loading;refresh.classList.toggle("is-busy",value||loading)}
  function formatDate(raw){if(!raw)return "";const d=new Date(raw);if(Number.isNaN(d.getTime()))return "";return new Intl.DateTimeFormat(undefined,{month:"short",day:"numeric",year:"numeric"}).format(d)}
  function matchesSearch(r,q){if(!q)return true;return [r.title,r.artist,r.mood,r.idea,r.tags,r.visual,r.platform,r.progress,r.song_url].some(v=>String(v||"").toLocaleLowerCase().includes(q))}
+ 
+ async function logActivity(action,r,details={}){
+  if(!adminUserId)return false;
+  try{const {error}=await db.from("admin_activity_log").insert({actor_id:adminUserId,action,entry_id:r&&r.id||null,entry_title:String(r&&r.title||"Untitled entry").slice(0,180),details});if(error)throw error;return true}
+  catch(err){console.error("Activity log write failed",err);return false}
+ }
+ async function loadActivity(){
+  const box=$("#activity-list");box.innerHTML='<div class="empty">Loading activity…</div>';
+  try{
+   const {data,error}=await db.from("admin_activity_log").select("id,actor_id,action,entry_id,entry_title,details,created_at").order("created_at",{ascending:false}).limit(100);
+   if(error)throw error;
+   if(!data||!data.length){box.innerHTML='<div class="empty"><strong>No activity yet</strong><p>Admin actions will appear here.</p></div>';return}
+   box.innerHTML=data.map(a=>{
+    const d=new Date(a.created_at),when=Number.isNaN(d.getTime())?"Unknown time":d.toLocaleString();
+    const details=a.details&&typeof a.details==="object"?Object.entries(a.details).map(([k,v])=>k+": "+String(v)).join(" · "):"";
+    return '<article class="activity-row"><span class="activity-mark" aria-hidden="true">↳</span><div class="activity-copy"><strong>'+esc(String(a.action||"action").replace(/_/g," "))+'</strong><span>'+esc(a.entry_title||"Untitled entry")+'</span><small>'+esc(when)+' · Admin '+esc(String(a.actor_id||"").slice(0,8))+'</small>'+(details?'<p>'+esc(details)+'</p>':"")+'</div></article>';
+   }).join("");
+  }catch(err){box.innerHTML='<div class="empty error">Could not load activity: '+esc(err&&err.message||"Unknown error")+'</div>'}
+ }
+
  function updateCounts(){
   const counts={pending:0,approved:0,rejected:0};
   rows.forEach(r=>{if(Object.hasOwn(counts,r.status))counts[r.status]++});
   Object.keys(counts).forEach(k=>{const el=$("#tab-"+k);if(el)el.textContent=String(counts[k])});
  }
  function render(){
+  $("#entries-view").classList.remove("hidden");$("#activity-view").classList.add("hidden");
+  all("[data-view]").forEach(b=>{b.classList.remove("active");b.setAttribute("aria-selected","false")});
   updateCounts();
   all("[data-status]").forEach(b=>{const active=b.dataset.status===status;b.classList.toggle("active",active);b.setAttribute("aria-selected",String(active))});
   $("#list-heading").textContent=statusNames[status]||"Entries";
@@ -259,6 +279,7 @@
   finally{loading=false;$("#refresh").disabled=busy;$("#refresh").classList.remove("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Refresh'}
  }
  async function verify(u){
+  adminUserId=u.id;
   try{
    const {data,error}=await db.from("admin_users").select("user_id").eq("user_id",u.id).maybeSingle();
    if(error){await db.auth.signOut();$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","Signed in, but admin access could not be verified: "+error.message,true);return}
@@ -318,7 +339,7 @@
    const {data,error}=await db.from("entries").update({status:next}).eq("id",id).select("id").maybeSingle();
    if(error){msg("#msg","Action failed: "+error.message,true);return}
    if(!data){msg("#msg","Action failed: no entry was updated. Check admin write permissions.",true);return}
-   msg("#msg","Entry moved to "+next+".");await load(true);
+   const entry=rows.find(x=>String(x.id)===String(id));const action=next==="approved"?"approve":next==="rejected"?"reject":"restore";const logged=await logActivity(action,entry,{from:entry&&entry.status||"unknown",to:next});msg("#msg",logged?"Entry moved to "+next+".":"Entry moved to "+next+", but the activity log could not be saved.",!logged);await load(true);
   }catch(err){msg("#msg","Action failed: "+(err?.message||"Unknown error"),true)}
   finally{setBusy(false)}
  }
@@ -341,6 +362,7 @@
  });
  $("#refresh").addEventListener("click",load);
  $("#entry-search").addEventListener("input",render);
+ $("#refresh-activity").addEventListener("click",loadActivity);
  $("#entry-search").addEventListener("keydown",e=>{if(e.key==="Escape"){e.currentTarget.value="";render();e.currentTarget.blur()}});
  $("#f-url").addEventListener("input",e=>lookupEditTitle(e.currentTarget.value));
  $("#f-tags").addEventListener("input",updateEditLabelSuggestions);
@@ -360,11 +382,13 @@
    const {data,error}=await db.from("entries").update(p).eq("id",$("#edit-id").value).select("id").maybeSingle();
    if(error){msg("#msg","Save failed: "+error.message,true);return}
    if(!data){msg("#msg","Save failed: no entry was updated. Check admin write permissions.",true);return}
-   closeEdit();msg("#msg","Entry updated successfully.");await load(true);
+   const edited=rows.find(x=>String(x.id)===String($("#edit-id").value));const logged=await logActivity("edit",edited,{fields:Object.keys(p)});closeEdit();msg("#msg",logged?"Entry updated successfully.":"Entry updated, but the activity log could not be saved.",!logged);await load(true);
   }catch(err){msg("#msg","Save failed: "+(err?.message||"Unknown error"),true)}
   finally{submit.disabled=false;submit.textContent="Save changes"}
  });
  document.addEventListener("click",async e=>{
+  const activityTab=e.target.closest("[data-view=\"activity\"]");
+  if(activityTab){all("[data-status]").forEach(t=>{t.classList.remove("active");t.setAttribute("aria-selected","false")});all("[data-view]").forEach(t=>{t.classList.toggle("active",t===activityTab);t.setAttribute("aria-selected",String(t===activityTab))});$("#entries-view").classList.add("hidden");$("#activity-view").classList.remove("hidden");loadActivity();return}
   const tab=e.target.closest("[data-status]");
   if(tab){status=tab.dataset.status;render();return}
   if(e.target.closest("#clear-search")){$("#entry-search").value="";render();return}
@@ -375,7 +399,7 @@
   if(action==="delete"){
    if(!confirm('Delete "'+(r.title||"this entry")+'" permanently? This cannot be undone.'))return;
    setBusy(true);
-   try{const {data,error}=await db.from("entries").delete().eq("id",id).select("id").maybeSingle();if(error){msg("#msg","Delete failed: "+error.message,true);return}if(!data){msg("#msg","Delete failed: no entry was deleted. Check admin write permissions.",true);return}msg("#msg","Entry permanently deleted.");await load(true)}
+   try{const {data,error}=await db.from("entries").delete().eq("id",id).select("id").maybeSingle();if(error){msg("#msg","Delete failed: "+error.message,true);return}if(!data){msg("#msg","Delete failed: no entry was deleted. Check admin write permissions.",true);return}const logged=await logActivity("delete",r,{permanent:true});msg("#msg",logged?"Entry permanently deleted.":"Entry deleted, but the activity log could not be saved.",!logged);await load(true)}
    catch(err){msg("#msg","Delete failed: "+(err?.message||"Unknown error"),true)}
    finally{setBusy(false)}
    return;
