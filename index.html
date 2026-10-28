@@ -953,6 +953,210 @@
   .topbar .brand .brand-name { font-size:23px; }
 }
 </style>
+
+<style id="mobile-layout-bug-fixes">
+
+/* Give the note's actual text room to breathe on small screens. */
+@media(max-width:760px){
+  #detailOverlay #detailDialog .detail-section{
+    box-sizing:border-box!important;
+    padding:12px 14px!important;
+    font-size:13.5px!important;
+    line-height:1.75!important;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+  #detailOverlay #detailDialog .memory-section{
+    padding:13px 14px!important;
+    text-align:left;
+  }
+  #detailOverlay #detailDialog .memory-section label{
+    margin-bottom:10px!important;
+    padding-bottom:8px!important;
+    line-height:1.4;
+  }
+  #detailOverlay #detailDialog .moment-section{
+    padding-left:13px!important;
+  }
+}
+@media(max-width:390px){
+  #detailOverlay #detailDialog .detail-section{
+    padding:11px 12px!important;
+    font-size:13px!important;
+    line-height:1.72!important;
+  }
+  #detailOverlay #detailDialog .memory-section{
+    padding:12px 13px!important;
+  }
+}
+
+
+
+/* Compact sidebar label typography */
+/* Keep the drawer's label list visually compact without shrinking the main navigation. */
+#sidebar .labels .nav{min-height:34px;padding-top:0;padding-bottom:0;gap:14px}
+#sidebar .labels .nav-label{font-size:12px;line-height:1.25;font-weight:400}
+#sidebar .labels .nav.active .nav-label{font-weight:600}
+@media(max-width:760px){#sidebar .labels .nav{min-height:32px}#sidebar .labels .nav-label{font-size:11.5px}}
+
+
+
+/* Tighter, squarer borders for the note action row */
+#detailDialog .dialog-actions .action-chip,
+#detailDialog .dialog-actions .action-chip:hover{
+  height:28px!important;min-height:0!important;padding:0 7px!important;
+  border-width:1px!important;border-radius:4px!important;
+  box-shadow:none!important;
+}
+#detailDialog .dialog-actions .action-chip svg{width:12px;height:12px;flex-basis:12px}
+@media(max-width:760px){
+  #detailDialog .dialog-actions .action-chip,
+  #detailDialog .dialog-actions .action-chip:hover{
+    height:26px!important;min-height:0!important;padding:0 5px!important;
+    border-radius:4px!important;font-size:9.5px!important;
+  }
+  #detailDialog .dialog-actions .action-chip svg{width:11px;height:11px;flex-basis:11px}
+}
+/* Minimal soft-red X close control */
+#detailDialog #closeDetail{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;margin:-2px -2px 0 0;padding:0;border:0;border-radius:0;background:transparent;color:#e58b8b;font-family:Arial,sans-serif;font-size:42px;font-weight:400;line-height:1;box-shadow:none;cursor:pointer;transition:color .16s,transform .16s}
+#detailDialog #closeDetail:hover{background:transparent;border-color:transparent;color:#d96f76;transform:scale(1.08);box-shadow:none}
+#detailDialog #closeDetail:active{transform:scale(.92)}
+#detailDialog #closeDetail:focus-visible{outline:2px solid #e58b8b;outline-offset:2px}
+@media(max-width:760px){#detailDialog #closeDetail{flex-basis:42px;width:42px;height:42px;border-radius:0;font-size:45px}}
+@media(prefers-reduced-motion:reduce){#detailDialog #closeDetail{transition:none}}
+
+
+
+/* Row-first note grid: 1 2, 3 4, 5 6 */
+#notesGrid{
+  display:grid!important;
+  position:relative;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  grid-auto-flow:row;
+  align-items:start;
+  gap:12px;
+  columns:unset!important;
+}
+#notesGrid>.note{
+  display:block!important;
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  width:auto!important;
+  min-width:0;
+  margin:0!important;
+  break-inside:auto;
+  vertical-align:initial;
+}
+#notesGrid>.empty{grid-column:1/-1;display:flex!important;width:100%;box-sizing:border-box}
+@media(max-width:1050px){
+  #notesGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+}
+@media(max-width:760px){
+  #notesGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  #notesGrid>.note{margin:0!important}
+}
+@media(max-width:390px){
+  #notesGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+}
+
+
+
+/* Restore the original thumbnail blur and glass action styling on mobile */
+@media(max-width:760px){
+  #notesGrid .note.has-thumb::before{filter:blur(42px) saturate(.72)!important;transform:scale(1.12)!important;opacity:.18!important}
+  #notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.20)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
+}
+
+
+
+/* Scroll stability only: preserve card visuals and existing blur/glass effects */
+#notesGrid{overflow-anchor:none}
+#notesGrid>.note{contain:layout style}
+
+
+
+/* Mobile note detail: size the sheet to its content instead of the full viewport. */
+@media (max-width:760px){
+  #detailOverlay.overlay{
+    align-items:center!important;
+    justify-content:center!important;
+    padding:max(10px,env(safe-area-inset-top,0px)) 12px max(10px,env(safe-area-inset-bottom,0px))!important;
+    background:#20212455!important;
+  }
+  #detailOverlay #detailDialog.dialog{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:560px!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:calc(100dvh - 20px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    border:1px solid var(--line)!important;
+    border-radius:14px!important;
+    box-shadow:0 12px 36px #0003!important;
+  }
+  #detailOverlay #detailDialog .dialog-body{padding:12px 14px 8px!important}
+  #detailOverlay #detailDialog .dialog-video{margin:10px 0!important;max-height:28dvh}
+  #detailOverlay #detailDialog .detail-section{padding:9px 0!important}
+  #detailOverlay #detailDialog .dialog-actions{
+    position:static!important;
+    flex-shrink:0;
+    padding:8px 10px 10px!important;
+  }
+}
+
+
+/* Keep one clear creation action on mobile: the floating button sits above the bottom navigation. */
+@media (max-width:760px) {
+  #mobileAdd { display:none !important; }
+  .mobile-nav { justify-content:space-around; }
+  .mobile-nav button { flex:1 1 0; min-width:0; }
+  #mobileCreate {
+    right:16px !important;
+    bottom:calc(68px + var(--safe)) !important;
+    width:52px !important;
+    height:52px !important;
+    border-radius:16px !important;
+  }
+  /* Ensure the final modal override does not cancel text-area breathing room. */
+  #detailOverlay #detailDialog .detail-section {
+    padding:12px 14px !important;
+    box-sizing:border-box !important;
+    line-height:1.72 !important;
+    overflow-wrap:anywhere;
+  }
+  #detailOverlay #detailDialog .dialog-actions .action-chip {
+    height:30px !important;
+    min-height:30px !important;
+    padding:0 7px !important;
+    font-size:10px !important;
+  }
+  #detailOverlay #detailDialog .dialog-actions .action-chip svg {
+    width:12px !important;
+    height:12px !important;
+    flex-basis:12px !important;
+  }
+}
+@media (max-width:390px) {
+  #mobileCreate {
+    right:12px !important;
+    bottom:calc(66px + var(--safe)) !important;
+    width:50px !important;
+    height:50px !important;
+  }
+  #detailOverlay #detailDialog .detail-section {
+    padding:11px 12px !important;
+    font-size:13px !important;
+    line-height:1.7 !important;
+  }
+  #detailOverlay #detailDialog .detail-section.memory-section {
+    padding:12px 13px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
@@ -1028,158 +1232,4 @@ window.addEventListener('popstate',function(){if($('detailOverlay').classList.co
 load();
 })();
 </script><script src="public-desktop.js?v=20261028-2" defer></script>
-<style>
-/* Give the note's actual text room to breathe on small screens. */
-@media(max-width:760px){
-  #detailOverlay #detailDialog .detail-section{
-    box-sizing:border-box!important;
-    padding:12px 14px!important;
-    font-size:13.5px!important;
-    line-height:1.75!important;
-    overflow-wrap:anywhere;
-    word-break:normal;
-  }
-  #detailOverlay #detailDialog .memory-section{
-    padding:13px 14px!important;
-    text-align:left;
-  }
-  #detailOverlay #detailDialog .memory-section label{
-    margin-bottom:10px!important;
-    padding-bottom:8px!important;
-    line-height:1.4;
-  }
-  #detailOverlay #detailDialog .moment-section{
-    padding-left:13px!important;
-  }
-}
-@media(max-width:390px){
-  #detailOverlay #detailDialog .detail-section{
-    padding:11px 12px!important;
-    font-size:13px!important;
-    line-height:1.72!important;
-  }
-  #detailOverlay #detailDialog .memory-section{
-    padding:12px 13px!important;
-  }
-}
-</style>
-
 </body></html>
-<style>
-/* Compact sidebar label typography */
-/* Keep the drawer's label list visually compact without shrinking the main navigation. */
-#sidebar .labels .nav{min-height:34px;padding-top:0;padding-bottom:0;gap:14px}
-#sidebar .labels .nav-label{font-size:12px;line-height:1.25;font-weight:400}
-#sidebar .labels .nav.active .nav-label{font-weight:600}
-@media(max-width:760px){#sidebar .labels .nav{min-height:32px}#sidebar .labels .nav-label{font-size:11.5px}}
-</style>
-
-<style>
-/* Tighter, squarer borders for the note action row */
-#detailDialog .dialog-actions .action-chip,
-#detailDialog .dialog-actions .action-chip:hover{
-  height:28px!important;min-height:0!important;padding:0 7px!important;
-  border-width:1px!important;border-radius:4px!important;
-  box-shadow:none!important;
-}
-#detailDialog .dialog-actions .action-chip svg{width:12px;height:12px;flex-basis:12px}
-@media(max-width:760px){
-  #detailDialog .dialog-actions .action-chip,
-  #detailDialog .dialog-actions .action-chip:hover{
-    height:26px!important;min-height:0!important;padding:0 5px!important;
-    border-radius:4px!important;font-size:9.5px!important;
-  }
-  #detailDialog .dialog-actions .action-chip svg{width:11px;height:11px;flex-basis:11px}
-}
-/* Minimal soft-red X close control */
-#detailDialog #closeDetail{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;margin:-2px -2px 0 0;padding:0;border:0;border-radius:0;background:transparent;color:#e58b8b;font-family:Arial,sans-serif;font-size:42px;font-weight:400;line-height:1;box-shadow:none;cursor:pointer;transition:color .16s,transform .16s}
-#detailDialog #closeDetail:hover{background:transparent;border-color:transparent;color:#d96f76;transform:scale(1.08);box-shadow:none}
-#detailDialog #closeDetail:active{transform:scale(.92)}
-#detailDialog #closeDetail:focus-visible{outline:2px solid #e58b8b;outline-offset:2px}
-@media(max-width:760px){#detailDialog #closeDetail{flex-basis:42px;width:42px;height:42px;border-radius:0;font-size:45px}}
-@media(prefers-reduced-motion:reduce){#detailDialog #closeDetail{transition:none}}
-</style>
-
-<style>
-/* Row-first note grid: 1 2, 3 4, 5 6 */
-#notesGrid{
-  display:grid!important;
-  position:relative;
-  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
-  grid-auto-flow:row;
-  align-items:start;
-  gap:12px;
-  columns:unset!important;
-}
-#notesGrid>.note{
-  display:block!important;
-  position:relative!important;
-  left:auto!important;
-  top:auto!important;
-  width:auto!important;
-  min-width:0;
-  margin:0!important;
-  break-inside:auto;
-  vertical-align:initial;
-}
-#notesGrid>.empty{grid-column:1/-1;display:flex!important;width:100%;box-sizing:border-box}
-@media(max-width:1050px){
-  #notesGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-}
-@media(max-width:760px){
-  #notesGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  #notesGrid>.note{margin:0!important}
-}
-@media(max-width:390px){
-  #notesGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-}
-</style>
-
-<style>
-/* Restore the original thumbnail blur and glass action styling on mobile */
-@media(max-width:760px){
-  #notesGrid .note.has-thumb::before{filter:blur(42px) saturate(.72)!important;transform:scale(1.12)!important;opacity:.18!important}
-  #notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.20)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
-}
-</style>
-
-
-<style>
-/* Scroll stability only: preserve card visuals and existing blur/glass effects */
-#notesGrid{overflow-anchor:none}
-#notesGrid>.note{contain:layout style}
-</style>
-
-
-<style>
-/* Mobile note detail: size the sheet to its content instead of the full viewport. */
-@media (max-width:760px){
-  #detailOverlay.overlay{
-    align-items:center!important;
-    justify-content:center!important;
-    padding:max(10px,env(safe-area-inset-top,0px)) 12px max(10px,env(safe-area-inset-bottom,0px))!important;
-    background:#20212455!important;
-  }
-  #detailOverlay #detailDialog.dialog{
-    box-sizing:border-box!important;
-    width:100%!important;
-    max-width:560px!important;
-    height:auto!important;
-    min-height:0!important;
-    max-height:calc(100dvh - 20px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
-    overflow-x:hidden!important;
-    overflow-y:auto!important;
-    border:1px solid var(--line)!important;
-    border-radius:14px!important;
-    box-shadow:0 12px 36px #0003!important;
-  }
-  #detailOverlay #detailDialog .dialog-body{padding:12px 14px 8px!important}
-  #detailOverlay #detailDialog .dialog-video{margin:10px 0!important;max-height:28dvh}
-  #detailOverlay #detailDialog .detail-section{padding:9px 0!important}
-  #detailOverlay #detailDialog .dialog-actions{
-    position:static!important;
-    flex-shrink:0;
-    padding:8px 10px 10px!important;
-  }
-}
-</style>
