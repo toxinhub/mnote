@@ -417,3 +417,65 @@
     gap:9px!important;
   }
 }
+
+
+/* Premium desktop Add section: clearly separated, confident outer frame. */
+@media screen and (min-width:1024px){
+  #composer:not(.open){
+    box-sizing:border-box!important;
+    border:2.5px solid #b7d8c0!important;
+    border-radius:16px!important;
+    background:linear-gradient(135deg,#ffffff 0%,#fbfefb 100%)!important;
+    box-shadow:0 0 0 4px #5eaa790d,0 8px 24px #2b513510!important;
+    padding:12px 14px!important;
+    transition:border-color .18s ease,box-shadow .18s ease,background .18s ease!important;
+  }
+  #composer:not(.open):hover{
+    border-color:#91c6a0!important;
+    box-shadow:0 0 0 4px #5eaa7914,0 10px 28px #2b51351a!important;
+  }
+  #composer:not(.open):focus-within{
+    border-color:#5eaa79!important;
+    box-shadow:0 0 0 4px #5eaa7920,0 8px 24px #2b513514!important;
+  }
+  #composer:not(.open) #quickUrl,
+  #composer:not(.open) #quickTitle{
+    border:1px solid #d9e4dc!important;
+    border-radius:10px!important;
+    background:#fff!important;
+    box-shadow:inset 0 1px 2px #1b392208!important;
+    transition:border-color .16s ease,box-shadow .16s ease!important;
+  }
+  #composer:not(.open) #quickUrl:focus,
+  #composer:not(.open) #quickTitle:focus{
+    border-color:#78b78a!important;
+    box-shadow:0 0 0 3px #5eaa791c!important;
+    outline:none!important;
+  }
+  #composer:not(.open) #expand{
+    border:1px solid #b8d9c1!important;
+    background:#edf7ef!important;
+    box-shadow:0 1px 2px #2b513510!important;
+  }
+  #composer:not(.open) #expand:hover{
+    background:#e1f1e5!important;
+    border-color:#91c6a0!important;
+  }
+  #composer:not(.open) #saveNote{
+    border:1px solid #4f996b!important;
+    border-radius:10px!important;
+    background:linear-gradient(180deg,#6ab783 0%,#559e70 100%)!important;
+    color:#fff!important;
+    box-shadow:0 2px 5px #2b513522!important;
+    transition:transform .16s ease,box-shadow .16s ease,filter .16s ease!important;
+  }
+  #composer:not(.open) #saveNote:hover:not(:disabled){
+    filter:brightness(1.03)!important;
+    box-shadow:0 4px 9px #2b51352b!important;
+    transform:translateY(-1px);
+  }
+  #composer:not(.open) #saveNote:active:not(:disabled){transform:translateY(0)}
+}
+@media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
+  #composer:not(.open),#composer:not(.open) #quickUrl,#composer:not(.open) #quickTitle,#composer:not(.open) #saveNote{transition:none!important}
+}
