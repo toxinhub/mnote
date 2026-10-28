@@ -45,13 +45,16 @@
       active = Math.min(active, Math.max(0, filtered.length - 1));
     }
     input.addEventListener('input', () => { active = 0; renderCommands(); });
-    input.addEventListener('keydown', e => {
+    backdrop.addEventListener('keydown', e => {
       const buttons = all('[data-command]', list);
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : -1) + Math.max(buttons.length, 1)) % Math.max(buttons.length, 1);
+        e.preventDefault();
+        if (!buttons.length) { input.focus(); return; }
+        active = (active + (e.key === 'ArrowDown' ? 1 : -1) + buttons.length) % buttons.length;
+        buttons.forEach((button, i) => button.setAttribute('aria-selected', String(i === active)));
         buttons[active]?.focus();
       } else if (e.key === 'Escape') { e.preventDefault(); closePalette(); }
-      else if (e.key === 'Enter' && buttons.length) { e.preventDefault(); buttons[active]?.click(); }
+      else if (e.key === 'Enter' && e.target === input && buttons.length) { e.preventDefault(); buttons[active]?.click(); }
       else if (e.key === 'Tab') { e.preventDefault(); (buttons[active] || input).focus(); }
     });
     backdrop.addEventListener('click', e => { if (e.target === backdrop) closePalette(); });
