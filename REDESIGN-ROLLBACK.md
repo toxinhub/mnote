@@ -42,6 +42,13 @@ The GitHub backup branch rolls back site code only. It intentionally does not dr
 - `admin-redesign.css`: admin-only responsive styling (the admin page is separate from the public page).
 - This file records the baseline, audit and rollback procedure.
 
+## Current implementation status
+
+- Added the admin-only responsive stylesheet with a mobile bottom navigation bar and a desktop navigation rail.
+- Added the Labels index, derived from existing `entries.tags` data (no new labels table).
+- Added the Activity log view and logging for approve, reject, restore, edit and permanent delete.
+- Bulk actions, swipe gestures with undo, and a full browser-driven visual/workflow regression pass are still outstanding. Do not treat this branch as release-ready until those items are implemented or explicitly scoped out and the browser checks are completed.
+
 ## Required verification before release
 
 - Compare public site at 375px, 390px and 430px before/after; visual and behavior must remain unchanged.
