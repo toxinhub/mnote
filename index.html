@@ -984,3 +984,37 @@ load();
 #notesGrid{overflow-anchor:none}
 #notesGrid>.note{contain:layout style}
 </style>
+
+
+<style>
+/* Mobile note detail: size the sheet to its content instead of the full viewport. */
+@media (max-width:760px){
+  #detailOverlay.overlay{
+    align-items:center!important;
+    justify-content:center!important;
+    padding:max(10px,env(safe-area-inset-top,0px)) 12px max(10px,env(safe-area-inset-bottom,0px))!important;
+    background:#20212455!important;
+  }
+  #detailOverlay #detailDialog.dialog{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:560px!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:calc(100dvh - 20px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    border:1px solid var(--line)!important;
+    border-radius:14px!important;
+    box-shadow:0 12px 36px #0003!important;
+  }
+  #detailOverlay #detailDialog .dialog-body{padding:12px 14px 8px!important}
+  #detailOverlay #detailDialog .dialog-video{margin:10px 0!important;max-height:28dvh}
+  #detailOverlay #detailDialog .detail-section{padding:9px 0!important}
+  #detailOverlay #detailDialog .dialog-actions{
+    position:static!important;
+    flex-shrink:0;
+    padding:8px 10px 10px!important;
+  }
+}
+</style>
