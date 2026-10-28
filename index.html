@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="public-desktop.css?v=20261028-11" media="(min-width: 1024px)">
+<link rel="stylesheet" href="night-mode.css?v=20261028-1">
 <style>
 :root{color-scheme:light;--page:#fff;--surface:#fff;--soft:#f1f3f4;--ink:#202124;--muted:#5f6368;--line:#e0e0e0;--hover:#f1f3f4;--accent:#fbbc04;--focus:#1a73e8;--shadow:0 1px 3px #3c40431a;--safe:env(safe-area-inset-bottom,0px)}
 :root[data-theme=dark]{color-scheme:dark;--page:#202124;--surface:#202124;--soft:#303134;--ink:#e8eaed;--muted:#bdc1c6;--line:#5f6368;--hover:#303134;--focus:#8ab4f8;--shadow:0 1px 4px #0005}
@@ -1158,82 +1159,9 @@
 </style>
 
 
-<style id="night-mode-polish">
-/* Warm charcoal night palette with restrained sage and amber accents. */
-:root[data-theme=dark] {
-  color-scheme:dark;
-  --page:#171a19;--surface:#202422;--soft:#292e2b;--ink:#e8ece8;
-  --muted:#aab4ad;--line:#3a433d;--hover:#2b322d;--accent:#e7c66a;
-  --focus:#a8d2b0;--shadow:0 2px 10px #0005;--surface-2:#303832;
-}
-:root[data-theme=dark] body{background:var(--page);color:var(--ink);transition:background-color .18s ease,color .18s ease}
-:root[data-theme=dark] .topbar{background:var(--surface);border-bottom-color:var(--line)}
-:root[data-theme=dark] .search{background:#292e2b;border-color:#343c36}
-:root[data-theme=dark] .search:focus-within{background:#222724;border-color:#64796a;box-shadow:0 0 0 2px #8ab49a18}
-:root[data-theme=dark] .search input::placeholder,
-:root[data-theme=dark] .field::placeholder,
-:root[data-theme=dark] .compose-title::placeholder{color:#929e96}
-:root[data-theme=dark] .nav.active,
-:root[data-theme=dark] .mobile-nav button.active .mobile-symbol{background:#354239;color:#e4f0e6}
-:root[data-theme=dark] .nav.active .nav-icon{color:#d7e7da}
-:root[data-theme=dark] .mobile-nav{background:#1d211f;border-top-color:#38413b;box-shadow:0 -4px 18px #0002}
-:root[data-theme=dark] .mobile-nav button.active{color:#dce9df}
-:root[data-theme=dark] .sidebar{background:var(--surface);border-right-color:var(--line);box-shadow:8px 0 28px #0006}
-:root[data-theme=dark] .drawer-brand-name{color:#a7d0ad}
-:root[data-theme=dark] .drawer-brand-name span{color:#d3e7b4}
-:root[data-theme=dark] .admin-icon{color:var(--muted);background:#292f2b;border-color:#414a43}
-:root[data-theme=dark] .side-head:hover .label-toggle-icon{background:#2b322d;border-color:#647166}
-:root[data-theme=dark] .composer,
-:root[data-theme=dark] .composer.open,
-:root[data-theme=dark] .dialog{background:var(--surface);border-color:var(--line);box-shadow:0 12px 36px #0005}
-:root[data-theme=dark] .composer:focus-within{box-shadow:0 3px 12px #0004}
-:root[data-theme=dark] .composer.open .compose-head,
-:root[data-theme=dark] .composer.open .compose-foot{background:var(--surface)}
-:root[data-theme=dark] .field:focus{border-bottom-color:#64796a}
-:root[data-theme=dark] .text-btn.primary{background:#e7c66a;color:#282719}
-:root[data-theme=dark] .text-btn.primary:hover{background:#f0d581}
-:root[data-theme=dark] .composer .text-btn#closeComposer{background:#392b2b;color:#f0b8b2}
-:root[data-theme=dark] .composer .text-btn#closeComposer:hover{background:#493333}
-:root[data-theme=dark] #notesGrid .note{border-color:hsl(var(--card-hue,145) 10% 29%);box-shadow:0 1px 2px #0002}
-:root[data-theme=dark] #notesGrid .note:hover,
-:root[data-theme=dark] #notesGrid .note:focus-within{border-color:#66766a;box-shadow:0 4px 16px #0004}
-:root[data-theme=dark] #notesGrid .note:not(.has-thumb){background:linear-gradient(145deg,#252b27,#202422 78%)}
-:root[data-theme=dark] #notesGrid .note .pin.pinned{color:#e7c66a}
-:root[data-theme=dark] .note-actions .round:hover,
-:root[data-theme=dark] .round:hover,
-:root[data-theme=dark] .menu-btn:hover{background:#343c36}
-:root[data-theme=dark] .tag,
-:root[data-theme=dark] .mood{background:#2a322c;border-color:#465448;color:#c6dec9}
-:root[data-theme=dark] .tag:hover{background:#354239}
-:root[data-theme=dark] .play{background:#101412d9;box-shadow:0 2px 8px #0005}
-:root[data-theme=dark] .empty-icon{border-color:#414a43;color:#aeb9b0}
-:root[data-theme=dark] .overlay{background:#080b09b8}
-:root[data-theme=dark] #detailOverlay #detailDialog .detail-hero{background:linear-gradient(135deg,#2a332c,#222724 76%);border-color:#3b493e}
-:root[data-theme=dark] #detailOverlay #detailDialog .detail-hero:after{background:#7b9c7f;opacity:.32}
-:root[data-theme=dark] #detailOverlay #detailDialog .detail-kicker-icon{background:#354239;color:#c5dfc8}
-:root[data-theme=dark] #detailOverlay #detailDialog .detail-section{background:#252b27;border-color:#38413a}
-:root[data-theme=dark] #detailOverlay #detailDialog .memory-section{background:linear-gradient(135deg,#2a352d,#242a26);border-color:#3b4a3e}
-:root[data-theme=dark] #detailOverlay #detailDialog .moment-section{border-left-color:#b5a06a}
-:root[data-theme=dark] #detailOverlay #detailDialog .tag{background:#2b352e;border-color:#465448;color:#c9e0cb}
-:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions{background:#202522;border-top:1px solid #343d36}
-:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .action-chip{background:#282f2a;border-color:#414b43;color:#e1e9e2}
-:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .action-chip:hover{background:#354039;border-color:#68786b}
-:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .youtube-chip svg{color:#ff7777}
-:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .music-chip svg{color:#ff8195}
-:root[data-theme=dark] #detailOverlay #detailDialog #closeDetail{color:#e7a0a0}
-:root[data-theme=dark] #detailOverlay #detailDialog #closeDetail:hover{color:#ffc0b8}
-:root[data-theme=dark] .toast{background:#e3e9e4;color:#202622;box-shadow:0 4px 16px #0005}
-:root[data-theme=dark] ::selection{background:#49644f;color:#fff}
-:root[data-theme=dark] input,
-:root[data-theme=dark] textarea{accent-color:#a8c8a8}
-#themeBtn{transition:background-color .18s ease,color .18s ease,transform .18s ease}
-#themeBtn .theme-icon{transition:transform .22s ease,color .18s ease}
-#themeBtn:active .theme-icon{transform:rotate(-18deg) scale(.92)}
-:root[data-theme=dark] #themeBtn{color:#e7c66a;background:#30332b}
-:root[data-theme=dark] #themeBtn:hover{background:#3a4033}
-@media(prefers-reduced-motion:reduce){:root[data-theme=dark] body,#themeBtn,#themeBtn .theme-icon{transition:none!important}}
-</style>
 
+
+<style id="night-mode-reduced-motion-compat">@media(prefers-reduced-motion:reduce){}</style>
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
