@@ -112,3 +112,23 @@
   .labels-list{grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:10px}
   .label-row{padding:14px}
 }
+
+
+.bulk-bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 12px;margin:0 0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.bulk-select{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600}
+.bulk-select input,.entry-select input{accent-color:var(--focus)}
+#selected-count{color:var(--muted);font-size:11px;margin-right:auto}
+.bulk-bar .btn{min-height:32px;padding:6px 10px;font-size:11px}
+.entry-select{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:10px;cursor:pointer}
+.entry-select input{width:15px;height:15px;margin:0}
+.entry-card-top{align-items:center}
+.undo-toast{position:fixed;z-index:80;left:50%;bottom:calc(18px + var(--safe));transform:translateX(-50%);display:flex;align-items:center;gap:14px;max-width:calc(100vw - 24px);padding:10px 12px 10px 15px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 8px 32px #0002;font-size:12px}
+.undo-toast .btn{flex:0 0 auto;min-height:32px;padding:6px 11px;font-weight:700}
+@media (min-width:1024px){.undo-toast{left:auto;right:26px;bottom:24px;transform:none}}
+@media (max-width:600px){
+ .bulk-bar{gap:7px;padding:9px;margin-bottom:9px}
+ #selected-count{margin-right:0;flex:1}
+ .bulk-bar .btn{min-height:34px;padding:7px 9px}
+ .entry-select{min-height:28px}
+ .undo-toast{bottom:calc(76px + var(--safe));width:max-content}
+}
