@@ -907,11 +907,11 @@ load();
 </style>
 
 <style>
-/* Refined note close control */
-#detailDialog #closeDetail{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;margin:-2px -2px 0 0;padding:0;border:1px solid color-mix(in srgb,var(--detail-accent,var(--line)) 20%,var(--line));border-radius:12px;background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--ink);font-family:Arial,sans-serif;font-size:26px;font-weight:400;line-height:1;box-shadow:0 2px 7px #00000008;cursor:pointer;transition:background .16s,border-color .16s,color .16s,transform .16s,box-shadow .16s}
-#detailDialog #closeDetail:hover{background:var(--soft);border-color:color-mix(in srgb,hsl(var(--detail-hue,42) 45% 48%) 45%,var(--line));transform:rotate(90deg);box-shadow:0 3px 10px #00000010}
-#detailDialog #closeDetail:active{transform:scale(.94)}
-#detailDialog #closeDetail:focus-visible{outline:2px solid hsl(var(--detail-hue,42) 48% 52%);outline-offset:3px}
-@media(max-width:760px){#detailDialog #closeDetail{flex-basis:42px;width:42px;height:42px;border-radius:13px;font-size:27px}}
+/* Minimal soft-red X close control */
+#detailDialog #closeDetail{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;margin:-2px -2px 0 0;padding:0;border:0;border-radius:0;background:transparent;color:#e58b8b;font-family:Arial,sans-serif;font-size:36px;font-weight:400;line-height:1;box-shadow:none;cursor:pointer;transition:color .16s,transform .16s}
+#detailDialog #closeDetail:hover{background:transparent;border-color:transparent;color:#d96f76;transform:scale(1.08);box-shadow:none}
+#detailDialog #closeDetail:active{transform:scale(.92)}
+#detailDialog #closeDetail:focus-visible{outline:2px solid #e58b8b;outline-offset:2px}
+@media(max-width:760px){#detailDialog #closeDetail{flex-basis:42px;width:42px;height:42px;border-radius:0;font-size:39px}}
 @media(prefers-reduced-motion:reduce){#detailDialog #closeDetail{transition:none}}
 </style>
