@@ -783,6 +783,38 @@
   #detailDialog .dialog-actions{gap:4px;padding-left:8px;padding-right:8px}
   #detailDialog .dialog-actions .action-chip,#detailDialog .dialog-actions .action-chip:hover{padding:0 7px!important;font-size:10px!important}
 }
+/* Keep the five modal actions on one compact row on phones. */
+@media(max-width:760px){
+  #detailDialog .dialog-actions{
+    flex-wrap:nowrap;
+    justify-content:space-between;
+    gap:3px;
+    padding-left:8px;
+    padding-right:8px;
+  }
+  #detailDialog .dialog-actions .action-chip,
+  #detailDialog .dialog-actions .action-chip:hover{
+    flex:0 1 auto;
+    min-width:0;
+    white-space:nowrap;
+    gap:4px;
+    padding-left:6px!important;
+    padding-right:6px!important;
+    font-size:10px!important;
+  }
+  #detailDialog .dialog-actions .action-chip svg{width:12px;height:12px;flex-basis:12px}
+}
+@media(max-width:390px){
+  #detailDialog .dialog-actions{gap:2px;padding-left:6px;padding-right:6px}
+  #detailDialog .dialog-actions .action-chip,
+  #detailDialog .dialog-actions .action-chip:hover{
+    gap:3px;
+    padding-left:4px!important;
+    padding-right:4px!important;
+    font-size:9.5px!important;
+  }
+  #detailDialog .dialog-actions .action-chip svg{width:11px;height:11px;flex-basis:11px}
+}
 @media(prefers-reduced-motion:reduce){#detailDialog,#detailDialog .tag,#detailDialog .dialog-actions .action-chip{animation:none!important;transition:none!important}}
 
 </style>
