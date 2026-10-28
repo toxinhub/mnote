@@ -825,6 +825,49 @@
 
 </style>
 
+
+<style id="mobile-note-content-spacing-fix">
+/* Definitive mobile note text spacing rules, kept inside <head> for reliable application. */
+@media (max-width:760px) {
+  #detailOverlay #detailDialog .detail-section,
+  #detailOverlay #detailDialog .detail-section.memory-section,
+  #detailOverlay #detailDialog .detail-section.moment-section,
+  #detailOverlay #detailDialog .detail-section.mood-section {
+    box-sizing: border-box !important;
+    padding: 12px 14px !important;
+    font-size: 13.5px !important;
+    line-height: 1.75 !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  #detailOverlay #detailDialog .detail-section label {
+    display: block;
+    margin: 0 0 10px !important;
+    padding-bottom: 8px !important;
+    line-height: 1.4 !important;
+  }
+  #detailOverlay #detailDialog .detail-section.memory-section {
+    text-align: left;
+  }
+  #detailOverlay #detailDialog .detail-section.moment-section {
+    padding-left: 14px !important;
+  }
+}
+@media (max-width:390px) {
+  #detailOverlay #detailDialog .detail-section,
+  #detailOverlay #detailDialog .detail-section.memory-section,
+  #detailOverlay #detailDialog .detail-section.moment-section,
+  #detailOverlay #detailDialog .detail-section.mood-section {
+    padding: 11px 12px !important;
+    font-size: 13px !important;
+    line-height: 1.72 !important;
+  }
+  #detailOverlay #detailDialog .detail-section.memory-section {
+    padding: 12px 13px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
