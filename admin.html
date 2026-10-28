@@ -352,10 +352,10 @@
   if(busy)return;setBusy(true);
   try{
    const {data,error}=await db.from("entries").update({status:next}).eq("id",id).select("id").maybeSingle();
-   if(error){msg("#msg","Action failed: "+error.message,true);return}
-   if(!data){msg("#msg","Action failed: no entry was updated. Check admin write permissions.",true);return}
-   const entry=rows.find(x=>String(x.id)===String(id));const action=next==="approved"?"approve":next==="rejected"?"reject":"restore";const logged=await logActivity(action,entry,{from:entry&&entry.status||"unknown",to:next});msg("#msg",logged?"Entry moved to "+next+".":"Entry moved to "+next+", but the activity log could not be saved.",!logged);await load(true);
-  }catch(err){msg("#msg","Action failed: "+(err?.message||"Unknown error"),true)}
+   if(error){msg("#msg","Action failed: "+error.message,true);return false}
+   if(!data){msg("#msg","Action failed: no entry was updated. Check admin write permissions.",true);return false}
+   const entry=rows.find(x=>String(x.id)===String(id));const action=next==="approved"?"approve":next==="rejected"?"reject":"restore";const logged=await logActivity(action,entry,{from:entry&&entry.status||"unknown",to:next});msg("#msg",logged?"Entry moved to "+next+".":"Entry moved to "+next+", but the activity log could not be saved.",!logged);await load(true);return true;
+  }catch(err){msg("#msg","Action failed: "+(err?.message||"Unknown error"),true);return false}
   finally{setBusy(false)}
  }
  $("#login-form").addEventListener("submit",async e=>{
