@@ -47,7 +47,8 @@ The GitHub backup branch rolls back site code only. It intentionally does not dr
 - Added the admin-only responsive stylesheet with a mobile bottom navigation bar and a desktop navigation rail.
 - Added the Labels index, derived from existing `entries.tags` data (no new labels table).
 - Added the Activity log view and logging for approve, reject, restore, edit and permanent delete.
-- Bulk actions, swipe gestures with undo, and a full browser-driven visual/workflow regression pass are still outstanding. Do not treat this branch as release-ready until those items are implemented or explicitly scoped out and the browser checks are completed.
+- Bulk approve/reject, swipe-to-approve/reject with undo, keyboard shortcuts for selected bulk actions, and source-level CI checks are implemented. The CI run passed on the latest checked commit.
+- Full browser-driven visual regression at 390px/desktop widths and authenticated admin/Supabase workflow testing are still outstanding. Do not merge this draft PR until those checks have been run in a real browser session.
 
 ## Required verification before release
 
