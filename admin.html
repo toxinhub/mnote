@@ -221,7 +221,7 @@
  
  async function logActivity(action,r,details={}){
   if(!adminUserId)return false;
-  try{const {error}=await db.from("admin_activity_log").insert({actor_id:adminUserId,action,entry_id:action==="delete"?null:(r&&r.id||null),entry_title:String(r&&r.title||"Untitled entry").slice(0,180),details});if(error)throw error;return true}
+  try{const {error}=await db.from("admin_activity_log").insert({actor_id:adminUserId,action,entry_id:action==="delete"?null:(r&&r.id||null),entry_title:(action.startsWith("bulk_")?String(details.count||0)+" entries":String(r&&r.title||"Untitled entry")).slice(0,180),details});if(error)throw error;return true}
   catch(err){console.error("Activity log write failed",err);return false}
  }
  function renderLabels(){
@@ -480,7 +480,6 @@
   if(!undoState||busy)return;const state=undoState;undoState=null;
   if(undoTimer)clearTimeout(undoTimer);$("#undo-toast").classList.add("hidden");
   await statusUpdate(state.id,state.previous);
-  msg("#msg","Undo applied: "+state.title+" returned to "+state.previous+".");
  });
 
  document.addEventListener("keydown",e=>{
