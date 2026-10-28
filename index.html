@@ -976,3 +976,10 @@ load();
   #notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.20)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
 }
 </style>
+
+
+<style>
+/* Scroll stability only: preserve card visuals and existing blur/glass effects */
+#notesGrid{overflow-anchor:none}
+#notesGrid>.note{contain:layout style}
+</style>
