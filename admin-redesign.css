@@ -88,7 +88,7 @@
   #list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   #activity-view .list-head{margin-top:1px}
 }
-@media (min-width:1500px){
+@media (min-width:1280px){
   #workspace{grid-template-columns:230px minmax(0,1fr);column-gap:32px}
   #list{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 }
