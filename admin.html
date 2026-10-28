@@ -469,8 +469,7 @@
   if(Math.abs(dx)<105||Math.abs(dx)<Math.abs(dy)*1.35||busy)return;
   const next=dx>0?"approved":"rejected";
   if(next==="rejected"&&!confirm('Reject "'+start.title+'"?'))return;
-  await statusUpdate(start.id,next);
-  showUndo(start.id,start.status,start.title,next);
+  if(await statusUpdate(start.id,next))showUndo(start.id,start.status,start.title,next);
  },{passive:true});
  function showUndo(id,previous,title,action){
   const toast=$("#undo-toast");if(undoTimer)clearTimeout(undoTimer);
