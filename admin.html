@@ -436,7 +436,7 @@
   const activityTab=e.target.closest("[data-view=\"activity\"]");
   if(activityTab){all("[data-status]").forEach(t=>{t.classList.remove("active");t.setAttribute("aria-selected","false")});all("[data-view]").forEach(t=>{t.classList.toggle("active",t===activityTab);t.setAttribute("aria-selected",String(t===activityTab))});$("#entries-view").classList.add("hidden");$("#activity-view").classList.remove("hidden");loadActivity();return}
   const tab=e.target.closest("[data-status]");
-  if(tab){status=tab.dataset.status;render();return}
+  if(tab){status=tab.dataset.status;selectedIds.clear();render();return}
   if(e.target.closest("#clear-search")){$("#entry-search").value="";render();return}
   const b=e.target.closest("[data-act]");if(!b||busy)return;
   const id=b.dataset.id,action=b.dataset.act,r=rows.find(x=>String(x.id)===String(id));
