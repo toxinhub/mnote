@@ -354,3 +354,27 @@
 @media screen and (min-width:1024px) and (max-width:1279px){
   #composer:not(.open){grid-template-columns:42px minmax(200px,1fr) auto!important;gap:10px!important}
 }
+
+
+/* Fix: keep the plus button's wrapper in layout; only hide the secondary link button. */
+@media screen and (min-width:1024px){
+  #composer:not(.open) .compose-tools{display:contents!important}
+  #composer:not(.open) #expand{
+    display:grid!important;
+    visibility:visible!important;
+    opacity:1!important;
+    position:relative!important;
+    z-index:2!important;
+    grid-column:1!important;
+    grid-row:1!important;
+    width:42px!important;
+    height:42px!important;
+    min-width:42px!important;
+    min-height:42px!important;
+    color:var(--ink)!important;
+    background:var(--soft)!important;
+    font-size:27px!important;
+    line-height:1!important;
+  }
+  #composer:not(.open) #quickLink{display:none!important}
+}
