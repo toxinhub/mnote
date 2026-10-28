@@ -479,3 +479,26 @@
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
   #composer:not(.open),#composer:not(.open) #quickUrl,#composer:not(.open) #quickTitle,#composer:not(.open) #saveNote{transition:none!important}
 }
+
+
+/* Visibility fix: force a clear outer frame on the desktop quick-add section. */
+@media (min-width:1024px){
+  body #composer.composer:not(.open){
+    border:3px solid #8fbd9a!important;
+    outline:1px solid #d4e8d8!important;
+    outline-offset:2px!important;
+    border-radius:14px!important;
+    background:#fbfefb!important;
+    box-shadow:0 3px 12px rgba(42,82,53,.10)!important;
+    padding:10px 12px!important;
+  }
+  body #composer.composer:not(.open):hover{
+    border-color:#79ad87!important;
+    box-shadow:0 4px 15px rgba(42,82,53,.14)!important;
+  }
+  body #composer.composer:not(.open):focus-within{
+    border-color:#5eaa79!important;
+    outline-color:#c4e2cb!important;
+    box-shadow:0 0 0 3px rgba(94,170,121,.15),0 4px 14px rgba(42,82,53,.12)!important;
+  }
+}
