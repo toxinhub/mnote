@@ -112,6 +112,9 @@
  #edit-form>.actions .save-hint{display:none}
  #edit-form>.actions .btn{flex:1}
 }
+
+/* Keep the edit footer inside very narrow phone screens. */
+@media(max-width:360px){#edit-form>.actions{gap:6px;padding-inline:8px}#edit-form>.actions .save-hint{display:none}#edit-form>.actions .btn{flex:1 1 0;min-width:0;padding-inline:6px}#edit-form>.actions #cancel{margin-left:0}}
 </style></head><body><div class="wrap"><header class="top"><b>SurKhata <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
