@@ -309,7 +309,14 @@
  });
  document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(!$("#workspace").classList.contains("hidden"))$("#entry-search").focus()}
-  if(e.key==="Escape"&&$("#modal").classList.contains("open"))closeEdit();
+  if(e.key==="Escape"&&$("#modal").classList.contains("open")){e.preventDefault();closeEdit();return}
+  if(e.key==="Tab"&&$("#modal").classList.contains("open")){
+   const dialog=$("#edit-form"),focusable=Array.from(dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')).filter(el=>!el.closest(".hidden")&&el.getClientRects().length);
+   if(!focusable.length){e.preventDefault();return}
+   const first=focusable[0],last=focusable[focusable.length-1],active=document.activeElement;
+   if(e.shiftKey&&(active===first||!dialog.contains(active))){e.preventDefault();last.focus()}
+   else if(!e.shiftKey&&(active===last||!dialog.contains(active))){e.preventDefault();first.focus()}
+  }
  });
  db.auth.getSession().then(({data,error})=>{if(error){msg("#login-msg","Could not restore your session: "+error.message,true);return}if(data.session)verify(data.session.user)}).catch(err=>msg("#login-msg","Could not restore your session: "+(err?.message||"Unknown error"),true));
  db.auth.onAuthStateChange((ev)=>{if(ev==="SIGNED_OUT"){$("#workspace").classList.add("hidden");$("#login").classList.remove("hidden");$("#password").value="";closeEdit()}});
