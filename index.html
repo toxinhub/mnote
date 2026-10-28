@@ -1157,6 +1157,83 @@
 }
 </style>
 
+
+<style id="night-mode-polish">
+/* Warm charcoal night palette with restrained sage and amber accents. */
+:root[data-theme=dark] {
+  color-scheme:dark;
+  --page:#171a19;--surface:#202422;--soft:#292e2b;--ink:#e8ece8;
+  --muted:#aab4ad;--line:#3a433d;--hover:#2b322d;--accent:#e7c66a;
+  --focus:#a8d2b0;--shadow:0 2px 10px #0005;--surface-2:#303832;
+}
+:root[data-theme=dark] body{background:var(--page);color:var(--ink);transition:background-color .18s ease,color .18s ease}
+:root[data-theme=dark] .topbar{background:var(--surface);border-bottom-color:var(--line)}
+:root[data-theme=dark] .search{background:#292e2b;border-color:#343c36}
+:root[data-theme=dark] .search:focus-within{background:#222724;border-color:#64796a;box-shadow:0 0 0 2px #8ab49a18}
+:root[data-theme=dark] .search input::placeholder,
+:root[data-theme=dark] .field::placeholder,
+:root[data-theme=dark] .compose-title::placeholder{color:#929e96}
+:root[data-theme=dark] .nav.active,
+:root[data-theme=dark] .mobile-nav button.active .mobile-symbol{background:#354239;color:#e4f0e6}
+:root[data-theme=dark] .nav.active .nav-icon{color:#d7e7da}
+:root[data-theme=dark] .mobile-nav{background:#1d211f;border-top-color:#38413b;box-shadow:0 -4px 18px #0002}
+:root[data-theme=dark] .mobile-nav button.active{color:#dce9df}
+:root[data-theme=dark] .sidebar{background:var(--surface);border-right-color:var(--line);box-shadow:8px 0 28px #0006}
+:root[data-theme=dark] .drawer-brand-name{color:#a7d0ad}
+:root[data-theme=dark] .drawer-brand-name span{color:#d3e7b4}
+:root[data-theme=dark] .admin-icon{color:var(--muted);background:#292f2b;border-color:#414a43}
+:root[data-theme=dark] .side-head:hover .label-toggle-icon{background:#2b322d;border-color:#647166}
+:root[data-theme=dark] .composer,
+:root[data-theme=dark] .composer.open,
+:root[data-theme=dark] .dialog{background:var(--surface);border-color:var(--line);box-shadow:0 12px 36px #0005}
+:root[data-theme=dark] .composer:focus-within{box-shadow:0 3px 12px #0004}
+:root[data-theme=dark] .composer.open .compose-head,
+:root[data-theme=dark] .composer.open .compose-foot{background:var(--surface)}
+:root[data-theme=dark] .field:focus{border-bottom-color:#64796a}
+:root[data-theme=dark] .text-btn.primary{background:#e7c66a;color:#282719}
+:root[data-theme=dark] .text-btn.primary:hover{background:#f0d581}
+:root[data-theme=dark] .composer .text-btn#closeComposer{background:#392b2b;color:#f0b8b2}
+:root[data-theme=dark] .composer .text-btn#closeComposer:hover{background:#493333}
+:root[data-theme=dark] #notesGrid .note{border-color:hsl(var(--card-hue,145) 10% 29%);box-shadow:0 1px 2px #0002}
+:root[data-theme=dark] #notesGrid .note:hover,
+:root[data-theme=dark] #notesGrid .note:focus-within{border-color:#66766a;box-shadow:0 4px 16px #0004}
+:root[data-theme=dark] #notesGrid .note:not(.has-thumb){background:linear-gradient(145deg,#252b27,#202422 78%)}
+:root[data-theme=dark] #notesGrid .note .pin.pinned{color:#e7c66a}
+:root[data-theme=dark] .note-actions .round:hover,
+:root[data-theme=dark] .round:hover,
+:root[data-theme=dark] .menu-btn:hover{background:#343c36}
+:root[data-theme=dark] .tag,
+:root[data-theme=dark] .mood{background:#2a322c;border-color:#465448;color:#c6dec9}
+:root[data-theme=dark] .tag:hover{background:#354239}
+:root[data-theme=dark] .play{background:#101412d9;box-shadow:0 2px 8px #0005}
+:root[data-theme=dark] .empty-icon{border-color:#414a43;color:#aeb9b0}
+:root[data-theme=dark] .overlay{background:#080b09b8}
+:root[data-theme=dark] #detailOverlay #detailDialog .detail-hero{background:linear-gradient(135deg,#2a332c,#222724 76%);border-color:#3b493e}
+:root[data-theme=dark] #detailOverlay #detailDialog .detail-hero:after{background:#7b9c7f;opacity:.32}
+:root[data-theme=dark] #detailOverlay #detailDialog .detail-kicker-icon{background:#354239;color:#c5dfc8}
+:root[data-theme=dark] #detailOverlay #detailDialog .detail-section{background:#252b27;border-color:#38413a}
+:root[data-theme=dark] #detailOverlay #detailDialog .memory-section{background:linear-gradient(135deg,#2a352d,#242a26);border-color:#3b4a3e}
+:root[data-theme=dark] #detailOverlay #detailDialog .moment-section{border-left-color:#b5a06a}
+:root[data-theme=dark] #detailOverlay #detailDialog .tag{background:#2b352e;border-color:#465448;color:#c9e0cb}
+:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions{background:#202522;border-top:1px solid #343d36}
+:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .action-chip{background:#282f2a;border-color:#414b43;color:#e1e9e2}
+:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .action-chip:hover{background:#354039;border-color:#68786b}
+:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .youtube-chip svg{color:#ff7777}
+:root[data-theme=dark] #detailOverlay #detailDialog .dialog-actions .music-chip svg{color:#ff8195}
+:root[data-theme=dark] #detailOverlay #detailDialog #closeDetail{color:#e7a0a0}
+:root[data-theme=dark] #detailOverlay #detailDialog #closeDetail:hover{color:#ffc0b8}
+:root[data-theme=dark] .toast{background:#e3e9e4;color:#202622;box-shadow:0 4px 16px #0005}
+:root[data-theme=dark] ::selection{background:#49644f;color:#fff}
+:root[data-theme=dark] input,
+:root[data-theme=dark] textarea{accent-color:#a8c8a8}
+#themeBtn{transition:background-color .18s ease,color .18s ease,transform .18s ease}
+#themeBtn .theme-icon{transition:transform .22s ease,color .18s ease}
+#themeBtn:active .theme-icon{transform:rotate(-18deg) scale(.92)}
+:root[data-theme=dark] #themeBtn{color:#e7c66a;background:#30332b}
+:root[data-theme=dark] #themeBtn:hover{background:#3a4033}
+@media(prefers-reduced-motion:reduce){:root[data-theme=dark] body,#themeBtn,#themeBtn .theme-icon{transition:none!important}}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
@@ -1223,7 +1300,7 @@ $('quickTags').addEventListener('keydown',function(ev){if(ev.key==='ArrowDown'&&
 $('labelSuggestions').addEventListener('pointerdown',function(ev){const item=ev.target.closest('[data-label-suggestion]');if(item){ev.preventDefault();chooseLabelSuggestion(item.dataset.labelSuggestion)}});
 document.addEventListener('click',function(ev){if(!ev.target.closest('.label-suggest-wrap'))hideLabelSuggestions()});
 $('menuBtn').onclick=menuToggle;$('backdrop').onclick=closeSidebar;$('search').oninput=render;$('clearSearch').onclick=function(){$('search').value='';render();$('search').focus()};$('refresh').onclick=load;$('expand').onclick=showComposer;$('quickTitle').onclick=function(){if(!composerOpen)showComposer()};$('quickLink').onclick=function(){showComposer();$('quickUrl').focus()};$('mobileAdd').onclick=showComposer;$('mobileCreate').onclick=showComposer;$('closeComposer').onclick=hideComposer;$('saveNote').onclick=saveNote;function toggleLabels(){const head=$('labelsToggle'),opened=$('labels').classList.toggle('labels-open');head.classList.toggle('labels-open',opened);head.setAttribute('aria-expanded',String(opened))}$('labelsToggle').onclick=toggleLabels;$('labelsToggle').onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggleLabels()}};
-function syncThemeButton(){const dark=document.documentElement.getAttribute('data-theme')==='dark';const btn=$('themeBtn');btn.querySelector('.theme-icon').textContent=dark?'☀':'☾';btn.title=dark?'Switch to light mode':'Switch to dark mode';btn.setAttribute('aria-label',btn.title)}
+function syncThemeButton(){const dark=document.documentElement.getAttribute('data-theme')==='dark';const btn=$('themeBtn');btn.querySelector('.theme-icon').textContent=dark?'☀':'☾';btn.title=dark?'Switch to light mode':'Switch to dark mode';btn.setAttribute('aria-label',btn.title);const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',dark?'#171a19':'#ffffff')}
  $('themeBtn').onclick=function(){const dark=document.documentElement.getAttribute('data-theme')==='dark';if(dark)document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('mnote:theme',dark?'light':'dark')}catch(e){}syncThemeButton()};
 try{if(localStorage.getItem('mnote:theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}syncThemeButton();
 document.addEventListener('click',function(ev){const player=ev.target.closest('[data-inline-play]');if(player){ev.preventDefault();ev.stopPropagation();const video=String(player.dataset.inlinePlay||'').trim();if(/^[A-Za-z0-9_-]{6,20}$/.test(video)){const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(video)+'?autoplay=1&playsinline=1&rel=0';frame.title='YouTube video player';frame.loading='lazy';frame.referrerPolicy='strict-origin-when-cross-origin';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;frame.setAttribute('allowfullscreen','');player.replaceChildren(frame);player.classList.add('is-playing');player.removeAttribute('role');player.removeAttribute('tabindex');player.removeAttribute('data-inline-play')}return}const v=ev.target.closest('[data-view]');if(v){setView(v.dataset.view);return}const lb=ev.target.closest('[data-label]');if(lb){label=lb.dataset.label;view='all';closeSidebar();render();return}const tg=ev.target.closest('[data-tag]');if(tg){label=tg.dataset.tag;view='all';toggleModal(false);render();return}const pin=ev.target.closest('[data-pin]');if(pin){ev.preventDefault();ev.stopPropagation();togglePin(String(pin.dataset.pin));return}const co=ev.target.closest('[data-color-open]');if(co){ev.preventDefault();ev.stopPropagation();openDetail(String(co.dataset.colorOpen));return}const ar=ev.target.closest('[data-archive]');if(ar){ev.preventDefault();ev.stopPropagation();archiveNote(String(ar.dataset.archive));return}const ua=ev.target.closest('[data-unarchive]');if(ua){ev.preventDefault();ev.stopPropagation();archived.delete(String(ua.dataset.unarchive));saveSet('mnote:archived',archived);render();toast('Moved back to Notes');return}const tr=ev.target.closest('[data-trash]');if(tr){ev.preventDefault();ev.stopPropagation();const id=String(tr.dataset.trash);trashed.add(id);archived.delete(id);saveSet('mnote:trash',trashed);saveSet('mnote:archived',archived);render();toast('Moved to Trash');return}const rs=ev.target.closest('[data-restore]');if(rs){ev.preventDefault();ev.stopPropagation();trashed.delete(String(rs.dataset.restore));saveSet('mnote:trash',trashed);render();toast('Note restored');return}const del=ev.target.closest('[data-delete]');if(del){ev.preventDefault();ev.stopPropagation();if(confirm('Remove this note from this device’s Trash list?')){const id=String(del.dataset.delete);trashed.delete(id);archived.delete(id);saveSet('mnote:trash',trashed);saveSet('mnote:archived',archived);render();toast('Removed from this device’s Trash list')}return}const cp=ev.target.closest('[data-copy]');if(cp){ev.preventDefault();ev.stopPropagation();const e=entries.find(function(x){return String(x.id)===String(cp.dataset.copy)});copyLink(e&&e.song_url);return}const op=ev.target.closest('[data-open]');if(op&&!ev.target.closest('a')&&(!ev.target.closest('button')||ev.target.closest('[data-open]'))){openDetail(String(op.dataset.open));return}if(ev.target===$('detailOverlay'))toggleModal(false);if(ev.target.id==='retry')load()});
