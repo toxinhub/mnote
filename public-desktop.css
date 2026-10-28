@@ -296,3 +296,61 @@
 @media screen and (min-width:1024px) and (max-width:1279px){
   #composer:not(.open){grid-template-columns:minmax(160px,.9fr) minmax(220px,1.25fr) auto!important;gap:9px!important}
 }
+
+
+/* Desktop quick-add requested: plus, link paste field, submit. Mobile remains untouched. */
+@media screen and (min-width:1024px){
+  #composer:not(.open){
+    display:grid!important;
+    grid-template-columns:44px minmax(260px,1fr) auto!important;
+    align-items:center!important;
+    gap:12px!important;
+    width:100%!important;
+    max-width:900px!important;
+    min-height:68px!important;
+    margin:0 auto 28px!important;
+    padding:12px 14px!important;
+  }
+  #composer:not(.open)>.compose-head{display:contents!important}
+  #composer:not(.open) #quickTitle{display:none!important}
+  #composer:not(.open) .compose-mark,
+  #composer:not(.open) #quickLink,
+  #composer:not(.open) .compose-tools{display:none!important}
+  #composer:not(.open) #expand{
+    display:grid!important;
+    grid-column:1!important;grid-row:1!important;
+    place-items:center!important;
+    width:42px!important;height:42px!important;
+    border:1px solid var(--line)!important;border-radius:50%!important;
+    background:var(--soft)!important;color:var(--ink)!important;
+    font-size:26px!important;line-height:1!important;
+  }
+  #composer:not(.open) #expand:hover{background:var(--hover)!important}
+  #composer:not(.open)>.compose-body{display:contents!important}
+  #composer:not(.open) #composeBody>.form-group:first-child{
+    display:block!important;grid-column:2!important;grid-row:1!important;
+    min-width:0!important;margin:0!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:first-child .form-label,
+  #composer:not(.open) #linkStatus{display:none!important}
+  #composer:not(.open) #quickUrl{
+    display:block!important;width:100%!important;min-width:0!important;min-height:44px!important;
+    margin:0!important;padding:0 14px!important;border:1px solid var(--line)!important;
+    border-radius:10px!important;background:var(--page)!important;font-size:14px!important;
+  }
+  #composer:not(.open) #quickUrl::placeholder{color:var(--muted)}
+  #composer:not(.open) #quickUrl:focus{border-color:var(--focus)!important}
+  #composer:not(.open) #composeBody>.form-group:not(:first-child){display:none!important}
+  #composer:not(.open) .compose-foot{display:contents!important}
+  #composer:not(.open) .compose-foot small,
+  #composer:not(.open) #closeComposer{display:none!important}
+  #composer:not(.open) #saveNote{
+    display:inline-flex!important;grid-column:3!important;grid-row:1!important;
+    align-items:center!important;justify-content:center!important;
+    min-height:44px!important;margin:0!important;padding:0 20px!important;
+    border-radius:10px!important;white-space:nowrap!important;font-size:13px!important;font-weight:600!important;
+  }
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #composer:not(.open){grid-template-columns:42px minmax(200px,1fr) auto!important;gap:10px!important}
+}
