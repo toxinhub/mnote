@@ -1,0 +1,148 @@
+/* Public desktop redesign only. Loaded with media="(min-width: 1024px)". */
+@media (min-width: 1024px) {
+  :root { --desktop-side: 258px; }
+  html { scroll-padding-top: 78px; }
+  body { background: var(--page); }
+  .topbar {
+    height: 64px;
+    padding: 0 24px;
+    gap: 12px;
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .brand { min-width: 178px; }
+  .brand-name { font-size: 21px; }
+  .search { max-width: 760px; height: 42px; border-radius: 12px; }
+  .app { min-height: calc(100vh - 64px); --side: var(--desktop-side); }
+  .sidebar {
+    top: 64px;
+    height: calc(100vh - 64px);
+    padding: 14px 0 28px;
+    border-right: 1px solid var(--line);
+    background: var(--surface);
+    transition: width .18s ease, flex-basis .18s ease;
+  }
+  .drawer-brand { margin: 0 20px 18px; padding: 8px 4px 16px; }
+  .drawer-brand-name { font-size: 25px; }
+  .side-nav { gap: 4px; padding-right: 12px; }
+  .nav { min-height: 46px; padding-left: 22px; border-radius: 0 18px 18px 0; }
+  .nav.active { background: color-mix(in srgb, #fbbc04 25%, var(--surface)); }
+  .side-rule { margin: 16px 18px 12px; }
+  .side-head { padding: 8px 20px 8px 22px; }
+  .labels { display: flex !important; }
+  .side-foot { margin: 24px 18px 0 22px; }
+  .workspace { min-width: 0; padding: 24px clamp(24px, 3vw, 56px) 64px; }
+  .inside { max-width: 1720px; }
+  .composer {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 0 24px;
+    border-radius: 14px;
+    box-shadow: 0 3px 18px #2021240b;
+  }
+  .composer:not(.open) .compose-head { min-height: 48px; padding: 5px 16px; }
+  .composer:not(.open) .compose-body {
+    display: grid !important;
+    grid-template-columns: minmax(220px, 1fr) minmax(240px, 1.25fr) auto;
+    align-items: end;
+    gap: 14px;
+    padding: 0 16px 14px;
+  }
+  .composer:not(.open) .form-group { min-width: 0; margin: 0; }
+  .composer:not(.open) .form-group:nth-child(n+3) { display: none; }
+  .composer:not(.open) .form-label { margin: 0 0 2px; font-size: 11px; }
+  .composer:not(.open) #quickUrl { min-height: 38px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--page); }
+  .composer:not(.open) #quickIdea { height: 38px; min-height: 38px; margin: 0; padding: 8px 9px; resize: none; border: 1px solid var(--line); border-radius: 8px; background: var(--page); overflow: hidden; }
+  .composer:not(.open) .compose-foot { grid-column: 3; margin: 0; gap: 6px; white-space: nowrap; }
+  .composer:not(.open) .compose-foot small { max-width: 150px; }
+  .composer.open { max-width: 900px; }
+  .composer.open .compose-body { padding: 0 18px 16px; }
+  .section-head { margin: 24px 2px 16px; font-size: 14px; }
+  #notesGrid { position: relative; }
+  #notesGrid > .note {
+    border-radius: 14px;
+    border-color: color-mix(in srgb, var(--note-tint, var(--line)) 32%, var(--line));
+    background: color-mix(in srgb, var(--note-tint, var(--surface)) 18%, var(--surface));
+    box-shadow: 0 2px 8px #20212408;
+    transition: box-shadow .16s ease, border-color .16s ease, background-color .16s ease;
+  }
+  #notesGrid > .note:hover {
+    border-color: color-mix(in srgb, var(--note-tint, var(--line)) 58%, var(--line));
+    box-shadow: 0 8px 24px #20212412;
+  }
+  #notesGrid .note-content { padding: 16px 16px 10px; }
+  #notesGrid .note-title { font-size: 16px; line-height: 1.4; }
+  #notesGrid .artist { font-size: 12px; }
+  #notesGrid .video { margin-top: 12px; border-radius: 9px; }
+  #notesGrid .idea { font-size: 13px; line-height: 1.65; }
+  #notesGrid .note-actions { padding: 5px 8px 8px; }
+  #notesGrid .note-actions .round { width: 34px; height: 34px; }
+  #detailOverlay { padding: 28px; }
+  #detailDialog.dialog {
+    display: block;
+    width: min(1040px, 94vw);
+    max-width: 1040px;
+    max-height: min(88vh, 900px);
+    overflow: auto;
+    border-radius: 18px;
+    box-shadow: 0 24px 90px #0003;
+  }
+  #detailDialog .desktop-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: 28px;
+    padding: 28px;
+  }
+  #detailDialog .desktop-detail-media { position: sticky; top: 0; min-width: 0; }
+  #detailDialog .desktop-detail-media .dialog-video {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    border-radius: 12px;
+    background: var(--soft);
+  }
+  #detailDialog .desktop-detail-media .dialog-video img { width: 100%; height: 100%; object-fit: cover; }
+  #detailDialog .desktop-detail-media .desktop-media-fallback {
+    display: grid; place-items: center; min-height: 300px; aspect-ratio: 4 / 5;
+    border: 1px solid var(--line); border-radius: 12px;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--note-tint, #fbbc04) 28%, var(--surface)), var(--soft));
+    color: var(--muted); font-size: 58px;
+  }
+  #detailDialog .desktop-detail-copy { min-width: 0; }
+  #detailDialog .desktop-detail-copy .dialog-body { padding: 0; }
+  #detailDialog .desktop-detail-copy .detail-hero { padding: 0 0 16px; }
+  #detailDialog .desktop-detail-copy .detail-hero h2 { font-size: clamp(22px, 2vw, 30px); line-height: 1.25; letter-spacing: -.5px; }
+  #detailDialog .desktop-detail-copy .detail-section { font-size: 14px; }
+  #detailDialog .desktop-detail-copy .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  #detailDialog .desktop-detail-copy .tag { min-height: 32px; }
+  #detailDialog .dialog-actions { position: sticky; bottom: 0; padding: 14px 28px 18px; border-top: 1px solid var(--line); background: var(--surface); }
+  #detailDialog .moment-section a { color: var(--focus); text-decoration: underline; text-underline-offset: 3px; }
+  .desktop-palette-backdrop {
+    position: fixed; inset: 0; z-index: 200; display: grid; place-items: start center;
+    padding: 13vh 24px 24px; background: #20212466; backdrop-filter: blur(5px);
+  }
+  .desktop-palette {
+    width: min(620px, 100%); overflow: hidden; border: 1px solid var(--line);
+    border-radius: 16px; background: var(--surface); color: var(--ink);
+    box-shadow: 0 22px 80px #0003;
+  }
+  .desktop-palette input {
+    display: block; width: 100%; min-height: 60px; padding: 0 20px;
+    border: 0; border-bottom: 1px solid var(--line); outline-offset: -3px;
+    background: transparent; font-size: 16px;
+  }
+  .desktop-palette-list { display: grid; gap: 3px; max-height: 48vh; overflow: auto; padding: 8px; }
+  .desktop-palette-item {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 46px;
+    padding: 0 13px; border-radius: 9px; text-align: left;
+  }
+  .desktop-palette-item:hover, .desktop-palette-item:focus-visible { background: var(--hover); }
+  .desktop-palette-item kbd { margin-left: auto; color: var(--muted); font-size: 11px; }
+  .desktop-palette-hint { padding: 10px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  #detailDialog .desktop-detail-layout { grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: 20px; padding: 22px; }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  #notesGrid > .note, .desktop-palette-backdrop { transition: none !important; animation: none !important; }
+}
