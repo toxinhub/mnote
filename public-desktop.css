@@ -417,3 +417,136 @@
     gap:9px!important;
   }
 }
+
+
+/* Modern, clearly separated desktop Add section. Scoped to desktop only. */
+@media screen and (min-width:1024px){
+  #composer{
+    position:relative!important;
+    width:100%!important;
+    max-width:860px!important;
+    margin:0 auto 30px!important;
+    border:2px solid #b7d9c2!important;
+    border-radius:16px!important;
+    background:linear-gradient(145deg,#ffffff 0%,#fbfefb 100%)!important;
+    box-shadow:0 2px 5px #234b3010,0 10px 28px #234b300b!important;
+    overflow:visible!important;
+    transition:border-color .18s ease,box-shadow .18s ease,background .18s ease!important;
+  }
+  #composer:hover{
+    border-color:#8fc5a0!important;
+    box-shadow:0 3px 8px #234b3015,0 14px 32px #234b3010!important;
+  }
+  #composer:focus-within{
+    border-color:#5eaa79!important;
+    box-shadow:0 0 0 3px #5eaa791c,0 8px 24px #234b3010!important;
+  }
+  #composer:not(.open){
+    min-height:64px!important;
+    padding:8px 10px!important;
+    border-radius:15px!important;
+  }
+  #composer:not(.open) #expand{
+    border:0!important;
+    border-radius:11px!important;
+    background:#eaf5ed!important;
+    box-shadow:inset 0 0 0 1px #d0e8d7!important;
+    color:#43885c!important;
+  }
+  #composer:not(.open) #expand:hover{
+    background:#dcefe2!important;
+    box-shadow:inset 0 0 0 1px #b8ddc4!important;
+  }
+  #composer:not(.open) #quickUrl{
+    min-height:42px!important;
+    border:1px solid #e0e9e2!important;
+    border-radius:11px!important;
+    background:#fff!important;
+    transition:border-color .18s ease,box-shadow .18s ease!important;
+  }
+  #composer:not(.open) #quickUrl:focus{
+    border-color:#76b98b!important;
+    box-shadow:0 0 0 3px #5eaa7918!important;
+    outline:0!important;
+  }
+  #composer:not(.open) #saveNote{
+    min-height:42px!important;
+    padding:0 18px!important;
+    border:1px solid #4d9968!important;
+    border-radius:11px!important;
+    background:#5eaa79!important;
+    color:#fff!important;
+    box-shadow:0 2px 4px #2b684018!important;
+    font-size:13px!important;
+    font-weight:600!important;
+    transition:background .18s ease,transform .18s ease,box-shadow .18s ease!important;
+  }
+  #composer:not(.open) #saveNote:hover{
+    background:#4e9969!important;
+    box-shadow:0 4px 9px #2b684024!important;
+    transform:translateY(-1px)!important;
+  }
+  #composer.open{
+    padding:8px 10px 12px!important;
+    border-radius:16px!important;
+  }
+  #composer.open .compose-head{
+    min-height:48px!important;
+    padding:4px 8px 8px!important;
+    border-bottom:1px solid #e6eee8!important;
+  }
+  #composer.open .compose-title{
+    font-size:15px!important;
+    font-weight:600!important;
+  }
+  #composer.open .compose-body{
+    padding:12px 8px 4px!important;
+  }
+  #composer.open .form-label{
+    display:block!important;
+    margin:0 0 5px!important;
+    color:#64756a!important;
+    font-size:11px!important;
+    font-weight:600!important;
+    letter-spacing:.025em!important;
+  }
+  #composer.open .form-group{margin:0 0 12px!important}
+  #composer.open .field{
+    min-height:40px!important;
+    margin:0!important;
+    padding:10px 12px!important;
+    border:1px solid #e0e9e2!important;
+    border-radius:10px!important;
+    background:#fff!important;
+    font-size:13px!important;
+    transition:border-color .18s ease,box-shadow .18s ease!important;
+  }
+  #composer.open textarea.field{min-height:82px!important;line-height:1.5!important}
+  #composer.open .field:focus{
+    border-color:#76b98b!important;
+    box-shadow:0 0 0 3px #5eaa7918!important;
+    outline:0!important;
+  }
+  #composer.open .fields{gap:10px!important}
+  #composer.open .compose-foot{
+    gap:8px!important;
+    margin:14px 0 0!important;
+    padding-top:12px!important;
+    border-top:1px solid #e6eee8!important;
+  }
+  #composer.open .compose-foot small{font-size:11px!important}
+  #composer.open .text-btn{
+    min-height:38px!important;
+    padding:0 15px!important;
+    border-radius:10px!important;
+    font-size:12px!important;
+    font-weight:600!important;
+  }
+  #composer.open .text-btn.primary{
+    border:1px solid #4d9968!important;
+    background:#5eaa79!important;
+    color:#fff!important;
+    box-shadow:0 2px 4px #2b684018!important;
+  }
+  #composer.open .text-btn.primary:hover{background:#4e9969!important}
+}
