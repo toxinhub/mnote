@@ -868,6 +868,56 @@
 }
 </style>
 
+
+<style id="compact-mobile-note-title">
+@media (max-width:760px) {
+  #detailOverlay #detailDialog .detail-hero {
+    padding: 10px 12px 11px !important;
+    margin-bottom: 8px !important;
+    border-radius: 11px !important;
+  }
+  #detailOverlay #detailDialog .detail-hero-top {
+    margin-bottom: 6px !important;
+    gap: 7px !important;
+  }
+  #detailOverlay #detailDialog .detail-kicker {
+    gap: 5px !important;
+    font-size: 9px !important;
+    letter-spacing: .08em !important;
+  }
+  #detailOverlay #detailDialog .detail-kicker-icon {
+    width: 21px !important;
+    height: 21px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+  }
+  #detailOverlay #detailDialog .detail-hero .round {
+    width: 29px !important;
+    height: 29px !important;
+    flex-basis: 29px !important;
+    margin: 0 !important;
+  }
+  #detailOverlay #detailDialog .detail-hero h2 {
+    max-width: 100% !important;
+    font-size: clamp(19px, 5vw, 22px) !important;
+    line-height: 1.22 !important;
+    letter-spacing: -.025em !important;
+  }
+}
+@media (max-width:390px) {
+  #detailOverlay #detailDialog .detail-hero {
+    padding: 9px 10px 10px !important;
+    margin-bottom: 7px !important;
+  }
+  #detailOverlay #detailDialog .detail-hero-top {
+    margin-bottom: 5px !important;
+  }
+  #detailOverlay #detailDialog .detail-hero h2 {
+    font-size: 19px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
