@@ -629,6 +629,88 @@
 @media (min-width:1200px) and (max-width:1599px){#notesGrid{columns:4 230px;column-gap:20px}}
 @media (min-width:1600px){#notesGrid{columns:5 235px;column-gap:20px}}
 @media (prefers-reduced-motion:reduce) and (min-width:761px){#notesGrid>.note{transition:none!important}}
+
+/* Mobile navigation + responsive interaction safeguards (targeted patch) */
+@media (max-width: 760px) {
+  .mobile-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    justify-content: initial;
+    gap: 3px;
+    padding: 5px 7px calc(5px + var(--safe));
+    padding-left: max(7px, env(safe-area-inset-left, 0px));
+    padding-right: max(7px, env(safe-area-inset-right, 0px));
+  }
+  .mobile-nav button {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 3px 2px;
+    gap: 2px;
+    border-radius: 14px;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .mobile-symbol {
+    width: 100%;
+    min-width: 0;
+    height: 27px;
+    line-height: 1;
+  }
+  .mobile-nav button:focus-visible {
+    outline-offset: -2px;
+  }
+  .workspace {
+    padding-bottom: calc(78px + var(--safe));
+    padding-left: max(9px, env(safe-area-inset-left, 0px));
+    padding-right: max(9px, env(safe-area-inset-right, 0px));
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 8px;
+    width: 100%;
+  }
+  .note { min-width: 0; }
+  .note-content, .note-title, .idea, .artist, .tag { min-width: 0; overflow-wrap: anywhere; }
+  .note-actions {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    min-width: 0;
+  }
+  .note-actions .round {
+    flex: 0 1 32px;
+    min-width: 27px;
+    width: 32px;
+    height: 34px;
+    touch-action: manipulation;
+  }
+  .composer.open {
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    overscroll-behavior: contain;
+  }
+  .composer.open .compose-foot {
+    padding-bottom: calc(12px + var(--safe));
+  }
+}
+@media (max-width: 390px) {
+  .topbar { gap: 4px; padding-left: 7px; padding-right: 7px; }
+  .grid { gap: 7px; }
+  .workspace { padding-left: 7px; padding-right: 7px; }
+  .note-actions .round { min-width: 26px; flex-basis: 29px; width: 29px; }
+  .mobile-nav { gap: 1px; padding-left: 5px; padding-right: 5px; }
+  .mobile-nav button { padding-left: 1px; padding-right: 1px; font-size: 10px; }
+}
+@media (max-width: 340px) {
+  .mobile-nav button { font-size: 9px; }
+  .mobile-symbol { font-size: 18px; }
+  .note-actions .round { min-width: 24px; flex-basis: 27px; width: 27px; }
+}
+
 </style>
 
 </head>
