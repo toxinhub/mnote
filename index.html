@@ -630,13 +630,7 @@
 @media (min-width:1600px){#notesGrid{columns:5 235px;column-gap:20px}}
 @media (prefers-reduced-motion:reduce) and (min-width:761px){#notesGrid>.note{transition:none!important}}
 </style>
-<style>
-.ai-tools{margin:14px 0 4px;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}
-.ai-tools-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}.ai-spark{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border-radius:9px;background:#fce8b2;color:#765600;font-size:18px}.ai-tools-head strong{display:block;font-size:13px;font-weight:600}.ai-tools-head small{display:block;color:var(--muted);font-size:11px;line-height:1.45;margin-top:1px}
-.ai-actions{display:flex;flex-wrap:wrap;gap:6px}.ai-chip{min-height:31px;padding:5px 10px;border:1px solid var(--line);border-radius:18px;background:var(--surface);font-size:12px;font-weight:500}.ai-chip:hover{border-color:#d7a900;background:#fff8e1}.ai-chip:disabled{opacity:.55;cursor:wait}
-.ai-result{margin-top:10px;padding:11px;border:1px solid var(--line);border-radius:7px;background:var(--surface);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.ai-result.hidden{display:none!important}.ai-result p{margin:0;line-height:1.6}.ai-result .ai-result-label{display:block;margin-bottom:5px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}.ai-result .ai-result-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.ai-result .ai-use{padding:7px 12px;border-radius:5px;background:#fbbc04;color:#202124;font-weight:600;font-size:12px}.ai-result .ai-dismiss{padding:7px 10px;border-radius:5px;color:var(--muted);font-size:12px}.ai-library-item{display:flex;flex-direction:column;gap:3px;width:100%;margin-top:7px;padding:9px;text-align:left;border:1px solid var(--line);border-radius:6px;background:var(--surface)}.ai-library-item strong{font-size:12px}.ai-library-item span{font-size:11px;color:var(--muted)}
-@media(max-width:520px){.ai-tools{padding:10px}.ai-actions{gap:5px}.ai-chip{font-size:11px;padding:5px 8px}.ai-result{padding:9px}}
-</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
@@ -648,18 +642,6 @@
 <div class="form-group"><label class="form-label" for="quickIdea">Your note about this song</label><textarea class="field" id="quickIdea" placeholder="What feeling or memory does this song bring back?" aria-label="Memory"></textarea></div>
 <div class="form-group"><label class="form-label" for="quickMood">Mood (optional)</label><input class="field" id="quickMood" maxlength="60" placeholder="e.g. Nostalgic, hopeful, calm" aria-label="Mood"></div>
 <div class="form-group"><div class="form-label">More details</div><div class="fields"><div class="label-suggest-wrap"><input class="field" id="quickTags" placeholder="Labels, separated by commas" aria-label="Labels" autocomplete="off" aria-autocomplete="list" aria-controls="labelSuggestions"><div class="label-suggestions hidden" id="labelSuggestions" role="listbox" aria-label="Previously used labels"></div></div><input class="field" id="quickStart" placeholder="Favorite moment (e.g. 1:23)" aria-label="Favorite moment"></div></div>
-<div class="ai-tools" id="aiTools" aria-label="AI writing assistant">
-  <div class="ai-tools-head"><span class="ai-spark" aria-hidden="true">✦</span><div><strong>AI assistant</strong><small>Suggestions stay in this draft until you choose to use them.</small></div></div>
-  <div class="ai-actions">
-    <button type="button" class="ai-chip" data-ai-action="compose">Write personal note</button>
-    <button type="button" class="ai-chip" data-ai-action="rewrite">Rewrite note</button>
-    <button type="button" class="ai-chip" data-ai-action="mood">Suggest mood</button>
-    <button type="button" class="ai-chip" data-ai-action="tags">Suggest labels</button>
-    <button type="button" class="ai-chip" data-ai-action="summary">Summarize</button>
-    <button type="button" class="ai-chip" data-ai-action="library">Search my library</button>
-  </div>
-  <div id="aiResult" class="ai-result hidden" aria-live="polite"></div>
-</div>
 <div class="compose-foot"><small>Your note will appear once an admin approves it.</small><button class="text-btn" id="closeComposer">Cancel</button><button class="text-btn primary" id="saveNote">Submit note</button></div>
 </div></section>
 <div class="section-head"><span id="sectionTitle">Notes</span><span class="result-count" id="resultCount"></span></div><section class="grid" id="notesGrid" aria-live="polite"><div class="empty"><div class="empty-icon">♫</div><strong>Loading your songs...</strong></div></section></div></main></div>
@@ -700,61 +682,6 @@ function render(){const list=getVisible(),q=$('search').value.trim(),titles={all
 async function load(){$('notesGrid').innerHTML='<div class="empty"><div class="empty-icon">♫</div><strong>Loading your songs...</strong></div>';try{const response=await fetch(SUPABASE_URL+'/rest/v1/entries?select=*&status=eq.approved&order=updated_at.desc&limit=500',{method:'GET',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,Accept:'application/json'}});const body=await response.json().catch(function(){return{message:'Supabase returned an unreadable response.'}});if(!response.ok){const message=body.message||body.error_description||body.hint||('HTTP '+response.status);$('notesGrid').innerHTML='<div class="empty"><div class="empty-icon">♪</div><strong>Couldn’t load your notes</strong><p>'+esc(message)+'</p><button class="text-btn primary" id="retry">Try again</button></div>';return}entries=Array.isArray(body)?body:[];render()}catch(error){$('notesGrid').innerHTML='<div class="empty"><div class="empty-icon">♪</div><strong>Couldn’t connect to your notes</strong><p>'+esc(error&&error.message||'Please check your connection and try again.')+'</p><button class="text-btn primary" id="retry">Try again</button></div>'}}
 function toggleModal(on,fromPop){if(on&&!$('detailOverlay').classList.contains('show')){detailHistory=true;history.pushState({mnoteDetail:true},'',location.href)}$('detailOverlay').classList.toggle('show',on);document.body.style.overflow=on?'hidden':'';if(!on){activeDetail=null;const shouldGoBack=!fromPop&&detailHistory&&history.state&&history.state.mnoteDetail;detailHistory=false;if(shouldGoBack)history.back()}}
 function openDetail(id){const e=entries.find(function(x){return String(x.id)===String(id)});if(!e)return;activeDetail=String(id);let hueSeed=String(e.id||'')+'|'+String(e.title||'')+'|'+String(e.mood||'');let hueHash=0;for(let i=0;i<hueSeed.length;i++)hueHash=(hueHash*31+hueSeed.charCodeAt(i))>>>0;$('detailDialog').style.setProperty('--detail-hue',String(hueHash%360));const vid=videoId(e.song_url||''),ts=getTags(e);let h='<div class="dialog-body"><div class="detail-hero"><div class="detail-hero-top"><span class="detail-kicker"><span class="detail-kicker-icon">♫</span> SONG JOURNAL</span><button class="round" id="closeDetail" aria-label="Close">×</button></div><h2>'+esc(e.title||'Untitled song')+'</h2></div>';if(vid)h+='<a class="dialog-video" href="'+esc(e.song_url)+'" target="_blank" rel="noopener"><img loading="lazy" src="'+thumbnail(vid)+'" alt="'+esc(e.title)+'"><span class="play">▶</span></a>';if(e.idea)h+='<div class="detail-section memory-section"><label>Feelings & memories</label>'+esc(e.idea)+'</div>';if(e.start_time)h+='<div class="detail-section moment-section"><label>Favorite moment</label>'+esc(e.start_time)+'</div>';if(e.mood)h+='<div class="detail-section mood-section"><label>Mood</label>'+esc(e.mood)+'</div>';if(ts.length)h+='<div class="tags">'+ts.map(function(t){return'<button class="tag" data-tag="'+esc(t)+'"># '+esc(t)+'</button>'}).join('')+'</div>';h+='</div><div class="dialog-actions">'+(e.song_url?'<a class="text-btn action-chip youtube-chip" href="'+esc(e.song_url)+'" target="_blank" rel="noopener noreferrer" title="Open on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>YouTube</a><a class="text-btn action-chip music-chip" href="https://music.youtube.com/watch?v='+encodeURIComponent(vid)+'" target="_blank" rel="noopener noreferrer" title="Open YouTube Music"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M10 7.8 17 12l-7 4.2Z" fill="var(--page,#fff)"/></svg>Music</a>':'')+'<button class="text-btn action-chip" id="detailCopy" title="Copy song link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Copy</button><button class="text-btn action-chip" id="detailPin" title="'+(pins.has(String(e.id))?'Unpin note':'Pin note')+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 3v2H6v-2l3-3-1-6ZM12 14v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>'+(pins.has(String(e.id))?'Unpin':'Pin')+'</button><button class="text-btn action-chip archive-chip" id="detailArchive" title="Archive note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v4H3zM5 9v11h14V9m-9 4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>Archive</button></div>';$('detailDialog').innerHTML=h;$('closeDetail').onclick=function(){toggleModal(false)};$('detailCopy').onclick=function(){copyLink(e.song_url||location.href)};$('detailPin').onclick=function(){togglePin(String(e.id));$('detailPin').textContent=pins.has(String(e.id))?'Unpin':'Pin';render()};$('detailArchive').onclick=function(){archiveNote(String(e.id));toggleModal(false)};$('detailDialog').querySelectorAll('[data-tag]').forEach(function(b){b.onclick=function(){label=b.dataset.tag;view='all';toggleModal(false);render()}});toggleModal(true)}
-const AI_FUNCTION_URL=SUPABASE_URL+'/functions/v1/mnote-ai';
-const aiLabels={compose:'Personal note',rewrite:'Rewrite note',mood:'Mood suggestion',tags:'Label suggestions',summary:'Summary',library:'Library search'};
-let aiDraftSuggestion=null;
-function showAiResult(content,kind){
- const box=$('aiResult');box.classList.remove('hidden');box.innerHTML='';
- if(kind==='library'){
-  const results=content&&Array.isArray(content.results)?content.results:[];
-  if(!results.length){box.textContent='No close matches found in your approved notes. Try a more specific query.';return}
-  const label=document.createElement('span');label.className='ai-result-label';label.textContent='Matches from your approved library';box.appendChild(label);
-  results.forEach(function(item){
-   const entry=entries.find(function(e){return String(e.id)===String(item.id)});
-   if(!entry)return;
-   const btn=document.createElement('button');btn.type='button';btn.className='ai-library-item';
-   const title=document.createElement('strong');title.textContent=entry.title||'Untitled song';
-   const reason=document.createElement('span');reason.textContent=String(item.reason||entry.artist||'Open this saved note');
-   btn.appendChild(title);btn.appendChild(reason);btn.onclick=function(){openDetail(String(entry.id))};box.appendChild(btn);
-  });
-  return;
- }
- const value=String(content&&content.text||'').trim();
- if(!value){box.textContent='The AI returned an empty suggestion. Try again.';return}
- aiDraftSuggestion={kind:kind,text:value};
- const label=document.createElement('span');label.className='ai-result-label';label.textContent=aiLabels[kind]+' · preview';box.appendChild(label);
- const p=document.createElement('p');p.textContent=value;box.appendChild(p);
- const actions=document.createElement('div');actions.className='ai-result-actions';
- const use=document.createElement('button');use.type='button';use.className='ai-use';use.textContent='Use suggestion';
- use.onclick=function(){
-  if(!aiDraftSuggestion)return;
-  if(kind==='compose'||kind==='rewrite'||kind==='summary')$('quickIdea').value=aiDraftSuggestion.text;
-  else if(kind==='mood')$('quickMood').value=aiDraftSuggestion.text.slice(0,60);
-  else if(kind==='tags')$('quickTags').value=aiDraftSuggestion.text;
-  hideLabelSuggestions();box.classList.add('hidden');aiDraftSuggestion=null;
-  toast('Suggestion added to your draft. Submit for admin approval when ready.');
- };
- const dismiss=document.createElement('button');dismiss.type='button';dismiss.className='ai-dismiss';dismiss.textContent='Dismiss';dismiss.onclick=function(){box.classList.add('hidden');aiDraftSuggestion=null};
- actions.appendChild(use);actions.appendChild(dismiss);box.appendChild(actions);
-}
-async function runAi(action){
- const box=$('aiResult'),buttons=Array.from(document.querySelectorAll('[data-ai-action]'));
- const context={title:$('quickTitle').value.trim(),song_url:$('quickUrl').value.trim(),note:$('quickIdea').value.trim(),mood:$('quickMood').value.trim(),tags:$('quickTags').value.trim(),favorite_moment:$('quickStart').value.trim()};
- if(action==='library'&&!context.title&&!context.note&&!$('search').value.trim()){toast('Enter a song, feeling or keyword to search your library.');$('quickTitle').focus();return}
- if(['compose','rewrite','mood','tags','summary'].includes(action)&&!context.title&&!context.note&&!context.song_url){toast('Add a song title, link or note first.');$('quickTitle').focus();return}
- const query=$('search').value.trim()||[context.title,context.note,context.mood,context.tags].filter(Boolean).join(' ');
- const approved=action==='library'?entries.filter(function(e){return e.status==='approved'&&!archived.has(String(e.id))&&!trashed.has(String(e.id))}).slice(0,40).map(function(e){return{id:String(e.id),title:String(e.title||'').slice(0,180),artist:String(e.artist||'').slice(0,180),idea:String(e.idea||'').slice(0,500),mood:String(e.mood||'').slice(0,60),tags:String(e.tags||'').slice(0,200)}}):[];
- buttons.forEach(function(b){b.disabled=true});
- box.classList.remove('hidden');box.textContent='Thinking…';
- try{
-  const response=await fetch(AI_FUNCTION_URL,{method:'POST',headers:{'Content-Type':'application/json',apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY},body:JSON.stringify({action:action,context:context,query:query,library:approved})});
-  const body=await response.json().catch(function(){return{error:'The AI service returned an unreadable response.'}});
-  if(!response.ok){const detail=typeof body.detail==='string'&&body.detail.trim()?(' — '+body.detail.trim().slice(0,300)):'';throw new Error((body.error||'AI request failed ('+response.status+').')+detail);}
-  showAiResult(body,action);
- }catch(error){box.classList.remove('hidden');box.textContent=error&&error.message?error.message:'Could not reach the AI service. Please try again.'}
- finally{buttons.forEach(function(b){b.disabled=false})}
-}
-document.querySelectorAll('[data-ai-action]').forEach(function(btn){btn.addEventListener('click',function(){runAi(btn.dataset.aiAction)})});
 async function saveNote(){const title=$('quickTitle').value.trim(),url=$('quickUrl').value.trim(),vid=videoId(url),idea=$('quickIdea').value.trim(),tags=$('quickTags').value.trim(),startTime=$('quickStart').value.trim(),mood=$('quickMood').value.trim();if(!title&&!url&&!idea&&!tags&&!startTime&&!mood){toast('Add at least one detail before submitting');return}const payload={title:title,artist:'',song_url:vid?'https://www.youtube.com/watch?v='+vid:url,platform:vid?'YouTube':(url?'Link':''),idea:idea,mood:mood,tags:tags,start_time:startTime,progress:'Idea',status:'pending'};$('saveNote').disabled=true;$('saveNote').textContent='Submitting…';try{const response=await fetch(SUPABASE_URL+'/rest/v1/entries',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(payload)});const body=await response.json().catch(function(){return{message:'Supabase returned an unreadable response.'}});if(!response.ok){toast('Couldn’t submit your note: '+(body.message||body.error_description||'HTTP '+response.status));return}hideComposer();toast('Your note is submitted and waiting for admin approval.')}catch(error){toast('Couldn’t connect to submit your note. Please check your connection.')}finally{$('saveNote').disabled=false;$('saveNote').textContent='Submit note'}}
 function copyLink(url){if(!url){toast('There’s no link to copy');return}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(function(){toast('Link copied')}).catch(function(){fallbackCopy(url)});else fallbackCopy(url)}
 function fallbackCopy(url){const el=document.createElement('textarea');el.value=url;el.style.position='fixed';el.style.opacity='0';document.body.appendChild(el);el.select();try{document.execCommand('copy');toast('Link copied')}catch(e){toast('Couldn’t copy the link')}el.remove()}
