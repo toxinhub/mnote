@@ -84,7 +84,7 @@
   #workspace>.admin-nav .tab{justify-content:flex-start;min-height:43px;padding:0 12px;border-radius:8px;font-size:12px}
   #workspace>.admin-nav .tab.active{background:var(--soft)}
   #workspace>.admin-nav .tab.active:after{left:0;right:auto;top:8px;bottom:8px;width:3px;height:auto;border-radius:0 3px 3px 0}
-  #entries-view,#activity-view{grid-area:content;min-width:0}
+  #entries-view,#labels-view,#activity-view{grid-area:content;min-width:0}
   #list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   #activity-view .list-head{margin-top:1px}
 }
