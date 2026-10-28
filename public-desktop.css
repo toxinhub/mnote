@@ -417,3 +417,70 @@
     gap:9px!important;
   }
 }
+
+
+/* Modern desktop sidebar; hide the scrollbar without disabling scroll. Mobile is untouched. */
+@media screen and (min-width:1024px){
+  .sidebar{
+    overflow-y:auto;
+    overflow-x:hidden;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    padding:18px 0 26px;
+    border-right:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+    background:color-mix(in srgb,var(--surface) 96%,#eef5ef);
+  }
+  .sidebar::-webkit-scrollbar{display:none;width:0;height:0}
+  .drawer-brand{
+    margin:0 16px 20px;
+    padding:8px 10px 18px;
+    border-bottom:1px solid color-mix(in srgb,#8dbb96 26%,var(--line));
+  }
+  .drawer-brand-name{font-size:24px;letter-spacing:-.8px}
+  .side-nav{gap:5px;padding:0 12px}
+  .nav{
+    min-height:43px;
+    gap:15px;
+    padding:0 15px;
+    border-radius:12px;
+    color:var(--muted);
+    transition:background-color .16s ease,color .16s ease,transform .16s ease;
+  }
+  .nav:hover{background:color-mix(in srgb,#8dbb96 12%,var(--surface));color:var(--ink)}
+  .nav.active{
+    background:color-mix(in srgb,#b8d9bd 34%,var(--surface));
+    color:#355c40;
+    box-shadow:inset 3px 0 0 #78a985;
+  }
+  .nav.active .nav-icon{color:#4d805b}
+  .nav-icon{font-size:18px;flex-basis:22px;width:22px}
+  .side-rule{margin:18px 22px 12px;background:color-mix(in srgb,#8dbb96 24%,var(--line))}
+  .side-head{
+    margin:0 12px;
+    padding:7px 10px;
+    border-radius:10px;
+    font-size:11px;
+    letter-spacing:.055em;
+    text-transform:uppercase;
+  }
+  .labels{gap:3px;padding:2px 12px 0}
+  .labels .nav{min-height:34px;padding-left:13px;gap:13px}
+  .labels .nav-icon{font-size:15px}
+  .side-foot{
+    margin:24px 16px 0;
+    padding:13px 12px;
+    border:1px solid color-mix(in srgb,#8dbb96 24%,var(--line));
+    border-radius:12px;
+    background:color-mix(in srgb,#eef6ef 58%,var(--surface));
+  }
+  .side-foot .admin-link{gap:9px}
+  .admin-icon{border-radius:8px;background:var(--surface);border-color:color-mix(in srgb,#8dbb96 36%,var(--line))}
+  .app.mini .sidebar{padding-top:18px}
+  .app.mini .side-nav{padding:0 10px}
+  .app.mini .nav{border-radius:12px}
+  .app.mini .drawer-brand{justify-content:center;margin:0 8px 18px;padding:8px 0 16px}
+  .app.mini .side-foot{display:none}
+}
+@media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
+  .nav{transition:none!important}
+}
