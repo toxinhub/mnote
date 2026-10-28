@@ -118,82 +118,78 @@
 
 /* Desktop adaptation of the polished mobile admin components */
 @media (min-width:821px){
-  .top{height:64px;padding:0 clamp(24px,3vw,46px);gap:10px;background:var(--surface);box-shadow:0 1px 0 color-mix(in srgb,var(--line) 75%,transparent)}
-  .top>b{font-size:21px;letter-spacing:-.55px;gap:10px}
-  .top>b:before{flex-basis:36px;width:36px;height:36px;border-radius:11px;font-size:21px}
+  .top{height:68px;padding:0 clamp(28px,3.5vw,54px);gap:12px;background:var(--surface);box-shadow:0 1px 0 color-mix(in srgb,var(--line) 75%,transparent)}
+  .top>b{font-size:22px;letter-spacing:-.6px;gap:11px}
+  .top>b:before{flex-basis:40px;width:40px;height:40px;border-radius:12px;font-size:22px}
   .top small{font-size:9px;letter-spacing:.12em;padding:4px 7px}
-  .top .btn{min-height:38px;padding:8px 14px;border-radius:9px}
-  #workspace{width:min(1600px,100%);padding:30px clamp(28px,3.1vw,50px) 64px}
-  .head{gap:22px;margin-bottom:22px}
-  .head h1{font-size:clamp(28px,2.2vw,34px);letter-spacing:-.8px;line-height:1.25}
-  .head .muted{font-size:12px;line-height:1.6}
+  .top .btn{min-height:40px;padding:9px 15px;border-radius:10px}
+  #workspace{width:min(1680px,100%);padding:36px clamp(32px,4vw,64px) 72px;margin:0 auto}
+  .head{gap:24px;margin-bottom:25px}
+  .head h1{font-size:clamp(30px,2.35vw,36px);letter-spacing:-.9px;line-height:1.25}
+  .head .muted{font-size:12px;line-height:1.65}
   .head>div>.muted:first-child{font-size:10px;letter-spacing:.13em}
-  #signout{padding-inline:16px}
-  .dashboard-tools{gap:10px;margin-bottom:17px}
-  .admin-search{height:45px;padding:0 14px;border-radius:11px}
-  .admin-search input{font-size:13px}
-  .dashboard-tools #refresh{min-height:43px;padding-inline:15px;border-radius:9px}
-  .tabs{gap:6px;margin-bottom:18px;padding-bottom:8px}
-  .tab{min-height:41px;padding:0 16px;border-radius:9px;font-size:12px}
-  .tab.active:after{left:13px;right:13px;bottom:-8px}
-  .list-head{margin-bottom:13px;font-size:13px}
+  #signout{padding-inline:17px}
+  .dashboard-tools{gap:12px;margin-bottom:20px}
+  .admin-search{height:47px;padding:0 16px;border-radius:12px}
+  .admin-search input{font-size:14px}
+  .dashboard-tools #refresh{min-height:45px;padding-inline:16px;border-radius:10px}
+  .tabs{gap:7px;margin-bottom:20px;padding-bottom:9px}
+  .tab{min-height:43px;padding:0 17px;border-radius:10px;font-size:12px}
+  .tab.active:after{left:14px;right:14px;bottom:-9px}
+  .list-head{margin-bottom:15px;font-size:14px}
   .list-head .muted{font-size:11px}
-  #list{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-  #list .entry{border-radius:14px;box-shadow:0 1px 3px #20212408,0 5px 15px #20212408;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
-  #list .entry:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 35%,var(--line));box-shadow:0 3px 8px #2021240a,0 12px 26px #2021240d}
-  #list .entry-copy{padding:17px 18px}
-  .entry-card-top{padding-bottom:11px}
-  #list .entry .badge{padding:4px 9px;border-radius:7px;font-size:9px}
+  #list{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  #list .entry{border-radius:16px;box-shadow:0 1px 3px #20212408,0 7px 20px #20212409;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+  #list .entry:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 38%,var(--line));box-shadow:0 4px 10px #2021240b,0 15px 30px #20212410}
+  #list .entry-copy{padding:19px 20px}
+  .entry-card-top{padding-bottom:12px}
+  #list .entry .badge{padding:5px 10px;border-radius:8px;font-size:9px}
   .entry-date{font-size:10px}
-  #list .entry h3{margin-top:12px;font-size:17px;line-height:1.45;letter-spacing:-.2px}
-  .entry-meta{margin-top:6px;font-size:12px;gap:6px 9px}
-  .entry-mood{padding:3px 8px;font-size:10px}
-  .entry-details{gap:8px;margin-top:14px}
-  .entry-detail{grid-template-columns:100px minmax(0,1fr);gap:11px;padding:10px 11px;border-radius:8px}
-  .detail-label{font-size:10px;line-height:1.55}
-  .detail-value{font-size:12px;line-height:1.65}
-  .entry-tags{gap:6px;margin-top:12px}
-  .entry-tag{padding:4px 9px;border-radius:999px;font-size:10px}
-  .entry-extras{gap:8px;margin-top:10px}
-  .entry-extras .entry-detail{padding:9px;border-radius:8px}
+  #list .entry h3{margin-top:13px;font-size:18px;line-height:1.5;letter-spacing:-.25px}
+  .entry-meta{margin-top:7px;font-size:12px;gap:7px 10px}
+  .entry-mood{padding:4px 9px;font-size:10px}
+  .entry-details{gap:9px;margin-top:15px}
+  .entry-detail{grid-template-columns:110px minmax(0,1fr);gap:12px;padding:11px 12px;border-radius:9px}
+  .detail-label{font-size:10px;line-height:1.6}
+  .detail-value{font-size:13px;line-height:1.7}
+  .entry-tags{gap:7px;margin-top:13px}
+  .entry-tag{padding:5px 10px;border-radius:999px;font-size:10px}
+  .entry-extras{gap:9px;margin-top:11px}
+  .entry-extras .entry-detail{padding:10px;border-radius:9px}
   .entry-extras .detail-value{font-size:11px}
-  #list .entry .actions{gap:7px;padding:12px 17px;border-radius:0 0 14px 14px}
-  #list .entry .actions .btn{min-height:35px;padding:8px 12px;border-radius:8px;font-size:11px}
-  .empty{padding:48px 20px;border-radius:12px;font-size:13px}
-  .empty .empty-icon{width:46px;height:46px;font-size:23px}
+  #list .entry .actions{gap:8px;padding:13px 19px;border-radius:0 0 16px 16px}
+  #list .entry .actions .btn{min-height:37px;padding:9px 13px;border-radius:9px;font-size:11px}
+  .empty{padding:52px 22px;border-radius:14px;font-size:13px}
+  .empty .empty-icon{width:48px;height:48px;font-size:24px}
   .empty strong{font-size:14px}
   .empty p{font-size:12px}
-  #modal{padding:24px}
-  #modal form{width:min(680px,100%);max-height:min(90dvh,840px);border-radius:15px}
+  #modal{padding:28px}
+  #modal form{width:min(720px,100%);max-height:min(91dvh,880px);border-radius:16px}
   #modal form:before{flex-basis:4px}
-  #modal .edit-modal-head{padding:19px 24px 17px}
-  #modal .edit-modal-head h2{font-size:23px;letter-spacing:-.5px}
-  #modal .edit-modal-head p{font-size:12px;line-height:1.6}
-  #modal .edit-scroll{padding:0 24px 17px}
-  #modal .edit-section{padding:17px 0 6px}
-  #modal .edit-section+.edit-section{margin-top:7px;padding-top:17px}
-  #modal .edit-section-title{gap:10px;margin-bottom:11px}
-  #modal .edit-section-title .step{flex-basis:31px;width:31px;height:31px;border-radius:9px;font-size:11px}
+  #modal .edit-modal-head{padding:21px 26px 19px}
+  #modal .edit-modal-head h2{font-size:24px;letter-spacing:-.55px}
+  #modal .edit-modal-head p{font-size:12px;line-height:1.65}
+  #modal .edit-scroll{padding:0 26px 19px}
+  #modal .edit-section{padding:19px 0 7px}
+  #modal .edit-section+.edit-section{margin-top:8px;padding-top:19px}
+  #modal .edit-section-title{gap:11px;margin-bottom:12px}
+  #modal .edit-section-title .step{flex-basis:33px;width:33px;height:33px;border-radius:10px;font-size:11px}
   #modal .edit-section-title strong{font-size:13px}
   #modal .edit-section-title small{font-size:11px}
-  #modal .edit-fields{gap:2px 16px}
-  #modal .field{gap:6px;margin:6px 0 9px}
+  #modal .edit-fields{gap:3px 18px}
+  #modal .field{gap:7px;margin:7px 0 10px}
   #modal .field label{font-size:12px}
-  #modal .field input,#modal .field textarea,#modal .field select{min-height:42px;padding:10px 12px;border-radius:9px;font-size:13px}
-  #modal .field textarea{min-height:100px;line-height:1.6}
-  #modal .field-hint{font-size:11px;line-height:1.5}
-  #modal .label-suggestions{max-height:260px;border-radius:11px}
-  #modal .label-suggestion{min-height:39px;font-size:13px}
-  #edit-form>.actions{gap:9px;padding:13px 24px 16px}
+  #modal .field input,#modal .field textarea,#modal .field select{min-height:44px;padding:11px 13px;border-radius:10px;font-size:13px}
+  #modal .field textarea{min-height:108px;line-height:1.65}
+  #modal .field-hint{font-size:11px;line-height:1.55}
+  #modal .label-suggestions{max-height:280px;border-radius:12px}
+  #modal .label-suggestion{min-height:41px;font-size:13px}
+  #edit-form>.actions{gap:10px;padding:14px 26px 18px}
   #edit-form>.actions .save-hint{font-size:11px}
-  #edit-form>.actions .btn{min-height:41px;padding:9px 16px;border-radius:9px;font-size:12px}
+  #edit-form>.actions .btn{min-height:43px;padding:10px 17px;border-radius:10px;font-size:12px}
 }
-@media (min-width:1200px){
-  #list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-}
-@media (prefers-reduced-motion:reduce){
-  @media (min-width:821px){#list .entry{transition:none!important}}
-}
+@media (min-width:1200px){#list{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
+@media (prefers-reduced-motion:reduce) and (min-width:821px){#list .entry{transition:none!important}}
 </style></head><body><div class="wrap"><header class="top"><b>m}note <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
