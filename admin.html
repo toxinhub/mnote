@@ -289,7 +289,7 @@
   try{
    const {data,error}=await db.from("entries").select("id,title,artist,mood,idea,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").order("updated_at",{ascending:false}).limit(500);
    if(error){msg("#msg","Could not load entries: "+error.message,true);return}
-   rows=data||[];render();
+   rows=data||[];const validIds=new Set(rows.map(r=>String(r.id)));selectedIds.forEach(id=>{if(!validIds.has(id))selectedIds.delete(id)});render();
   }catch(err){msg("#msg","Could not connect to the library: "+(err?.message||"Unknown network error"),true)}
   finally{loading=false;$("#refresh").disabled=busy;$("#refresh").classList.remove("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Refresh'}
  }
@@ -484,6 +484,8 @@
  });
 
  document.addEventListener("keydown",e=>{
+  const tag=document.activeElement&&document.activeElement.tagName;if(!$("#modal").classList.contains("open")&&!$("#workspace").classList.contains("hidden")&&!/[INPUT|TEXTAREA|SELECT]/.test(tag||"")&&e.shiftKey&&e.key.toLowerCase()==="a"&&selectedIds.size){e.preventDefault();bulkStatus("approved");return}
+  if(!$("#modal").classList.contains("open")&&!$("#workspace").classList.contains("hidden")&&!/[INPUT|TEXTAREA|SELECT]/.test(tag||"")&&e.shiftKey&&e.key.toLowerCase()==="r"&&selectedIds.size){e.preventDefault();bulkStatus("rejected");return}
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();if(!$("#workspace").classList.contains("hidden"))$("#entry-search").focus()}
   if(e.key==="Escape"&&$("#modal").classList.contains("open")){e.preventDefault();closeEdit();return}
   if(e.key==="Tab"&&$("#modal").classList.contains("open")){
