@@ -459,13 +459,12 @@
 }
 
 
-/* Google Keep-style grid: identical horizontal and vertical spacing */
-/* Stable CSS masonry: cards stay in normal flow so notes remain visible */
-#notesGrid{display:block;position:relative;width:100%;max-width:1500px;margin:0 auto;columns:5 190px;column-gap:12px}
+/* Stable masonry layout: keep card widths consistent across breakpoints. */
+#notesGrid{display:block;position:relative;width:100%;max-width:1500px;margin:0 auto;columns:6 190px;column-gap:12px}
 #notesGrid>.note{display:inline-block;position:relative!important;left:auto!important;top:auto!important;width:100%;margin:0 0 12px!important;break-inside:avoid;vertical-align:top}
 #notesGrid>.empty{display:flex;position:relative;column-span:all;width:100%;box-sizing:border-box}
-@media(max-width:1400px){#notesGrid{columns:4 180px;column-gap:10px}}
-@media(max-width:1050px){#notesGrid{columns:3 180px;column-gap:10px}}
+@media(max-width:1400px){#notesGrid{columns:5 190px;column-gap:10px}}
+@media(max-width:1050px){#notesGrid{columns:4 180px;column-gap:10px}}
 @media(max-width:760px){#notesGrid{columns:2 140px;column-gap:8px}#notesGrid>.note{margin-bottom:9px!important}}
 @media(max-width:390px){#notesGrid{columns:2 120px;column-gap:7px}}
 
