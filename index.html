@@ -970,14 +970,9 @@ load();
 </style>
 
 <style>
-/* Performance-focused refinements for smoother note scrolling */
+/* Restore the original thumbnail blur and glass action styling on mobile */
 @media(max-width:760px){
-  #notesGrid .note.has-thumb::before{filter:none!important;transform:none!important;opacity:.08!important}
-  #notesGrid .note.has-thumb .note-actions{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
-  #notesGrid .note{transition:box-shadow .12s ease,border-color .12s ease!important}
-  #notesGrid .note:hover,#notesGrid .note:active{transform:none!important}
-}
-@media(prefers-reduced-motion:reduce){
-  #notesGrid .note{transition:none!important}
+  #notesGrid .note.has-thumb::before{filter:blur(42px) saturate(.72)!important;transform:scale(1.12)!important;opacity:.18!important}
+  #notesGrid .note.has-thumb .note-actions{background:rgba(255,255,255,.20)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
 }
 </style>
