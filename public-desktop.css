@@ -146,3 +146,27 @@
 @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
   #notesGrid > .note, .desktop-palette-backdrop { transition: none !important; animation: none !important; }
 }
+
+
+/* Desktop-only finishing pass: balanced card density, clearer hierarchy and calmer interactions. */
+@media (min-width:1024px){
+  #notesGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  .section-head{letter-spacing:.045em}
+  #notesGrid>.note{min-width:0;align-self:start}
+  #notesGrid .note-title{font-size:15px;line-height:1.45}
+  #notesGrid .note-content{padding:15px 15px 9px}
+  #notesGrid .note-actions{gap:2px}
+  #notesGrid .note-actions .round{transition:background-color .14s ease,color .14s ease}
+  #notesGrid .note-actions .round:hover{background:var(--hover);color:var(--ink)}
+  .composer:focus-within{border-color:color-mix(in srgb,var(--focus) 28%,var(--line))}
+  #detailDialog.dialog{border:1px solid color-mix(in srgb,var(--line) 82%,transparent)}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  #notesGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+}
+@media (min-width:1600px){
+  #notesGrid{grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+}
+@media (min-width:1024px) and (prefers-reduced-motion:reduce){
+  #notesGrid .note-actions .round{transition:none!important}
+}
