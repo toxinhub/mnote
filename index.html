@@ -563,81 +563,78 @@
 .label-suggestion-hint{padding:5px 10px 3px;color:var(--muted);font-size:10px}
 
 
-/* Desktop-only professional polish. Mobile rules remain untouched. */
+/* Desktop adaptation of the polished mobile design */
 @media (min-width:761px){
-  :root{--desktop-gutter:clamp(24px,2.6vw,44px)}
-  .topbar{
-    height:64px;padding:0 22px;gap:12px;
-    background:color-mix(in srgb,var(--surface) 96%,var(--soft));
-    box-shadow:0 1px 0 color-mix(in srgb,var(--line) 78%,transparent);
-  }
-  .brand{min-width:190px;gap:10px}
-  .brand-icon{width:36px;height:36px;border-radius:11px;box-shadow:0 2px 5px #5f430012}
-  .brand-name{font-size:21px;letter-spacing:-.65px}
-  .search{height:44px;max-width:760px;margin-left:8px;padding:0 15px;border-radius:12px}
-  .search:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 9%,transparent)}
-  .top-actions{gap:4px;margin-left:10px}
-  .menu-btn,.round{transition:background .14s ease,color .14s ease,transform .14s ease}
-  .menu-btn:hover,.round:hover{color:var(--ink)}
+  .topbar{height:64px;padding:0 clamp(18px,2.4vw,36px);gap:12px;background:var(--surface);border-bottom:1px solid var(--line)}
+  .brand{min-width:190px;gap:9px}
+  .brand-icon{width:36px;height:36px;flex-basis:36px;border-radius:11px;box-shadow:0 2px 5px #2021240a}
+  .brand-name{font-size:21px;letter-spacing:-.55px}
+  .search{height:44px;max-width:760px;padding:0 14px;border-radius:12px;background:var(--soft)}
+  .search input{font-size:15px}
+  .search:focus-within{background:var(--surface);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 9%,transparent)}
+  .top-actions{gap:4px;margin-left:8px}
+  .menu-btn,.round{transition:background .15s,color .15s,border-color .15s}
   .app{--side:264px;min-height:calc(100vh - 64px)}
-  .sidebar{top:64px;height:calc(100vh - 64px);padding-top:14px}
+  .sidebar{top:64px;height:calc(100vh - 64px);padding-top:12px}
   .side-nav{gap:3px;padding-right:12px}
   .nav{min-height:46px;gap:17px;padding:0 22px;border-radius:0 24px 24px 0;font-size:13px}
-  .nav.active{box-shadow:inset 3px 0 0 #f9ab00}
-  .side-rule{margin:14px 20px 11px}
-  .side-head{padding-top:8px;padding-bottom:8px}
-  .side-foot{margin-top:28px}
-  .workspace{padding:30px var(--desktop-gutter) 84px}
-  .inside{max-width:1640px}
-  .composer{width:min(660px,100%);margin-bottom:38px;border-radius:12px;box-shadow:0 2px 5px #2021240a,0 8px 24px #20212408}
-  .composer:focus-within{border-color:color-mix(in srgb,var(--focus) 30%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 7%,transparent),0 8px 24px #2021240a}
-  .compose-head{min-height:58px;padding:7px 15px}
-  .compose-title{font-size:16px;padding:11px 3px}
-  .compose-body{padding:2px 18px 15px}
-  .fields{gap:10px 16px}
+  .nav.active{box-shadow:inset 3px 0 0 #fbbc04}
+  .nav-icon{font-size:19px}
+  .side-rule{margin:14px 20px 10px}
+  .side-head{min-height:42px;padding:7px 18px 7px 24px}
+  .workspace{padding:28px clamp(24px,2.6vw,42px) 84px}
+  .inside{max-width:1680px}
+  .composer{width:min(700px,100%);margin-bottom:38px;border-radius:14px;box-shadow:0 1px 3px #20212408,0 8px 24px #20212408}
+  .compose-head{min-height:56px;padding:6px 15px}
+  .compose-title{font-size:16px}
+  .compose-body{padding:3px 18px 15px}
+  .fields{gap:9px 16px}
   .field{padding:10px 3px;font-size:13px}
-  textarea.field{min-height:86px}
+  textarea.field{min-height:88px}
   .compose-foot{gap:8px;margin-top:12px}
   .compose-foot small{font-size:11px}
-  .text-btn{min-height:38px;padding-inline:16px;border-radius:7px}
-  .section-head{margin-bottom:15px;font-size:11px;letter-spacing:.075em}
+  .text-btn{min-height:39px;padding:0 16px;border-radius:8px}
+  .section-head{margin-bottom:15px;font-size:11px;letter-spacing:.07em}
   .result-count{font-size:12px}
-  #notesGrid{max-width:1640px;column-gap:16px}
-  #notesGrid>.note{margin-bottom:16px!important}
-  #notesGrid .note{
-    border-radius:12px;
-    box-shadow:0 1px 2px #20212408,0 5px 16px #20212408;
-  }
-  #notesGrid .note-content{padding:17px 16px 10px}
-  #notesGrid .note-title{font-size:15.5px;line-height:1.48;letter-spacing:-.012em}
-  #notesGrid .artist{margin-top:5px;font-size:12px;line-height:1.5}
-  #notesGrid .idea{margin-top:11px;font-size:13px;line-height:1.7}
-  #notesGrid .tags{gap:5px;margin-top:10px}
-  #notesGrid .tag{padding:3px 7px;font-size:10px;line-height:1.4;border-radius:5px}
-  #notesGrid .mood{font-size:10.5px;padding:4px 8px}
-  #notesGrid .moment{font-size:10.5px;padding:5px 8px}
-  #notesGrid .note-actions{min-height:42px;padding:5px 9px}
-  #notesGrid .note-actions .round{width:32px;height:32px;border-radius:9px}
-  #notesGrid .pin{width:29px;height:29px;flex-basis:29px}
-  #notesGrid .video{margin-top:12px;border-radius:9px}
-  .empty{min-height:300px;border-radius:14px}
-  .empty-icon{width:92px;height:92px}
-  .overlay{padding:28px}
-  .dialog{width:min(660px,100%);border-radius:13px}
-  .dialog-body{padding:24px 26px 14px}
-  .dialog-head h2{font-size:21px;line-height:1.4}
-  .detail-section{padding:12px 0;font-size:13px;line-height:1.7}
-  .detail-section label{font-size:11px}
-  .dialog-actions{gap:8px;padding:10px 16px 16px}
-  .dialog-actions .action-chip{height:33px;padding:0 11px;font-size:11.5px;border-radius:7px}
+  #notesGrid{max-width:1680px;column-gap:15px}
+  #notesGrid>.note{margin-bottom:15px!important;border-radius:15px;box-shadow:0 1px 3px #20212408,0 5px 15px #20212408;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+  #notesGrid>.note:hover,#notesGrid>.note:focus-within{transform:translateY(-2px);box-shadow:0 3px 8px #2021240a,0 12px 26px #2021240d;border-color:color-mix(in srgb,var(--card-hue,42) 35%,var(--line))}
+  #notesGrid .note-content{padding:15px 13px 9px}
+  #notesGrid .note-top{gap:7px}
+  #notesGrid .note-title{font-size:15px;line-height:1.45;letter-spacing:-.01em;font-weight:600}
+  #notesGrid .pin{width:28px;height:28px;flex-basis:28px;border-radius:50%}
+  #notesGrid .artist{margin-top:4px;font-size:11.5px;line-height:1.5}
+  #notesGrid .video{margin-top:10px;max-height:250px;border-radius:9px}
+  #notesGrid .play{width:36px;height:36px;font-size:14px}
+  #notesGrid .idea{margin:10px 0 3px;padding-left:9px;font-size:13px;line-height:1.6}
+  #notesGrid .mood{margin-top:8px;padding:4px 8px;font-size:10.5px}
+  #notesGrid .tags{gap:5px;margin-top:9px}
+  #notesGrid .tag{padding:3px 7px;font-size:10px;line-height:1.35;border-radius:999px}
+  #notesGrid .moment{margin-top:9px;padding:4px 8px;font-size:10.5px;border-radius:8px}
+  #notesGrid .note-actions{min-height:35px;padding:3px 7px 5px;gap:2px;opacity:0;border-top:1px solid color-mix(in srgb,var(--line) 72%,transparent);background:color-mix(in srgb,var(--surface) 45%,transparent)}
+  #notesGrid>.note:hover .note-actions,#notesGrid>.note:focus-within .note-actions{opacity:1}
+  #notesGrid .note-actions .round{width:28px;height:28px;flex:0 0 28px;border-radius:9px}
+  #detailOverlay{padding:28px}
+  #detailDialog{width:min(760px,100%);max-height:min(90dvh,900px);border-radius:15px}
+  #detailDialog .dialog-body{padding:20px 22px 13px}
+  #detailDialog .detail-hero{padding:17px 19px 19px;margin-bottom:12px;border-radius:13px}
+  #detailDialog .detail-hero h2{font-size:clamp(24px,2.1vw,32px);line-height:1.25}
+  #detailDialog .detail-section{padding:12px 14px;margin-bottom:9px;border-radius:10px;font-size:14px;line-height:1.65}
+  #detailDialog .detail-section label{font-size:11px;margin-bottom:5px}
+  #detailDialog .dialog-video{margin:12px 0;border-radius:10px}
+  #detailDialog .dialog-actions{gap:7px;padding:10px 16px 16px}
+  #detailDialog .dialog-actions .action-chip,#detailDialog .dialog-actions .action-chip:hover{height:33px!important;padding:0 10px!important;border-radius:8px!important;font-size:11px}
+  #detailDialog .dialog-actions .action-chip svg{width:14px;height:14px;flex-basis:14px}
 }
 @media (min-width:1051px) and (max-width:1400px){
   #notesGrid{columns:5 190px;column-gap:14px}
 }
 @media (min-width:1401px){
-  #notesGrid{columns:6 190px;column-gap:16px}
+  #notesGrid{columns:6 200px;column-gap:15px}
 }
-
+@media (prefers-reduced-motion:reduce){
+  @media (min-width:761px){#notesGrid>.note{transition:none!important}}
+}
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
