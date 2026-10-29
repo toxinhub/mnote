@@ -965,3 +965,110 @@
     .brand-icon,.search,.top-actions .round{transition:none!important}
   }
 }
+
+
+/* Song-note composer polish — desktop only; public mobile presentation stays unchanged. */
+@media screen and (min-width:1024px){
+  .composer{
+    width:min(780px,100%);
+    margin:0 auto 38px;
+    overflow:visible;
+    border:1px solid color-mix(in srgb,var(--line) 76%,#c8d8ca);
+    border-radius:20px;
+    background:var(--surface);
+    box-shadow:0 10px 34px rgba(37,55,40,.065),0 2px 6px rgba(37,55,40,.025);
+    transition:box-shadow .2s ease,border-color .2s ease;
+  }
+  .composer:focus-within{
+    border-color:color-mix(in srgb,#86aa8c 58%,var(--line));
+    box-shadow:0 14px 38px rgba(37,55,40,.085),0 0 0 3px rgba(111,159,121,.08);
+  }
+  .compose-head{
+    min-height:72px;
+    gap:13px;
+    padding:12px 20px;
+  }
+  .compose-title{
+    padding:12px 4px;
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:-.35px;
+  }
+  .compose-title::placeholder{color:color-mix(in srgb,var(--muted) 76%,var(--surface))}
+  .compose-mark{
+    display:grid;
+    place-items:center;
+    flex:0 0 38px;
+    width:38px;
+    height:38px;
+    border:1px solid #f0e1b2;
+    border-radius:12px;
+    background:#fff8df;
+    color:#8b6900;
+    font-size:20px;
+  }
+  .compose-tools{gap:5px}
+  .compose-tools .round{
+    width:39px;height:39px;border:1px solid var(--line);border-radius:12px;
+    background:var(--surface);font-size:17px;
+    transition:background .16s,border-color .16s,transform .16s;
+  }
+  .compose-tools .round:hover{border-color:#d9c36e;background:#fff9e8;transform:translateY(-1px)}
+  .composer.open .compose-head{min-height:66px;border-bottom:1px solid var(--line)}
+  .compose-body{
+    padding:18px 20px 17px;
+    display:none;
+  }
+  .composer.open .compose-body{display:block}
+  .compose-section-kicker{
+    display:flex;align-items:center;gap:8px;
+    margin:0 0 11px;color:var(--muted);
+    font-size:10px;font-weight:700;letter-spacing:.105em;text-transform:uppercase;
+  }
+  .compose-section-kicker>span{
+    display:grid;place-items:center;flex:0 0 25px;width:25px;height:25px;
+    border:1px solid #f0e1b2;border-radius:8px;background:#fff8df;color:#826200;
+    font-size:10px;letter-spacing:0;
+  }
+  .compose-body .form-group{
+    margin:0;padding:15px 16px 14px;
+    border:1px solid var(--line);border-radius:13px;background:var(--surface);
+  }
+  .compose-body .form-group+.form-group{margin-top:11px}
+  .compose-body .form-label{
+    display:block;margin:0 0 6px;color:var(--ink);
+    font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;
+  }
+  .compose-body .field{
+    min-height:43px;margin:0;padding:11px 12px;
+    border:1px solid var(--line);border-radius:9px;background:var(--soft);
+    font-size:13px;line-height:1.5;transition:border-color .16s,background .16s,box-shadow .16s;
+  }
+  .compose-body .field:focus{
+    border-color:#8db494;background:var(--surface);
+    box-shadow:0 0 0 3px rgba(111,159,121,.12);
+  }
+  .compose-body .field::placeholder{color:color-mix(in srgb,var(--muted) 82%,var(--surface));opacity:1}
+  .compose-body textarea.field{min-height:126px;resize:vertical;line-height:1.75}
+  .compose-body .fields{grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr);gap:13px}
+  .compose-body .label-suggest-wrap{min-width:0}
+  .compose-body .desktop-field-label{display:block}
+  .compose-body .link-status{margin:7px 2px 0;font-size:11px;line-height:1.45}
+  .compose-body .compose-foot{
+    display:flex;align-items:center;gap:9px;
+    margin:15px 0 0;padding:13px 2px 0;border-top:1px solid var(--line);
+  }
+  .compose-body .compose-foot small{max-width:34ch;font-size:11px;line-height:1.55}
+  .compose-body .text-btn{min-height:40px;padding:0 16px;border-radius:10px;font-size:12px;font-weight:600}
+  .compose-body .text-btn#closeComposer{margin-left:auto;border:1px solid #f1d9d5;background:#fff5f3;color:#a3443b}
+  .compose-body .text-btn#closeComposer:hover{background:#fce8e6}
+  .compose-body .text-btn.primary{min-width:132px;background:#fbbc04;box-shadow:0 2px 0 #e5a900}
+  .compose-body .text-btn.primary:hover{background:#f9ab00;transform:translateY(-1px)}
+  :root[data-theme=dark] .compose-mark,
+  :root[data-theme=dark] .compose-section-kicker>span{
+    border-color:#5d502b;background:#3d3520;color:#f7d66b;
+  }
+  :root[data-theme=dark] .compose-tools .round:hover{border-color:#5d684c;background:#30372c}
+  :root[data-theme=dark] .compose-body .text-btn#closeComposer{border-color:#633e39;background:#3a2926;color:#f2b5ad}
+  :root[data-theme=dark] .compose-body .text-btn#closeComposer:hover{background:#4a302c}
+}
