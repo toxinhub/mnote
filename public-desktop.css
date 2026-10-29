@@ -1552,3 +1552,78 @@
 @media screen and (min-width:1024px) and (max-width:1279px){
   #composer:not(.open){grid-template-columns:42px minmax(0,1fr) 124px!important;column-gap:12px!important}
 }
+
+
+/* Compact, optically balanced desktop quick-link composer.
+   Scope is desktop only; the mobile layout and expanded composer are unchanged. */
+@media screen and (min-width:1024px){
+  #composer:not(.open){
+    display:grid!important;
+    grid-template-columns:36px minmax(0,1fr) 108px!important;
+    align-items:center!important;
+    column-gap:10px!important;
+    row-gap:0!important;
+    width:min(820px,100%)!important;
+    max-width:820px!important;
+    min-height:0!important;
+    margin:0 auto 20px!important;
+    padding:9px 12px!important;
+    box-sizing:border-box!important;
+    border-radius:12px!important;
+    box-shadow:0 2px 8px rgba(37,55,40,.045)!important;
+  }
+  #composer:not(.open)>.compose-head,
+  #composer:not(.open)>.compose-body,
+  #composer:not(.open) .compose-tools,
+  #composer:not(.open) .compose-foot{display:contents!important}
+  #composer:not(.open) #quickTitle,
+  #composer:not(.open) .compose-mark,
+  #composer:not(.open) #quickLink,
+  #composer:not(.open) #linkStatus,
+  #composer:not(.open) #composeBody>.form-group:not(:first-child),
+  #composer:not(.open) .compose-foot small,
+  #composer:not(.open) #closeComposer{display:none!important}
+  #composer:not(.open) #expand{
+    grid-column:1!important;grid-row:1!important;
+    display:grid!important;place-items:center!important;
+    width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;
+    margin:0!important;padding:0!important;box-sizing:border-box!important;
+    border-radius:10px!important;font-size:22px!important;line-height:1!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:first-child{
+    grid-column:2!important;grid-row:1!important;
+    display:block!important;width:100%!important;min-width:0!important;
+    margin:0!important;padding:0!important;border:0!important;
+    justify-self:stretch!important;align-self:center!important;
+    box-sizing:border-box!important;background:transparent!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:first-child .form-label{display:none!important}
+  #composer:not(.open) #composeBody>.form-group:first-child .fields.song-link-field{
+    display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;
+    margin:0!important;padding:0!important;box-sizing:border-box!important;
+  }
+  #composer:not(.open) #quickUrl{
+    display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;
+    height:38px!important;min-height:38px!important;margin:0!important;padding:0 12px!important;
+    box-sizing:border-box!important;border-radius:9px!important;
+    font-size:12.5px!important;line-height:1.3!important;text-align:left!important;transform:none!important;
+  }
+  #composer:not(.open) #saveNote{
+    grid-column:3!important;grid-row:1!important;
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    width:108px!important;min-width:108px!important;height:38px!important;min-height:38px!important;
+    margin:0!important;padding:0 10px!important;box-sizing:border-box!important;
+    border-radius:9px!important;font-size:12px!important;line-height:1!important;
+    white-space:nowrap!important;
+  }
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #composer:not(.open){
+    width:min(760px,100%)!important;max-width:760px!important;
+    grid-template-columns:34px minmax(0,1fr) 100px!important;
+    column-gap:9px!important;padding:8px 10px!important;
+  }
+  #composer:not(.open) #expand{width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important}
+  #composer:not(.open) #quickUrl{height:36px!important;min-height:36px!important}
+  #composer:not(.open) #saveNote{width:100px!important;min-width:100px!important;height:36px!important;min-height:36px!important}
+}
