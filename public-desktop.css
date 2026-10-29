@@ -1656,3 +1656,77 @@
     border-color:var(--line)!important;
   }
 }
+
+
+/* Global light-theme cleanup: remove the leftover green-tinted surfaces across the app. */
+:root:not([data-theme="dark"]) .topbar{
+  background:#fff!important;
+  border-bottom-color:var(--line)!important;
+  box-shadow:0 3px 14px rgba(32,33,36,.035)!important;
+}
+:root:not([data-theme="dark"]) .brand-icon{
+  background:linear-gradient(145deg,#fff1bd 0%,#fbbc04 100%)!important;
+  color:#5f4300!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 2px 5px rgba(80,65,25,.07)!important;
+}
+:root:not([data-theme="dark"]) .search{
+  background:#f5f5f5!important;
+  border-color:#e7e7e7!important;
+  box-shadow:inset 0 1px 2px rgba(32,33,36,.02)!important;
+}
+:root:not([data-theme="dark"]) .search:focus-within{
+  background:#fff!important;
+  border-color:#d7d7d7!important;
+  box-shadow:0 0 0 3px rgba(95,99,104,.08),0 4px 14px rgba(32,33,36,.045)!important;
+}
+:root:not([data-theme="dark"]) .search .glass{color:var(--muted)!important}
+:root:not([data-theme="dark"]) .top-actions .theme-toggle{
+  background:#f3f3f3!important;
+}
+:root:not([data-theme="dark"]) .sidebar{
+  background:#fff!important;
+  border-right-color:#e8e8e8!important;
+}
+:root:not([data-theme="dark"]) .sidebar .drawer-brand{border-bottom-color:#e6e6e6!important}
+:root:not([data-theme="dark"]) .sidebar .nav:hover{
+  background:#f5f5f5!important;color:var(--ink)!important;
+}
+:root:not([data-theme="dark"]) .sidebar .nav.active{
+  background:#fff2c9!important;color:#202124!important;
+  box-shadow:inset 3px 0 0 #e2b32b!important;
+}
+:root:not([data-theme="dark"]) .sidebar .nav.active .nav-icon{color:#725b16!important}
+:root:not([data-theme="dark"]) .sidebar .side-rule{background:#e6e6e6!important}
+:root:not([data-theme="dark"]) .sidebar .side-foot{
+  background:#faf9f6!important;border-color:#e8e5dd!important;
+}
+:root:not([data-theme="dark"]) .sidebar .admin-icon{border-color:#e3e3e3!important}
+:root:not([data-theme="dark"]) #composer:not(.open) #expand{
+  background:#f7f5ef!important;border-color:#e5e1d7!important;color:#6c6250!important;
+}
+:root:not([data-theme="dark"]) #composer:not(.open) #expand:hover{
+  background:#efede6!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .detail-hero{
+  background:linear-gradient(118deg,#f7f5f0 0%,#fbfaf7 62%,#fffdf8 100%)!important;
+  border-color:#e9e5dc!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .memory-section{
+  background:linear-gradient(125deg,#faf9f6 0%,var(--surface) 85%)!important;
+  border-color:#e9e5dc!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .moment-section{
+  background:linear-gradient(100deg,#fffaf0,var(--surface) 80%)!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .detail-section label:before{
+  background:#c5a94f!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .tag{
+  background:#f5f4f0!important;border-color:#e4e1d8!important;color:#625d50!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .tag:hover{
+  background:#eeece5!important;border-color:#d8d2c3!important;
+}
+:root:not([data-theme="dark"]) #detailDialog .dialog-actions{
+  background:#fff!important;border-top-color:#e9e9e9!important;
+}
