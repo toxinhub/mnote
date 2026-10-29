@@ -1218,7 +1218,92 @@
 }
 
 </style>
-<link rel="stylesheet" href="public-desktop.css?v=20261029-19" media="(min-width: 1024px)">
+<link rel="stylesheet" href="public-desktop.css?v=20261029-20" media="(min-width: 1024px)">
+
+<style id="desktop-header-final-override">
+/* Explicit desktop header layer: intentionally placed after the external stylesheets. */
+@media screen and (min-width:761px){
+  body .topbar{
+    min-height:76px!important;height:76px!important;
+    padding:0 clamp(24px,3vw,52px)!important;
+    gap:clamp(16px,1.6vw,26px)!important;
+    background:linear-gradient(105deg,#f4f8f2 0%,#ffffff 52%,#f7faf6 100%)!important;
+    border-bottom:1px solid #dce8dc!important;
+    box-shadow:0 5px 22px rgba(40,73,47,.075)!important;
+    position:sticky;isolation:isolate;
+  }
+  body .topbar .menu-btn{border-radius:12px;color:#55715a}
+  body .topbar .brand{
+    display:flex!important;align-items:center;gap:12px!important;
+    min-width:190px!important;padding:5px 8px 5px 0!important;
+  }
+  body .topbar .brand-icon{
+    display:grid;place-items:center;flex:0 0 44px!important;
+    width:44px!important;height:44px!important;border-radius:14px!important;
+    background:linear-gradient(145deg,#d8ead8 0%,#a9cdae 100%)!important;
+    color:#285a36!important;font-size:25px!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 4px 10px rgba(45,91,55,.13)!important;
+  }
+  body .topbar .brand-name{
+    color:#263c2b!important;font-size:24px!important;font-weight:700!important;
+    letter-spacing:-1px!important;
+  }
+  body .topbar .search{
+    flex:1 1 560px!important;width:auto!important;min-width:160px!important;
+    max-width:860px!important;height:48px!important;margin:0 auto!important;
+    padding:0 17px!important;gap:12px!important;
+    border:1px solid #dce6dc!important;border-radius:16px!important;
+    background:#fff!important;
+    box-shadow:0 2px 8px rgba(41,70,46,.045),inset 0 1px 0 #fff!important;
+    transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease!important;
+  }
+  body .topbar .search:focus-within{
+    border-color:#9fc6a4!important;
+    box-shadow:0 0 0 4px rgba(105,157,113,.14),0 5px 16px rgba(41,70,46,.08)!important;
+    transform:translateY(-1px);
+  }
+  body .topbar .search .glass{color:#65846a!important;font-size:22px!important}
+  body .topbar .search input{font-size:14px!important;color:#263c2b!important}
+  body .topbar .search input::placeholder{color:#89958b!important;opacity:1}
+  body .topbar .top-actions{display:flex!important;align-items:center;gap:9px!important;margin-left:0!important}
+  body .topbar .top-actions .round{
+    width:42px!important;height:42px!important;border:1px solid #dfe8df!important;
+    border-radius:14px!important;background:rgba(255,255,255,.82)!important;
+    color:#4e6e54!important;font-size:21px!important;
+    box-shadow:0 2px 6px rgba(42,71,47,.035)!important;
+  }
+  body .topbar .top-actions .round:hover{
+    background:#eaf3e9!important;border-color:#c4dac5!important;
+    transform:translateY(-1px);
+  }
+  :root[data-theme="dark"] body .topbar{
+    background:linear-gradient(105deg,#202a23 0%,#202422 52%,#222a24 100%)!important;
+    border-bottom-color:#35463a!important;box-shadow:0 5px 22px rgba(0,0,0,.18)!important;
+  }
+  :root[data-theme="dark"] body .topbar .brand-name{color:#e4eee4!important}
+  :root[data-theme="dark"] body .topbar .brand-icon{
+    background:linear-gradient(145deg,#45694c,#2f4c35)!important;color:#e6f3e6!important;
+  }
+  :root[data-theme="dark"] body .topbar .search{
+    background:#282f2a!important;border-color:#3b4a3d!important;box-shadow:none!important;
+  }
+  :root[data-theme="dark"] body .topbar .search input{color:#e4eee4!important}
+  :root[data-theme="dark"] body .topbar .search input::placeholder{color:#a0b0a2!important}
+  :root[data-theme="dark"] body .topbar .top-actions .round{
+    background:#29322b!important;border-color:#3b4b3d!important;color:#c8dfcb!important;
+  }
+}
+@media screen and (min-width:761px) and (max-width:900px){
+  body .topbar{gap:10px!important;padding-inline:16px!important}
+  body .topbar .brand{min-width:150px!important}
+  body .topbar .brand-name{font-size:21px!important}
+  body .topbar .search{min-width:100px!important}
+}
+@media (prefers-reduced-motion:reduce){
+  body .topbar .search,body .topbar .top-actions .round{transition:none!important}
+}
+</style>
+
 </head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon">♫</span><span class="brand-name">m}note</span></a><label class="search"><span class="glass">⌕</span><input id="search" type="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes">⟳</button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span></button></div></header>
