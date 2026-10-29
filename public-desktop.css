@@ -709,3 +709,46 @@
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
   #detailOverlay #detailDialog.dialog{animation:none!important;transition:none!important}
 }
+
+
+/* Desktop YouTube frame ratio and sizing balance. Mobile remains untouched. */
+@media screen and (min-width:1024px) {
+  #detailDialog .desktop-detail-media {
+    width:100%!important;
+    min-width:0!important;
+  }
+  #detailDialog .desktop-detail-media .dialog-video,
+  #detailDialog .desktop-detail-media .desktop-media-fallback {
+    box-sizing:border-box!important;
+    display:block!important;
+    width:min(100%,560px)!important;
+    height:auto!important;
+    aspect-ratio:16/9!important;
+    max-width:560px!important;
+    max-height:none!important;
+    min-height:0!important;
+    margin:0 auto 12px!important;
+    overflow:hidden!important;
+    border-radius:12px!important;
+    object-fit:cover!important;
+  }
+  #detailDialog .desktop-detail-media .dialog-video img {
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    aspect-ratio:16/9!important;
+    object-fit:cover!important;
+  }
+  #detailDialog .desktop-detail-media .dialog-video iframe {
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    border:0!important;
+  }
+  #detailDialog .desktop-detail-media .desktop-media-fallback {
+    display:grid!important;
+    place-items:center!important;
+    font-size:42px!important;
+  }
+}
