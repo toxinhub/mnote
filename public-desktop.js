@@ -85,6 +85,7 @@
     if (!dialog || !dialog.classList.contains('show') && !overlay?.classList.contains('show')) return;
     const body = $('.dialog-body', dialog);
     if (!body || $('.desktop-detail-layout', dialog)) return;
+    const hero = $('.detail-hero', body);
     const video = $('.dialog-video', body);
     const layout = document.createElement('div');
     layout.className = 'desktop-detail-layout';
@@ -92,6 +93,7 @@
     media.className = 'desktop-detail-media';
     const copy = document.createElement('div');
     copy.className = 'desktop-detail-copy';
+    if (hero) layout.append(hero);
     if (video) media.append(video);
     else {
       const fallback = document.createElement('div');
@@ -100,8 +102,11 @@
       fallback.textContent = '♫';
       media.append(fallback);
     }
-    Array.from(body.childNodes).forEach(node => { if (node !== video) copy.append(node); });
-    layout.append(copy, media);
+    layout.append(media);
+    Array.from(body.childNodes).forEach(node => {
+      if (node !== hero && node !== video) copy.append(node);
+    });
+    if (copy.childNodes.length) layout.append(copy);
     body.replaceWith(layout);
     const moment = $('.moment-section', copy);
     if (moment && !$('a', moment)) {
