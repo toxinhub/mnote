@@ -1517,3 +1517,38 @@
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
   #composer:not(.open),#composer:not(.open) #quickUrl,#composer:not(.open) #saveNote{transition:none!important}
 }
+
+
+/* Optical alignment fix: center the paste field in the available middle track
+   and make its outer wrapper/input share the exact same width. */
+@media screen and (min-width:1024px){
+  #composer:not(.open){
+    grid-template-columns:44px minmax(0,1fr) 132px!important;
+    column-gap:14px!important;
+    box-sizing:border-box!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:first-child{
+    box-sizing:border-box!important;
+    width:100%!important;
+    min-width:0!important;
+    justify-self:stretch!important;
+    align-self:center!important;
+    padding:0!important;
+    border:0!important;
+    margin:0!important;
+  }
+  #composer:not(.open) #quickUrl{
+    box-sizing:border-box!important;
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding-inline:14px!important;
+    text-align:left!important;
+    transform:none!important;
+  }
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #composer:not(.open){grid-template-columns:42px minmax(0,1fr) 124px!important;column-gap:12px!important}
+}
