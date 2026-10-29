@@ -217,3 +217,81 @@ body{font-size:14px;line-height:1.5}
  #labels-view .label-counts>span{justify-self:auto}
  #labels-view .label-open{grid-column:auto}
 }
+
+
+/* Admin edit form polish: clearer field hierarchy, calmer spacing, balanced actions. */
+#modal{padding:clamp(12px,2.4vw,26px);background:rgba(28,31,27,.52);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+#modal form{width:min(720px,100%);max-height:min(91dvh,880px);border-radius:18px;box-shadow:0 26px 80px rgba(24,31,23,.24),0 4px 16px rgba(24,31,23,.08)}
+#modal form:before{flex-basis:4px}
+#modal .edit-modal-head{align-items:center;gap:18px;padding:20px 24px 18px;background:linear-gradient(110deg,#fffdf6 0%,var(--surface) 78%);border-bottom:1px solid var(--line)}
+#modal .edit-kicker{display:inline-flex;align-items:center;gap:7px;color:#8a6900;font-size:9px;letter-spacing:.15em}
+#modal .edit-kicker:before{content:"";display:inline-block;width:17px;height:2px;border-radius:2px;background:var(--accent)}
+#modal .edit-modal-head h2{margin:6px 0 5px;font-size:23px;line-height:1.2;letter-spacing:-.65px}
+#modal .edit-modal-head p{max-width:48ch;font-size:12px;line-height:1.5}
+#modal .edit-close{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:25px;line-height:1;transition:background .15s,border-color .15s,transform .15s}
+#modal .edit-close:hover{border-color:#e7cf78;background:#fff8df;transform:rotate(4deg)}
+#modal .edit-scroll{padding:8px 24px 18px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+#modal .edit-section{margin-top:13px;padding:15px 16px 13px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+#modal .edit-section+.edit-section{margin-top:11px;padding-top:15px;border-top:1px solid var(--line)}
+#modal .edit-section-title{gap:11px;margin-bottom:12px}
+#modal .edit-section-title .step{flex-basis:32px;width:32px;height:32px;border:1px solid #f0dfa6;border-radius:10px;background:#fff6d6;color:#785900;font-size:10px}
+#modal .edit-section-title strong{font-size:13px;font-weight:650;letter-spacing:-.1px}
+#modal .edit-section-title small{margin-top:3px;font-size:11px;line-height:1.45}
+#modal .edit-fields{gap:2px 14px}
+#modal .field{gap:6px;margin:6px 0 8px}
+#modal .field label{font-size:11px;font-weight:650;line-height:1.35}
+#modal .optional{font-size:10px}
+#modal .field input,#modal .field textarea,#modal .field select{min-height:42px;padding:10px 12px;border:1px solid #dfe3db;border-radius:9px;background:#f9faf7;font-size:12px;line-height:1.5;transition:border-color .15s,background .15s,box-shadow .15s}
+#modal .field textarea{min-height:112px;line-height:1.7}
+#modal .field input:hover,#modal .field textarea:hover{border-color:#c7d2c4}
+#modal .field input:focus,#modal .field textarea:focus,#modal .field select:focus{border-color:#83a889;background:var(--surface);box-shadow:0 0 0 3px rgba(104,134,108,.13)}
+#modal .field input::placeholder,#modal .field textarea::placeholder{color:#858b80;opacity:1}
+#modal .field-hint{margin-top:4px;font-size:10px;line-height:1.5}
+#modal .label-suggestions{overflow:hidden;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 12px 28px rgba(30,40,29,.12)}
+#modal .label-suggestion{min-height:38px;padding:9px 12px;font-size:12px}
+#edit-form>.actions{gap:9px;padding:14px 24px calc(14px + var(--safe));background:var(--surface);border-top:1px solid var(--line)}
+#edit-form>.actions .save-hint{font-size:10px;line-height:1.5}
+#edit-form>.actions .btn{min-height:40px;padding:9px 15px;border-radius:10px;font-size:12px;font-weight:600}
+#edit-form>.actions #cancel{border-color:#f0d7d3;background:#fff5f3;color:#a3443b}
+#edit-form>.actions #cancel:hover{background:#fce8e6}
+#edit-form>.actions #save-changes{min-width:126px;border-color:var(--accent);background:var(--accent);box-shadow:0 2px 0 #e5a900;color:#352c0d}
+#edit-form>.actions #save-changes:hover{background:#f9ab00}
+:root[data-theme=dark] #modal .edit-modal-head{background:linear-gradient(110deg,#302d22 0%,var(--surface) 78%)}
+:root[data-theme=dark] #modal .edit-kicker{color:#e5c76a}
+:root[data-theme=dark] #modal .edit-close{background:var(--soft);border-color:var(--line)}
+:root[data-theme=dark] #modal .edit-close:hover{background:#40371f;border-color:#6a5b31}
+:root[data-theme=dark] #modal .edit-section-title .step{border-color:#5d502b;background:#3d3520;color:#f7d66b}
+:root[data-theme=dark] #modal .field input,:root[data-theme=dark] #modal .field textarea,:root[data-theme=dark] #modal .field select{border-color:var(--line);background:#22251f}
+:root[data-theme=dark] #modal .field input:hover,:root[data-theme=dark] #modal .field textarea:hover{border-color:#596752}
+:root[data-theme=dark] #modal .field input:focus,:root[data-theme=dark] #modal .field textarea:focus,:root[data-theme=dark] #modal .field select:focus{background:var(--surface)}
+:root[data-theme=dark] #modal .field input::placeholder,:root[data-theme=dark] #modal .field textarea::placeholder{color:#aeb4a8}
+:root[data-theme=dark] #edit-form>.actions #cancel{border-color:#633e39;background:#3a2926;color:#f2b5ad}
+:root[data-theme=dark] #edit-form>.actions #cancel:hover{background:#4a302c}
+@media(max-width:600px){
+ #modal{align-items:flex-end;padding:0}
+ #modal form{width:100%;max-height:94dvh;border-radius:18px 18px 0 0;border-bottom:0}
+ #modal .edit-modal-head{gap:10px;padding:16px 16px 13px}
+ #modal .edit-modal-head h2{font-size:20px}
+ #modal .edit-modal-head p{font-size:11px}
+ #modal .edit-close{flex-basis:36px;width:36px;height:36px;border-radius:11px}
+ #modal .edit-scroll{padding:5px 13px 14px}
+ #modal .edit-section{margin-top:10px;padding:12px 12px 9px;border-radius:12px}
+ #modal .edit-section+.edit-section{margin-top:9px;padding-top:12px}
+ #modal .edit-section-title{gap:9px;margin-bottom:9px}
+ #modal .edit-section-title .step{flex-basis:29px;width:29px;height:29px;border-radius:9px}
+ #modal .edit-section-title strong{font-size:12px}
+ #modal .edit-section-title small{font-size:10px}
+ #modal .edit-fields{grid-template-columns:minmax(0,1fr);gap:0}
+ #modal .field.full{grid-column:auto}
+ #modal .field{gap:5px;margin:5px 0 8px}
+ #modal .field label{font-size:11px}
+ #modal .field input,#modal .field textarea,#modal .field select{min-height:42px;padding:10px 11px;border-radius:9px;font-size:12px}
+ #modal .field textarea{min-height:100px}
+ #modal .field-hint{font-size:10px}
+ #edit-form>.actions{gap:7px;padding:10px 13px calc(11px + var(--safe))}
+ #edit-form>.actions .save-hint{flex:1 1 100%;max-width:none}
+ #edit-form>.actions #cancel{margin-left:auto}
+ #edit-form>.actions .btn{min-height:38px;padding:8px 12px;font-size:11px}
+ #edit-form>.actions #save-changes{min-width:112px}
+}
+@media(prefers-reduced-motion:reduce){#modal .edit-close,#modal .field input,#modal .field textarea,#modal .field select{transition:none!important}}
