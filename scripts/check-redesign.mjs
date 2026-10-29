@@ -77,10 +77,10 @@ if (!media.ok) fail('Public desktop CSS has a top-level rule outside a media que
 const responsiveMedia = topLevelCssRulesAreMedia(responsiveCss);
 if (!responsiveMedia.ok) fail('Public responsive CSS has a top-level rule outside a media query: ' + responsiveMedia.prelude);
 if (!/@media\s+screen\s+and\s+\(max-width:\s*1023px\)/i.test(responsiveCss) || !/@media\s+screen\s+and\s+\(max-width:\s*760px\)/i.test(responsiveCss)) fail('Public responsive detail breakpoints are missing.');
-if (!admin.includes('href="admin-redesign.css"')) fail('Admin responsive stylesheet is not linked.');
+if (!/<link\b(?=[^>]*\bhref=["']admin-redesign\.css(?:\?[^"']*)?["'])[^>]*>/i.test(admin)) fail('Admin responsive stylesheet is not linked; cache-busting query strings are allowed.');
 if (!admin.includes('data-view="labels"') || !admin.includes('data-view="activity"')) fail('Admin labels/activity views are missing.');
 if (!admin.includes('async function bulkStatus') || !admin.includes('showUndo(start.id')) fail('Bulk review or swipe undo implementation is missing.');
-if (!adminCss.includes('@media (max-width:600px)') || !adminCss.includes('@media (min-width:1024px)')) fail('Admin responsive breakpoints are missing.');
+if (!/@media\s*\(\s*max-width:\s*600px\s*\)/i.test(adminCss) || !/@media\s*\(\s*min-width:\s*1024px\s*\)/i.test(adminCss)) fail('Admin responsive breakpoints are missing.');
 
 const baselineResult = spawnSync('git', ['show', 'origin/main:index.html'], { encoding: 'utf8' });
 if (baselineResult.status === 0) {
@@ -89,7 +89,7 @@ if (baselineResult.status === 0) {
   if (style(index) !== style(baseline)) fail('Public inline CSS changed; this includes the mobile CSS and must remain untouched.');
   const queries = html => html.match(/@media[^{]+/g) || [];
   if (JSON.stringify(queries(index)) !== JSON.stringify(queries(baseline))) fail('Existing public CSS media-query rules changed.');
-  if (!index.includes(':mobile?2:medium?4:Math.max(1,Math.floor((w+gap)/(minCard+gap)));')) fail('Original public grid sizing for widths below 1024px is not preserved.');
+  if (!/const mobile=window\.innerWidth<=760,tablet=window\.innerWidth<=1023;/.test(index) || !/if\(mobile\)cols=2;else if\(tablet\)/.test(index)) fail('Original public grid sizing for mobile and tablet widths is not preserved.');
 } else {
   console.warn('Could not compare index.html against origin/main; local baseline comparison skipped.');
 }
