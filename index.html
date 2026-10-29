@@ -837,6 +837,9 @@
 /* Make the close X visibly larger and easier to target across layouts. */
 #detailDialog .detail-hero-top #closeDetail{font-size:34px!important;line-height:1!important}
 @media(max-width:760px){#detailDialog .detail-hero-top #closeDetail{font-size:31px!important}}
+
+/* Keep the extra composer labels desktop-only to preserve the established public mobile layout. */
+.compose-section-kicker,.desktop-field-label{display:none}
 </style>
 
 
@@ -1218,7 +1221,7 @@
 }
 
 </style>
-<link rel="stylesheet" href="public-desktop.css?v=20261029-20" media="(min-width: 1024px)">
+<link rel="stylesheet" href="public-desktop.css?v=20261029-form-polish" media="(min-width: 1024px)">
 
 <style id="desktop-header-final-override">
 /* Explicit desktop header layer: intentionally placed after the external stylesheets. */
