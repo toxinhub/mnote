@@ -71,3 +71,95 @@
 :root[data-theme=dark] #themeBtn{color:#e7c66a;background:#30332b}
 :root[data-theme=dark] #themeBtn:hover{background:#3a4033}
 @media(prefers-reduced-motion:reduce){:root[data-theme=dark] body,#themeBtn,#themeBtn .theme-icon{transition:none!important}}
+
+
+/* Dark-mode polish shared by mobile and desktop: consistent surfaces, readable controls,
+   restrained accents, and accessible focus/hover states without changing the light theme. */
+:root[data-theme=dark]{
+  --page:#191c1a;
+  --surface:#222623;
+  --soft:#2b302c;
+  --ink:#e7ece8;
+  --muted:#b0bbb3;
+  --line:#414a43;
+  --hover:#303832;
+  --focus:#b7d8bd;
+  --accent:#e6c66d;
+  --surface-2:#303832;
+  --shadow:0 2px 12px #0004;
+}
+:root[data-theme=dark] .workspace,
+:root[data-theme=dark] .inside{color:var(--ink)}
+:root[data-theme=dark] .search,
+:root[data-theme=dark] .composer,
+:root[data-theme=dark] .dialog,
+:root[data-theme=dark] .note,
+:root[data-theme=dark] .desktop-palette{
+  color:var(--ink);
+}
+:root[data-theme=dark] input:not([type=checkbox]):not([type=radio]),
+:root[data-theme=dark] textarea,
+:root[data-theme=dark] select{
+  color:var(--ink);
+  caret-color:var(--focus);
+}
+:root[data-theme=dark] input::placeholder,
+:root[data-theme=dark] textarea::placeholder{color:#9da9a0}
+:root[data-theme=dark] button:focus-visible,
+:root[data-theme=dark] a:focus-visible,
+:root[data-theme=dark] input:focus-visible,
+:root[data-theme=dark] textarea:focus-visible,
+:root[data-theme=dark] select:focus-visible{
+  outline-color:var(--focus);
+}
+:root[data-theme=dark] .note-actions .round,
+:root[data-theme=dark] .pin,
+:root[data-theme=dark] .round,
+:root[data-theme=dark] .menu-btn{color:#b9c4bb}
+:root[data-theme=dark] .note-actions .round:hover,
+:root[data-theme=dark] .pin:hover,
+:root[data-theme=dark] .round:hover,
+:root[data-theme=dark] .menu-btn:hover{color:#edf4ee}
+:root[data-theme=dark] .section-head,
+:root[data-theme=dark] .result-count,
+:root[data-theme=dark] .artist,
+:root[data-theme=dark] .moment,
+:root[data-theme=dark] .side-foot{color:var(--muted)}
+:root[data-theme=dark] .mobile-nav button.active .mobile-symbol,
+:root[data-theme=dark] .nav.active{
+  background:#354239;
+  color:#e7f0e8;
+}
+:root[data-theme=dark] .text-btn:not(.primary){color:var(--ink)}
+:root[data-theme=dark] .text-btn:not(.primary):hover{background:var(--hover)}
+:root[data-theme=dark] .dialog-head .round{color:#c7d1c9}
+:root[data-theme=dark] .detail-section{border-color:var(--line)}
+:root[data-theme=dark] .detail-section label{color:#b4beb6}
+:root[data-theme=dark] .detail-section .feelings-label{color:#9eaaa1}
+:root[data-theme=dark] .dialog-actions{border-top-color:var(--line)}
+:root[data-theme=dark] .toast{background:#e4ebe5;color:#202622}
+:root[data-theme=dark] ::-webkit-scrollbar{width:10px;height:10px}
+:root[data-theme=dark] ::-webkit-scrollbar-track{background:var(--page)}
+:root[data-theme=dark] ::-webkit-scrollbar-thumb{background:#48534a;border:2px solid var(--page);border-radius:10px}
+:root[data-theme=dark] ::-webkit-scrollbar-thumb:hover{background:#5b695e}
+@media(min-width:1024px){
+  :root[data-theme=dark] .workspace{background:var(--page)}
+  :root[data-theme=dark] #notesGrid .note{border-color:#414a43}
+  :root[data-theme=dark] #notesGrid .note:hover,
+  :root[data-theme=dark] #notesGrid .note:focus-within{border-color:#657568;box-shadow:0 4px 18px #0004}
+  :root[data-theme=dark] .composer:not(.open) #quickUrl,
+  :root[data-theme=dark] .composer:not(.open) #quickTitle{background:#1d211e;border-color:#414a43;color:var(--ink)}
+}
+@media(max-width:1023px){
+  :root[data-theme=dark] .workspace{background:var(--page)}
+  :root[data-theme=dark] .sidebar{background:var(--surface);border-right-color:var(--line)}
+  :root[data-theme=dark] .mobile-nav{background:#202421;border-top-color:#414a43}
+  :root[data-theme=dark] .overlay .dialog{background:var(--surface);border-color:var(--line)}
+  :root[data-theme=dark] .note{box-shadow:0 1px 2px #0002}
+}
+@media(prefers-reduced-motion:reduce){
+  :root[data-theme=dark] .note,
+  :root[data-theme=dark] .dialog,
+  :root[data-theme=dark] .sidebar,
+  :root[data-theme=dark] .mobile-nav{transition:none!important;animation:none!important}
+}
