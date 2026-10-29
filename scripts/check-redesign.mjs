@@ -64,14 +64,19 @@ checkJavaScript('public-desktop.js', fs.readFileSync('public-desktop.js', 'utf8'
 const index = fs.readFileSync('index.html', 'utf8');
 const publicJs = fs.readFileSync('public-desktop.js', 'utf8');
 const publicCss = fs.readFileSync('public-desktop.css', 'utf8');
+const responsiveCss = fs.readFileSync('public-responsive.css', 'utf8');
 const admin = fs.readFileSync('admin.html', 'utf8');
 const adminCss = fs.readFileSync('admin-redesign.css', 'utf8');
 
-if (!index.includes('href="public-desktop.css" media="(min-width: 1024px)"')) fail('Public desktop CSS must be media-qualified at 1024px.');
-if (!index.includes('src="public-desktop.js" defer')) fail('Public desktop enhancement script is missing.');
+if (!/<link\\b(?=[^>]*\\bhref=["']public-desktop\\.css(?:\\?[^"']*)?["'])(?=[^>]*\\bmedia=["']\\(min-width:\\s*1024px\\)["'])[^>]*>/i.test(index)) fail('Public desktop CSS must be media-qualified at 1024px; cache-busting query strings are allowed.');
+if (!/<link\\b(?=[^>]*\\bhref=["']public-responsive\\.css(?:\\?[^"']*)?["'])[^>]*>/i.test(index)) fail('Public responsive detail stylesheet is missing.');
+if (!/<script\\b(?=[^>]*\\bsrc=["']public-desktop\\.js(?:\\?[^"']*)?["'])(?=[^>]*\\bdefer(?:\\s|>|=))[^>]*>/i.test(index)) fail('Public desktop enhancement script is missing; cache-busting query strings are allowed.');
 if (!publicJs.includes("if (!window.matchMedia('(min-width: 1024px)').matches) return;")) fail('Public desktop script must exit below 1024px.');
 const media = topLevelCssRulesAreMedia(publicCss);
 if (!media.ok) fail('Public desktop CSS has a top-level rule outside a media query: ' + media.prelude);
+const responsiveMedia = topLevelCssRulesAreMedia(responsiveCss);
+if (!responsiveMedia.ok) fail('Public responsive CSS has a top-level rule outside a media query: ' + responsiveMedia.prelude);
+if (!/@media\\s+screen\\s+and\\s+\\(max-width:\s*1023px\\)/i.test(responsiveCss) || !/@media\\s+screen\\s+and\\s+\\(max-width:\s*760px\\)/i.test(responsiveCss)) fail('Public responsive detail breakpoints are missing.');
 if (!admin.includes('href="admin-redesign.css"')) fail('Admin responsive stylesheet is not linked.');
 if (!admin.includes('data-view="labels"') || !admin.includes('data-view="activity"')) fail('Admin labels/activity views are missing.');
 if (!admin.includes('async function bulkStatus') || !admin.includes('showUndo(start.id')) fail('Bulk review or swipe undo implementation is missing.');
