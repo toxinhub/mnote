@@ -762,3 +762,12 @@
     font-size:42px!important;
   }
 }
+
+/* Softer secondary label for feelings/memories in desktop note details. */
+@media screen and (min-width:1024px){
+  #detailDialog .desktop-detail-copy .detail-section .feelings-label{
+    color:color-mix(in srgb,var(--muted) 68%,var(--surface))!important;
+    font-weight:400!important;
+    letter-spacing:.01em!important;
+  }
+}
