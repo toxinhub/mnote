@@ -1426,7 +1426,7 @@
 .loading-copy{display:flex;flex-direction:column;gap:3px;align-items:center}
 .loading-copy strong{font-size:15px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
 .loading-copy span{font-size:12px;color:var(--muted)}
-.loading-skeletons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:16px}
+.loading-skeletons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:18px}
 .loading-skeleton-card{min-width:0;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
 .skeleton-title,.skeleton-line,.skeleton-thumb{position:relative;overflow:hidden;background:var(--soft);border-radius:6px}
 .skeleton-title{width:72%;height:13px;margin-bottom:9px}.skeleton-line{width:100%;height:8px;margin-top:8px}.skeleton-line.short{width:44%}.skeleton-line.medium{width:68%}.skeleton-title.medium{width:57%}.skeleton-title.short{width:48%}
@@ -1439,7 +1439,7 @@
 @keyframes loading-eq{0%,100%{transform:scaleY(.45);opacity:.72}50%{transform:scaleY(1.3);opacity:1}}
 :root[data-theme=dark] .loading-music-orb{background:radial-gradient(circle at 50% 38%,#364239,var(--surface) 74%);border-color:#536b57}
 :root[data-theme=dark] .skeleton-thumb{background:color-mix(in srgb,#536b57 26%,var(--soft))}
-@media(max-width:1023px){.loading-skeletons{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}\n@media(max-width:760px){#notesGrid>.loading-state{padding:10px 0 16px}.loading-intro{padding:4px 8px 18px;gap:10px}.loading-music-orb{width:68px;height:68px;border-radius:23px}.loading-music-orb:before{border-radius:28px}.loading-music-emoji{font-size:30px}.loading-copy strong{font-size:14px}.loading-copy span{font-size:11px}.loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.loading-skeleton-card{padding:10px;border-radius:9px}.skeleton-thumb{margin-top:11px}}
+@media(max-width:1400px){.loading-skeletons{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}\n@media(max-width:1050px){.loading-skeletons{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}\n@media(max-width:760px){#notesGrid>.loading-state{padding:10px 0 16px}.loading-intro{padding:4px 8px 18px;gap:10px}.loading-music-orb{width:68px;height:68px;border-radius:23px}.loading-music-orb:before{border-radius:28px}.loading-music-emoji{font-size:30px}.loading-copy strong{font-size:14px}.loading-copy span{font-size:11px}.loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.loading-skeleton-card{padding:10px;border-radius:9px}.skeleton-thumb{margin-top:11px}}
 @media(max-width:390px){.loading-skeletons{gap:7px}.loading-skeleton-card{padding:9px}.loading-intro{padding-bottom:16px}}
 @media(prefers-reduced-motion:reduce){.loading-music-orb:before,.loading-music-emoji,.loading-eq i,.skeleton-title:after,.skeleton-line:after,.skeleton-thumb:after{animation:none!important}.skeleton-title:after,.skeleton-line:after,.skeleton-thumb:after{display:none}}
 </style></head>
