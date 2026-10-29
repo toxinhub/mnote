@@ -1471,6 +1471,34 @@
   .composer.open .compose-foot #closeComposer{order:2}
   .composer.open .compose-foot #saveNote{order:3}
 }
+
+/* Refined desktop quick-add card above the notes grid */
+@media (min-width:761px){
+  .composer{width:min(680px,100%);margin:0 auto 30px;border:1px solid color-mix(in srgb,var(--line) 82%,var(--muted));border-radius:14px;box-shadow:0 2px 8px #2021240b;overflow:visible;transition:border-color .16s,box-shadow .16s}
+  .composer:hover{border-color:color-mix(in srgb,var(--line) 55%,var(--muted))}
+  .composer:focus-within{border-color:color-mix(in srgb,var(--line) 60%,var(--focus));box-shadow:0 3px 12px #20212412}
+  .composer:not(.open) .compose-head{min-height:58px;padding:8px 12px 8px 18px;gap:12px}
+  .composer:not(.open) .compose-title{font-size:15px;font-weight:400;padding:10px 2px}
+  .composer:not(.open) .compose-title::placeholder{color:var(--muted)}
+  .composer:not(.open) .compose-mark{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:10px;background:color-mix(in srgb,#fbbc04 18%,var(--surface));color:color-mix(in srgb,#b88600 78%,var(--ink));font-size:18px}
+  .composer:not(.open) .compose-tools{gap:4px;padding-left:8px;border-left:1px solid var(--line)}
+  .composer:not(.open) .compose-tools .round{width:36px;height:36px;border-radius:10px;font-size:18px}
+  .composer:not(.open) #expand{background:var(--soft);color:var(--ink)}
+  .composer:not(.open) #quickLink{background:#fbbc04;color:#202124}
+  .composer:not(.open) #quickLink:hover{background:#f9ab00}
+  .composer.open{box-shadow:0 4px 18px #20212412}
+  .composer.open .compose-head{border-radius:14px 14px 0 0}
+  .composer.open .compose-body{padding:18px 22px 20px}
+  .composer.open .compose-song-group .form-label,.composer.open .compose-memory-group .form-label,.composer.open .desktop-field-label{letter-spacing:.01em}
+  .composer.open .compose-song-group .field{min-height:42px}
+  .composer.open textarea.field{min-height:108px}
+  .composer.open .compose-details-group .fields{gap:14px}
+  .composer.open .compose-foot{gap:10px;margin-top:20px;padding-top:14px}
+  .composer.open .compose-foot small{padding-right:12px}
+  .composer.open .compose-foot #closeComposer{background:transparent;border:1px solid var(--line)}
+  .composer.open .compose-foot #closeComposer:hover{background:var(--hover)}
+  .composer.open .compose-foot #saveNote{box-shadow:0 1px 2px #20212412}
+}
 </style></head>
 <body>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ui-icon menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon"><svg class="ui-icon brand-music-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span class="brand-name">m}note</span></a><label class="search"><span class="glass"><svg class="ui-icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.2 4.2"/></svg></span><input id="search" type="text" inputmode="search" enterkeyhint="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off" role="searchbox"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes"><svg class="ui-icon refresh-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M19 12a7.5 7.5 0 0 0-13.2-4.8L4 9"/><path d="M4 17v-5h5"/><path d="M5 12a7.5 7.5 0 0 0 13.2 4.8L20 15"/></svg></button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true"><svg class="ui-icon theme-svg" viewBox="0 0 24 24"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z"/></svg></span></button></div></header>
