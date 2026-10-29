@@ -1387,15 +1387,13 @@
 /* Balanced mini-player: restrained sage accent, proportional controls, minimal motion */
 .mini-detail-dock{isolation:isolate;filter:drop-shadow(0 4px 10px #20212420);transition:transform .18s cubic-bezier(.2,.8,.2,1),filter .18s ease;-webkit-tap-highlight-color:transparent}
 .mini-detail-dock.show{animation:mini-dock-enter .2s cubic-bezier(.2,.8,.2,1) both}
-.mini-player-orb{border:1px solid color-mix(in srgb,#789b82 48%,var(--line));background:color-mix(in srgb,var(--surface) 94%,#dce9de 6%);box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 88%,transparent),0 1px 3px #20212410;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.mini-player-orb:before{content:"";position:absolute;inset:3px;z-index:1;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 24%,color-mix(in srgb,#91b49a 20%,transparent),transparent 66%)}
+.mini-player-orb{border:1px solid #e8e8e8;background:#fff;box-shadow:inset 0 0 0 2px #fff,0 1px 3px #20212410;-webkit-backdrop-filter:none;backdrop-filter:none}
+.mini-player-orb:before{content:none}
 .mini-player-progress{z-index:3}
-.mini-player-progress circle{stroke:#789b82;stroke-width:6;transition:stroke-dashoffset .3s linear}
-.mini-player-progress .progress-track{stroke:color-mix(in srgb,#789b82 20%,var(--line));stroke-width:6}
-.mini-player-progress .progress-dot{fill:#d8ebd3;stroke:var(--surface);stroke-width:1.6;stroke-linecap:round;filter:drop-shadow(0 1px 2px #20212430);transition:cx .24s linear,cy .24s linear;vector-effect:non-scaling-stroke}
-.mini-player-progress .progress-dot{stroke-width:1.6}
-.mini-player-progress .progress-dot{pointer-events:none}
-.mini-player-glyph{z-index:4;color:#6f9278;font-size:19px;transition:transform .18s ease}
+.mini-player-progress circle{stroke:#ffc400;stroke-width:8;transition:stroke-dashoffset .3s linear}
+.mini-player-progress .progress-track{stroke:#f4edcf;stroke-width:8}
+.mini-player-progress .progress-dot{fill:#ef4444;stroke:#fff;stroke-width:1.5;filter:drop-shadow(0 1px 2px #20212435);transition:cx .18s linear,cy .18s linear;pointer-events:none;vector-effect:non-scaling-stroke}
+.mini-player-glyph{z-index:4;color:#725b00;font-size:19px;transition:transform .18s ease}
 .mini-player-restore{z-index:5;border-radius:50%;touch-action:manipulation}
 .mini-detail-close{top:-4px;right:-5px;width:20px;height:20px;border:2px solid var(--surface);background:var(--ink);color:var(--surface);box-shadow:0 2px 6px #0002;font-size:14px;line-height:1;transition:transform .16s ease,background .16s ease}
 .mini-detail-close:hover{transform:scale(1.07);background:#789b82;color:#fff}
@@ -1403,7 +1401,7 @@
 .mini-detail-dock.inline-player-mode .mini-player-orb:before{display:none}
 @keyframes mini-dock-enter{from{opacity:0;transform:translate3d(0,5px,0) scale(.96)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
 @media(hover:hover){.mini-detail-dock:not(.inline-player-mode):hover{transform:translateY(-2px);filter:drop-shadow(0 6px 13px #20212426)}.mini-detail-dock:not(.inline-player-mode):hover .mini-player-glyph{transform:scale(1.06)}}
-@media(max-width:600px){.mini-detail-dock{left:9px;bottom:calc(76px + var(--safe));width:46px;height:46px;filter:drop-shadow(0 3px 7px #20212420)}.mini-player-orb{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 88%,transparent),0 1px 2px #20212410}#persistentPlayerHost{inset:3px}.mini-player-progress circle{stroke-width:6}.mini-player-progress .progress-dot{stroke-width:1.6}.mini-player-glyph{font-size:16px}.mini-detail-close{width:18px;height:18px;top:-3px;right:-4px;font-size:12px;border-width:1.5px}}
+@media(max-width:600px){.mini-detail-dock{left:9px;bottom:calc(76px + var(--safe));width:46px;height:46px;filter:drop-shadow(0 3px 7px #20212420)}.mini-player-orb{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 88%,transparent),0 1px 2px #20212410}#persistentPlayerHost{inset:3px}.mini-player-progress circle{stroke-width:8}.mini-player-progress .progress-dot{stroke-width:1.5}.mini-player-glyph{font-size:16px}.mini-detail-close{width:18px;height:18px;top:-3px;right:-4px;font-size:12px;border-width:1.5px}}
 @media(prefers-reduced-motion:reduce){.mini-detail-dock,.mini-player-orb,.mini-player-glyph,.mini-detail-close{animation:none!important;transition:none!important}}
 </style></head>
 <body>
@@ -1457,7 +1455,7 @@ async function load(){$('notesGrid').innerHTML='<div class="empty"><div class="e
 function getPersistentPlayer(){return window.mnoteYTPlayer&&typeof window.mnoteYTPlayer.getIframe==='function'?window.mnoteYTPlayer.getIframe():null}
 function clearPlayerProgressTimer(){if(window.mnoteProgressTimer){clearInterval(window.mnoteProgressTimer);window.mnoteProgressTimer=null}}
 function resetDockGeometry(){const dock=$('miniDetailDock');['left','top','width','height','bottom'].forEach(function(k){dock.style[k]=''});dock.classList.remove('inline-player-mode')}
-function setPlayerProgress(progress){const value=Math.max(0,Math.min(1,Number(progress)||0));const ring=$('miniPlayerProgress');if(ring)ring.style.strokeDashoffset=String(289.03*(1-value));const dot=$('miniPlayerProgressDot');if(dot){const angle=value*Math.PI*2;dot.setAttribute('cx',String(50+46*Math.cos(angle)));dot.setAttribute('cy',String(50+46*Math.sin(angle)))}}
+function setPlayerProgress(progress){const value=Math.max(0,Math.min(1,Number(progress)||0));const ring=$('miniPlayerProgress');if(ring)ring.style.strokeDashoffset=String(289.03*(1-value));const dot=$('miniPlayerProgressDot');if(dot){const angle=value*Math.PI*2-Math.PI/2;dot.setAttribute('cx',String(50+46*Math.cos(angle)));dot.setAttribute('cy',String(50+46*Math.sin(angle)))}}
 function setPlayerInline(target){const dock=$('miniDetailDock');if(!target||!target.isConnected||!getPersistentPlayer())return;const rect=target.getBoundingClientRect();if(rect.width<40||rect.height<30)return;dock.style.left=Math.max(0,rect.left)+'px';dock.style.top=Math.max(0,rect.top)+'px';dock.style.width=Math.max(120,rect.width)+'px';dock.style.height=Math.max(68,rect.height)+'px';dock.style.bottom='auto';dock.classList.add('inline-player-mode','show');$('miniPlayerOrb').classList.add('is-playing')}
 function updateInlinePlayerPosition(){const target=window.inlinePlayerTarget;if(target&&target.isConnected&&$('miniDetailDock').classList.contains('inline-player-mode'))setPlayerInline(target)}
 function parkPlayer(){const frame=getPersistentPlayer();window.inlinePlayerTarget=null;resetDockGeometry();if(frame&&(playingVideoId||minimizedDetailId!==null))$('miniDetailDock').classList.add('show');$('miniPlayerOrb').classList.toggle('is-playing',!!playingVideoId)}
