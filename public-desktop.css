@@ -843,3 +843,6 @@
 }
 @media screen and (min-width:1024px) and (max-width:1279px){#detailOverlay #detailDialog.dialog{width:min(760px,calc(100vw - 48px))!important;max-width:760px!important;}#detailDialog .dialog-body{padding:20px 22px 14px!important;}#detailDialog .detail-hero{padding:17px 18px 19px!important;}}
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){#detailDialog{animation:none!important;}}
+
+/* Desktop song-title bar proportions, aligned with the shared title stack. */
+@media screen and (min-width:1024px){#detailDialog .detail-hero{padding:18px 22px!important}#detailDialog .detail-hero-top{min-height:44px!important;gap:18px!important}#detailDialog .detail-title-stack h2{font-size:clamp(24px,2vw,30px)!important;line-height:1.22!important}#detailDialog .detail-title-stack .detail-artist{font-size:13px!important}#detailDialog .detail-hero-top #closeDetail{flex-basis:38px!important;width:38px!important;height:38px!important}}
