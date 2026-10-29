@@ -87,32 +87,82 @@
     box-shadow: 0 24px 90px #0003;
   }
   #detailDialog .desktop-detail-layout {
-    display: grid;
-    grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr);
-    align-items: start;
-    gap: 28px;
-    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 24px 30px 18px;
   }
-  #detailDialog .desktop-detail-media { position: sticky; top: 0; min-width: 0; }
+  #detailDialog .desktop-detail-layout > .detail-hero {
+    order: 0;
+    margin: 0 0 16px;
+    padding: 20px 22px;
+    border-radius: 14px;
+  }
+  #detailDialog .desktop-detail-layout > .detail-hero .detail-hero-top {
+    align-items: flex-start;
+    gap: 16px;
+    margin: 0;
+  }
+  #detailDialog .desktop-detail-layout > .detail-hero .detail-title-stack h2 {
+    max-width: 100%;
+    font-size: clamp(25px, 2.4vw, 34px);
+    line-height: 1.18;
+    letter-spacing: -.7px;
+    overflow-wrap: anywhere;
+  }
+  #detailDialog .desktop-detail-layout > .detail-hero #closeDetail {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    margin: -3px -4px 0 0;
+    border-radius: 12px;
+    font-size: 31px;
+  }
+  #detailDialog .desktop-detail-media {
+    order: 1;
+    position: relative;
+    top: auto;
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 18px;
+  }
   #detailDialog .desktop-detail-media .dialog-video {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 9;
+    max-height: 440px;
     margin: 0;
-    border-radius: 12px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
     background: var(--soft);
+    box-shadow: 0 5px 18px #00000012;
   }
-  #detailDialog .desktop-detail-media .dialog-video img { width: 100%; height: 100%; object-fit: cover; }
+  #detailDialog .desktop-detail-media .dialog-video img,
+  #detailDialog .desktop-detail-media .dialog-video iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+  }
   #detailDialog .desktop-detail-media .desktop-media-fallback {
-    display: grid; place-items: center; min-height: 300px; aspect-ratio: 4 / 5;
-    border: 1px solid var(--line); border-radius: 12px;
+    display: grid; place-items: center; min-height: 220px; aspect-ratio: 16 / 9;
+    border: 1px solid var(--line); border-radius: 13px;
     background: linear-gradient(145deg, color-mix(in srgb, var(--note-tint, #fbbc04) 28%, var(--surface)), var(--soft));
     color: var(--muted); font-size: 58px;
   }
-  #detailDialog .desktop-detail-copy { min-width: 0; }
-  #detailDialog .desktop-detail-copy .dialog-body { padding: 0; }
-  #detailDialog .desktop-detail-copy .detail-hero { padding: 0 0 16px; }
-  #detailDialog .desktop-detail-copy .detail-hero h2 { font-size: clamp(22px, 2vw, 30px); line-height: 1.25; letter-spacing: -.5px; }
-  #detailDialog .desktop-detail-copy .detail-section { font-size: 14px; }
+  #detailDialog .desktop-detail-copy {
+    order: 2;
+    min-width: 0;
+  }
+  #detailDialog .desktop-detail-copy .detail-section {
+    margin: 0 0 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.75;
+  }
   #detailDialog .desktop-detail-copy .tags { display: flex; flex-wrap: wrap; gap: 7px; }
   #detailDialog .desktop-detail-copy .tag { min-height: 32px; }
   #detailDialog .dialog-actions { position: sticky; bottom: 0; padding: 14px 28px 18px; border-top: 1px solid var(--line); background: var(--surface); }
