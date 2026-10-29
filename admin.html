@@ -190,6 +190,114 @@
 }
 @media (min-width:1200px){#list{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 @media (prefers-reduced-motion:reduce) and (min-width:821px){#list .entry{transition:none!important}}
+
+/* Admin workspace geometry: balanced desktop console, unchanged mobile flow. */
+@media (min-width: 821px) {
+  #workspace {
+    width: min(1480px, 100%);
+    display: grid;
+    grid-template-columns: 208px minmax(0, 1fr);
+    grid-template-areas:
+      "head head"
+      "message message"
+      "tools tools"
+      "nav content";
+    align-items: start;
+    column-gap: 24px;
+    row-gap: 0;
+    padding: 28px clamp(22px, 3vw, 44px) 56px;
+  }
+  #workspace > .head { grid-area: head; margin-bottom: 22px; }
+  #workspace > #msg { grid-area: message; margin-top: 0; }
+  #workspace > .dashboard-tools { grid-area: tools; margin-bottom: 20px; }
+  #workspace > .admin-nav {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+    overflow: visible;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 78px;
+  }
+  #workspace > .admin-nav .tab {
+    min-height: 43px;
+    justify-content: flex-start;
+    padding: 0 12px;
+    border-radius: 9px;
+    font-size: 12px;
+    text-align: left;
+  }
+  #workspace > .admin-nav .tab.active {
+    background: #e7f2e9;
+    color: #245b38;
+  }
+  :root[data-theme=dark] #workspace > .admin-nav .tab.active {
+    background: #203b2b;
+    color: #b6e4c3;
+  }
+  #workspace > .admin-nav .tab.active:after {
+    left: 0;
+    right: auto;
+    top: 9px;
+    bottom: 9px;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+    background: #5f9c70;
+  }
+  #workspace > #entries-view,
+  #workspace > #labels-view,
+  #workspace > #activity-view {
+    grid-area: content;
+    min-width: 0;
+  }
+  #workspace .list-head {
+    min-height: 36px;
+    margin: 0 2px 12px;
+    font-size: 13px;
+  }
+  #workspace .list-head .muted { font-size: 11px; }
+  #list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  #list .entry {
+    min-width: 0;
+    border-radius: 13px;
+  }
+  #list .entry-copy { padding: 15px 16px 16px; }
+  #list .entry h3 { font-size: 15px; line-height: 1.45; }
+  #list .entry-detail { grid-template-columns: 76px minmax(0, 1fr); gap: 9px; }
+  #list .entry .actions {
+    min-height: 52px;
+    justify-content: flex-start;
+    gap: 7px;
+    padding: 10px 14px;
+  }
+  #list .entry .actions .btn { min-height: 33px; font-size: 11px; }
+  #workspace .bulk-bar { flex-wrap: wrap; gap: 8px; }
+  #workspace .labels-list,
+  #workspace .activity-list { min-width: 0; }
+}
+@media (min-width: 1180px) {
+  #workspace { grid-template-columns: 220px minmax(0, 1fr); column-gap: 28px; }
+  #list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  #list .entry-copy { padding: 15px; }
+}
+@media (min-width: 821px) and (max-width: 1050px) {
+  #workspace { grid-template-columns: 184px minmax(0, 1fr); column-gap: 18px; padding-inline: 20px; }
+  #workspace > .admin-nav { padding: 6px; }
+  #workspace > .admin-nav .tab { padding-inline: 10px; }
+  #list .entry-detail { grid-template-columns: 1fr; gap: 3px; }
+}
+
 </style><link rel="stylesheet" href="admin-redesign.css?v=20261028-2"></head><body><div class="wrap"><header class="top"><b>m}note <small>ADMIN</small></b><button class="btn" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">☾</button><a href="./" class="btn">← Public site</a></header><section id="login" class="panel login"><h1>Admin sign in</h1><p class="muted">Use the authorised mnote admin account.</p><form id="login-form"><div class="field"><label for="email">Email</label><input id="email" type="email" required autocomplete="username"></div><div class="field"><label for="password">Password</label><input id="password" type="password" required autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">Sign in</button></form><div id="login-msg" class="notice hidden"></div></section><section id="workspace" class="hidden"><div class="head"><div><div class="muted">CONTENT CONTROL</div><h1>Review the library.</h1><div class="muted">Submissions stay private until approved.</div></div><button class="btn" id="signout">Sign out</button></div><div id="msg" class="notice hidden" role="status" aria-live="polite"></div>
 <div class="dashboard-tools">
  <label class="admin-search"><span aria-hidden="true">⌕</span><input id="entry-search" type="search" placeholder="Search title, artist, notes or tags…" autocomplete="off" aria-label="Search entries"><kbd>Ctrl K</kbd></label>
