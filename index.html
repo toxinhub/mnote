@@ -1413,10 +1413,10 @@
 @media(prefers-reduced-motion:reduce){.mini-player-orb.is-playing .mini-player-banana{animation:none}}
 
 
-/* Modern music loading state: soft motion + realistic note-card skeletons. */
-#notesGrid:has(>.loading-state){display:block;columns:unset}
-#notesGrid>.loading-state{width:100%;max-width:1500px;margin:0 auto;padding:12px 0 20px;box-sizing:border-box}
-.loading-intro{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:6px 12px 22px;text-align:center}
+/* Loading state: centered within the same content width and card grid as live notes. */
+#notesGrid:has(>.loading-state){display:block!important;columns:unset!important;grid-template-columns:minmax(0,1fr)!important;width:100%;min-width:0}
+#notesGrid>.loading-state{display:block;width:100%;max-width:none;margin:0;padding:12px 0 20px;box-sizing:border-box}
+.loading-intro{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:6px 12px 22px;text-align:center;width:100%;box-sizing:border-box}
 .loading-music-orb{position:relative;display:grid;place-items:center;width:78px;height:78px;border:1px solid color-mix(in srgb,#8dbb96 36%,var(--line));border-radius:26px;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,#dcebd9 70%,var(--surface)),var(--surface) 72%);box-shadow:0 8px 28px color-mix(in srgb,#82a889 15%,transparent);isolation:isolate}
 .loading-music-orb:before{content:"";position:absolute;inset:-7px;border:1px solid color-mix(in srgb,#82a889 24%,transparent);border-radius:31px;animation:loading-orb-pulse 2.8s ease-in-out infinite;z-index:-1}
 .loading-music-emoji{display:block;font-size:34px;line-height:1;filter:drop-shadow(0 3px 3px #00000012);animation:loading-note-float 2.4s ease-in-out infinite}
@@ -1426,11 +1426,11 @@
 .loading-copy{display:flex;flex-direction:column;gap:3px;align-items:center}
 .loading-copy strong{font-size:15px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
 .loading-copy span{font-size:12px;color:var(--muted)}
-.loading-skeletons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:18px}
-.loading-skeleton-card{min-width:0;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.loading-skeletons{display:grid;width:100%;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:16px;box-sizing:border-box}
+.loading-skeleton-card{display:block;min-width:0;width:100%;margin:0;padding:17px 15px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden;box-sizing:border-box}
 .skeleton-title,.skeleton-line,.skeleton-thumb{position:relative;overflow:hidden;background:var(--soft);border-radius:6px}
-.skeleton-title{width:72%;height:13px;margin-bottom:9px}.skeleton-line{width:100%;height:8px;margin-top:8px}.skeleton-line.short{width:44%}.skeleton-line.medium{width:68%}.skeleton-title.medium{width:57%}.skeleton-title.short{width:48%}
-.skeleton-thumb{width:100%;aspect-ratio:16/9;margin-top:13px;border-radius:7px;background:color-mix(in srgb,#dcebd9 38%,var(--soft))}.skeleton-thumb.tall{aspect-ratio:4/3}
+.skeleton-title{width:72%;height:15px;margin-bottom:10px}.skeleton-line{width:100%;height:9px;margin-top:9px}.skeleton-line.short{width:44%}.skeleton-line.medium{width:68%}.skeleton-title.medium{width:57%}.skeleton-title.short{width:48%}
+.skeleton-thumb{width:100%;aspect-ratio:16/9;margin-top:12px;border-radius:11px;background:color-mix(in srgb,#dcebd9 38%,var(--soft))}.skeleton-thumb.tall{aspect-ratio:4/3}
 .skeleton-title:after,.skeleton-line:after,.skeleton-thumb:after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--surface) 78%,transparent),transparent);animation:loading-shimmer 1.7s ease-in-out infinite}
 .loading-skeleton-card:nth-child(2) .skeleton-thumb:after{animation-delay:.16s}.loading-skeleton-card:nth-child(3) .skeleton-thumb:after{animation-delay:.32s}.loading-skeleton-card:nth-child(4) .skeleton-thumb:after{animation-delay:.48s}
 @keyframes loading-shimmer{to{transform:translateX(100%)}}
@@ -1439,8 +1439,10 @@
 @keyframes loading-eq{0%,100%{transform:scaleY(.45);opacity:.72}50%{transform:scaleY(1.3);opacity:1}}
 :root[data-theme=dark] .loading-music-orb{background:radial-gradient(circle at 50% 38%,#364239,var(--surface) 74%);border-color:#536b57}
 :root[data-theme=dark] .skeleton-thumb{background:color-mix(in srgb,#536b57 26%,var(--soft))}
-@media(max-width:1400px){.loading-skeletons{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}\n@media(max-width:1050px){.loading-skeletons{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}\n@media(max-width:760px){#notesGrid>.loading-state{padding:10px 0 16px}.loading-intro{padding:4px 8px 18px;gap:10px}.loading-music-orb{width:68px;height:68px;border-radius:23px}.loading-music-orb:before{border-radius:28px}.loading-music-emoji{font-size:30px}.loading-copy strong{font-size:14px}.loading-copy span{font-size:11px}.loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.loading-skeleton-card{padding:10px;border-radius:9px}.skeleton-thumb{margin-top:11px}}
-@media(max-width:390px){.loading-skeletons{gap:7px}.loading-skeleton-card{padding:9px}.loading-intro{padding-bottom:16px}}
+@media(max-width:1050px){.loading-skeletons{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}}
+@media(max-width:900px){.loading-skeletons{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+@media(max-width:760px){#notesGrid>.loading-state{padding:10px 0 16px}.loading-intro{padding:4px 8px 18px;gap:10px}.loading-music-orb{width:68px;height:68px;border-radius:23px}.loading-music-orb:before{border-radius:28px}.loading-music-emoji{font-size:30px}.loading-copy strong{font-size:14px}.loading-copy span{font-size:11px}.loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.loading-skeleton-card{padding:13px 10px 9px;border-radius:13px}.skeleton-thumb{margin-top:9px;border-radius:10px}.skeleton-title{height:14px}}
+@media(max-width:390px){.loading-skeletons{gap:7px}.loading-skeleton-card{padding:13px 9px 9px}.loading-intro{padding-bottom:16px}}
 @media(prefers-reduced-motion:reduce){.loading-music-orb:before,.loading-music-emoji,.loading-eq i,.skeleton-title:after,.skeleton-line:after,.skeleton-thumb:after{animation:none!important}.skeleton-title:after,.skeleton-line:after,.skeleton-thumb:after{display:none}}
 </style></head>
 <body>
