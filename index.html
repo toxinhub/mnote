@@ -1433,5 +1433,5 @@ window.addEventListener('popstate',function(){if($('detailOverlay').classList.co
  document.addEventListener('keydown',function(ev){if((ev.key==='Enter'||ev.key===' ')&&ev.target.closest&&ev.target.closest('[data-inline-play]')){ev.preventDefault();ev.target.closest('[data-inline-play]').click();return}if(ev.key==='Escape'){toggleModal(false);closeSidebar();if(composerOpen)hideComposer()}if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='k'){ev.preventDefault();$('search').focus()}if(ev.key==='n'&&!ev.ctrlKey&&!ev.metaKey&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){ev.preventDefault();showComposer()}if(ev.key==='Enter'&&ev.target.classList.contains('note'))openDetail(ev.target.dataset.id)});
 load();
 })();
-</script><script src="public-desktop.js?v=20261029-3" defer></script>
+</script><script src="public-desktop.js?v=20261029-detail-order-fix" defer></script>
 </body></html>
