@@ -1775,3 +1775,26 @@
 @media (prefers-reduced-motion:reduce){
   .topbar .top-actions #refresh,.topbar .top-actions #refresh .refresh-icon{transition:none!important}
 }
+
+
+/* Match the main desktop wordmark to the mobile sidebar's m}note title. */
+@media screen and (min-width:1024px){
+  .topbar .brand{
+    min-width:auto!important;
+    gap:0!important;
+    padding:5px 8px 5px 0!important;
+  }
+  .topbar .brand .brand-icon{display:none!important}
+  .topbar .brand .brand-name{
+    color:#668f70!important;
+    font-size:25px!important;
+    font-weight:600!important;
+    letter-spacing:-1px!important;
+    line-height:1!important;
+  }
+  .topbar .brand .brand-name span{color:#8dbb96!important}
+  .topbar .brand:hover .brand-name{color:#557f60!important}
+  .topbar .brand:hover .brand-name span{color:#7eaf89!important}
+  :root[data-theme="dark"] .topbar .brand .brand-name{color:#a9c9ad!important}
+  :root[data-theme="dark"] .topbar .brand .brand-name span{color:#c2dfc5!important}
+}
