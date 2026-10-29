@@ -771,3 +771,53 @@
     letter-spacing:.01em!important;
   }
 }
+
+
+/* Modal geometry polish: align the desktop note detail around a calm, balanced frame. */
+@media screen and (min-width:1024px){
+  #detailOverlay{padding:clamp(24px,4vh,42px)!important;}
+  #detailOverlay #detailDialog.dialog{
+    width:min(820px,calc(100vw - 64px))!important;
+    max-width:820px!important;
+    max-height:min(88dvh,900px)!important;
+    border-radius:20px!important;
+    overflow:auto!important;
+  }
+  #detailDialog .dialog-body{
+    width:100%!important;
+    max-width:100%!important;
+    padding:24px 28px 16px!important;
+  }
+  #detailDialog .detail-hero{
+    position:relative!important;
+    width:100%!important;
+    margin:0 0 18px!important;
+    padding:20px 22px 22px!important;
+    border-radius:15px!important;
+  }
+  #detailDialog .detail-hero-top{display:flex!important;justify-content:flex-end!important;align-items:center!important;margin:0 0 12px!important;min-height:34px!important;}
+  #detailDialog .detail-hero h2{max-width:100%!important;font-size:clamp(24px,2.3vw,32px)!important;line-height:1.28!important;letter-spacing:-.025em!important;}
+  #detailDialog .detail-artist{margin-top:7px!important;font-size:13px!important;line-height:1.5!important;}
+  #detailDialog .dialog-video{
+    width:min(100%,620px)!important;height:auto!important;aspect-ratio:16/9!important;
+    margin:0 auto 18px!important;border-radius:13px!important;max-height:none!important;
+  }
+  #detailDialog .dialog-video img,#detailDialog .dialog-video iframe{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;}
+  #detailDialog .detail-section{
+    width:100%!important;margin:0 0 10px!important;padding:15px 18px!important;
+    border-radius:12px!important;font-size:14px!important;line-height:1.72!important;
+  }
+  #detailDialog .detail-section label{margin:0 0 7px!important;font-size:10.5px!important;letter-spacing:.065em!important;}
+  #detailDialog .tags{display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin:12px 0 2px!important;}
+  #detailDialog .tag{min-height:30px!important;padding:5px 10px!important;}
+  #detailDialog .dialog-actions{display:flex!important;align-items:center!important;gap:8px!important;padding:14px 24px 18px!important;}
+  #detailDialog .dialog-actions .archive-chip{margin-left:auto!important;}
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #detailOverlay #detailDialog.dialog{width:min(760px,calc(100vw - 48px))!important;max-width:760px!important;}
+  #detailDialog .dialog-body{padding:20px 22px 14px!important;}
+  #detailDialog .detail-hero{padding:17px 18px 19px!important;}
+}
+@media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
+  #detailDialog{animation:none!important;}
+}
