@@ -1,12 +1,12 @@
 /* m}note Admin — structural redesign v3. Keep data/auth/workflow untouched. */
 :root{
-  --page:#fffdf7;
+  --page:#ffffff;
   --surface:#ffffff;
-  --soft:#f7f6ef;
+  --soft:#f6f7f5;
   --ink:#252923;
   --muted:#6f756d;
-  --line:#e7e5db;
-  --hover:#f5f4ec;
+  --line:#e5e7e2;
+  --hover:#f5f6f3;
   --accent:#fbbc04;
   --accent-hover:#f9ab00;
   --focus:#68866c;
