@@ -101,7 +101,7 @@
       media.append(fallback);
     }
     Array.from(body.childNodes).forEach(node => { if (node !== video) copy.append(node); });
-    layout.append(media, copy);
+    layout.append(copy, media);
     body.replaceWith(layout);
     const moment = $('.moment-section', copy);
     if (moment && !$('a', moment)) {

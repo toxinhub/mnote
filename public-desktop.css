@@ -846,3 +846,14 @@
 
 /* Desktop song-title bar proportions, aligned with the shared title stack. */
 @media screen and (min-width:1024px){#detailDialog .detail-hero{padding:18px 22px!important}#detailDialog .detail-hero-top{min-height:44px!important;gap:18px!important}#detailDialog .detail-title-stack h2{font-size:clamp(24px,2vw,30px)!important;line-height:1.22!important}#detailDialog .detail-title-stack .detail-artist{font-size:13px!important}#detailDialog .detail-hero-top #closeDetail{flex-basis:38px!important;width:38px!important;height:38px!important}}
+
+/* Desktop detail composition: title header above the media player. */
+@media screen and (min-width:1024px){
+ #detailDialog .desktop-detail-layout{display:flex!important;flex-direction:column!important;gap:0!important}
+ #detailDialog .desktop-detail-media{order:2!important;position:static!important;width:100%!important;margin:0 auto 16px!important;display:flex!important;justify-content:center!important}
+ #detailDialog .desktop-detail-copy{display:contents!important}
+ #detailDialog .desktop-detail-copy .detail-hero{order:1!important;width:100%!important;margin:0 0 16px!important}
+ #detailDialog .desktop-detail-copy .detail-section,
+ #detailDialog .desktop-detail-copy .tags{order:3!important;width:100%!important}
+ #detailDialog .detail-hero-top #closeDetail{font-size:36px!important}
+}
