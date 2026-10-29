@@ -701,10 +701,20 @@
   }
 }
 @media screen and (min-width:1024px) and (max-width:1279px){
-  #detailOverlay #detailDialog.dialog{width:min(590px,calc(100vw - 40px))!important;max-width:590px!important}
-  #detailDialog .desktop-detail-layout{padding:12px 14px 5px!important}
+  /* Laptop desktop: reserve enough horizontal space for a usable 16:9 video. */
+  #detailOverlay #detailDialog.dialog{
+    width:min(900px,calc(100vw - 40px))!important;
+    max-width:900px!important;
+  }
+  #detailDialog .desktop-detail-layout{
+    grid-template-columns:minmax(320px,.95fr) minmax(0,1.05fr)!important;
+    gap:20px!important;
+    padding:18px 20px 8px!important;
+  }
   #detailDialog .desktop-detail-media .dialog-video,
-  #detailDialog .desktop-detail-media .desktop-media-fallback{max-height:220px!important}
+  #detailDialog .desktop-detail-media .desktop-media-fallback{
+    max-height:none!important;
+  }
 }
 @media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
   #detailOverlay #detailDialog.dialog{animation:none!important;transition:none!important}
