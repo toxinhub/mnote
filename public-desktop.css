@@ -857,3 +857,12 @@
  #detailDialog .desktop-detail-copy .tags{order:3!important;width:100%!important}
  #detailDialog .detail-hero-top #closeDetail{font-size:36px!important}
 }
+
+
+/* Desktop modal note text: improve reading size without changing the title, labels, or mobile sheet. */
+@media screen and (min-width:1024px){
+  #detailDialog .desktop-detail-copy .detail-section{
+    font-size:16px!important;
+    line-height:1.8!important;
+  }
+}
