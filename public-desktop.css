@@ -1730,3 +1730,48 @@
 :root:not([data-theme="dark"]) #detailDialog .dialog-actions{
   background:#fff!important;border-top-color:#e9e9e9!important;
 }
+
+
+/* Refresh button polish: quiet default, crisp gold-tinted hover, tactile press. */
+@media (min-width:761px){
+  .topbar .top-actions #refresh{
+    display:grid;
+    place-items:center;
+    width:40px;
+    height:40px;
+    border:1px solid #e8e3d6;
+    border-radius:13px;
+    background:#faf9f5;
+    color:#75643b;
+    box-shadow:0 1px 2px rgba(32,33,36,.035);
+    transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease;
+  }
+  .topbar .top-actions #refresh .refresh-icon{
+    width:18px;
+    height:18px;
+    stroke-width:1.9;
+    transform-origin:50% 50%;
+    transition:transform .28s cubic-bezier(.2,.75,.25,1);
+  }
+  .topbar .top-actions #refresh:hover{
+    background:#fff4d4;
+    border-color:#e7d49a;
+    color:#5f4a12;
+    box-shadow:0 3px 9px rgba(115,91,25,.09);
+    transform:translateY(-1px);
+  }
+  .topbar .top-actions #refresh:hover .refresh-icon{transform:rotate(-28deg)}
+  .topbar .top-actions #refresh:active{
+    background:#f9e8b4;
+    border-color:#dfc575;
+    box-shadow:inset 0 1px 2px rgba(95,74,18,.08);
+    transform:translateY(0) scale(.96);
+  }
+  .topbar .top-actions #refresh:focus-visible{
+    outline:2px solid #d6b74f;
+    outline-offset:3px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .topbar .top-actions #refresh,.topbar .top-actions #refresh .refresh-icon{transition:none!important}
+}
