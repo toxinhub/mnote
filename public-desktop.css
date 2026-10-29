@@ -1242,3 +1242,123 @@
   #detailDialog .detail-hero #closeDetail,
   #detailDialog .dialog-actions .action-chip{transition:none!important}
 }
+
+
+/* Song Details responsive polish: tablet and mobile.
+   The desktop redesign above remains scoped to >=1024px. */
+@media screen and (max-width:1023px){
+  #detailOverlay{
+    padding:clamp(10px,3vw,24px)!important;
+    background:rgba(25,32,27,.48)!important;
+    backdrop-filter:blur(5px)!important;
+    -webkit-backdrop-filter:blur(5px)!important;
+  }
+  #detailOverlay #detailDialog.dialog{
+    width:min(720px,100%)!important;
+    max-width:720px!important;
+    max-height:min(90dvh,900px)!important;
+    border:1px solid var(--line)!important;
+    border-radius:18px!important;
+    background:var(--surface)!important;
+    box-shadow:0 24px 70px rgba(18,32,21,.22)!important;
+    overflow:auto!important;
+    scrollbar-width:thin;
+  }
+  #detailDialog .dialog-body{padding:clamp(13px,3.8vw,23px) clamp(13px,3.8vw,22px) 8px!important}
+  #detailDialog .detail-hero{
+    margin:0 0 13px!important;
+    padding:clamp(14px,3.6vw,20px)!important;
+    border:1px solid #dce8dc!important;
+    border-radius:14px!important;
+    background:linear-gradient(118deg,#edf5eb 0%,#f8faf6 62%,#fffdf5 100%)!important;
+  }
+  #detailDialog .detail-hero-top{align-items:flex-start!important;gap:10px!important;margin:0!important}
+  #detailDialog .detail-title-stack{flex:1;min-width:0}
+  #detailDialog .detail-title-stack h2{
+    color:#263c2b!important;
+    font-size:clamp(21px,5.4vw,29px)!important;
+    line-height:1.2!important;
+    letter-spacing:-.035em!important;
+    font-weight:700!important;
+    overflow-wrap:anywhere;
+  }
+  #detailDialog .detail-title-stack .detail-artist{
+    margin:6px 0 0!important;color:#657a67!important;font-size:12px!important;line-height:1.5!important
+  }
+  #detailDialog .detail-hero #closeDetail{
+    flex:0 0 38px!important;width:38px!important;height:38px!important;
+    margin:-4px -4px 0 0!important;border:1px solid #d6e3d5!important;
+    border-radius:12px!important;background:rgba(255,255,255,.82)!important;
+    color:#526c56!important;font-size:29px!important;line-height:1!important;
+  }
+  #detailDialog .dialog-video{
+    width:100%!important;height:auto!important;aspect-ratio:16/9!important;
+    max-height:none!important;margin:0 0 13px!important;
+    border:1px solid color-mix(in srgb,var(--line) 75%,#b9d0ba)!important;
+    border-radius:12px!important;background:var(--soft)!important;
+    box-shadow:0 5px 16px rgba(25,45,29,.08)!important;overflow:hidden!important;
+  }
+  #detailDialog .dialog-video img,#detailDialog .dialog-video iframe{
+    display:block!important;width:100%!important;height:100%!important;aspect-ratio:16/9!important;object-fit:cover!important;border:0!important
+  }
+  #detailDialog .dialog-video .play{
+    width:48px!important;height:48px!important;background:rgba(28,40,30,.82)!important;
+    border:1px solid rgba(255,255,255,.65)!important;box-shadow:0 5px 18px rgba(0,0,0,.2)!important
+  }
+  #detailDialog .detail-section{
+    margin:0 0 9px!important;padding:13px 14px!important;
+    border:1px solid color-mix(in srgb,var(--line) 76%,#c5d8c6)!important;
+    border-radius:12px!important;background:var(--surface)!important;
+    font-size:13px!important;line-height:1.75!important;box-shadow:none!important
+  }
+  #detailDialog .detail-section label{
+    margin:0 0 7px!important;color:color-mix(in srgb,var(--muted) 86%,#57775c)!important;
+    font-size:10px!important;font-weight:600!important;letter-spacing:.065em!important;text-transform:uppercase!important
+  }
+  #detailDialog .detail-section label:before{width:5px!important;height:5px!important;flex-basis:5px!important;background:#91b596!important}
+  #detailDialog .memory-section{background:linear-gradient(125deg,#f5f8f2 0%,var(--surface) 85%)!important;border-color:#e0e9dc!important}
+  #detailDialog .memory-section .feelings-label{color:#758176!important;font-weight:400!important;letter-spacing:.025em!important;text-transform:none!important}
+  #detailDialog .moment-section{border-left:3px solid #d9b64d!important;padding-left:12px!important;background:linear-gradient(100deg,#fffaf0,var(--surface) 80%)!important}
+  #detailDialog .tags{display:flex!important;flex-wrap:wrap!important;gap:6px!important;margin:10px 0 2px!important;padding:1px 0 4px!important}
+  #detailDialog .tag{min-height:28px!important;padding:5px 9px!important;border:1px solid #dce6dc!important;border-radius:999px!important;background:#f4f8f2!important;color:#49654d!important;font-size:11px!important;font-weight:500!important}
+  #detailDialog .dialog-actions{
+    position:sticky!important;bottom:0!important;z-index:2;
+    display:flex!important;align-items:center!important;gap:6px!important;
+    padding:10px clamp(13px,3.8vw,22px) calc(12px + env(safe-area-inset-bottom,0px))!important;
+    border-top:1px solid color-mix(in srgb,var(--line) 78%,#d5e2d5)!important;
+    background:color-mix(in srgb,var(--surface) 96%,#eef5eb)!important;
+    backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;
+  }
+  #detailDialog .dialog-actions .action-chip{
+    height:34px!important;padding:0 10px!important;gap:5px!important;
+    border:1px solid var(--line)!important;border-radius:9px!important;
+    background:var(--surface)!important;color:var(--ink)!important;font-size:11px!important;font-weight:600!important
+  }
+  :root[data-theme=dark] #detailDialog .detail-hero{border-color:#3d5140!important;background:linear-gradient(118deg,#293b2d 0%,#252f27 62%,#302f24 100%)!important}
+  :root[data-theme=dark] #detailDialog .detail-title-stack h2{color:#e5efe4!important}
+  :root[data-theme=dark] #detailDialog .detail-title-stack .detail-artist{color:#b0c6b2!important}
+  :root[data-theme=dark] #detailDialog .detail-hero #closeDetail{border-color:#465849!important;background:#303b31!important;color:#d7e7d7!important}
+  :root[data-theme=dark] #detailDialog .detail-section{border-color:var(--line)!important}
+  :root[data-theme=dark] #detailDialog .memory-section{background:linear-gradient(125deg,#283329,var(--surface) 85%)!important;border-color:#3b4c3b!important}
+  :root[data-theme=dark] #detailDialog .moment-section{background:linear-gradient(100deg,#393222,var(--surface) 80%)!important}
+  :root[data-theme=dark] #detailDialog .tag{border-color:#465849!important;background:#2b382d!important;color:#c8dfc9!important}
+  :root[data-theme=dark] #detailDialog .dialog-actions{background:color-mix(in srgb,var(--surface) 96%,#27372a)!important}
+}
+@media screen and (max-width:760px){
+  #detailOverlay{align-items:flex-end!important;padding:0!important}
+  #detailOverlay #detailDialog.dialog{
+    width:100%!important;max-width:none!important;max-height:min(91dvh,900px)!important;
+    border-radius:20px 20px 0 0!important;border-bottom:0!important;
+    padding-bottom:env(safe-area-inset-bottom,0px)!important;
+    box-shadow:0 -12px 45px rgba(18,32,21,.18)!important;
+    animation:dialog-in .18s ease-out!important;
+  }
+  #detailDialog .dialog-body{padding:12px 14px 6px!important}
+  #detailDialog .detail-hero{padding:14px!important;border-radius:13px!important;margin-bottom:11px!important}
+  #detailDialog .detail-title-stack h2{font-size:clamp(21px,6vw,26px)!important;line-height:1.18!important}
+  #detailDialog .detail-hero #closeDetail{width:40px!important;height:40px!important;flex-basis:40px!important;font-size:30px!important}
+  #detailDialog .dialog-video{border-radius:10px!important;margin-bottom:11px!important}
+  #detailDialog .detail-section{padding:12px 13px!important;margin-bottom:8px!important}
+  #detailDialog .dialog-actions{gap:5px!important;padding:9px 12px calc(10px + env(safe-area-inset-bottom,0px))!important}
+  #detailDialog .dialog-actions .action-chip{height:32px!important;padding:0 8px!important;font-size:10.5px!important}
+}
