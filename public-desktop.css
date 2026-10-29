@@ -1627,3 +1627,32 @@
   #composer:not(.open) #quickUrl{height:36px!important;min-height:36px!important}
   #composer:not(.open) #saveNote{width:100px!important;min-width:100px!important;height:36px!important;min-height:36px!important}
 }
+
+
+/* Neutralize the green cast in the desktop sidebar backgrounds. */
+@media screen and (min-width:1024px){
+  .sidebar{
+    background:color-mix(in srgb,var(--surface) 97%,#f3eee6)!important;
+    border-right-color:color-mix(in srgb,var(--line) 88%,#d8d0c5)!important;
+  }
+  .sidebar .drawer-brand{
+    border-bottom-color:var(--line)!important;
+  }
+  .sidebar .nav:hover{
+    background:color-mix(in srgb,#e9e3d9 42%,var(--surface))!important;
+  }
+  .sidebar .nav.active{
+    background:color-mix(in srgb,#fbbc04 20%,var(--surface))!important;
+    color:var(--ink)!important;
+    box-shadow:inset 3px 0 0 #d5a526!important;
+  }
+  .sidebar .nav.active .nav-icon{color:color-mix(in srgb,var(--ink) 78%,#b58b22)!important}
+  .sidebar .side-rule{background:var(--line)!important}
+  .sidebar .side-foot{
+    background:color-mix(in srgb,var(--surface) 95%,#f3eee6)!important;
+    border-color:var(--line)!important;
+  }
+  .sidebar .admin-icon{
+    border-color:var(--line)!important;
+  }
+}
