@@ -1412,3 +1412,108 @@
   #detailDialog .dialog-actions{gap:5px!important;padding:9px 12px calc(10px + env(safe-area-inset-bottom,0px))!important}
   #detailDialog .dialog-actions .action-chip{height:32px!important;padding:0 8px!important;font-size:10.5px!important}
 }
+
+
+/* Final source-of-truth fix: the desktop quick-add bar is styled in this
+   stylesheet, which loads after index.html's inline styles. Mobile is untouched. */
+@media screen and (min-width:1024px){
+  #composer:not(.open){
+    display:grid!important;
+    grid-template-columns:44px minmax(0,1fr) 132px!important;
+    align-items:center!important;
+    gap:14px!important;
+    width:min(960px,100%)!important;
+    max-width:960px!important;
+    min-height:76px!important;
+    margin:0 auto 30px!important;
+    padding:14px 16px!important;
+    border:1px solid color-mix(in srgb,var(--line) 76%,#b7cfb9)!important;
+    border-radius:15px!important;
+    background:var(--surface)!important;
+    box-shadow:0 3px 12px rgba(37,55,40,.055)!important;
+    overflow:visible!important;
+    transition:border-color .18s ease,box-shadow .18s ease!important;
+  }
+  #composer:not(.open):hover{
+    border-color:color-mix(in srgb,var(--line) 52%,#91b596)!important;
+    box-shadow:0 5px 17px rgba(37,55,40,.075)!important;
+  }
+  #composer:not(.open):focus-within{
+    border-color:color-mix(in srgb,#86aa8c 68%,var(--line))!important;
+    box-shadow:0 0 0 3px rgba(111,159,121,.09),0 5px 18px rgba(37,55,40,.06)!important;
+  }
+  #composer:not(.open)>.compose-head{display:contents!important}
+  #composer:not(.open) #quickTitle{display:none!important}
+  #composer:not(.open) .compose-mark,
+  #composer:not(.open) #quickLink{display:none!important}
+  #composer:not(.open) .compose-tools{display:contents!important}
+  #composer:not(.open) #expand{
+    display:grid!important;
+    grid-column:1!important;grid-row:1!important;
+    place-items:center!important;
+    width:42px!important;height:42px!important;
+    min-width:42px!important;min-height:42px!important;
+    margin:0!important;padding:0!important;
+    border:1px solid color-mix(in srgb,#86aa8c 32%,var(--line))!important;
+    border-radius:12px!important;
+    background:color-mix(in srgb,#e7f1e6 68%,var(--surface))!important;
+    color:#4f8c60!important;
+    font-size:26px!important;line-height:1!important;
+  }
+  #composer:not(.open) #expand:hover{background:#e5f0e3!important}
+  #composer:not(.open)>.compose-body{display:contents!important;padding:0!important}
+  #composer:not(.open) #composeBody>.form-group:first-child{
+    display:block!important;grid-column:2!important;grid-row:1!important;
+    min-width:0!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:first-child .form-label,
+  #composer:not(.open) #linkStatus{display:none!important}
+  #composer:not(.open) #quickUrl{
+    display:block!important;grid-column:2!important;grid-row:1!important;
+    width:100%!important;min-width:0!important;height:44px!important;min-height:44px!important;
+    margin:0!important;padding:0 15px!important;
+    border:1px solid var(--line)!important;border-radius:11px!important;
+    background:var(--page)!important;color:var(--ink)!important;
+    font-size:14px!important;line-height:1.4!important;
+    box-shadow:inset 0 1px 2px rgba(32,33,36,.025)!important;
+    transition:border-color .16s ease,box-shadow .16s ease,background .16s ease!important;
+  }
+  #composer:not(.open) #quickUrl::placeholder{color:var(--muted)!important;opacity:.9}
+  #composer:not(.open) #quickUrl:focus{
+    border-color:#86aa8c!important;background:var(--surface)!important;
+    box-shadow:0 0 0 3px rgba(111,159,121,.10)!important;outline:0!important;
+  }
+  #composer:not(.open) #composeBody>.form-group:not(:first-child){display:none!important}
+  #composer:not(.open) .compose-foot{display:contents!important}
+  #composer:not(.open) .compose-foot small,
+  #composer:not(.open) #closeComposer{display:none!important}
+  #composer:not(.open) #saveNote{
+    display:inline-flex!important;grid-column:3!important;grid-row:1!important;
+    align-items:center!important;justify-content:center!important;
+    width:132px!important;min-width:132px!important;height:44px!important;min-height:44px!important;
+    margin:0!important;padding:0 17px!important;
+    border:1px solid #e4ae00!important;border-radius:11px!important;
+    background:#fbbc04!important;color:#202124!important;
+    box-shadow:0 2px 0 rgba(190,139,0,.22)!important;
+    font-size:13px!important;font-weight:600!important;line-height:1!important;
+    white-space:nowrap!important;transition:background .16s ease,transform .16s ease,box-shadow .16s ease!important;
+  }
+  #composer:not(.open) #saveNote:hover{
+    background:#f9ab00!important;box-shadow:0 3px 0 rgba(190,139,0,.20)!important;
+    transform:translateY(-1px)!important;
+  }
+  #composer:not(.open) #saveNote:disabled{opacity:.62!important;transform:none!important}
+}
+@media screen and (min-width:1024px) and (max-width:1279px){
+  #composer:not(.open){
+    width:min(900px,100%)!important;max-width:900px!important;
+    grid-template-columns:42px minmax(0,1fr) 124px!important;gap:11px!important;
+    padding:12px 13px!important;
+  }
+  #composer:not(.open) #expand{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important}
+  #composer:not(.open) #quickUrl{height:42px!important;min-height:42px!important}
+  #composer:not(.open) #saveNote{width:124px!important;min-width:124px!important;height:42px!important;min-height:42px!important}
+}
+@media screen and (min-width:1024px) and (prefers-reduced-motion:reduce){
+  #composer:not(.open),#composer:not(.open) #quickUrl,#composer:not(.open) #saveNote{transition:none!important}
+}
