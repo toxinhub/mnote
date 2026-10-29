@@ -432,7 +432,7 @@
   const summary=$("#labels-summary");
   if(summary)summary.innerHTML='<div class="summary-stat"><strong>'+labels.length+'</strong><span>Unique labels</span></div><div class="summary-stat"><strong>'+labels.reduce((n,x)=>n+x.count,0)+'</strong><span>Label uses</span></div><div class="summary-stat"><strong>'+labels.filter(x=>x.pending>0).length+'</strong><span>Labels in review queue</span></div>';
   if(!labels.length){box.innerHTML='<div class="empty"><strong>No labels yet</strong><p>Add labels while editing a song note. They will appear here as a searchable index.</p></div>';return}
-  box.innerHTML=labels.map(item=>'<article class="label-row"><div class="label-name"><span class="label-hash" aria-hidden="true">#</span><div><strong>'+esc(item.label)+'</strong><small>'+item.count+' song note'+(item.count===1?'':'s')+'</small></div></div><div class="label-counts"><span>'+item.approved+' in library</span><small>'+item.pending+' pending · '+item.rejected+' rejected</small></div><button type="button" class="btn label-open" data-label-search="'+esc(item.label)+'">View notes <span aria-hidden="true">↗</span></button></article>').join("");
+  box.innerHTML=labels.map(item=>'<article class="label-row"><div class="label-name"><span class="label-hash" aria-hidden="true">#</span><div><strong>'+esc(item.label)+'</strong><small>'+item.count+' song note'+(item.count===1?'':'s')+'</small></div></div><div class="label-counts"><span>'+item.approved+' in library</span><small>'+item.pending+' pending · '+item.rejected+' rejected</small></div><button type="button" class="btn label-open" data-label-search="'+esc(item.label)+'" data-label-status="'+(item.approved?"approved":item.pending?"pending":"rejected")+'">View notes <span aria-hidden="true">↗</span></button></article>').join("");
  }
  async function loadActivity(){
   const box=$("#activity-list");box.innerHTML='<div class="empty">Loading activity…</div>';
@@ -635,7 +635,7 @@
   const labelTab=e.target.closest("[data-view=\"labels\"]");
   if(labelTab){all("[data-status]").forEach(t=>{t.classList.remove("active");t.setAttribute("aria-selected","false")});all("[data-view]").forEach(t=>{t.classList.toggle("active",t===labelTab);t.setAttribute("aria-selected",String(t===labelTab))});$("#entries-view").classList.add("hidden");$("#activity-view").classList.add("hidden");$("#labels-view").classList.remove("hidden");renderLabels();return}
   const labelSearch=e.target.closest("[data-label-search]");
-  if(labelSearch){status="approved";selectedIds.clear();$("#entry-search").value=labelSearch.dataset.labelSearch;render();return}
+  if(labelSearch){status=labelSearch.dataset.labelStatus||"approved";selectedIds.clear();$("#entry-search").value=labelSearch.dataset.labelSearch;render();return}
   const activityTab=e.target.closest("[data-view=\"activity\"]");
   if(activityTab){all("[data-status]").forEach(t=>{t.classList.remove("active");t.setAttribute("aria-selected","false")});all("[data-view]").forEach(t=>{t.classList.toggle("active",t===activityTab);t.setAttribute("aria-selected",String(t===activityTab))});$("#entries-view").classList.add("hidden");$("#activity-view").classList.remove("hidden");loadActivity();return}
   const tab=e.target.closest("[data-status]");
