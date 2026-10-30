@@ -2000,33 +2000,36 @@ load().finally(finishLaunchScreen);
 
 
 <style id="mnote-clear-glass-header">
-/* True see-through glass: overrides later desktop/mobile header themes */
-.topbar,
-html body .topbar,
-html body .topbar.is-scrolled {
-  background: rgba(255,255,255,.012) !important;
+/* Final high-specificity glass override: beats the later !important light-theme header rule. */
+html:root:not([data-theme="dark"]) body header.topbar.topbar,
+html:root:not([data-theme="dark"]) body header.topbar.topbar.is-scrolled {
+  background: rgba(255,255,255,.008) !important;
+  background-color: rgba(255,255,255,.008) !important;
   background-image: none !important;
-  -webkit-backdrop-filter: blur(2px) saturate(115%) !important;
-  backdrop-filter: blur(2px) saturate(115%) !important;
-  border-bottom: 1px solid rgba(255,255,255,.20) !important;
-  box-shadow: 0 2px 14px rgba(25,35,28,.035) !important;
-  isolation: isolate;
+  -webkit-backdrop-filter: blur(1px) saturate(110%) !important;
+  backdrop-filter: blur(1px) saturate(110%) !important;
+  border-bottom: 1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 1px 8px rgba(25,35,28,.018) !important;
 }
-:root[data-theme="dark"] .topbar,
-:root[data-theme="dark"] .topbar.is-scrolled {
-  background: rgba(24,27,25,.018) !important;
+html:root[data-theme="dark"] body header.topbar.topbar,
+html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
+  background: rgba(24,27,25,.012) !important;
+  background-color: rgba(24,27,25,.012) !important;
   background-image: none !important;
-  border-bottom-color: rgba(255,255,255,.12) !important;
-  box-shadow: 0 2px 14px rgba(0,0,0,.07) !important;
+  -webkit-backdrop-filter: blur(1px) saturate(110%) !important;
+  backdrop-filter: blur(1px) saturate(110%) !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  box-shadow: 0 1px 8px rgba(0,0,0,.035) !important;
 }
 @media (prefers-reduced-transparency: reduce) {
-  .topbar, .topbar.is-scrolled {
+  html:root body header.topbar.topbar,
+  html:root body header.topbar.topbar.is-scrolled {
     background: rgba(255,255,255,.22) !important;
     -webkit-backdrop-filter: blur(5px) !important;
     backdrop-filter: blur(5px) !important;
   }
-  :root[data-theme="dark"] .topbar,
-  :root[data-theme="dark"] .topbar.is-scrolled {
+  html:root[data-theme="dark"] body header.topbar.topbar,
+  html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
     background: rgba(24,27,25,.24) !important;
   }
 }
