@@ -1,0 +1,32 @@
+/* Phase 1 — integrated Journal / Creative Studio tabs */
+#detailDialog .detail-tabs{
+  display:flex!important;align-items:center!important;gap:5px!important;
+  width:100%!important;margin:0 0 14px!important;padding:4px!important;
+  border:1px solid var(--line)!important;border-radius:12px!important;
+  background:var(--soft)!important;
+}
+#detailDialog .detail-tab{
+  flex:1 1 0!important;min-width:0!important;min-height:39px!important;
+  padding:8px 12px!important;border:1px solid transparent!important;
+  border-radius:9px!important;background:transparent!important;
+  color:var(--muted)!important;font:600 13px/1.2 "Google Sans","Noto Sans Bengali",Arial,sans-serif!important;
+  text-align:center!important;cursor:pointer!important;
+  transition:background .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease!important;
+}
+#detailDialog .detail-tab[aria-selected="true"]{
+  color:var(--ink)!important;background:var(--surface)!important;
+  border-color:var(--line)!important;box-shadow:0 1px 2px #0000000d!important;
+}
+#detailDialog .detail-tab:focus-visible{outline:2px solid var(--focus)!important;outline-offset:2px!important}
+#detailDialog .detail-tab-panel{min-width:0!important}
+#detailDialog .detail-tab-panel[hidden]{display:none!important}
+#detailDialog .journal-panel>.detail-section:last-child,
+#detailDialog .studio-panel>.detail-section:last-child{margin-bottom:0!important}
+#detailDialog .studio-panel .ai-studio{margin-top:0!important}
+@media(max-width:600px){
+  #detailDialog .detail-tabs{position:sticky!important;top:0!important;z-index:5!important;margin-bottom:12px!important;background:var(--soft)!important}
+  #detailDialog .detail-tab{min-height:42px!important;padding:9px 8px!important;font-size:12px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #detailDialog .detail-tab{transition:none!important}
+}
