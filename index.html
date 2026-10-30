@@ -1623,7 +1623,7 @@ const params=new URLSearchParams(location.search);
 if(params.get('share')!=='1')return;
 const rawUrl=params.get('url')||'';
 const sharedText=params.get('text')||'';
-const candidate=rawUrl||((sharedText.match(/https?:\\/\\/[^\\s<>"']+/i)||[])[0]||'');
+const candidate=rawUrl||(sharedText.split(/\\s+/).find(function(part){return part.indexOf('https://')===0||part.indexOf('http://')===0})||'').replace(/[),.;]+$/,'');
 let safeUrl='';
 try{const parsed=new URL(candidate);if(parsed.protocol==='https:'||parsed.protocol==='http:')safeUrl=parsed.href}catch(e){}
 const sharedTitle=String(params.get('title')||'').trim().slice(0,180);
