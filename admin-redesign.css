@@ -735,3 +735,25 @@ body{font-size:14px;line-height:1.5}
   background:#4b4022;
   border-color:#806a35;
 }
+
+
+/* Compact admin search and action toolbar. */
+#workspace .dashboard-tools{gap:7px;margin-bottom:10px;}
+#workspace .dashboard-tools>.admin-search{height:36px;min-height:36px;padding:0 10px;gap:7px;border-radius:9px;}
+#workspace .dashboard-tools>.admin-search>span{font-size:19px;}
+#workspace .dashboard-tools>.admin-search input{font-size:12px;}
+#workspace .dashboard-tools>#add-entry,
+#workspace .dashboard-tools>#refresh{height:36px;min-height:36px;padding:6px 11px;border-radius:9px;font-size:11px;line-height:1.1;}
+#workspace .dashboard-tools>#refresh span{font-size:15px;line-height:1;}
+@media(max-width:700px){
+  #workspace .dashboard-tools{gap:6px;margin-bottom:9px;}
+  #workspace .dashboard-tools>.admin-search{height:38px;min-height:38px;padding-inline:10px;}
+  #workspace .dashboard-tools>#add-entry,
+  #workspace .dashboard-tools>#refresh{height:34px;min-height:34px;padding:5px 8px;font-size:11px;}
+  #workspace .dashboard-tools>#refresh span{font-size:14px;}
+}
+@media(max-width:380px){
+  #workspace .dashboard-tools>.admin-search{height:36px;min-height:36px;}
+  #workspace .dashboard-tools>#add-entry,
+  #workspace .dashboard-tools>#refresh{height:33px;min-height:33px;padding-inline:6px;}
+}
