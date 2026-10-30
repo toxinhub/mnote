@@ -1698,6 +1698,7 @@ status.textContent=foundTitle?'Title found. Preparing labels and inspiration…'
 try{
  const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'classify',context:{title:titleInput.value,song_url:url,note:$('quickIdea').value}})});
  const data=await response.json().catch(function(){return{}});
+ if(!composerOpen)return;
  if(response.ok){
   const current=$('quickTags').value.split(',').map(function(x){return x.trim()}).filter(Boolean),seen=new Set(current.map(function(x){return x.toLowerCase()}));
   (data.genre||[]).concat(data.tags||[]).forEach(function(x){const v=String(x).trim();if(v&&!seen.has(v.toLowerCase())){current.push(v);seen.add(v.toLowerCase())}});
@@ -1705,13 +1706,16 @@ try{
   $('quickMood').value=Array.from(new Set(($('quickMood').value?$('quickMood').value.split(','):[]).concat((data.mood||[]).map(String)))).join(', ');
   status.textContent='Song labels added automatically. Saving…';
  }else status.textContent='AI labels unavailable. Saving without them…';
-}catch(e){status.textContent='AI labels unavailable. Continuing…'}
+}catch(e){if(!composerOpen)return;status.textContent='AI labels unavailable. Continuing…'}
+if(!composerOpen)return;
 try{
  const ir=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'inspire',context:{title:titleInput.value,song_url:url,note:$('quickIdea').value,mood:$('quickMood').value,tags:$('quickTags').value}})});
  const idata=await ir.json().catch(function(){return{}});
+ if(!composerOpen)return;
  if(ir.ok&&idata.text){$('quickInspiration').value=String(idata.text).slice(0,5000);status.textContent='Inspiration note created. Saving…'}
  else status.textContent='Saving song; admin can generate its inspiration note later…';
-}catch(e){status.textContent='Saving song; admin can generate its inspiration note later…'}
+}catch(e){if(!composerOpen)return;status.textContent='Saving song; admin can generate its inspiration note later…'}
+if(!composerOpen)return;
 await saveNote();
 }
 function hideComposer(fromPop){const shouldGoBack=!fromPop&&composerHistory&&history.state&&history.state.mnoteComposer;composerHistory=false;composerOpen=false;$('composer').classList.remove('open');$('composeMark').classList.remove('hidden');$('expand').classList.remove('hidden');['quickTitle','quickUrl','quickIdea','quickTags','quickStart','quickMood'].forEach(function(id){$(id).value=''});lastAutoTitle='';clearTimeout(titleLookupTimer);titleLookupToken++;$('linkStatus').textContent='';clearTimeout(autoClassifyTimer);autoClassifyToken++;$('autoLabelPanel').classList.add('hidden');$('autoLabelChoices').innerHTML='';if(shouldGoBack)history.back()}
