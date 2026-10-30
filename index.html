@@ -862,6 +862,20 @@
  .search{height:35px;padding-inline:9px;gap:6px}
  .search .glass{font-size:18px}
 }
+
+.auto-label-panel{margin:8px 0 2px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}
+.auto-label-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.auto-label-head strong{font-size:12px;font-weight:600;color:var(--ink)}
+.auto-label-head span,.auto-label-foot small{font-size:11px;color:var(--muted)}
+.auto-label-group{display:flex;align-items:flex-start;gap:8px;margin:7px 0}
+.auto-label-kind{flex:0 0 48px;padding-top:4px;color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.auto-label-chips{display:flex;flex-wrap:wrap;gap:5px}
+.auto-label-chip{padding:4px 9px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--muted);font-size:11px;line-height:1.4}
+.auto-label-chip.selected{border-color:#9bbd9f;background:#e8f2e8;color:#315b38}
+:root[data-theme=dark] .auto-label-chip.selected{border-color:#59785e;background:#293a2c;color:#c3e2c7}
+.auto-label-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
+.auto-label-foot .text-btn{min-height:31px;padding:0 10px;font-size:11px}
+@media(max-width:760px){.auto-label-panel{padding:10px}.auto-label-kind{flex-basis:43px}}
 </style>
 
 
@@ -1586,7 +1600,12 @@ body .topbar .search .glass{font-size:20px!important}
 <main class="workspace"><div class="inside"><section class="composer" id="composer" aria-label="Create a song note">
 <div class="compose-head"><input id="quickTitle" class="compose-title" maxlength="180" placeholder="Song title" aria-label="Song title"><span class="compose-mark" id="composeMark">♫</span><div class="compose-tools"><button class="round" id="expand" title="Add more details" aria-label="Add more details">＋</button><button class="round" id="quickLink" title="Add a YouTube link" aria-label="Add a YouTube link">▶</button></div></div>
 <div class="compose-body" id="composeBody">
-<div class="form-group compose-song-group"><label class="form-label" for="quickUrl">Song link</label><div class="fields song-link-field"><input class="field" id="quickUrl" type="url" placeholder="Paste a YouTube, Spotify, or SoundCloud link" aria-label="Song link"></div><div class="link-status" id="linkStatus" aria-live="polite"></div></div>
+<div class="form-group compose-song-group"><label class="form-label" for="quickUrl">Song link</label><div class="fields song-link-field"><input class="field" id="quickUrl" type="url" placeholder="Paste a YouTube, Spotify, or SoundCloud link" aria-label="Song link"></div><div class="link-status" id="linkStatus" aria-live="polite"></div>
+<div class="auto-label-panel hidden" id="autoLabelPanel" aria-live="polite">
+  <div class="auto-label-head"><strong>AI label suggestions</strong><span id="autoLabelStatus">Analysing song…</span></div>
+  <div id="autoLabelChoices"></div>
+  <div class="auto-label-foot"><small>Review and select the labels you want to keep.</small><button type="button" class="text-btn primary" id="applyAutoLabels">Add selected</button></div>
+</div></div>
 <div class="form-group compose-memory-group"><div class="compose-section-kicker" aria-hidden="true"><span>02</span> Personal note</div><label class="form-label" for="quickIdea">Your note about this song</label><textarea class="field" id="quickIdea" placeholder="What feeling or memory does this song bring back?" aria-label="Memory"></textarea></div>
 <div class="form-group compose-details-group"><div class="compose-section-kicker" aria-hidden="true"><span>03</span> Make it easy to find</div><div class="fields"><div class="label-suggest-wrap"><label class="form-label desktop-field-label" for="quickTags">Labels</label><input class="field" id="quickTags" placeholder="Labels, separated by commas" aria-label="Labels" autocomplete="off" aria-autocomplete="list" aria-controls="labelSuggestions"><div class="label-suggestions hidden" id="labelSuggestions" role="listbox" aria-label="Previously used labels"></div></div><div><label class="form-label desktop-field-label" for="quickStart">Favorite moment</label><input class="field" id="quickStart" placeholder="Favorite moment (e.g. 1:23)" aria-label="Favorite moment"></div></div></div>
 <input type="hidden" id="quickMood" value="">
@@ -1677,7 +1696,41 @@ lastAutoTitle=foundTitle||'';
 status.textContent=foundTitle?'Title found. Adding to your notes…':'Adding shared link to your notes…';
 await saveNote();
 }
-function hideComposer(fromPop){const shouldGoBack=!fromPop&&composerHistory&&history.state&&history.state.mnoteComposer;composerHistory=false;composerOpen=false;$('composer').classList.remove('open');$('composeMark').classList.remove('hidden');$('expand').classList.remove('hidden');['quickTitle','quickUrl','quickIdea','quickTags','quickStart','quickMood'].forEach(function(id){$(id).value=''});lastAutoTitle='';clearTimeout(titleLookupTimer);titleLookupToken++;$('linkStatus').textContent='';if(shouldGoBack)history.back()}
+function hideComposer(fromPop){const shouldGoBack=!fromPop&&composerHistory&&history.state&&history.state.mnoteComposer;composerHistory=false;composerOpen=false;$('composer').classList.remove('open');$('composeMark').classList.remove('hidden');$('expand').classList.remove('hidden');['quickTitle','quickUrl','quickIdea','quickTags','quickStart','quickMood'].forEach(function(id){$(id).value=''});lastAutoTitle='';clearTimeout(titleLookupTimer);titleLookupToken++;$('linkStatus').textContent='';clearTimeout(autoClassifyTimer);autoClassifyToken++;$('autoLabelPanel').classList.add('hidden');$('autoLabelChoices').innerHTML='';if(shouldGoBack)history.back()}
+
+let autoClassifyTimer=0,autoClassifyToken=0,autoLabelSelection=[];
+function scheduleAutoClassify(rawUrl){
+ clearTimeout(autoClassifyTimer);const token=++autoClassifyToken;
+ const url=String(rawUrl||'').trim(),panel=$('autoLabelPanel');
+ if(!url){panel.classList.add('hidden');panel.innerHTML=panel.innerHTML;return}
+ let valid=false;try{const u=new URL(url),h=u.hostname.toLowerCase();valid=!!videoId(url)||h==='open.spotify.com'||h.endsWith('.open.spotify.com')||h==='soundcloud.com'||h.endsWith('.soundcloud.com')}catch(e){}
+ if(!valid){panel.classList.add('hidden');return}
+ panel.classList.remove('hidden');$('autoLabelStatus').textContent='Analysing song…';$('autoLabelChoices').innerHTML='';
+ autoClassifyTimer=setTimeout(function(){runAutoClassify(url,token)},2100);
+}
+async function runAutoClassify(url,token){
+ const title=$('quickTitle').value.trim(),note=$('quickIdea').value.trim();
+ try{
+  const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'classify',context:{title:title,song_url:url,note:note,mood:$('quickMood').value,tags:$('quickTags').value,favorite_moment:$('quickStart').value}})});
+  const data=await response.json().catch(function(){return{}});
+  if(token!==autoClassifyToken||$('quickUrl').value.trim()!==url)return;
+  if(!response.ok)throw new Error(data.error||'Could not suggest labels.');
+  autoLabelSelection=[];
+  const groups=[['Genre',data.genre||[]],['Mood',data.mood||[]],['Tags',data.tags||[]]];
+  $('autoLabelChoices').innerHTML=groups.map(function(group){if(!group[1].length)return'';return'<div class="auto-label-group"><span class="auto-label-kind">'+esc(group[0])+'</span><div class="auto-label-chips">'+group[1].map(function(value){const item={kind:group[0],value:String(value)};autoLabelSelection.push(item);return'<button type="button" class="auto-label-chip selected" aria-pressed="true" data-auto-label="'+esc(item.value)+'" data-auto-kind="'+esc(item.kind)+'">'+esc(item.value)+'</button>'}).join('')+'</div></div>'}).join('');
+  if(!autoLabelSelection.length)throw new Error('No reliable labels found for this song.');
+  $('autoLabelStatus').textContent='Suggestions ready';
+ }catch(error){if(token===autoClassifyToken)$('autoLabelStatus').textContent=String(error.message||'Label suggestions unavailable.').slice(0,120)}
+}
+$('autoLabelChoices').addEventListener('click',function(ev){const chip=ev.target.closest('[data-auto-label]');if(!chip)return;const selected=chip.classList.toggle('selected');chip.setAttribute('aria-pressed',String(selected))});
+$('applyAutoLabels').addEventListener('click',function(){
+ const selected=Array.from($('autoLabelChoices').querySelectorAll('.auto-label-chip.selected'));
+ const current=$('quickTags').value.split(',').map(function(x){return x.trim()}).filter(Boolean),seen=new Set(current.map(function(x){return x.toLowerCase()}));
+ selected.filter(function(b){return b.dataset.autoKind!=='Mood'}).forEach(function(b){const v=b.dataset.autoLabel.trim();if(v&&!seen.has(v.toLowerCase())){current.push(v);seen.add(v.toLowerCase())}});
+ const moods=selected.filter(function(b){return b.dataset.autoKind==='Mood'}).map(function(b){return b.dataset.autoLabel});
+ $('quickTags').value=current.join(', ');if(moods.length)$('quickMood').value=Array.from(new Set(($('quickMood').value?$('quickMood').value.split(','):[]).concat(moods))).join(', ');
+ $('quickTags').dispatchEvent(new Event('input',{bubbles:true}));$('autoLabelStatus').textContent='Selected labels added to your draft';toast('AI labels added. Review them before submitting.');
+});
 function lookupSongTitle(rawUrl){clearTimeout(titleLookupTimer);titleLookupToken++;const url=String(rawUrl||'').trim(),titleInput=$('quickTitle'),status=$('linkStatus');if(!url){status.textContent='';return}let provider='',lookupUrl='';const vid=videoId(url);try{const u=new URL(url),host=u.hostname.toLowerCase();if(vid){provider='YouTube';lookupUrl='https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+vid)}else if(host==='open.spotify.com'||host.endsWith('.open.spotify.com')){provider='Spotify';lookupUrl='https://open.spotify.com/oembed?url='+encodeURIComponent(url)}else if(host==='soundcloud.com'||host.endsWith('.soundcloud.com')){provider='SoundCloud';lookupUrl='https://soundcloud.com/oembed?format=json&url='+encodeURIComponent(url)}}catch(e){}if(!provider){status.textContent='';return}if(titleInput.value.trim()&&titleInput.value.trim()!==lastAutoTitle){status.textContent='';return}const token=titleLookupToken;status.textContent='Finding song title…';titleLookupTimer=setTimeout(async function(){try{const response=await fetch(lookupUrl,{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Title unavailable');const data=await response.json(),found=String(data.title||'').trim();if(token!==titleLookupToken)return;if(!found)throw new Error('Title unavailable');const current=titleInput.value.trim();if(!current||current===lastAutoTitle){titleInput.value=found;lastAutoTitle=found;status.textContent='Title found — you can edit it.'}else status.textContent='Title found. Your edited title was kept.'}catch(e){if(token===titleLookupToken)status.textContent='Couldn’t fetch the title. You can enter it manually.'}},350)}
 function getVisible(){let list=entries.filter(function(e){const id=String(e.id),tr=trashed.has(id),ar=archived.has(id);if(view==='trash')return tr;if(view==='archive')return ar&&!tr;if(tr||ar)return false;if(view==='pinned')return pins.has(id);if(view==='reminders')return!!String(e.start_time||'').trim();return true});if(label)list=list.filter(function(e){return getTags(e).some(function(t){return t.toLowerCase()===label.toLowerCase()})});const q=$('search').value.trim().toLowerCase();if(q)list=list.filter(function(e){return[e.title,e.artist,e.idea,e.mood,e.start_time].concat(getTags(e)).join(' ').toLowerCase().includes(q)});if(view==='all'&&!q&&!label)list.sort(function(a,b){return Number(pins.has(String(b.id)))-Number(pins.has(String(a.id)))});return list}
 function card(e){const id=String(e.id),vid=videoId(e.song_url||''),ts=getTags(e),pinned=pins.has(id),thumb=vid?thumbnail(vid):'';let cardSeed=id+'|'+String(e.title||'')+'|'+String(e.mood||'');let cardHash=0;for(let i=0;i<cardSeed.length;i++)cardHash=(cardHash*31+cardSeed.charCodeAt(i))>>>0;const cardHue=cardHash%360;let h='<article class="note'+(thumb?' has-thumb':'')+'" style="--card-hue:'+cardHue+';'+(thumb?'--thumb-image:url(\''+thumb+'\')':'')+'" data-id="'+esc(id)+'" tabindex="0"><div class="note-content" data-open="'+esc(id)+'"><div class="note-top"><h2 class="note-title">'+esc(e.title||'Untitled song')+'</h2><button class="pin '+(pinned?'pinned':'')+'" data-pin="'+esc(id)+'" title="Pin note" aria-label="Pin note">'+(pinned?'📌':'♧')+'</button></div>';if(e.artist)h+='<div class="artist">'+esc(e.artist)+'</div>';if(vid)h+='<div class="video"><img loading="lazy" decoding="async" src="'+thumbnail(vid)+'" alt="'+esc(e.title||'Song thumbnail')+'" onerror="this.parentNode.style.display=\'none\'"></div>';if(e.idea)h+='<p class="idea">'+esc(e.idea)+'</p>';if(e.mood)h+='<span class="mood">'+esc(e.mood)+'</span>';if(ts.length)h+='<div class="tags">'+ts.map(function(t){return'<button class="tag" data-tag="'+esc(t)+'"># '+esc(t)+'</button>'}).join('')+'</div>';if(e.start_time)h+='<div class="moment">◷ '+esc(e.start_time)+'</div>';h+='</div></article>';return h}
@@ -1716,7 +1769,7 @@ function archiveNote(id){archived.add(id);trashed.delete(id);saveSet('mnote:arch
 function closeSidebar(){$('sidebar').classList.remove('open');$('backdrop').classList.remove('show')}
 function setView(v){view=v;label='';closeSidebar();render()}
 function menuToggle(){if(matchMedia('(max-width:760px)').matches){$('sidebar').classList.toggle('open');$('backdrop').classList.toggle('show',$('sidebar').classList.contains('open'))}else $('app').classList.toggle('mini')}
-$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value)});
+$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value);scheduleAutoClassify(this.value)});
 $('quickTags').addEventListener('input',updateLabelSuggestions);
 $('quickTags').addEventListener('focus',updateLabelSuggestions);
 $('quickTags').addEventListener('keydown',function(ev){if(ev.key==='ArrowDown'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(1)}else if(ev.key==='ArrowUp'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(-1)}else if(ev.key==='Enter'&&!$('labelSuggestions').classList.contains('hidden')){const items=$('labelSuggestions').querySelectorAll('[data-label-suggestion]');if(activeLabelSuggestion>=0&&items[activeLabelSuggestion]){ev.preventDefault();chooseLabelSuggestion(items[activeLabelSuggestion].dataset.labelSuggestion)}}else if(ev.key==='Escape'&&!$('labelSuggestions').classList.contains('hidden')){ev.stopPropagation();hideLabelSuggestions()}});
