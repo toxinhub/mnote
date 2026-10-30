@@ -1522,6 +1522,14 @@
 }
 </style><style id="compact-header-final-override">
 /* Higher-specificity compact header override: beats the earlier body .topbar desktop redesign. */
+/* Desktop utility buttons: keep refresh and theme toggle aligned as a fixed right-side group. */
+@media(min-width:761px){
+ body .topbar{display:flex!important;align-items:center!important}
+ body .topbar .search{flex:1 1 auto!important;min-width:0!important;margin:0 8px!important}
+ body .topbar .top-actions{display:flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:flex-end!important;gap:6px!important;margin:0 0 0 4px!important;padding:0!important}
+ body .topbar .top-actions #refresh,body .topbar .top-actions #themeBtn{position:static!important;inset:auto!important;transform:none!important;flex:0 0 34px!important;width:34px!important;height:34px!important;min-width:34px!important;max-width:34px!important;margin:0!important;padding:0!important;display:grid!important;place-items:center!important;align-self:center!important;box-sizing:border-box!important}
+ body .topbar .top-actions #refresh svg,body .topbar .top-actions #themeBtn svg{width:18px!important;height:18px!important;display:block!important;margin:0!important}
+}
 body .topbar{height:52px!important;min-height:52px!important;gap:6px!important;padding-inline:12px!important}
 body .topbar .menu-btn,body .topbar .top-actions .round{width:34px!important;height:34px!important;min-width:34px!important}
 body .topbar .brand{gap:7px!important;min-width:142px!important;padding:0!important}
