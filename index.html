@@ -1837,12 +1837,13 @@ function renderStudioPack(pack){
 }
 function bindCreativeStudio(entry){
  const button=$('studioGenerate'),status=$('studioStatus');if(!button||!status)return;
- const key=String(entry.id||entry.title||'')+'|'+String(entry.idea||'')+'|'+String(entry.mood||'')+'|'+getTags(entry).join(',');
+ const key=[entry.id,entry.title,entry.artist,entry.song_url,entry.idea,entry.mood,getTags(entry).join(',')].map(function(v){return String(v||'')}).join('|');
  const cached=creativeStudioCache.get(key);if(cached){renderStudioPack(cached);status.textContent='Your ideas are ready. You can regenerate them anytime.';button.textContent='Regenerate';}
  button.onclick=async function(){
   button.disabled=true;button.textContent='Creating…';status.textContent='Preparing caption, expression, visual direction and memory prompts…';
   try{
    let pack=creativeStudioCache.get(key);
+   if(pack){creativeStudioCache.delete(key);pack=null;}
    if(!pack){
     const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'studio',context:{title:entry.title||'',artist:entry.artist||'',song_url:entry.song_url||'',note:entry.idea||'',mood:entry.mood||'',tags:getTags(entry).join(', '),favorite_moment:entry.start_time||''}})});
     const data=await response.json().catch(function(){return{}});
