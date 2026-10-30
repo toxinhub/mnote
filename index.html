@@ -1693,7 +1693,7 @@ if(response.ok){const data=await response.json();foundTitle=String(data.title||'
 if(!composerOpen)return;
 titleInput.value=foundTitle||sharedTitle||'Shared song';
 lastAutoTitle=foundTitle||'';
-status.textContent=foundTitle?'Title found. Detecting genre and mood…':'Detecting genre and mood…';
+status.textContent=foundTitle?'Title found. Preparing labels and inspiration…':'Preparing labels and inspiration…';
 try{
  const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'classify',context:{title:titleInput.value,song_url:url,note:$('quickIdea').value}})});
  const data=await response.json().catch(function(){return{}});
