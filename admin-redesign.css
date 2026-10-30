@@ -365,3 +365,67 @@ body{font-size:14px;line-height:1.5}
 @media(prefers-reduced-motion:reduce){
  #workspace #list .entry{transition:none!important}
 }
+
+
+/* Desktop typography balance — improve small supporting text without changing mobile. */
+@media (min-width: 821px) {
+  body { font-size: 15px; line-height: 1.55; }
+
+  .top>b { font-size: 20px; }
+  .top small { font-size: 10px; }
+  .btn { font-size: 13px; }
+
+  .head>div>.muted:first-child { font-size: 11px; }
+  .head>div>.muted:last-child { font-size: 14px; line-height: 1.6; }
+
+  .admin-search input { font-size: 14px; }
+  .admin-search kbd { font-size: 11px; }
+  .admin-nav .tab { font-size: 13px; }
+  .tab-count { font-size: 11px; }
+
+  .list-head { font-size: 15px; }
+  .list-head .muted { font-size: 12px; }
+
+  #list .entry .badge { font-size: 10px; line-height: 1.4; }
+  .entry-date { font-size: 11px; }
+  #list .entry h3 { font-size: 16px; line-height: 1.5; }
+  .entry-meta { font-size: 13px; line-height: 1.5; }
+  .entry-mood { font-size: 11px; }
+  .detail-label { font-size: 11px; line-height: 1.55; }
+  .detail-value { font-size: 13px; line-height: 1.65; }
+  .entry-tag { font-size: 11px; line-height: 1.45; }
+  .entry-extras .detail-value { font-size: 12px; }
+  #list .entry .actions .btn { font-size: 12px; }
+
+  .bulk-bar .btn { font-size: 12px; }
+  .view-eyebrow { font-size: 10px; }
+  .view-title { font-size: 24px; line-height: 1.3; }
+  .view-intro p { font-size: 13px; line-height: 1.6; }
+
+  .summary-stat span { font-size: 12px; line-height: 1.45; }
+  .summary-stat strong { font-size: 24px; }
+
+  .label-name strong { font-size: 14px; }
+  .label-name small,
+  .label-counts small { font-size: 11px; line-height: 1.45; }
+  .label-counts { font-size: 12px; }
+  .label-counts>span { font-size: 11px; }
+  .label-open { font-size: 12px; }
+
+  .activity-copy strong { font-size: 13px; }
+  .activity-copy>span { font-size: 14px; line-height: 1.55; }
+  .activity-event-top time { font-size: 11px; }
+  .activity-copy p { font-size: 12px; line-height: 1.55; }
+
+  .empty { font-size: 14px; line-height: 1.6; }
+  .empty strong { font-size: 15px; }
+  .empty p { font-size: 13px; }
+
+  #modal .edit-kicker { font-size: 10px; }
+  #modal .edit-section-title strong { font-size: 14px; }
+  #modal .edit-section-title small { font-size: 12px; }
+  #modal .field label { font-size: 13px; }
+  #modal .field-hint { font-size: 12px; }
+  #modal .optional { font-size: 11px; }
+  #edit-form>.actions .save-hint { font-size: 12px; }
+}
