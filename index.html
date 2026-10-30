@@ -876,7 +876,6 @@
 .auto-label-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
 .auto-label-foot .text-btn{min-height:31px;padding:0 10px;font-size:11px}
 @media(max-width:760px){.auto-label-panel{padding:10px}.auto-label-kind{flex-basis:43px}}
-#detailDialog #studioSimilar{flex:0 0 auto;min-height:34px;padding:0 11px;border-radius:8px;font-size:11px}
 #detailDialog #studioSimilar:disabled{opacity:.6;cursor:wait}
 #detailDialog .studio-similar-results{display:grid;gap:6px;margin-top:10px}
 #detailDialog .studio-similar-results.hidden{display:none}
@@ -1612,7 +1611,6 @@ body .topbar .search .glass{font-size:20px!important}
 #detailDialog .ai-studio-head label{margin:0 0 4px!important;font-size:11px!important;letter-spacing:.04em!important}
 #detailDialog .ai-studio-head label:before{background:#83a88a!important}
 #detailDialog .ai-studio-head p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}
-#detailDialog #studioGenerate{flex:0 0 auto;min-height:34px;padding:0 12px;border-radius:8px;font-size:11px}
 #detailDialog #studioGenerate:disabled{opacity:.6;cursor:wait}
 #detailDialog .ai-studio-status{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.5}
 #detailDialog .ai-studio-results{display:grid;gap:7px;margin-top:10px}
@@ -1625,6 +1623,10 @@ body .topbar .search .glass{font-size:20px!important}
 #detailDialog .studio-output p{margin:7px 0 0;font-size:12px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
 :root[data-theme=dark] #detailDialog .ai-studio{background:color-mix(in srgb,var(--surface) 90%,#29402e);border-color:#3e5944}
 @media(max-width:760px){#detailDialog .ai-studio{padding:11px 10px}#detailDialog .ai-studio-head{align-items:flex-start;gap:8px}#detailDialog #studioGenerate{min-height:32px;padding:0 9px;font-size:10px}#detailDialog .studio-output{padding:9px}}
+
+#detailDialog .studio-auto-badge{flex:0 0 auto;padding:5px 8px;border:1px solid var(--line);border-radius:20px;color:var(--muted);font-size:9px;white-space:nowrap}
+#detailDialog .studio-empty{margin:4px 0;color:var(--muted);font-size:11px}
+#detailDialog .ai-studio-results.hidden,#detailDialog .studio-similar-results.hidden{display:none}
 </style>
 
 </head>
@@ -1835,9 +1837,12 @@ const shouldGoBack=!fromPop&&detailHistory&&history.state&&history.state.mnoteDe
 detailHistory=false;activeDetail=null;if(shouldGoBack)history.back()}
 function minimizeDetail(){if(!activeDetail)return;minimizedDetailId=String(activeDetail);parkPlayer();$('detailOverlay').classList.add('minimized');$('detailOverlay').classList.remove('show');document.body.style.overflow='';syncMiniDock()}
 function restoreDetail(){const id=minimizedDetailId!==null?String(minimizedDetailId):(playingDetailId!==null?String(playingDetailId):(activeDetail!==null?String(activeDetail):null));if(id===null)return;minimizedDetailId=null;openDetail(id);if(playingVideoId&&String(playingDetailId)===String(id)){const target=$('detailDialog').querySelector('.dialog-video');if(target){window.inlinePlayerTarget=target;setPlayerInline(target)}else parkPlayer()}else parkPlayer();syncMiniDock()}
-function openDetail(id){const e=entries.find(function(x){return String(x.id)===String(id)});if(!e)return;if(minimizedDetailId!==null&&String(minimizedDetailId)===String(id))minimizedDetailId=null;parkPlayer();activeDetail=String(id);let hueSeed=String(e.id||'')+'|'+String(e.title||'')+'|'+String(e.mood||'');let hueHash=0;for(let i=0;i<hueSeed.length;i++)hueHash=(hueHash*31+hueSeed.charCodeAt(i))>>>0;$('detailDialog').style.setProperty('--detail-hue',String(hueHash%360));const vid=videoId(e.song_url||''),ts=getTags(e);let h='<div class="dialog-body"><div class="detail-hero"><div class="detail-hero-top"><div class="detail-title-stack"><h2>'+esc(e.title||'Untitled song')+'</h2>'+(e.artist?'<div class="detail-artist">'+esc(e.artist)+'</div>':'')+'</div><button class="round" id="closeDetail" type="button" aria-label="Close note" title="Close note">×</button></div></div>';if(vid)h+='<div class="dialog-video inline-player-trigger" data-inline-play="'+esc(vid)+'" role="button" tabindex="0" aria-label="Play '+esc(e.title||'song')+' here"><img loading="lazy" decoding="async" src="'+thumbnail(vid)+'" alt="'+esc(e.title||'Song thumbnail')+'"><span class="play">▶</span></div>';if(e.idea)h+='<div class="detail-section memory-section"><label class="feelings-label">Feelings & memories</label>'+esc(e.idea)+'</div>';if(e.inspiration_note)h+='<div class="detail-section inspiration-section"><label>✦ AI Inspiration Notes</label>'+esc(e.inspiration_note)+'</div>';if(e.start_time)h+='<div class="detail-section moment-section"><label>Favorite moment</label>'+esc(e.start_time)+'</div>';if(e.mood)h+='<div class="detail-section mood-section"><label>Mood</label>'+esc(e.mood)+'</div>';if(ts.length)h+='<div class="tags">'+ts.map(function(t){return'<button class="tag" data-tag="'+esc(t)+'"># '+esc(t)+'</button>'}).join('')+'</div>';h+='<section class="detail-section ai-studio" id="aiStudio"><div class="ai-studio-head"><div><label>✦ AI Creative Studio</label><p>Turn this song note into a few ideas. Nothing is saved automatically.</p></div><button type="button" class="text-btn primary" id="studioGenerate">Create ideas</button><button type="button" class="text-btn" id="studioSimilar">Find similar</button></div><div class="ai-studio-status" id="studioStatus" aria-live="polite"></div><div class="ai-studio-results hidden" id="studioResults"></div><div class="studio-similar-results hidden" id="studioSimilarResults"></div></section></div><div class="dialog-actions">'+(e.song_url?'<a class="text-btn action-chip youtube-chip" href="'+esc(e.song_url)+'" target="_blank" rel="noopener noreferrer" title="Open on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>YouTube</a><a class="text-btn action-chip music-chip" href="https://music.youtube.com/watch?v='+encodeURIComponent(vid)+'" target="_blank" rel="noopener noreferrer" title="Open YouTube Music"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M10 7.8 17 12l-7 4.2Z" fill="var(--page,#fff)"/></svg>Music</a>':'')+'<button class="text-btn action-chip" id="detailCopy" title="Copy song link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Copy</button><button class="text-btn action-chip" id="detailPin" title="'+(pins.has(String(e.id))?'Unpin note':'Pin note')+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 3v2H6v-2l3-3-1-6ZM12 14v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>'+(pins.has(String(e.id))?'Unpin':'Pin')+'</button><button class="text-btn action-chip minimize-detail" id="minimizeDetail" type="button" title="Minimize note and keep playback running" aria-label="Minimize note and keep playback running"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Minimize</button></div>';$('detailDialog').innerHTML=h;bindCreativeStudio(e);$('closeDetail').onclick=function(){toggleModal(false)};$('minimizeDetail').onclick=minimizeDetail;$('restoreDetail').onclick=restoreDetail;$('closeMiniDetail').onclick=function(){toggleModal(false)};$('detailCopy').onclick=function(){copyLink(e.song_url||location.href)};syncMiniDock();$('detailPin').onclick=function(){togglePin(String(e.id));$('detailPin').textContent=pins.has(String(e.id))?'Unpin':'Pin';render()};$('detailDialog').querySelectorAll('[data-tag]').forEach(function(b){b.onclick=function(){label=b.dataset.tag;view='all';toggleModal(false);render()}});toggleModal(true)}
+function openDetail(id){const e=entries.find(function(x){return String(x.id)===String(id)});if(!e)return;if(minimizedDetailId!==null&&String(minimizedDetailId)===String(id))minimizedDetailId=null;parkPlayer();activeDetail=String(id);let hueSeed=String(e.id||'')+'|'+String(e.title||'')+'|'+String(e.mood||'');let hueHash=0;for(let i=0;i<hueSeed.length;i++)hueHash=(hueHash*31+hueSeed.charCodeAt(i))>>>0;$('detailDialog').style.setProperty('--detail-hue',String(hueHash%360));const vid=videoId(e.song_url||''),ts=getTags(e);let h='<div class="dialog-body"><div class="detail-hero"><div class="detail-hero-top"><div class="detail-title-stack"><h2>'+esc(e.title||'Untitled song')+'</h2>'+(e.artist?'<div class="detail-artist">'+esc(e.artist)+'</div>':'')+'</div><button class="round" id="closeDetail" type="button" aria-label="Close note" title="Close note">×</button></div></div>';if(vid)h+='<div class="dialog-video inline-player-trigger" data-inline-play="'+esc(vid)+'" role="button" tabindex="0" aria-label="Play '+esc(e.title||'song')+' here"><img loading="lazy" decoding="async" src="'+thumbnail(vid)+'" alt="'+esc(e.title||'Song thumbnail')+'"><span class="play">▶</span></div>';if(e.idea)h+='<div class="detail-section memory-section"><label class="feelings-label">Feelings & memories</label>'+esc(e.idea)+'</div>';if(e.inspiration_note)h+='<div class="detail-section inspiration-section"><label>✦ AI Inspiration Notes</label>'+esc(e.inspiration_note)+'</div>';if(e.start_time)h+='<div class="detail-section moment-section"><label>Favorite moment</label>'+esc(e.start_time)+'</div>';if(e.mood)h+='<div class="detail-section mood-section"><label>Mood</label>'+esc(e.mood)+'</div>';if(ts.length)h+='<div class="tags">'+ts.map(function(t){return'<button class="tag" data-tag="'+esc(t)+'"># '+esc(t)+'</button>'}).join('')+'</div>';h+='<section class="detail-section ai-studio" id="aiStudio"><div class="ai-studio-head"><div><label>✦ AI Creative Studio</label><p>Turn this song note into a few ideas. Nothing is saved automatically.</p></div><span class="studio-auto-badge">AI updates automatically</span></div><div class="ai-studio-status" id="studioStatus" aria-live="polite">Preparing this song’s ideas…</div><div class="ai-studio-results" id="studioResults"></div><div class="studio-similar-results" id="studioSimilarResults"></div></section></div><div class="dialog-actions">'+(e.song_url?'<a class="text-btn action-chip youtube-chip" href="'+esc(e.song_url)+'" target="_blank" rel="noopener noreferrer" title="Open on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>YouTube</a><a class="text-btn action-chip music-chip" href="https://music.youtube.com/watch?v='+encodeURIComponent(vid)+'" target="_blank" rel="noopener noreferrer" title="Open YouTube Music"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M10 7.8 17 12l-7 4.2Z" fill="var(--page,#fff)"/></svg>Music</a>':'')+'<button class="text-btn action-chip" id="detailCopy" title="Copy song link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Copy</button><button class="text-btn action-chip" id="detailPin" title="'+(pins.has(String(e.id))?'Unpin note':'Pin note')+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 3v2H6v-2l3-3-1-6ZM12 14v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>'+(pins.has(String(e.id))?'Unpin':'Pin')+'</button><button class="text-btn action-chip minimize-detail" id="minimizeDetail" type="button" title="Minimize note and keep playback running" aria-label="Minimize note and keep playback running"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Minimize</button></div>';$('detailDialog').innerHTML=h;bindCreativeStudio(e);$('closeDetail').onclick=function(){toggleModal(false)};$('minimizeDetail').onclick=minimizeDetail;$('restoreDetail').onclick=restoreDetail;$('closeMiniDetail').onclick=function(){toggleModal(false)};$('detailCopy').onclick=function(){copyLink(e.song_url||location.href)};syncMiniDock();$('detailPin').onclick=function(){togglePin(String(e.id));$('detailPin').textContent=pins.has(String(e.id))?'Unpin':'Pin';render()};$('detailDialog').querySelectorAll('[data-tag]').forEach(function(b){b.onclick=function(){label=b.dataset.tag;view='all';toggleModal(false);render()}});toggleModal(true)}
 async function saveNote(){if(!$('autoLabelPanel').classList.contains('hidden'))applySelectedAutoLabels(false);const title=$('quickTitle').value.trim(),url=$('quickUrl').value.trim(),vid=videoId(url),idea=$('quickIdea').value.trim(),tags=$('quickTags').value.trim(),startTime=$('quickStart').value.trim(),mood=$('quickMood').value.trim();if(!title&&!url&&!idea&&!tags&&!startTime&&!mood){toast('Add at least one detail before submitting');return}const payload={title:title,artist:'',song_url:vid?(url.indexOf('music.youtube.com')!==-1?'https://music.youtube.com/watch?v='+vid:'https://www.youtube.com/watch?v='+vid):url,platform:vid?(url.indexOf('music.youtube.com')!==-1?'YouTube Music':'YouTube'):(url?'Link':''),idea:idea,mood:mood,tags:tags,start_time:startTime,inspiration_note:$('quickInspiration').value.trim(),progress:'Idea',status:'pending'};$('saveNote').disabled=true;$('saveNote').textContent='Submitting…';try{const response=await fetch(SUPABASE_URL+'/rest/v1/entries',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(payload)});const body=await response.json().catch(function(){return{message:'Supabase returned an unreadable response.'}});if(!response.ok){toast('Couldn’t submit your note: '+(body.message||body.error_description||'HTTP '+response.status));return}hideComposer();if(shareTargetLaunch){toast('Song saved. Returning to your previous app…');setTimeout(function(){try{window.close()}catch(e){}},650)}else{toast('Your note is submitted and waiting for admin approval.')}}catch(error){toast('Couldn’t connect to submit your note. Please check your connection.')}finally{$('saveNote').disabled=false;$('saveNote').textContent='Submit note'}}
 const creativeStudioCache=new Map();
+const similarSongCache=new Map();
+function studioStorageRead(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch(e){return null}}
+function studioStorageWrite(key,value){try{localStorage.setItem(key,JSON.stringify(value))}catch(e){}}
 function copyStudioText(value){const text=String(value||'').trim();if(!text)return;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){toast('Copied to clipboard')}).catch(function(){fallbackCopy(text)})}else fallbackCopy(text)}
 function renderStudioPack(pack){
  const results=$('studioResults');if(!results)return;
@@ -1846,46 +1851,52 @@ function renderStudioPack(pack){
  results.classList.remove('hidden');
  results.querySelectorAll('[data-studio-copy]').forEach(function(button){button.onclick=function(){const block=blocks[Number(button.dataset.studioCopy)];copyStudioText(block?block[1]:'')}});
 }
-function bindCreativeStudio(entry){
- const button=$('studioGenerate'),status=$('studioStatus');if(!button||!status)return;
+function renderSimilarSongs(matches){
+ const box=$('studioSimilarResults');if(!box)return;
+ if(!matches.length){box.innerHTML='<div class="studio-similar-title">Similar songs</div><p class="studio-empty">No close matches found in your library yet.</p>';return}
+ box.innerHTML='<div class="studio-similar-title">Similar songs in your library</div>'+matches.map(function(row){return'<button type="button" class="studio-match" data-match-id="'+esc(row.item.id)+'"><span><strong>'+esc(row.item.title||'Untitled song')+'</strong><small>'+esc(row.item.artist||row.item.mood||'Saved song')+'</small></span><em>'+esc(row.reason||'Similar mood or theme')+'</em><span aria-hidden="true">↗</span></button>'}).join('');
+ box.querySelectorAll('[data-match-id]').forEach(function(button){button.onclick=function(){openDetail(button.dataset.matchId)}});
+}
+async function bindCreativeStudio(entry){
+ const status=$('studioStatus'),results=$('studioResults'),similarBox=$('studioSimilarResults');if(!status||!results||!similarBox)return;
  const key=[entry.id,entry.title,entry.artist,entry.song_url,entry.idea,entry.mood,getTags(entry).join(',')].map(function(v){return String(v||'')}).join('|');
- const cached=creativeStudioCache.get(key);if(cached){renderStudioPack(cached);status.textContent='Your ideas are ready. You can regenerate them anytime.';button.textContent='Regenerate';}
- const similarButton=$('studioSimilar'),similarBox=$('studioSimilarResults');
- if(similarButton)similarButton.onclick=async function(){
-  similarButton.disabled=true;similarButton.textContent='Searching…';similarBox.classList.remove('hidden');similarBox.textContent='Comparing this song with your approved library…';
-  try{
+ const storageKey='mnote:ai-studio:v1:'+String(entry.id||'').replace(/[^a-zA-Z0-9_-]/g,'');
+ const cached=creativeStudioCache.get(key)||studioStorageRead(storageKey);
+ if(cached&&cached.pack){renderStudioPack(cached.pack);status.textContent='AI ideas ready';}
+ else status.textContent='Creating caption, personal expression and visual direction…';
+ if(cached&&cached.similar){renderSimilarSongs(cached.similar);return}
+ const similarKey=String(entry.id)+'|'+String(entries.length);
+ const storedSimilar=studioStorageRead('mnote:ai-similar:v1:'+String(entry.id||'').replace(/[^a-zA-Z0-9_-]/g,''));
+ if(storedSimilar&&Array.isArray(storedSimilar)){renderSimilarSongs(storedSimilar);return}
+ const tasks=[];
+ if(!cached||!cached.pack){
+  tasks.push((async function(){
+   const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'studio',context:{title:entry.title||'',artist:entry.artist||'',song_url:entry.song_url||'',note:entry.idea||'',mood:entry.mood||'',tags:getTags(entry).join(', '),favorite_moment:entry.start_time||''}})});
+   const data=await response.json().catch(function(){return{}});
+   if(!response.ok)throw new Error(data.error||'Creative ideas could not be loaded.');
+   const pack={caption:String(data.caption||''),expression:String(data.expression||''),visual_prompt:String(data.visual_prompt||''),memory_prompts:Array.isArray(data.memory_prompts)?data.memory_prompts:[]};
+   if(!pack.caption||!pack.expression||!pack.visual_prompt||pack.memory_prompts.length!==3)throw new Error('AI returned incomplete creative ideas.');
+   creativeStudioCache.set(key,{pack:pack});studioStorageWrite(storageKey,{pack:pack,updatedAt:Date.now()});
+   if(activeDetail===String(entry.id)){renderStudioPack(pack);status.textContent='AI ideas ready';}
+  })());
+ }
+ if(!storedSimilar){
+  tasks.push((async function(){
    const library=entries.filter(function(item){return String(item.id)!==String(entry.id)}).slice(0,40).map(function(item){return{id:String(item.id),title:String(item.title||''),artist:String(item.artist||''),idea:String(item.idea||'').slice(0,500),mood:String(item.mood||''),tags:getTags(item).join(', ').slice(0,200)}});
-   if(!library.length)throw new Error('Your approved library does not have other songs to compare yet.');
+   if(!library.length){renderSimilarSongs([]);return}
    const query=[entry.title,entry.artist,entry.idea,entry.mood,getTags(entry).join(', ')].filter(Boolean).join(' · ');
    const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'library',query,library})});
    const data=await response.json().catch(function(){return{}});
-   if(!response.ok)throw new Error(data.error||'AI library search failed.');
-   const matches=(data.results||[]).map(function(match){return{match:match,item:entries.find(function(item){return String(item.id)===String(match.id)})}}).filter(function(row){return row.item});
-   if(!matches.length){similarBox.textContent='No close matches found in your approved library.';return}
-   similarBox.innerHTML='<div class="studio-similar-title">Similar songs in your library</div>'+matches.map(function(row){return'<button type="button" class="studio-match" data-match-id="'+esc(row.item.id)+'"><span><strong>'+esc(row.item.title||'Untitled song')+'</strong><small>'+esc(row.item.artist||row.item.mood||'Saved song')+'</small></span><em>'+esc(row.match.reason||'Similar mood or theme')+'</em><span aria-hidden="true">↗</span></button>'}).join('');
-   similarBox.querySelectorAll('[data-match-id]').forEach(function(matchButton){matchButton.onclick=function(){const id=matchButton.dataset.matchId;openDetail(id)}});
-  }catch(error){similarBox.textContent=String(error.message||'Could not search your library.').slice(0,180)}
-  finally{similarButton.disabled=false;similarButton.textContent='Find similar'}
- };
-
- button.onclick=async function(){
-  button.disabled=true;button.textContent='Creating…';status.textContent='Preparing caption, expression, visual direction and memory prompts…';
-  try{
-   let pack=creativeStudioCache.get(key);
-   if(pack){creativeStudioCache.delete(key);pack=null;}
-   if(!pack){
-    const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'studio',context:{title:entry.title||'',artist:entry.artist||'',song_url:entry.song_url||'',note:entry.idea||'',mood:entry.mood||'',tags:getTags(entry).join(', '),favorite_moment:entry.start_time||''}})});
-    const data=await response.json().catch(function(){return{}});
-    if(!response.ok)throw new Error(data.error||'AI request failed (HTTP '+response.status+').');
-    pack={caption:String(data.caption||''),expression:String(data.expression||''),visual_prompt:String(data.visual_prompt||''),memory_prompts:Array.isArray(data.memory_prompts)?data.memory_prompts:[]};
-    if(!pack.caption||!pack.expression||!pack.visual_prompt||pack.memory_prompts.length!==3)throw new Error('AI returned an incomplete creative pack.');
-    creativeStudioCache.set(key,pack);if(creativeStudioCache.size>40)creativeStudioCache.delete(creativeStudioCache.keys().next().value);
-   }
-   if(activeDetail!==String(entry.id))return;
-   renderStudioPack(pack);status.textContent='Ideas ready. Edit or copy anything you want to keep.';button.textContent='Regenerate';
-  }catch(error){status.textContent=String(error.message||'Could not create ideas.').slice(0,180);button.textContent='Try again'}
-  finally{button.disabled=false}
- };
+   if(!response.ok)throw new Error(data.error||'Similar songs could not be loaded.');
+   const matches=(data.results||[]).map(function(match){return{reason:String(match.reason||''),item:entries.find(function(item){return String(item.id)===String(match.id)})}}).filter(function(row){return row.item});
+   studioStorageWrite('mnote:ai-similar:v1:'+String(entry.id||'').replace(/[^a-zA-Z0-9_-]/g,''),matches);
+   if(activeDetail===String(entry.id))renderSimilarSongs(matches);
+  })());
+ }
+ const settled=await Promise.allSettled(tasks);
+ if(activeDetail!==String(entry.id))return;
+ const failed=settled.filter(function(result){return result.status==='rejected'});
+ if(failed.length){status.textContent='Some AI suggestions could not load. '+String(failed[0].reason&&failed[0].reason.message||'Please try again later.').slice(0,130);}
 }
 function copyLink(url){if(!url){toast('There’s no link to copy');return}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(function(){toast('Link copied')}).catch(function(){fallbackCopy(url)});else fallbackCopy(url)}
 function fallbackCopy(url){const el=document.createElement('textarea');el.value=url;el.style.position='fixed';el.style.opacity='0';document.body.appendChild(el);el.select();try{document.execCommand('copy');toast('Link copied')}catch(e){toast('Couldn’t copy the link')}el.remove()}
