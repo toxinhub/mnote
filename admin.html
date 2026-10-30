@@ -640,6 +640,7 @@
  function setClassifyStatus(message,state="empty"){const el=$("#edit-link-status");el.textContent=message;el.dataset.state=state}
  async function classifyAdminSong(rawUrl,immediate=false){
   clearTimeout(editClassifyTimer);const token=++editClassifyToken,url=String(rawUrl||"").trim(),refreshButton=$("#refresh-ai-labels");
+  if(!immediate){refreshButton.disabled=false;refreshButton.textContent="↻ Refresh AI suggestions"}
   if(!url){setClassifyStatus("Add a supported song link first.","error");return}
   let valid=false;try{const u=new URL(url),h=u.hostname.toLowerCase();valid=!!/(?:^|\.)youtube\.com$|(?:^|\.)youtu\.be$/i.test(h)||h==="open.spotify.com"||h.endsWith(".open.spotify.com")||h==="soundcloud.com"||h.endsWith(".soundcloud.com")}catch(e){}
   if(!valid){setClassifyStatus("Unsupported link. Use YouTube, Spotify or SoundCloud.","error");return}
