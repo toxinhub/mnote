@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff">
 <!-- Pages cache-refresh: 2026-10-30 -->
 <title>m}note — Song Notes</title>
-<link rel="icon" type="image/svg+xml" href="./favicon-main.svg?v=20261030">
+<link rel="icon" type="image/svg+xml" href="./mnote-icon.svg?v=20261030-2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -1629,8 +1629,38 @@ body .topbar .search .glass{font-size:20px!important}
 #detailDialog .ai-studio-results.hidden,#detailDialog .studio-similar-results.hidden{display:none}
 </style>
 
+<style id="mnote-launch-style">
+/* m}note launch identity + app loading */
+#launchScreen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#f3f7f2;color:#355d40;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease}
+#launchScreen.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.launch-inner{display:flex;flex-direction:column;align-items:center;gap:17px;transform:translateY(-8px);animation:launch-arrive .65s cubic-bezier(.2,.8,.2,1) both}
+.launch-mark{width:104px;height:104px;filter:drop-shadow(0 8px 18px #496d4a20);animation:launch-breathe 2.4s ease-in-out .65s infinite}
+.launch-wordmark{font:600 25px/1 "Google Sans",Arial,sans-serif;letter-spacing:-1.1px;color:#426b4a}
+.launch-wordmark span{color:#8eb795}
+.launch-caption{margin-top:-8px;color:#839487;font:500 10px/1.4 "Google Sans",Arial,sans-serif;letter-spacing:2.1px;text-transform:uppercase}
+.launch-loader{display:flex;gap:5px;margin-top:12px}
+.launch-loader i{width:5px;height:5px;border-radius:50%;background:#82a889;animation:launch-dots .9s ease-in-out infinite}
+.launch-loader i:nth-child(2){animation-delay:.14s}.launch-loader i:nth-child(3){animation-delay:.28s}
+@keyframes launch-arrive{from{opacity:0;transform:translateY(8px) scale(.94)}to{opacity:1;transform:translateY(-8px) scale(1)}}
+@keyframes launch-breathe{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-2deg)}}
+@keyframes launch-dots{0%,80%,100%{opacity:.35;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){#launchScreen,.launch-inner,.launch-mark,.launch-loader i{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
+<div id="launchScreen" role="status" aria-label="Opening m}note"><div class="launch-inner">
+<svg class="launch-mark" viewBox="0 0 512 512" role="img" aria-label="m}note logo">
+<rect x="12" y="12" width="488" height="488" rx="132" fill="#e4efe4"/>
+<path d="M155 105h142l72 72v225a26 26 0 0 1-26 26H155a26 26 0 0 1-26-26V131a26 26 0 0 1 26-26Z" fill="#fff" stroke="#c8ddca" stroke-width="12" stroke-linejoin="round"/>
+<path d="M297 105v61a13 13 0 0 0 13 13h59" fill="none" stroke="#c8ddca" stroke-width="12" stroke-linejoin="round"/>
+<path d="M244 333V210l108-22v123" fill="none" stroke="#54815c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="207" cy="339" r="36" fill="#54815c"/><circle cx="316" cy="322" r="36" fill="#54815c"/>
+<path d="M172 393h168" stroke="#9abd9e" stroke-width="12" stroke-linecap="round"/>
+<circle cx="385" cy="125" r="18" fill="#b7d2b9"/>
+</svg>
+<div class="launch-wordmark">m<span>}</span>note</div><div class="launch-caption">songs · moments · memories</div>
+<div class="launch-loader" aria-hidden="true"><i></i><i></i><i></i></div>
+</div></div>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ui-icon menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon"><svg class="ui-icon brand-music-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span class="brand-name">m<span>}</span>note</span></a><label class="search"><span class="glass"><svg class="ui-icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.2 4.2"/></svg></span><input id="search" type="text" inputmode="search" enterkeyhint="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off" role="searchbox"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes"><svg class="ui-icon refresh-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M19 12a7.5 7.5 0 0 0-13.2-4.8L4 9"/><path d="M4 17v-5h5"/><path d="M5 12a7.5 7.5 0 0 0 13.2 4.8L20 15"/></svg></button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true"><svg class="ui-icon theme-svg" viewBox="0 0 24 24"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z"/></svg></span></button></div></header>
 <div class="app" id="app"><aside class="sidebar" id="sidebar" aria-label="Navigation"><a class="drawer-brand" href="./" aria-label="mnote home"><span class="drawer-brand-name">m<span>}</span>note</span></a><nav class="side-nav"><button class="nav active" data-view="all" aria-label="Notes"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span><span class="nav-label">Notes</span><span class="count" id="allCount"></span></button><button class="nav" data-view="pinned" aria-label="Pinned"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg pin-svg" viewBox="0 0 24 24"><path d="m9 4 6 0 1 5 3 3v2H5v-2l3-3 1-5Z"/><path d="M12 14v7"/></svg></span><span class="nav-label">Pinned</span><span class="count" id="pinCount"></span></button></nav><div class="side-head" id="labelsToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="labels"><span class="labels-heading-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><path d="M9 4 7 20M17 4l-2 16M4 9h16M3 15h16"/></svg></span><span class="labels-heading-text">Labels</span><span class="label-toggle-icon" aria-hidden="true">⌄</span></div><div class="labels" id="labels"></div><div class="side-foot"><a class="admin-link" href="admin.html"><span class="admin-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M18.5 5.5h2M19.5 4.5v2"/></svg></span><span>Admin Login</span><span class="admin-arrow" aria-hidden="true">↗</span></a></div></aside><div class="backdrop" id="backdrop"></div>
 <main class="workspace"><div class="inside"><section class="composer" id="composer" aria-label="Create a song note">
@@ -1922,8 +1952,10 @@ document.addEventListener('click',function(ev){const player=ev.target.closest('[
 window.addEventListener('popstate',function(){if($('detailOverlay').classList.contains('show')){toggleModal(false,true);return}if(composerOpen){hideComposer(true);return}if(composerHistory)composerHistory=false;detailHistory=false});
  document.addEventListener('keydown',function(ev){if((ev.key==='Enter'||ev.key===' ')&&ev.target.closest&&ev.target.closest('[data-inline-play]')){ev.preventDefault();ev.target.closest('[data-inline-play]').click();return}if(ev.key==='Escape'){toggleModal(false);closeSidebar();if(composerOpen)hideComposer()}if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='k'){ev.preventDefault();$('search').focus()}if(ev.key==='n'&&!ev.ctrlKey&&!ev.metaKey&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){ev.preventDefault();showComposer()}if(ev.key==='Enter'&&ev.target.classList.contains('note'))openDetail(ev.target.dataset.id)});
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(function(){})})}
+function finishLaunchScreen(){const screen=document.getElementById('launchScreen');if(!screen||screen.dataset.finished==='1')return;screen.dataset.finished='1';const wait=Math.max(0,700-(Date.now()-(window.__mnoteLaunchStarted||Date.now())));window.setTimeout(function(){screen.classList.add('is-leaving');window.setTimeout(function(){screen.remove()},380)},wait)}
+window.__mnoteLaunchStarted=Date.now();window.setTimeout(finishLaunchScreen,12000);
 receiveShareTarget();
-load();
+load().finally(finishLaunchScreen);
 })();
 </script><script src="public-desktop.js?v=20261029-minimize-detail" defer></script>
 </body></html>
