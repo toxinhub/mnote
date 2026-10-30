@@ -613,3 +613,77 @@ body{font-size:14px;line-height:1.5}
 @media(prefers-reduced-motion:reduce){
   .top,.admin-nav .tab,#workspace #list .entry{transition:none!important}
 }
+
+
+/* Mobile geometry pass — consistent columns, button proportions and alignment. */
+@media (max-width:700px){
+  #workspace{padding-inline:14px}
+  .head{display:flex;justify-content:space-between;align-items:center}
+  .head>div{flex:1 1 auto}
+  #signout{align-self:center;white-space:nowrap}
+
+  .dashboard-tools{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    grid-template-areas:"search search" "add refresh";
+    align-items:stretch;gap:8px;margin-bottom:14px
+  }
+  .dashboard-tools .admin-search{grid-area:search;width:100%;height:44px}
+  .dashboard-tools #add-entry{
+    grid-area:add;width:100%;min-width:0;min-height:42px;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    padding:8px 10px;border-radius:10px;font-size:12px;font-weight:650;
+    white-space:nowrap
+  }
+  .dashboard-tools #refresh{
+    grid-area:refresh;width:100%;height:42px;min-height:42px;
+    display:flex;align-items:center;justify-content:center;gap:7px;
+    padding:8px 10px;border:1px solid var(--line);border-radius:10px;
+    background:var(--surface);color:var(--ink);font-size:12px;font-weight:600
+  }
+  .dashboard-tools #refresh span{font-size:16px;line-height:1}
+
+  .admin-nav{width:calc(100% + 28px);margin-inline:-14px;padding-inline:14px}
+  .admin-nav .tab{min-height:38px;padding-inline:12px}
+  #workspace #bulk-bar{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    align-items:center;gap:7px;padding:10px
+  }
+  #workspace #bulk-bar .bulk-select{grid-column:1/-1;min-height:28px}
+  #workspace #bulk-bar #selected-count{grid-column:1/-1;margin:0}
+  #workspace #bulk-bar .btn{width:100%;min-height:36px;white-space:normal}
+  #workspace #bulk-bar #clear-selection{grid-column:1/-1;width:auto;justify-self:end;min-width:92px}
+
+  #workspace #list .entry .actions{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    align-items:stretch;justify-items:stretch
+  }
+  #workspace #list .entry .actions .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:0;min-height:38px;text-align:center;white-space:normal
+  }
+  #workspace #list .entry .actions .btn:only-child{grid-column:1/-1;width:100%}
+
+  #labels-view .label-row{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+  #labels-view .label-name{min-width:0}
+  #labels-view .label-counts{max-width:116px}
+  #labels-view .label-open{grid-column:1/-1;justify-self:stretch;text-align:center}
+
+  .activity-intro{display:grid;grid-template-columns:38px minmax(0,1fr);align-items:center}
+  .activity-intro>div:nth-child(2){min-width:0}
+  .activity-intro>.btn{grid-column:2;justify-self:start;margin:0}
+  .labels-summary,.activity-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .summary-stat{min-width:0;justify-content:center;text-align:left}
+
+  #edit-form>.actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:center}
+  #edit-form>.actions #cancel{width:100%;margin:0}
+  #edit-form>.actions #save-changes{width:100%;min-width:0}
+}
+@media(max-width:380px){
+  #workspace{padding-inline:11px}
+  .dashboard-tools{gap:7px}
+  .dashboard-tools #add-entry,.dashboard-tools #refresh{font-size:11px}
+  .admin-nav{width:calc(100% + 22px);margin-inline:-11px;padding-inline:11px}
+  #workspace #bulk-bar{gap:6px;padding:8px}
+  #workspace #list .entry .actions{gap:6px}
+  #edit-form>.actions{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
+}
