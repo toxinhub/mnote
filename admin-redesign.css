@@ -429,3 +429,29 @@ body{font-size:14px;line-height:1.5}
   #modal .optional { font-size: 11px; }
   #edit-form>.actions .save-hint { font-size: 12px; }
 }
+
+
+/* Entry cards — desktop readability pass. Keep the mobile layout untouched. */
+@media (min-width: 821px) {
+  #workspace #list .entry-select { font-size: 12px; gap: 8px; }
+  #workspace #list .entry-select input { width: 16px; height: 16px; }
+  #workspace #list .entry-copy { padding: 11px 14px 13px; }
+  #workspace #list .entry-card-top { gap: 10px; padding-bottom: 9px; }
+  #workspace #list .entry .badge { padding: 4px 8px; font-size: 11px; line-height: 1.45; }
+  #workspace #list .entry-date { font-size: 12px; line-height: 1.45; }
+  #workspace #list .entry h3 { margin: 11px 0 4px; font-size: 19px; line-height: 1.45; letter-spacing: -.25px; }
+  #workspace #list .entry-meta { gap: 6px 9px; margin-top: 6px; font-size: 14px; line-height: 1.55; }
+  #workspace #list .entry-mood { padding: 3px 8px; font-size: 12px; line-height: 1.4; }
+  #workspace #list .entry-details { gap: 7px; margin-top: 12px; }
+  #workspace #list .entry-detail { grid-template-columns: 82px minmax(0,1fr); gap: 9px; padding: 8px 9px; }
+  #workspace #list .detail-label { font-size: 12px; line-height: 1.55; }
+  #workspace #list .detail-value { font-size: 14px; line-height: 1.65; }
+  #workspace #list .entry-detail a { font-size: 13px; }
+  #workspace #list .entry-tags { gap: 6px; margin-top: 10px; }
+  #workspace #list .entry-tag { padding: 3px 8px; font-size: 12px; line-height: 1.5; }
+  #workspace #list .entry-extras { gap: 7px; margin-top: 8px; }
+  #workspace #list .entry-extras .entry-detail { gap: 4px; padding: 7px 8px; }
+  #workspace #list .entry-extras .detail-value { font-size: 12px; line-height: 1.55; }
+  #workspace #list .entry .actions { gap: 7px; padding: 10px 12px; }
+  #workspace #list .entry .actions .btn { min-height: 34px; padding: 7px 11px; font-size: 12px; }
+}
