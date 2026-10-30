@@ -886,6 +886,28 @@
 #detailDialog .studio-match strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
 #detailDialog .studio-match small,#detailDialog .studio-match em{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:10px;font-style:normal}
 @media(max-width:760px){#detailDialog #studioSimilar{min-height:32px;padding:0 8px;font-size:10px}#detailDialog .studio-match{grid-template-columns:minmax(0,1fr) minmax(65px,.7fr) 12px;padding:8px}}
+
+/* Scroll-aware translucent glass header */
+.topbar{
+  background:color-mix(in srgb,var(--page) 76%,transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(145%);
+  backdrop-filter:blur(14px) saturate(145%);
+  border-bottom-color:color-mix(in srgb,var(--line) 48%,transparent);
+  transition:background-color .24s ease,border-color .24s ease,box-shadow .24s ease;
+}
+.topbar.is-scrolled{
+  background:color-mix(in srgb,var(--page) 58%,transparent);
+  border-bottom-color:color-mix(in srgb,var(--line) 32%,transparent);
+  box-shadow:0 3px 16px rgba(35,55,38,.045);
+}
+@supports not (background:color-mix(in srgb,white,transparent)){
+  .topbar{background:rgba(255,255,255,.76)}
+  .topbar.is-scrolled{background:rgba(255,255,255,.58)}
+  :root[data-theme=dark] .topbar{background:rgba(32,33,36,.76)}
+  :root[data-theme=dark] .topbar.is-scrolled{background:rgba(32,33,36,.58)}
+}
+@media(prefers-reduced-motion:reduce){.topbar{transition:none}}
+
 </style>
 
 
@@ -1958,4 +1980,22 @@ receiveShareTarget();
 load().finally(finishLaunchScreen);
 })();
 </script><script src="public-desktop.js?v=20261029-minimize-detail" defer></script>
+
+<script id="mnote-glass-header">
+(function(){
+ const header=document.querySelector('.topbar');
+ if(!header)return;
+ let ticking=false;
+ function updateHeader(){
+   header.classList.toggle('is-scrolled',window.scrollY>12);
+   ticking=false;
+ }
+ function onScroll(){
+   if(!ticking){ticking=true;window.requestAnimationFrame(updateHeader)}
+ }
+ updateHeader();
+ window.addEventListener('scroll',onScroll,{passive:true});
+})();
+</script>
+
 </body></html>
