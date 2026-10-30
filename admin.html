@@ -494,7 +494,7 @@
   if(loading)return;loading=true;$("#refresh").disabled=true;$("#refresh").classList.add("is-busy");$("#refresh").innerHTML='<span aria-hidden="true">↻</span> Loading';
   if(!preserveMessage)clearMsg("#msg");
   try{
-   const {data,error}=await db.from("entries").select("id,title,artist,mood,idea,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").order("updated_at",{ascending:false}).limit(500);
+   const {data,error}=await db.from("entries").select("id,title,artist,mood,idea,inspiration_note,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").order("updated_at",{ascending:false}).limit(500);
    if(error){msg("#msg","Could not load entries: "+error.message,true);return}
    rows=data||[];const validIds=new Set(rows.map(r=>String(r.id)));selectedIds.forEach(id=>{if(!validIds.has(id))selectedIds.delete(id)});render();
   }catch(err){msg("#msg","Could not connect to the library: "+(err?.message||"Unknown network error"),true)}
@@ -520,7 +520,7 @@
  }
  function addEntry(){
   editMode="create";$("#edit-id").value="";
-  for(const id of ["title","idea","url","start","tags","mood"])$("#f-"+id).value="";
+  for(const id of ["title","idea","url","start","tags","mood"])$("#f-"+id).value="";$("#f-inspiration").value="";
   lastEditAutoTitle="";editInitialUrl="";editLookupTitleSnapshot="";editTitleToken++;clearTimeout(editTitleTimer);
   $("#edit-link-status").textContent="";$("#editor-title").textContent="Add song note";$("#editor-subtitle").textContent="Paste a song link to fetch its title automatically.";$("#edit-form").querySelector('button[type="submit"]').textContent="Add to review queue";
   hideEditLabelSuggestions();$("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-url").focus(),30);
@@ -653,13 +653,13 @@
  $("#edit-form").addEventListener("submit",async e=>{
   e.preventDefault();if(busy)return;
   const submit=$("#edit-form").querySelector('button[type="submit"]');
-  const p={title:$("#f-title").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),tags:$("#f-tags").value.trim(),mood:$("#f-mood").value.trim()};
+  const p={title:$("#f-title").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),tags:$("#f-tags").value.trim(),mood:$("#f-mood").value.trim(),inspiration_note:$("#f-inspiration").value.trim()};
   const songUrl=safeUrl(p.song_url);if(p.song_url&&!songUrl){msg("#msg","Please enter a valid http or https song URL.",true);return}
   submit.disabled=true;submit.textContent="Saving…";
   try{
    if(editMode==="create"){
     const payload={...p,artist:"",mood:"",platform:p.song_url?"Link":"",progress:"Idea",status:"pending"};
-    const {data,error}=await db.from("entries").insert(payload).select("id,title,artist,mood,idea,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").single();
+    const {data,error}=await db.from("entries").insert(payload).select("id,title,artist,mood,idea,inspiration_note,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").single();
     if(error){msg("#msg","Add failed: "+error.message,true);return}
     const created=data||{...payload};const logged=await logActivity("create",created,{status:"pending"});status="pending";selectedIds.clear();closeEdit();msg("#msg",logged?"Entry added to the review queue.":"Entry added, but the activity log could not be saved.",!logged);await load(true);
    }else{
