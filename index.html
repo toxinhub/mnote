@@ -1521,22 +1521,22 @@
   .composer.open .compose-foot #saveNote{box-shadow:0 1px 2px #20212412}
 }
 </style><style id="compact-header-final-override">
-/* Header sizing override: placed after the existing page styles so it wins the cascade. */
-.topbar{height:52px!important;min-height:52px!important;gap:6px!important;padding-inline:12px!important}
-.topbar .menu-btn,.topbar .top-actions .round{width:34px!important;height:34px!important;min-width:34px!important}
-.topbar .brand{gap:7px!important;min-width:142px!important}
-.topbar .brand-icon{width:30px!important;height:30px!important;font-size:19px!important}
-.topbar .brand-name{font-size:18px!important;letter-spacing:-.45px!important}
-.topbar .search{height:38px!important;min-height:38px!important;padding-inline:10px!important;gap:8px!important}
-.topbar .search .glass{font-size:20px!important}
+/* Higher-specificity compact header override: beats the earlier body .topbar desktop redesign. */
+body .topbar{height:52px!important;min-height:52px!important;gap:6px!important;padding-inline:12px!important}
+body .topbar .menu-btn,body .topbar .top-actions .round{width:34px!important;height:34px!important;min-width:34px!important}
+body .topbar .brand{gap:7px!important;min-width:142px!important;padding:0!important}
+body .topbar .brand-icon{width:30px!important;height:30px!important;flex-basis:30px!important;font-size:19px!important;border-radius:10px!important}
+body .topbar .brand-name{font-size:18px!important;letter-spacing:-.45px!important;font-weight:500!important}
+body .topbar .search{height:38px!important;min-height:38px!important;padding-inline:10px!important;gap:8px!important;margin:0 3px!important}
+body .topbar .search .glass{font-size:20px!important}
 @media(max-width:760px){
- .topbar{height:52px!important;min-height:52px!important;gap:5px!important;padding-inline:9px!important}
- .topbar .menu-btn,.topbar .top-actions .round{width:32px!important;height:32px!important;min-width:32px!important}
- .topbar .brand{gap:6px!important;min-width:0!important}
- .topbar .brand-icon{width:28px!important;height:28px!important;font-size:18px!important}
- .topbar .brand-name{font-size:17px!important;letter-spacing:-.4px!important}
- .topbar .search{height:36px!important;min-height:36px!important;padding-inline:9px!important;gap:6px!important}
- .topbar .search .glass{font-size:18px!important}
+ body .topbar{height:48px!important;min-height:48px!important;gap:5px!important;padding-inline:9px!important}
+ body .topbar .menu-btn,body .topbar .top-actions .round{width:32px!important;height:32px!important;min-width:32px!important}
+ body .topbar .brand{gap:6px!important;min-width:0!important}
+ body .topbar .brand-icon{width:28px!important;height:28px!important;flex-basis:28px!important;font-size:18px!important}
+ body .topbar .brand-name{font-size:17px!important;letter-spacing:-.4px!important}
+ body .topbar .search{height:36px!important;min-height:36px!important;padding-inline:9px!important;gap:6px!important;margin:0 2px!important}
+ body .topbar .search .glass{font-size:18px!important}
 }
 </style>
 </head>
