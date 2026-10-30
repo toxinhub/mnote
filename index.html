@@ -1671,6 +1671,7 @@ toast('Shared content received. Review it and submit your note.');
 }
 }
 async function saveSharedEntry(url,sharedTitle){
+$('quickInspiration').value='';
 const titleInput=$('quickTitle'),status=$('linkStatus');
 let foundTitle='';
 let lookupUrl='';
