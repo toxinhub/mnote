@@ -671,7 +671,7 @@
   submit.disabled=true;submit.textContent="Saving…";
   try{
    if(editMode==="create"){
-    const payload={...p,artist:"",mood:"",platform:p.song_url?"Link":"",progress:"Idea",status:"pending"};
+    const payload={...p,artist:"",platform:p.song_url?"Link":"",progress:"Idea",status:"pending"};
     const {data,error}=await db.from("entries").insert(payload).select("id,title,artist,mood,idea,inspiration_note,song_url,start_time,end_time,platform,progress,tags,visual,status,updated_at,created_at").single();
     if(error){msg("#msg","Add failed: "+error.message,true);return}
     const created=data||{...payload};const logged=await logActivity("create",created,{status:"pending"});status="pending";selectedIds.clear();closeEdit();msg("#msg",logged?"Entry added to the review queue.":"Entry added, but the activity log could not be saved.",!logged);await load(true);
