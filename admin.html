@@ -513,7 +513,7 @@
  function edit(id){
   const r=rows.find(x=>String(x.id)===String(id));if(!r)return;editMode="edit";$("#editor-title").textContent="Edit song note";$("#editor-subtitle").textContent="Keep the song, memory and labels in sync.";$("#edit-form").querySelector('button[type="submit"]').textContent="Save changes";
   $("#edit-id").value=r.id;
-  for(const [k,v] of Object.entries({title:r.title,idea:r.idea,url:r.song_url,start:r.start_time,tags:r.tags,mood:r.mood}))$("#f-"+k).value=v||"";
+  for(const [k,v] of Object.entries({title:r.title,idea:r.idea,url:r.song_url,start:r.start_time,tags:r.tags,mood:r.mood}))$("#f-"+k).value=v||"";$("#f-inspiration").value=r.inspiration_note||"";
   lastEditAutoTitle="";editInitialUrl=String(r.song_url||"").trim();editLookupTitleSnapshot=String(r.title||"").trim();$("#edit-link-status").textContent="";hideEditLabelSuggestions();
   $("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-title").focus(),30);
   if($("#f-url").value.trim())lookupEditTitle($("#f-url").value);
