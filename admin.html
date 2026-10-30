@@ -636,10 +636,10 @@
  }
  $("#generate-inspiration").addEventListener("click",generateInspirationNote);
  let editClassifyTimer=0,editClassifyToken=0,editClassifyLastUrl="";
- async function classifyAdminSong(rawUrl){
+ async function classifyAdminSong(rawUrl,immediate=false){
   clearTimeout(editClassifyTimer);const token=++editClassifyToken,url=String(rawUrl||"").trim();
   if(!url)return;
-  let valid=false;try{const u=new URL(url),h=u.hostname.toLowerCase();valid=!!/(?:^|\\.)youtube\\.com$|(?:^|\\.)youtu\\.be$/i.test(h)||h==="open.spotify.com"||h.endsWith(".open.spotify.com")||h==="soundcloud.com"||h.endsWith(".soundcloud.com")}catch(e){}
+  let valid=false;try{const u=new URL(url),h=u.hostname.toLowerCase();valid=!!/(?:^|\.)youtube\.com$|(?:^|\.)youtu\.be$/i.test(h)||h==="open.spotify.com"||h.endsWith(".open.spotify.com")||h==="soundcloud.com"||h.endsWith(".soundcloud.com")}catch(e){}
   if(!valid){$("#edit-link-status").textContent="Use a supported YouTube, Spotify or SoundCloud link to refresh AI labels.";return;}
   $("#edit-link-status").textContent="Finding song title and suggesting labels…";
   editClassifyTimer=setTimeout(async()=>{
@@ -648,8 +648,8 @@
     const data=await response.json().catch(()=>({}));
     if(token!==editClassifyToken||$("#f-url").value.trim()!==url)return;
     if(!response.ok)throw new Error(data.error||"AI labels unavailable.");
-    const merge=(current,items)=>{const values=String(current||"").split(/[,;\\n]/).map(x=>x.trim()).filter(Boolean),seen=new Set(values.map(x=>x.toLocaleLowerCase()));(items||[]).forEach(x=>{const v=String(x).trim();if(v&&!seen.has(v.toLocaleLowerCase())){values.push(v);seen.add(v.toLocaleLowerCase())}});return values.join(", ")};
-    const asLabels=value=>Array.isArray(value)?value.flatMap(v=>String(v||"").split(/[,;\\n]/)).map(v=>v.trim()).filter(Boolean):String(value||"").split(/[,;\\n]/).map(v=>v.trim()).filter(Boolean);
+    const merge=(current,items)=>{const values=String(current||"").split(/[,;\n]/).map(x=>x.trim()).filter(Boolean),seen=new Set(values.map(x=>x.toLocaleLowerCase()));(items||[]).forEach(x=>{const v=String(x).trim();if(v&&!seen.has(v.toLocaleLowerCase())){values.push(v);seen.add(v.toLocaleLowerCase())}});return values.join(", ")};
+    const asLabels=value=>Array.isArray(value)?value.flatMap(v=>String(v||"").split(/[,;\n]/)).map(v=>v.trim()).filter(Boolean):String(value||"").split(/[,;\n]/).map(v=>v.trim()).filter(Boolean);
     const newLabels=asLabels(data.genre).concat(asLabels(data.tags));
     const newMoods=asLabels(data.mood);
     $("#f-tags").value=merge($("#f-tags").value,newLabels);
@@ -658,10 +658,10 @@
     $("#edit-link-status").textContent=newLabels.length||newMoods.length?"AI suggestions added to the form. Save changes to keep them. Existing labels were preserved.":"AI returned no labels for this song. Try again with a song title or another link.";
     if(editMode==="create"&&!$("#f-inspiration").value.trim())await generateInspirationNote();
    }catch(error){if(token===editClassifyToken)$("#edit-link-status").textContent=String(error.message||"AI labels unavailable.").slice(0,150)}
-  },1700);
+  },immediate?0:1700);
  }
  $("#f-url").addEventListener("input",e=>{lookupEditTitle(e.currentTarget.value);if(e.currentTarget.value.trim()!==editInitialUrl)classifyAdminSong(e.currentTarget.value)});
- $("#refresh-ai-labels").addEventListener("click",()=>{const url=$("#f-url").value.trim();if(!url){$("#edit-link-status").textContent="Add a supported song link first.";return}classifyAdminSong(url)});
+ $("#refresh-ai-labels").addEventListener("click",()=>{const url=$("#f-url").value.trim();if(!url){$("#edit-link-status").textContent="Add a supported song link first.";return}classifyAdminSong(url,true)});
  $("#add-entry").addEventListener("click",addEntry);
  $("#f-tags").addEventListener("input",updateEditLabelSuggestions);
  $("#f-tags").addEventListener("focus",updateEditLabelSuggestions);
