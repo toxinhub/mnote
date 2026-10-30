@@ -1671,6 +1671,15 @@ body .topbar .search .glass{font-size:20px!important}
 @media(max-width:760px){#launchScreen{padding:calc(18px + env(safe-area-inset-top,0px)) 13px calc(20px + env(safe-area-inset-bottom,0px))}#launchScreen .launch-layout{gap:clamp(22px,4.5vh,34px)}#launchScreen .loading-intro{gap:9px;padding:0 6px}#launchScreen .loading-music-orb{width:64px;height:64px;border-radius:21px}#launchScreen .loading-music-orb:before{border-radius:26px}#launchScreen .launch-brand-mark{width:32px;height:32px}#launchScreen .loading-copy strong{font-size:15px}#launchScreen .loading-copy span{font-size:11px}#launchScreen .loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#launchScreen .loading-skeleton-card{min-height:140px;padding:13px 10px 9px;border-radius:12px}#launchScreen .skeleton-thumb{margin-top:9px;border-radius:10px}}
 @media(max-width:390px){#launchScreen{padding-left:11px;padding-right:11px}#launchScreen .launch-layout{gap:22px}#launchScreen .loading-skeletons{gap:7px}#launchScreen .loading-skeleton-card{min-height:130px;padding:12px 9px 8px}}
 @media(max-height:620px) and (min-width:761px){#launchScreen{align-items:flex-start;padding-top:18px;padding-bottom:18px}#launchScreen .launch-layout{gap:16px}#launchScreen .loading-music-orb{width:58px;height:58px}#launchScreen .loading-skeleton-card{min-height:130px}}
+/* Match the live notes masonry geometry so skeleton cards begin exactly where real cards do. */
+#launchScreen .launch-layout{width:min(1500px,100%);max-width:1500px;justify-content:flex-start;gap:clamp(18px,3vh,28px)}
+#launchScreen .loading-skeletons{display:block;width:100%;max-width:1500px;margin:0 auto;columns:6 190px;column-gap:12px}
+#launchScreen .loading-skeleton-card{display:inline-block;vertical-align:top;break-inside:avoid;width:100%;min-width:0;margin:0 0 12px;padding:14px 12px 10px;box-sizing:border-box}
+@media(max-width:1400px){#launchScreen .loading-skeletons{columns:5 190px;column-gap:10px}}
+@media(max-width:1050px){#launchScreen .loading-skeletons{columns:4 180px;column-gap:10px}}
+@media(max-width:760px){#launchScreen{padding:calc(18px + env(safe-area-inset-top,0px)) 13px calc(20px + env(safe-area-inset-bottom,0px))}#launchScreen .launch-layout{gap:clamp(18px,3.5vh,26px)}#launchScreen .loading-skeletons{columns:2 140px;column-gap:8px}#launchScreen .loading-skeleton-card{margin-bottom:9px;padding:10px 9px 8px;border-radius:9px}#launchScreen .skeleton-thumb{margin-top:8px;border-radius:6px}}
+@media(max-width:390px){#launchScreen{padding-left:11px;padding-right:11px}#launchScreen .launch-layout{gap:18px}#launchScreen .loading-skeletons{columns:2 120px;column-gap:7px}}
+@media(max-height:620px) and (min-width:761px){#launchScreen{align-items:flex-start;padding-top:18px;padding-bottom:18px}#launchScreen .launch-layout{gap:14px}}
 @media(prefers-reduced-motion:reduce){#launchScreen{transition:none!important}}
 </style>
 </head>
