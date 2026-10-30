@@ -1679,3 +1679,23 @@
   :root[data-theme="dark"] .topbar .brand .brand-name{color:#a9c9ad!important}
   :root[data-theme="dark"] .topbar .brand .brand-name span{color:#c2dfc5!important}
 }
+
+
+/* Compact the sidebar wordmark header without changing navigation spacing. */
+@media screen and (min-width:1024px){
+  #sidebar .drawer-brand{
+    margin:0 14px 12px!important;
+    padding:5px 8px 10px!important;
+    min-height:34px!important;
+  }
+  #sidebar .drawer-brand-name{
+    font-size:21px!important;
+    line-height:1!important;
+    letter-spacing:-.8px!important;
+  }
+  #sidebar.app.mini .drawer-brand,
+  .app.mini #sidebar .drawer-brand{
+    margin:0 8px 12px!important;
+    padding:5px 0 10px!important;
+  }
+}
