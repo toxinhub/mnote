@@ -804,3 +804,22 @@ body{font-size:14px;line-height:1.5}
 @media(prefers-reduced-motion:reduce){
   #workspace .admin-nav .tab{transition:none!important;}
 }
+
+
+/* Subtle separators between consecutive admin entries. */
+#workspace #list{row-gap:17px!important;}
+#workspace #list .entry{position:relative;}
+#workspace #list .entry:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:12%;
+  right:12%;
+  bottom:-9px;
+  height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--line) 18%,color-mix(in srgb,var(--muted) 38%,var(--line)) 50%,var(--line) 82%,transparent 100%);
+  pointer-events:none;
+}
+@media(max-width:700px){
+  #workspace #list{row-gap:16px!important;}
+  #workspace #list .entry:not(:last-child)::after{left:7%;right:7%;bottom:-8px;}
+}
