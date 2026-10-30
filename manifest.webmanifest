@@ -13,7 +13,7 @@
   "categories": ["music", "lifestyle", "productivity"],
   "icons": [
     {
-      "src": "./mnote-icon.svg",
+      "src": "./mnote-icon.svg?v=20261030-2",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
