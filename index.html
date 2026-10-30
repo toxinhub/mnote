@@ -840,6 +840,25 @@
 
 /* Keep the extra composer labels desktop-only to preserve the established public mobile layout. */
 .compose-section-kicker,.desktop-field-label{display:none}
+
+/* Compact app header refinement */
+.topbar{height:52px;gap:6px;padding-inline:12px}
+.menu-btn,.top-actions .round{width:34px;height:34px;font-size:18px}
+.brand{gap:7px;min-width:142px}
+.brand-icon{width:30px;height:30px;border-radius:9px;font-size:19px}
+.brand-name{font-size:18px;letter-spacing:-.45px}
+.search{height:38px;gap:8px;padding-inline:10px}
+.search .glass{font-size:20px}
+.top-actions{gap:0;margin-left:2px}
+@media(max-width:760px){
+ .topbar{height:48px;gap:5px;padding-inline:9px}
+ .menu-btn,.top-actions .round{width:32px;height:32px}
+ .brand{gap:6px;min-width:0}
+ .brand-icon{width:28px;height:28px;border-radius:8px;font-size:18px}
+ .brand-name{font-size:17px;letter-spacing:-.4px}
+ .search{height:35px;padding-inline:9px;gap:6px}
+ .search .glass{font-size:18px}
+}
 </style>
 
 
