@@ -455,3 +455,161 @@ body{font-size:14px;line-height:1.5}
   #workspace #list .entry .actions { gap: 7px; padding: 10px 12px; }
   #workspace #list .entry .actions .btn { min-height: 34px; padding: 7px 11px; font-size: 12px; }
 }
+
+
+/* Mobile admin refinement — hierarchy, alignment, touch targets and calmer density. */
+@media (max-width:700px){
+  html,body{min-width:320px}
+  body{font-size:14px;line-height:1.55}
+  .top{
+    position:sticky;top:0;z-index:30;height:56px;
+    padding:0 12px;gap:8px;
+    background:color-mix(in srgb,var(--surface) 94%,transparent);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 2px 10px rgba(30,36,28,.035);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)
+  }
+  .top>b{gap:7px;font-size:17px;letter-spacing:-.45px}
+  .top>b:before{width:30px;height:30px;flex-basis:30px;font-size:18px}
+  .top small{padding:3px 6px;font-size:8px;letter-spacing:.09em}
+  .top>a.btn{min-height:34px;padding:6px 9px;border-radius:8px;font-size:10px}
+  #theme-toggle{width:34px;height:34px;flex:0 0 34px;border-radius:10px;font-size:16px}
+
+  #workspace{width:100%;padding:17px 12px calc(28px + var(--safe))}
+  .head{
+    align-items:center;gap:10px;margin:0 0 14px;padding:0 0 13px;
+    border-bottom:1px solid var(--line)
+  }
+  .head>div{min-width:0}
+  .head>div>.muted:first-child{font-size:9px;letter-spacing:.13em}
+  .head h1{margin:3px 0 3px;font-size:23px;line-height:1.22;letter-spacing:-.65px}
+  .head>div>.muted:last-child{max-width:34ch;font-size:11px;line-height:1.45}
+  #signout{flex:0 0 auto;min-height:34px;padding:7px 10px;border-radius:9px;font-size:10px}
+
+  .dashboard-tools{display:flex;align-items:center;gap:7px;margin:0 0 13px}
+  .admin-search{height:42px;min-width:0;gap:8px;padding:0 11px;border-radius:11px}
+  .admin-search>span{font-size:19px}
+  .admin-search input{min-width:0;font-size:13px}
+  .dashboard-tools #refresh{flex:0 0 auto;width:42px;height:42px;min-height:42px;padding:0;border-radius:11px;font-size:0}
+  .dashboard-tools #refresh span{font-size:17px}
+
+  .admin-nav{
+    position:relative;top:auto;display:flex;align-items:center;gap:5px;
+    width:calc(100% + 24px);margin:0 -12px 15px;padding:0 12px 9px;
+    overflow-x:auto;overflow-y:hidden;border:0;border-bottom:1px solid var(--line);
+    border-radius:0;background:transparent;box-shadow:none;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity
+  }
+  .admin-nav::-webkit-scrollbar{display:none}
+  .admin-nav .tab{
+    flex:0 0 auto;min-height:36px;gap:6px;padding:0 11px;
+    border:1px solid var(--line);border-radius:9px;background:var(--surface);
+    font-size:11px;font-weight:600;scroll-snap-align:start
+  }
+  .admin-nav .tab.active{background:#fff4cc;border-color:#efdfa4;color:#665000}
+  :root[data-theme=dark] .admin-nav .tab.active{background:#453b22;border-color:#6b5b31;color:#f5d979}
+  .tab-count{min-width:18px;height:18px;font-size:9px}
+
+  #entries-view>.list-head{align-items:center;gap:8px;margin:0 1px 9px}
+  #entries-view #list-heading{font-size:14px;letter-spacing:-.2px}
+  #entries-view #visible-count{padding:3px 7px;font-size:10px}
+  #workspace #bulk-bar{gap:6px;margin-bottom:10px;padding:9px;border-radius:11px}
+  #workspace #bulk-bar .bulk-select{font-size:11px}
+  #workspace #bulk-bar .btn{min-height:34px;padding:7px 9px;font-size:10px}
+  #workspace #selected-count{font-size:10px}
+
+  #workspace #list{grid-template-columns:minmax(0,1fr);gap:9px}
+  #workspace #list .entry{border-radius:12px;box-shadow:0 2px 8px rgba(35,42,31,.045)}
+  #workspace #list .entry-select{margin:9px 11px 0;font-size:10px}
+  #workspace #list .entry-select input{width:15px;height:15px}
+  #workspace #list .entry-copy{padding:9px 11px 10px}
+  #workspace #list .entry-card-top{gap:8px;padding-bottom:8px}
+  #workspace #list .entry .badge{padding:3px 7px;font-size:9px;line-height:1.4}
+  #workspace #list .entry-date{font-size:10px;line-height:1.4}
+  #workspace #list .entry h3{margin:9px 0 3px;font-size:16px;line-height:1.4;letter-spacing:-.2px}
+  #workspace #list .entry-meta{gap:5px 8px;margin-top:5px;font-size:11px;line-height:1.5}
+  #workspace #list .entry-mood{padding:2px 7px;font-size:10px}
+  #workspace #list .entry-details{gap:6px;margin-top:10px}
+  #workspace #list .entry-detail{grid-template-columns:72px minmax(0,1fr);gap:8px;padding:7px 8px;border-radius:8px}
+  #workspace #list .detail-label{font-size:10px;line-height:1.5}
+  #workspace #list .detail-value{font-size:11px;line-height:1.55}
+  #workspace #list .entry-detail a{font-size:11px}
+  #workspace #list .entry-tags{gap:5px;margin-top:9px}
+  #workspace #list .entry-tag{padding:3px 7px;font-size:10px}
+  #workspace #list .entry-extras{gap:6px;margin-top:7px}
+  #workspace #list .entry-extras .entry-detail{padding:6px 7px}
+  #workspace #list .entry-extras .detail-value{font-size:10px}
+  #workspace #list .entry .actions{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px;padding:9px 10px;background:var(--surface)
+  }
+  #workspace #list .entry .actions .btn{
+    width:100%;min-height:36px;padding:8px 9px;border-radius:8px;
+    font-size:11px;line-height:1.25
+  }
+  #workspace #list .empty{padding:30px 14px;border-radius:12px}
+
+  .view-intro{align-items:flex-start;gap:11px;margin-bottom:13px;padding:13px;border-radius:12px}
+  .view-symbol{flex-basis:38px;width:38px;height:38px;border-radius:11px;font-size:21px}
+  .view-eyebrow{font-size:8px;letter-spacing:.12em}
+  .view-title{font-size:20px;line-height:1.25;letter-spacing:-.4px}
+  .view-intro p{margin-top:4px;font-size:11px;line-height:1.5}
+  .activity-intro{flex-wrap:wrap}
+  .activity-intro>.btn{min-height:34px;margin:0 0 0 49px;padding:7px 10px;font-size:10px}
+  .labels-summary,.activity-summary{gap:7px;margin-bottom:15px}
+  .summary-stat{min-height:68px;gap:4px;padding:10px 9px;border-radius:10px}
+  .summary-stat strong{font-size:20px;line-height:1.15;letter-spacing:-.4px}
+  .summary-stat span{font-size:9px;line-height:1.35}
+  #labels-view>.list-head,#activity-view>.list-head{margin:0 1px 9px;font-size:13px}
+  #labels-view .label-row{gap:9px;padding:11px;border-radius:10px}
+  #labels-view .label-hash{flex-basis:34px;width:34px;height:34px}
+  #labels-view .label-name strong{font-size:12px;line-height:1.4}
+  #labels-view .label-name small{font-size:10px}
+  #labels-view .label-counts{font-size:10px}
+  #labels-view .label-counts>span{font-size:9px}
+  #labels-view .label-open{min-height:35px;padding:7px 9px;font-size:10px}
+  .activity-list:before{left:17px}
+  .activity-row{gap:9px;padding:11px 0 12px}
+  .activity-mark{flex-basis:30px;width:30px;height:30px}
+  .activity-copy{gap:4px}
+  .activity-copy strong{font-size:12px;line-height:1.4}
+  .activity-copy>span{font-size:11px;line-height:1.5}
+  .activity-event-top{gap:3px}
+  .activity-event-top time{font-size:9px}
+  .activity-copy p{padding:7px 9px;font-size:10px;line-height:1.5}
+
+  #modal{align-items:flex-end;padding:0}
+  #modal form{width:100%;max-height:calc(92dvh - var(--safe));border-radius:17px 17px 0 0}
+  #modal .edit-modal-head{gap:10px;padding:14px 15px 12px}
+  #modal .edit-modal-head h2{font-size:19px;line-height:1.25}
+  #modal .edit-modal-head p{font-size:10px;line-height:1.45}
+  #modal .edit-close{flex-basis:36px;width:36px;height:36px;border-radius:11px;font-size:23px}
+  #modal .edit-scroll{padding:5px 12px 12px}
+  #modal .edit-section{margin-top:9px;padding:11px 11px 8px;border-radius:11px}
+  #modal .edit-section+.edit-section{margin-top:8px;padding-top:11px}
+  #modal .edit-section-title{gap:8px;margin-bottom:8px}
+  #modal .edit-section-title .step{flex-basis:28px;width:28px;height:28px;border-radius:8px}
+  #modal .edit-section-title strong{font-size:12px}
+  #modal .edit-section-title small{font-size:10px;line-height:1.4}
+  #modal .field{gap:5px;margin:5px 0 7px}
+  #modal .field label{font-size:11px}
+  #modal .field input,#modal .field textarea,#modal .field select{min-height:41px;padding:9px 10px;font-size:13px}
+  #modal .field textarea{min-height:88px}
+  #edit-form>.actions{gap:7px;padding:9px 12px calc(10px + var(--safe))}
+  #edit-form>.actions .save-hint{display:none}
+  #edit-form>.actions .btn{min-height:39px;padding:8px 12px;font-size:11px}
+  #edit-form>.actions #cancel{margin-left:auto}
+  #edit-form>.actions #save-changes{min-width:116px}
+}
+@media(max-width:380px){
+  #workspace{padding-inline:10px}
+  .head h1{font-size:21px}
+  .head>div>.muted:last-child{font-size:10px}
+  #workspace #list .entry-detail{grid-template-columns:64px minmax(0,1fr)}
+  #workspace #list .entry .actions .btn{font-size:10px}
+  .summary-stat{padding-inline:7px}
+  .summary-stat span{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .top,.admin-nav .tab,#workspace #list .entry{transition:none!important}
+}
