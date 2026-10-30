@@ -1,0 +1,28 @@
+{
+  "id": "./",
+  "name": "m}note — Song Notes",
+  "short_name": "m}note",
+  "description": "Save songs, moments and memories as quick notes.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "categories": ["music", "lifestyle", "productivity"],
+  "icons": [
+    {
+      "src": "./mnote-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "./?share=1",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}
