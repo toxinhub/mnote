@@ -1789,9 +1789,16 @@ body .topbar .search .glass{font-size:20px!important}
  #launchScreen .loading-skeletons{top:99px}
 }
 
-/* Match the launch-screen wordmark to the main header brand color. */
+/* Mirror the main header wordmark palette, including its separately tinted brace. */
 #launchScreen .loading-intro .loading-copy strong{color:#263c2b!important}
+#launchScreen .loading-intro .loading-copy strong span{color:inherit!important}
 :root[data-theme="dark"] #launchScreen .loading-intro .loading-copy strong{color:#e4eee4!important}
+@media (min-width:1024px){
+ #launchScreen .loading-intro .loading-copy strong{color:#668f70!important}
+ #launchScreen .loading-intro .loading-copy strong span{color:#8dbb96!important}
+ :root[data-theme="dark"] #launchScreen .loading-intro .loading-copy strong{color:#a9c9ad!important}
+ :root[data-theme="dark"] #launchScreen .loading-intro .loading-copy strong span{color:#c2dfc5!important}
+}
 </style>
 </head>
 <body>
@@ -1807,7 +1814,7 @@ body .topbar .search .glass{font-size:20px!important}
    </svg>
    <span class="loading-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
   </div>
-  <div class="loading-copy"><strong>m}note</strong><span>Every song has a story…</span></div>
+  <div class="loading-copy"><strong>m<span>}</span>note</strong><span>Every song has a story…</span></div>
  </div>
  <div class="loading-skeletons" aria-hidden="true">
   <div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line short"></div><div class="skeleton-thumb"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div></div>
