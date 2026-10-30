@@ -687,3 +687,30 @@ body{font-size:14px;line-height:1.5}
   #workspace #list .entry .actions{gap:6px}
   #edit-form>.actions{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}
 }
+
+
+/* Final mobile layout correction: enforce the intended geometry over legacy mobile rules. */
+@media (max-width:700px){
+  #workspace .dashboard-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"search search" "add refresh";align-items:stretch;gap:8px;width:100%;}
+  #workspace .dashboard-tools>.admin-search{grid-area:search;display:flex;width:100%;min-width:0;height:44px;}
+  #workspace .dashboard-tools>#add-entry{grid-area:add;display:flex;width:100%;min-width:0;height:42px;min-height:42px;justify-self:stretch;align-self:stretch;margin:0;padding:8px 6px;white-space:normal;text-align:center;}
+  #workspace .dashboard-tools>#refresh{grid-area:refresh;display:flex;width:100%;min-width:0;height:42px;min-height:42px;justify-self:stretch;align-self:stretch;margin:0;padding:8px 6px;font-size:12px;white-space:normal;}
+  #workspace .dashboard-tools>#refresh span{display:inline-block;font-size:16px;line-height:1;}
+  #workspace .admin-nav{box-sizing:border-box;max-width:calc(100vw);}
+  #workspace #bulk-bar{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));}
+  #workspace #bulk-bar>.bulk-select,#workspace #bulk-bar>#selected-count{grid-column:1/-1;}
+  #workspace #bulk-bar>#bulk-approve,#workspace #bulk-bar>#bulk-reject{width:100%;min-width:0;}
+  #workspace #bulk-bar>#clear-selection{grid-column:1/-1;justify-self:end;}
+  #workspace #list .entry .actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;}
+  #workspace #list .entry .actions>.btn{width:100%;min-width:0;min-height:38px;white-space:normal;}
+  #workspace #list .entry .actions>.btn:only-child{grid-column:1/-1;}
+  #edit-form>.actions{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);}
+  #edit-form>.actions>#cancel,#edit-form>.actions>#save-changes{width:100%;min-width:0;margin:0;}
+}
+@media(max-width:380px){
+  #workspace{padding-inline:11px;}
+  #workspace .dashboard-tools{gap:7px;}
+  #workspace .dashboard-tools>#add-entry,#workspace .dashboard-tools>#refresh{font-size:11px;}
+  #workspace .dashboard-tools>#refresh span{font-size:16px;}
+  #workspace .admin-nav{width:calc(100% + 22px);margin-inline:-11px;padding-inline:11px;}
+}
