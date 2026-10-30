@@ -1705,25 +1705,25 @@ body .topbar .search .glass{font-size:20px!important}
  #launchScreen .loading-skeletons{left:8px;right:8px;top:184px;columns:2 120px;column-gap:7px}
 }
 @media(max-height:620px) and (min-width:761px){#launchScreen .loading-skeletons{top:204px}}
-/* Final launch layout: compact single-row brand line, then skeletons aligned with the live Notes grid. */
-#launchScreen .loading-intro{position:absolute;top:74px;left:calc(252px + clamp(12px,3vw,36px));right:clamp(12px,3vw,36px);display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;padding:0;text-align:left}
+/* Geometry recalculated against the live workspace: desktop grid begins at topbar(64)+workspace padding(26)+composer(54+34)+section head(20+12)=210px; mobile grid begins at topbar(60)+workspace padding(8)+section head(8+24+12)=112px. */
+#launchScreen .loading-intro{position:absolute;top:112px;left:calc(252px + clamp(12px,3vw,36px));right:clamp(12px,3vw,36px);display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;padding:0;text-align:left}
 #launchScreen .loading-music-orb{width:34px;height:34px;flex:0 0 34px;border-radius:11px}
 #launchScreen .loading-music-orb:before{inset:-3px;border-radius:14px}
 #launchScreen .launch-brand-mark{width:18px;height:18px}
 #launchScreen .loading-copy{display:flex;flex-direction:row;align-items:baseline;gap:8px;min-width:0;flex-wrap:nowrap}
 #launchScreen .loading-copy strong{font-size:13px;line-height:1.2;white-space:nowrap}
 #launchScreen .loading-copy span{font-size:11px;line-height:1.2;white-space:nowrap}
-#launchScreen .loading-skeletons{position:absolute;top:204px;left:calc(252px + clamp(12px,3vw,36px) + max(0px,(100vw - 252px - 2 * clamp(12px,3vw,36px) - 1480px)/2));right:clamp(12px,3vw,36px);width:auto;max-width:1480px;margin:0;display:block;columns:6 190px;column-gap:12px}
+#launchScreen .loading-skeletons{position:absolute;top:210px;left:calc(252px + clamp(12px,3vw,36px) + max(0px,(100vw - 252px - 2 * clamp(12px,3vw,36px) - 1480px)/2));right:clamp(12px,3vw,36px);width:auto;max-width:1480px;margin:0;display:block;columns:6 190px;column-gap:12px}
 @media(max-width:1400px){#launchScreen .loading-skeletons{columns:5 190px;column-gap:10px}}
 @media(max-width:1050px){#launchScreen .loading-skeletons{columns:4 180px;column-gap:10px}}
 @media(max-width:760px){
- #launchScreen .loading-intro{top:70px;left:12px;right:12px;gap:9px}
+ #launchScreen .loading-intro{top:64px;left:12px;right:12px;gap:9px}
  #launchScreen .loading-music-orb{width:32px;height:32px;flex-basis:32px}
  #launchScreen .launch-brand-mark{width:17px;height:17px}
  #launchScreen .loading-copy{gap:7px}
  #launchScreen .loading-copy strong{font-size:12px}
  #launchScreen .loading-copy span{font-size:11px}
- #launchScreen .loading-skeletons{top:184px;left:12px;right:12px;width:auto;columns:2 140px;column-gap:8px}
+ #launchScreen .loading-skeletons{top:112px;left:12px;right:12px;width:auto;columns:2 140px;column-gap:8px}
  #launchScreen .loading-skeleton-card{margin-bottom:9px;padding:10px 9px 8px;border-radius:9px}
  #launchScreen .skeleton-thumb{margin-top:8px;border-radius:6px}
 }
@@ -1732,9 +1732,9 @@ body .topbar .search .glass{font-size:20px!important}
  #launchScreen .loading-copy{gap:5px}
  #launchScreen .loading-copy strong{font-size:11px}
  #launchScreen .loading-copy span{font-size:10px}
- #launchScreen .loading-skeletons{left:8px;right:8px;top:184px;columns:2 120px;column-gap:7px}
+ #launchScreen .loading-skeletons{left:8px;right:8px;top:112px;columns:2 120px;column-gap:7px}
 }
-@media(max-height:620px) and (min-width:761px){#launchScreen .loading-intro{top:62px}#launchScreen .loading-skeletons{top:184px}}
+@media(max-height:620px) and (min-width:761px){#launchScreen .loading-intro{top:96px}#launchScreen .loading-skeletons{top:184px}}
 @media(prefers-reduced-motion:reduce){#launchScreen{transition:none!important}}
 </style>
 </head>
