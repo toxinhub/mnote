@@ -1628,7 +1628,7 @@ let safeUrl='';
 try{const parsed=new URL(candidate);if(parsed.protocol==='https:'||parsed.protocol==='http:')safeUrl=parsed.href}catch(e){}
 const sharedTitle=String(params.get('title')||'').trim().slice(0,180);
 if(!safeUrl&&!sharedTitle&&!sharedText.trim()){toast('No song link was received.');return}
-showComposer();
+composerOpen=true;composerHistory=false;$('composer').classList.add('open');$('composeMark').classList.add('hidden');$('expand').classList.add('hidden');
 if(safeUrl){$('quickUrl').value=safeUrl;lookupSongTitle(safeUrl)}
 if(sharedTitle){$('quickTitle').value=sharedTitle;lastAutoTitle=sharedTitle}
 if(!safeUrl&&sharedText.trim()){$('quickIdea').value=sharedText.trim().slice(0,2000)}
