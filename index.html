@@ -2176,4 +2176,56 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
 }
 </style>
 
+
+<style id="absolute-compact-header-final">
+/* Final cascade guard: keep the compact header compact even when the sidebar opens. */
+@media screen and (min-width:761px){
+  html body header.topbar,
+  html body header.topbar.is-scrolled{
+    box-sizing:border-box!important;
+    height:52px!important;
+    min-height:52px!important;
+    max-height:52px!important;
+    padding:0 16px!important;
+    gap:10px!important;
+    align-items:center!important;
+    overflow:visible!important;
+  }
+  html body header.topbar > .menu-btn{
+    box-sizing:border-box!important;
+    width:34px!important;height:34px!important;
+    min-width:34px!important;min-height:34px!important;
+    max-width:34px!important;max-height:34px!important;
+    flex:0 0 34px!important;
+    padding:0!important;
+  }
+  html body header.topbar .brand{
+    min-width:0!important;height:34px!important;min-height:0!important;
+    padding:0!important;gap:0!important;flex:0 0 auto!important;
+  }
+  html body header.topbar .brand-icon{display:none!important;width:0!important;height:0!important}
+  html body header.topbar .brand-name{
+    font-size:19px!important;line-height:1!important;
+    padding:0!important;margin:0!important;
+  }
+  html body header.topbar .search{
+    box-sizing:border-box!important;height:36px!important;min-height:36px!important;
+    max-height:36px!important;padding:0 11px!important;
+  }
+  html body header.topbar .top-actions{
+    height:34px!important;min-height:34px!important;align-items:center!important;
+    gap:5px!important;margin:0!important;
+  }
+  html body header.topbar .top-actions .round,
+  html body header.topbar .top-actions #refresh{
+    box-sizing:border-box!important;width:34px!important;height:34px!important;
+    min-width:34px!important;min-height:34px!important;
+    max-width:34px!important;max-height:34px!important;
+    padding:0!important;border-radius:10px!important;
+  }
+  html body header.topbar .top-actions #refresh svg,
+  html body header.topbar .top-actions .ui-icon{width:18px!important;height:18px!important}
+}
+</style>
+
 </body></html>
