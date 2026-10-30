@@ -652,6 +652,7 @@
     $("#f-tags").value=merge($("#f-tags").value,(data.genre||[]).concat(data.tags||[]));
     $("#f-mood").value=merge($("#f-mood").value,data.mood||[]);
     $("#edit-link-status").textContent="Updated genre, mood and label suggestions added. Existing labels were preserved — review before saving.";
+    if(editMode==="create"&&!$("#f-inspiration").value.trim())await generateInspirationNote();
    }catch(error){if(token===editClassifyToken)$("#edit-link-status").textContent=String(error.message||"AI labels unavailable.").slice(0,150)}
   },1700);
  }
