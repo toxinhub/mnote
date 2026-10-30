@@ -1680,6 +1680,31 @@ body .topbar .search .glass{font-size:20px!important}
 @media(max-width:760px){#launchScreen{padding:calc(18px + env(safe-area-inset-top,0px)) 13px calc(20px + env(safe-area-inset-bottom,0px))}#launchScreen .launch-layout{gap:clamp(18px,3.5vh,26px)}#launchScreen .loading-skeletons{columns:2 140px;column-gap:8px}#launchScreen .loading-skeleton-card{margin-bottom:9px;padding:10px 9px 8px;border-radius:9px}#launchScreen .skeleton-thumb{margin-top:8px;border-radius:6px}}
 @media(max-width:390px){#launchScreen{padding-left:11px;padding-right:11px}#launchScreen .launch-layout{gap:18px}#launchScreen .loading-skeletons{columns:2 120px;column-gap:7px}}
 @media(max-height:620px) and (min-width:761px){#launchScreen{align-items:flex-start;padding-top:18px;padding-bottom:18px}#launchScreen .launch-layout{gap:14px}}
+/* Anchor launch skeletons to the actual Notes grid start, not the viewport centre. */
+#launchScreen{display:block;align-items:initial;justify-content:initial;padding:0;overflow:hidden}
+#launchScreen .launch-layout{position:absolute;inset:0;width:100%;max-width:none;margin:0;padding:0;display:block}
+#launchScreen .loading-intro{position:absolute;top:16px;left:calc(252px + clamp(12px,3vw,36px));right:clamp(12px,3vw,36px);display:flex;align-items:center;gap:8px;padding:0;text-align:left}
+#launchScreen .loading-music-orb{width:34px;height:34px;border-radius:11px;flex:0 0 34px}
+#launchScreen .loading-music-orb:before{inset:-3px;border-radius:14px}
+#launchScreen .launch-brand-mark{width:18px;height:18px}
+#launchScreen .loading-copy{align-items:flex-start;gap:1px}
+#launchScreen .loading-copy strong{font-size:13px}
+#launchScreen .loading-copy span{font-size:11px}
+#launchScreen .loading-skeletons{position:absolute;top:204px;left:calc(252px + clamp(12px,3vw,36px) + max(0px,(100vw - 252px - 2 * clamp(12px,3vw,36px) - 1480px)/2));right:clamp(12px,3vw,36px);width:auto;max-width:1480px;margin:0;display:block;columns:6 190px;column-gap:12px}
+#launchScreen .loading-skeleton-card{display:inline-block;vertical-align:top;break-inside:avoid;width:100%;min-width:0;margin:0 0 12px;padding:14px 12px 10px;box-sizing:border-box}
+@media(max-width:1400px){#launchScreen .loading-skeletons{columns:5 190px;column-gap:10px}}
+@media(max-width:1050px){#launchScreen .loading-skeletons{columns:4 180px;column-gap:10px}}
+@media(max-width:760px){
+ #launchScreen .loading-intro{top:12px;left:12px;right:12px}
+ #launchScreen .loading-skeletons{top:184px;left:12px;right:12px;width:auto;columns:2 140px;column-gap:8px}
+ #launchScreen .loading-skeleton-card{margin-bottom:9px;padding:10px 9px 8px;border-radius:9px}
+ #launchScreen .skeleton-thumb{margin-top:8px;border-radius:6px}
+}
+@media(max-width:390px){
+ #launchScreen .loading-intro{left:8px;right:8px}
+ #launchScreen .loading-skeletons{left:8px;right:8px;top:184px;columns:2 120px;column-gap:7px}
+}
+@media(max-height:620px) and (min-width:761px){#launchScreen .loading-skeletons{top:204px}}
 @media(prefers-reduced-motion:reduce){#launchScreen{transition:none!important}}
 </style>
 </head>
