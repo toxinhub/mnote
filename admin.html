@@ -649,9 +649,13 @@
     if(token!==editClassifyToken||$("#f-url").value.trim()!==url)return;
     if(!response.ok)throw new Error(data.error||"AI labels unavailable.");
     const merge=(current,items)=>{const values=String(current||"").split(/[,;\\n]/).map(x=>x.trim()).filter(Boolean),seen=new Set(values.map(x=>x.toLocaleLowerCase()));(items||[]).forEach(x=>{const v=String(x).trim();if(v&&!seen.has(v.toLocaleLowerCase())){values.push(v);seen.add(v.toLocaleLowerCase())}});return values.join(", ")};
-    $("#f-tags").value=merge($("#f-tags").value,(data.genre||[]).concat(data.tags||[]));
-    $("#f-mood").value=merge($("#f-mood").value,data.mood||[]);
-    $("#edit-link-status").textContent="Updated genre, mood and label suggestions added. Existing labels were preserved — review before saving.";
+    const asLabels=value=>Array.isArray(value)?value.flatMap(v=>String(v||"").split(/[,;\\n]/)).map(v=>v.trim()).filter(Boolean):String(value||"").split(/[,;\\n]/).map(v=>v.trim()).filter(Boolean);
+    const newLabels=asLabels(data.genre).concat(asLabels(data.tags));
+    const newMoods=asLabels(data.mood);
+    $("#f-tags").value=merge($("#f-tags").value,newLabels);
+    $("#f-mood").value=merge($("#f-mood").value,newMoods);
+    $("#f-tags").dispatchEvent(new Event("input",{bubbles:true}));
+    $("#edit-link-status").textContent=newLabels.length||newMoods.length?"AI suggestions added to the form. Save changes to keep them. Existing labels were preserved.":"AI returned no labels for this song. Try again with a song title or another link.";
     if(editMode==="create"&&!$("#f-inspiration").value.trim())await generateInspirationNote();
    }catch(error){if(token===editClassifyToken)$("#edit-link-status").textContent=String(error.message||"AI labels unavailable.").slice(0,150)}
   },1700);
