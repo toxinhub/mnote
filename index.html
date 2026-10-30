@@ -1652,43 +1652,51 @@ body .topbar .search .glass{font-size:20px!important}
 </style>
 
 <style id="mnote-launch-style">
-/* Unified launch + skeleton loading composition */
-#launchScreen{position:fixed;inset:0;z-index:9999;display:block;overflow-x:hidden;overflow-y:auto;background:var(--page,#f3f7f2);color:var(--ink,#355d40);opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease;overscroll-behavior:contain}
+/* Launch screen reuses the app's real loading indicator and skeleton system. */
+#launchScreen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:auto;overscroll-behavior:contain;padding:24px 26px;background:var(--page,#fff);color:var(--ink);opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease}
 #launchScreen.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
-.launch-layout{width:min(1120px,100%);min-height:100%;box-sizing:border-box;margin:0 auto;padding:clamp(64px,10vh,108px) clamp(14px,3.2vw,38px) 34px;display:flex;flex-direction:column;align-items:center}
-.launch-inner{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;text-align:center;animation:launch-arrive .55s cubic-bezier(.2,.8,.2,1) both}
-.launch-mark{display:block;width:clamp(58px,7vw,76px);height:clamp(58px,7vw,76px);filter:drop-shadow(0 5px 12px #496d4a18);animation:launch-breathe 2.6s ease-in-out .55s infinite}
-.launch-wordmark{font:600 clamp(22px,2.5vw,25px)/1 "Google Sans",Arial,sans-serif;letter-spacing:-1.1px;color:#426b4a}
-.launch-wordmark span{color:#8eb795}
-.launch-caption{margin-top:-3px;color:var(--muted,#839487);font:500 9px/1.4 "Google Sans",Arial,sans-serif;letter-spacing:1.8px;text-transform:uppercase}
-.launch-loader{display:flex;gap:5px;margin-top:2px}
-.launch-loader i{width:4px;height:4px;border-radius:50%;background:#82a889;animation:launch-dots .9s ease-in-out infinite}
-.launch-loader i:nth-child(2){animation-delay:.14s}.launch-loader i:nth-child(3){animation-delay:.28s}
-.launch-skeletons{width:100%;max-width:1040px;margin:clamp(28px,5.5vh,54px) auto 0;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.4vw,16px)}
-.launch-skeletons .loading-skeleton-card{min-height:168px;padding:15px 13px 12px;border-radius:12px}
-.launch-skeletons .skeleton-thumb{aspect-ratio:16/10}
-.launch-skeletons .loading-skeleton-card:nth-child(2) .skeleton-thumb,.launch-skeletons .loading-skeleton-card:nth-child(4) .skeleton-thumb{aspect-ratio:4/3}
-@keyframes launch-arrive{from{opacity:0;transform:translateY(9px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes launch-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@keyframes launch-dots{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
-@media(max-width:900px){.launch-skeletons{grid-template-columns:repeat(3,minmax(0,1fr))}.launch-skeletons .loading-skeleton-card:nth-child(4){display:none}}
-@media(max-width:760px){.launch-layout{padding:clamp(48px,8vh,76px) 12px calc(24px + env(safe-area-inset-bottom,0px))}.launch-inner{gap:8px}.launch-mark{width:62px;height:62px}.launch-wordmark{font-size:23px}.launch-caption{font-size:8px;letter-spacing:1.5px}.launch-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:clamp(24px,4.5vh,38px)}.launch-skeletons .loading-skeleton-card{min-height:142px;padding:12px 9px 9px;border-radius:12px}.launch-skeletons .loading-skeleton-card:nth-child(4){display:block}.launch-skeletons .skeleton-thumb{margin-top:9px}}
-@media(max-width:360px){.launch-layout{padding-top:42px}.launch-skeletons{gap:7px;margin-top:22px}.launch-skeletons .loading-skeleton-card{min-height:132px;padding:10px 8px 8px}}
-@media(prefers-reduced-motion:reduce){#launchScreen,.launch-inner,.launch-mark,.launch-loader i{animation:none!important;transition:none!important}}
+#launchScreen .launch-layout{width:min(1160px,100%);min-height:0;margin:0 auto;padding:0;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:clamp(22px,4vh,38px)}
+#launchScreen .loading-intro{padding:0 12px;text-align:center;gap:11px}
+#launchScreen .loading-music-orb{width:72px;height:72px;border-radius:23px}
+#launchScreen .loading-music-orb:before{border-radius:29px}
+#launchScreen .launch-brand-mark{display:block;width:36px;height:36px;filter:drop-shadow(0 2px 3px #00000012)}
+#launchScreen .loading-copy strong{font-size:17px;letter-spacing:-.025em}
+#launchScreen .loading-copy span{font-size:12px}
+#launchScreen .loading-skeletons{width:100%;max-width:1100px;margin:0 auto;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+#launchScreen .loading-skeleton-card{min-height:166px;padding:16px 14px 12px;border-radius:10px}
+#launchScreen .skeleton-thumb{aspect-ratio:16/9}
+#launchScreen .loading-skeleton-card:nth-child(2) .skeleton-thumb,#launchScreen .loading-skeleton-card:nth-child(4) .skeleton-thumb{aspect-ratio:4/3}
+@media(max-width:1050px){#launchScreen .loading-skeletons{grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}}
+@media(max-width:900px){#launchScreen{padding:22px 20px}#launchScreen .loading-skeletons{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}}
+@media(max-width:760px){#launchScreen{padding:calc(18px + env(safe-area-inset-top,0px)) 13px calc(20px + env(safe-area-inset-bottom,0px))}#launchScreen .launch-layout{gap:clamp(22px,4.5vh,34px)}#launchScreen .loading-intro{gap:9px;padding:0 6px}#launchScreen .loading-music-orb{width:64px;height:64px;border-radius:21px}#launchScreen .loading-music-orb:before{border-radius:26px}#launchScreen .launch-brand-mark{width:32px;height:32px}#launchScreen .loading-copy strong{font-size:15px}#launchScreen .loading-copy span{font-size:11px}#launchScreen .loading-skeletons{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}#launchScreen .loading-skeleton-card{min-height:140px;padding:13px 10px 9px;border-radius:12px}#launchScreen .skeleton-thumb{margin-top:9px;border-radius:10px}}
+@media(max-width:390px){#launchScreen{padding-left:11px;padding-right:11px}#launchScreen .launch-layout{gap:22px}#launchScreen .loading-skeletons{gap:7px}#launchScreen .loading-skeleton-card{min-height:130px;padding:12px 9px 8px}}
+@media(max-height:620px) and (min-width:761px){#launchScreen{align-items:flex-start;padding-top:18px;padding-bottom:18px}#launchScreen .launch-layout{gap:16px}#launchScreen .loading-music-orb{width:58px;height:58px}#launchScreen .loading-skeleton-card{min-height:130px}}
+@media(prefers-reduced-motion:reduce){#launchScreen{transition:none!important}}
 </style>
 </head>
 <body>
-<div id="launchScreen" role="status" aria-label="Opening m}note"><div class="launch-layout">
-<div class="launch-inner">
-<svg class="launch-mark" viewBox="0 0 512 512" role="img" aria-label="m}note logo"><rect x="12" y="12" width="488" height="488" rx="132" fill="#e4efe4"/><path d="M155 105h142l72 72v225a26 26 0 0 1-26 26H155a26 26 0 0 1-26-26V131a26 26 0 0 1 26-26Z" fill="#fff" stroke="#c8ddca" stroke-width="12" stroke-linejoin="round"/><path d="M297 105v61a13 13 0 0 0 13 13h59" fill="none" stroke="#c8ddca" stroke-width="12" stroke-linejoin="round"/><path d="M244 333V210l108-22v123" fill="none" stroke="#54815c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="207" cy="339" r="36" fill="#54815c"/><circle cx="316" cy="322" r="36" fill="#54815c"/><path d="M172 393h168" stroke="#9abd9e" stroke-width="12" stroke-linecap="round"/><circle cx="385" cy="125" r="18" fill="#b7d2b9"/></svg>
-<div class="launch-wordmark">m<span>}</span>note</div><div class="launch-caption">songs · moments · memories</div><div class="launch-loader" aria-hidden="true"><i></i><i></i><i></i></div>
+<div id="launchScreen" role="status" aria-label="Opening m}note">
+<div class="launch-layout">
+ <div class="loading-intro">
+  <div class="loading-music-orb">
+   <svg class="launch-brand-mark" viewBox="0 0 512 512" role="img" aria-label="m}note">
+    <path d="M155 105h142l72 72v225a26 26 0 0 1-26 26H155a26 26 0 0 1-26-26V131a26 26 0 0 1 26-26Z" fill="#fff" stroke="#c8ddca" stroke-width="16" stroke-linejoin="round"/>
+    <path d="M297 105v61a13 13 0 0 0 13 13h59" fill="none" stroke="#c8ddca" stroke-width="16" stroke-linejoin="round"/>
+    <path d="M244 333V210l108-22v123" fill="none" stroke="#54815c" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="207" cy="339" r="36" fill="#54815c"/><circle cx="316" cy="322" r="36" fill="#54815c"/>
+   </svg>
+   <span class="loading-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </div>
+  <div class="loading-copy"><strong>m}note</strong><span>Getting your music notes ready…</span></div>
+ </div>
+ <div class="loading-skeletons" aria-hidden="true">
+  <div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line short"></div><div class="skeleton-thumb"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div></div>
+  <div class="loading-skeleton-card"><div class="skeleton-title medium"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+  <div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line medium"></div><div class="skeleton-thumb"></div><div class="skeleton-line short"></div></div>
+  <div class="loading-skeleton-card"><div class="skeleton-title short"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div>
+ </div>
 </div>
-<div class="loading-skeletons launch-skeletons" aria-hidden="true">
-<div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line short"></div><div class="skeleton-thumb"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div></div>
-<div class="loading-skeleton-card"><div class="skeleton-title medium"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
-<div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line medium"></div><div class="skeleton-thumb"></div><div class="skeleton-line short"></div></div>
-<div class="loading-skeleton-card"><div class="skeleton-title short"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div>
-</div></div></div>
+</div>
 <header class="topbar"><button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ui-icon menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><a class="brand" href="./" aria-label="m}note"><span class="brand-icon"><svg class="ui-icon brand-music-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span class="brand-name">m<span>}</span>note</span></a><label class="search"><span class="glass"><svg class="ui-icon search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.2 4.2"/></svg></span><input id="search" type="text" inputmode="search" enterkeyhint="search" placeholder="Search songs, artists, memories, or labels" aria-label="Search notes" autocomplete="off" role="searchbox"><button class="round hidden" id="clearSearch" aria-label="Clear search">×</button></label><div class="top-actions"><button class="round" id="refresh" title="Refresh notes" aria-label="Refresh notes"><svg class="ui-icon refresh-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M19 12a7.5 7.5 0 0 0-13.2-4.8L4 9"/><path d="M4 17v-5h5"/><path d="M5 12a7.5 7.5 0 0 0 13.2 4.8L20 15"/></svg></button><button class="round theme-toggle" id="themeBtn" title="Switch to dark mode" aria-label="Switch to dark mode"><span class="theme-icon" aria-hidden="true"><svg class="ui-icon theme-svg" viewBox="0 0 24 24"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z"/></svg></span></button></div></header>
 <div class="app" id="app"><aside class="sidebar" id="sidebar" aria-label="Navigation"><a class="drawer-brand" href="./" aria-label="mnote home"><span class="drawer-brand-name">m<span>}</span>note</span></a><nav class="side-nav"><button class="nav active" data-view="all" aria-label="Notes"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span><span class="nav-label">Notes</span><span class="count" id="allCount"></span></button><button class="nav" data-view="pinned" aria-label="Pinned"><span class="nav-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg pin-svg" viewBox="0 0 24 24"><path d="m9 4 6 0 1 5 3 3v2H5v-2l3-3 1-5Z"/><path d="M12 14v7"/></svg></span><span class="nav-label">Pinned</span><span class="count" id="pinCount"></span></button></nav><div class="side-head" id="labelsToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="labels"><span class="labels-heading-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><path d="M9 4 7 20M17 4l-2 16M4 9h16M3 15h16"/></svg></span><span class="labels-heading-text">Labels</span><span class="label-toggle-icon" aria-hidden="true">⌄</span></div><div class="labels" id="labels"></div><div class="side-foot"><a class="admin-link" href="admin.html"><span class="admin-icon" aria-hidden="true"><svg class="ui-icon sidebar-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M18.5 5.5h2M19.5 4.5v2"/></svg></span><span>Admin Login</span><span class="admin-arrow" aria-hidden="true">↗</span></a></div></aside><div class="backdrop" id="backdrop"></div>
 <main class="workspace"><div class="inside"><section class="composer" id="composer" aria-label="Create a song note">
