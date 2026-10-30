@@ -1737,6 +1737,30 @@ body .topbar .search .glass{font-size:20px!important}
 }
 @media(max-height:620px) and (min-width:761px){#launchScreen .loading-intro{top:8px}#launchScreen .loading-skeletons{top:174px}}
 @media(prefers-reduced-motion:reduce){#launchScreen{transition:none!important}}
+/* Launch identity: crop the SVG's unused canvas so the actual mark reads at its displayed size. */
+#launchScreen .loading-music-orb{display:grid;place-items:center;overflow:visible;flex:0 0 54px;width:54px;height:54px}
+#launchScreen .launch-brand-mark{display:block!important;width:42px!important;height:46px!important;max-width:none!important;max-height:none!important;min-width:42px;min-height:46px;flex:0 0 42px;overflow:visible;object-fit:contain;transform:none}
+#launchScreen .loading-eq{right:3px;bottom:3px;width:19px;height:14px;gap:2px;padding:2px;border-radius:5px}
+#launchScreen .loading-eq i{width:2px;height:4px}
+#launchScreen .loading-copy{align-items:baseline;gap:8px}
+#launchScreen .loading-copy strong{font-size:18px;line-height:1.15;letter-spacing:-.025em}
+#launchScreen .loading-copy span{font-size:13px;line-height:1.2}
+@media(max-width:760px){
+ #launchScreen .loading-music-orb{flex-basis:48px;width:48px;height:48px}
+ #launchScreen .launch-brand-mark{width:38px!important;height:42px!important;min-width:38px;min-height:42px;flex-basis:38px}
+ #launchScreen .loading-copy{gap:6px}
+ #launchScreen .loading-copy strong{font-size:16px}
+ #launchScreen .loading-copy span{font-size:11.5px}
+}
+@media(max-width:390px){
+ #launchScreen .loading-intro{gap:8px}
+ #launchScreen .loading-music-orb{flex-basis:46px;width:46px;height:46px}
+ #launchScreen .launch-brand-mark{width:36px!important;height:40px!important;min-width:36px;min-height:40px;flex-basis:36px}
+ #launchScreen .loading-copy{gap:5px}
+ #launchScreen .loading-copy strong{font-size:15px}
+ #launchScreen .loading-copy span{font-size:10.8px}
+}
+
 </style>
 </head>
 <body>
@@ -1744,7 +1768,7 @@ body .topbar .search .glass{font-size:20px!important}
 <div class="launch-layout">
  <div class="loading-intro">
   <div class="loading-music-orb">
-   <svg class="launch-brand-mark" viewBox="0 0 512 512" role="img" aria-label="m}note">
+   <svg class="launch-brand-mark" viewBox="115 90 270 350" preserveAspectRatio="xMidYMid meet" role="img" aria-label="m}note">
     <path d="M155 105h142l72 72v225a26 26 0 0 1-26 26H155a26 26 0 0 1-26-26V131a26 26 0 0 1 26-26Z" fill="#fff" stroke="#c8ddca" stroke-width="16" stroke-linejoin="round"/>
     <path d="M297 105v61a13 13 0 0 0 13 13h59" fill="none" stroke="#c8ddca" stroke-width="16" stroke-linejoin="round"/>
     <path d="M244 333V210l108-22v123" fill="none" stroke="#54815c" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
