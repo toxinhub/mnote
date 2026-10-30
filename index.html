@@ -1627,16 +1627,48 @@ const candidate=rawUrl||(sharedText.replaceAll(String.fromCharCode(9),' ').repla
 let safeUrl='';
 try{const parsed=new URL(candidate);if(parsed.protocol==='https:'||parsed.protocol==='http:')safeUrl=parsed.href}catch(e){}
 const sharedTitle=String(params.get('title')||'').trim().slice(0,180);
-if(!safeUrl&&!sharedTitle&&!sharedText.trim()){toast('No song link was received.');return}
-composerOpen=true;composerHistory=false;$('composer').classList.add('open');$('composeMark').classList.add('hidden');$('expand').classList.add('hidden');
-if(safeUrl){$('quickUrl').value=safeUrl;lookupSongTitle(safeUrl)}
-if(sharedTitle){$('quickTitle').value=sharedTitle;lastAutoTitle=sharedTitle}
-if(!safeUrl&&sharedText.trim()){$('quickIdea').value=sharedText.trim().slice(0,2000)}
-if(safeUrl){$('linkStatus').textContent='Shared link received. Check the details, then submit.'}
+const sharedNote=safeUrl?'':sharedText.trim().slice(0,2000);
 params.delete('share');params.delete('url');params.delete('text');params.delete('title');
 const clean=location.pathname+(params.toString()?'?'+params.toString():'')+location.hash;
 history.replaceState(history.state,'',clean);
-setTimeout(function(){(safeUrl?$('quickTitle'):$('quickUrl')).focus({preventScroll:true})},80);
+if(!safeUrl&&!sharedTitle&&!sharedNote){toast('No song link was received.');return}
+composerOpen=true;composerHistory=false;$('composer').classList.add('open');$('composeMark').classList.add('hidden');$('expand').classList.add('hidden');
+if(safeUrl){
+$('quickUrl').value=safeUrl;
+$('quickTitle').value=sharedTitle;
+$('linkStatus').textContent='Saving shared song…';
+saveSharedEntry(safeUrl,sharedTitle);
+}else{
+if(sharedTitle)$('quickTitle').value=sharedTitle;
+if(sharedNote)$('quickIdea').value=sharedNote;
+toast('Shared content received. Review it and submit your note.');
+}
+}
+async function saveSharedEntry(url,sharedTitle){
+const titleInput=$('quickTitle'),status=$('linkStatus');
+let foundTitle='';
+let lookupUrl='';
+const vid=videoId(url);
+try{
+const parsed=new URL(url),host=parsed.hostname.toLowerCase();
+if(vid)lookupUrl='https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+vid);
+else if(host==='open.spotify.com'||host.endsWith('.open.spotify.com'))lookupUrl='https://open.spotify.com/oembed?url='+encodeURIComponent(url);
+else if(host==='soundcloud.com'||host.endsWith('.soundcloud.com'))lookupUrl='https://soundcloud.com/oembed?format=json&url='+encodeURIComponent(url);
+}catch(e){}
+if(lookupUrl){
+try{
+const controller=typeof AbortController!=='undefined'?new AbortController():null;
+const timeout=controller?setTimeout(function(){controller.abort()},5000):null;
+const response=await fetch(lookupUrl,{headers:{Accept:'application/json'},signal:controller?controller.signal:undefined});
+if(timeout)clearTimeout(timeout);
+if(response.ok){const data=await response.json();foundTitle=String(data.title||'').trim().slice(0,180)}
+}catch(e){}
+}
+if(!composerOpen)return;
+titleInput.value=foundTitle||sharedTitle||'Shared song';
+lastAutoTitle=foundTitle||'';
+status.textContent=foundTitle?'Title found. Adding to your notes…':'Adding shared link to your notes…';
+await saveNote();
 }
 function hideComposer(fromPop){const shouldGoBack=!fromPop&&composerHistory&&history.state&&history.state.mnoteComposer;composerHistory=false;composerOpen=false;$('composer').classList.remove('open');$('composeMark').classList.remove('hidden');$('expand').classList.remove('hidden');['quickTitle','quickUrl','quickIdea','quickTags','quickStart','quickMood'].forEach(function(id){$(id).value=''});lastAutoTitle='';clearTimeout(titleLookupTimer);titleLookupToken++;$('linkStatus').textContent='';if(shouldGoBack)history.back()}
 function lookupSongTitle(rawUrl){clearTimeout(titleLookupTimer);titleLookupToken++;const url=String(rawUrl||'').trim(),titleInput=$('quickTitle'),status=$('linkStatus');if(!url){status.textContent='';return}let provider='',lookupUrl='';const vid=videoId(url);try{const u=new URL(url),host=u.hostname.toLowerCase();if(vid){provider='YouTube';lookupUrl='https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+vid)}else if(host==='open.spotify.com'||host.endsWith('.open.spotify.com')){provider='Spotify';lookupUrl='https://open.spotify.com/oembed?url='+encodeURIComponent(url)}else if(host==='soundcloud.com'||host.endsWith('.soundcloud.com')){provider='SoundCloud';lookupUrl='https://soundcloud.com/oembed?format=json&url='+encodeURIComponent(url)}}catch(e){}if(!provider){status.textContent='';return}if(titleInput.value.trim()&&titleInput.value.trim()!==lastAutoTitle){status.textContent='';return}const token=titleLookupToken;status.textContent='Finding song title…';titleLookupTimer=setTimeout(async function(){try{const response=await fetch(lookupUrl,{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Title unavailable');const data=await response.json(),found=String(data.title||'').trim();if(token!==titleLookupToken)return;if(!found)throw new Error('Title unavailable');const current=titleInput.value.trim();if(!current||current===lastAutoTitle){titleInput.value=found;lastAutoTitle=found;status.textContent='Title found — you can edit it.'}else status.textContent='Title found. Your edited title was kept.'}catch(e){if(token===titleLookupToken)status.textContent='Couldn’t fetch the title. You can enter it manually.'}},350)}
