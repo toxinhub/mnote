@@ -621,6 +621,18 @@
 
  $("#entry-search").addEventListener("keydown",e=>{if(e.key==="Escape"){e.currentTarget.value="";render();e.currentTarget.blur()}});
 
+ async function generateInspirationNote(){
+  const button=$("#generate-inspiration"),url=$("#f-url").value.trim(),title=$("#f-title").value.trim();
+  if(!title&&!url){msg("#msg","Add a song title or link first.",true);return}
+  const old=button.textContent;button.disabled=true;button.textContent="Writing…";$("#edit-link-status").textContent="Creating the bilingual inspiration guide…";
+  try{
+   const response=await fetch("https://ekaxlxudxpkkozbyslub.supabase.co/functions/v1/mnote-ai",{method:"POST",headers:{apikey:"sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX",Authorization:"Bearer sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX","Content-Type":"application/json"},body:JSON.stringify({action:"inspire",context:{title,song_url:url,note:$("#f-idea").value.trim(),mood:$("#f-mood").value.trim(),tags:$("#f-tags").value.trim(),favorite_moment:$("#f-start").value.trim()}})});
+   const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Could not generate the inspiration note.");
+   $("#f-inspiration").value=String(data.text||"").slice(0,5000);$("#edit-link-status").textContent="Bilingual inspiration guide created. Review it, then save.";
+  }catch(error){$("#edit-link-status").textContent=String(error.message||"AI request failed.").slice(0,180)}
+  finally{button.disabled=false;button.textContent=old}
+ }
+ $("#generate-inspiration").addEventListener("click",generateInspirationNote);
  let editClassifyTimer=0,editClassifyToken=0,editClassifyLastUrl="";
  async function classifyAdminSong(rawUrl){
   clearTimeout(editClassifyTimer);const token=++editClassifyToken,url=String(rawUrl||"").trim();
