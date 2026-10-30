@@ -757,3 +757,50 @@ body{font-size:14px;line-height:1.5}
   #workspace .dashboard-tools>#add-entry,
   #workspace .dashboard-tools>#refresh{height:33px;min-height:33px;padding-inline:6px;}
 }
+
+
+/* Clear current-section indicator for all five admin navigation tabs. */
+#workspace>.admin-nav .tab,
+#workspace .admin-nav .tab{
+  position:relative;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease;
+}
+#workspace>.admin-nav .tab.active,
+#workspace .admin-nav .tab.active{
+  background:#fff0b8!important;
+  border:1px solid #e7c95f!important;
+  color:#594500!important;
+  font-weight:750!important;
+  box-shadow:inset 0 0 0 1px rgba(231,201,95,.16),0 2px 7px rgba(117,91,8,.09);
+}
+#workspace>.admin-nav .tab.active .tab-count,
+#workspace .admin-nav .tab.active .tab-count{
+  background:#e8c95d!important;
+  color:#493800!important;
+  font-weight:800!important;
+}
+#workspace>.admin-nav .tab:not(.active),
+#workspace .admin-nav .tab:not(.active){
+  background:transparent;
+  border-color:transparent;
+  color:var(--muted);
+  box-shadow:none;
+}
+:root[data-theme="dark"] #workspace>.admin-nav .tab.active,
+:root[data-theme="dark"] #workspace .admin-nav .tab.active{
+  background:#493e20!important;
+  border-color:#927a37!important;
+  color:#ffe18a!important;
+  box-shadow:inset 0 0 0 1px rgba(255,225,138,.10),0 2px 8px rgba(0,0,0,.2);
+}
+:root[data-theme="dark"] #workspace>.admin-nav .tab.active .tab-count,
+:root[data-theme="dark"] #workspace .admin-nav .tab.active .tab-count{
+  background:#806b32!important;
+  color:#fff0bd!important;
+}
+@media(max-width:700px){
+  #workspace .admin-nav .tab.active{transform:translateY(-1px);}
+}
+@media(prefers-reduced-motion:reduce){
+  #workspace .admin-nav .tab{transition:none!important;}
+}
