@@ -714,3 +714,24 @@ body{font-size:14px;line-height:1.5}
   #workspace .dashboard-tools>#refresh span{font-size:16px;}
   #workspace .admin-nav{width:calc(100% + 22px);margin-inline:-11px;padding-inline:11px;}
 }
+
+
+/* Edit action — soft yellow highlight, distinct from primary/save actions. */
+#workspace #list .entry .actions [data-act="edit"]{
+  background:#fff6d8;
+  border:1px solid #f0dfaa;
+  color:#765b08;
+}
+#workspace #list .entry .actions [data-act="edit"]:hover{
+  background:#ffefb8;
+  border-color:#e8ce78;
+}
+:root[data-theme="dark"] #workspace #list .entry .actions [data-act="edit"]{
+  background:#40371f;
+  border-color:#65552d;
+  color:#f4d779;
+}
+:root[data-theme="dark"] #workspace #list .entry .actions [data-act="edit"]:hover{
+  background:#4b4022;
+  border-color:#806a35;
+}
