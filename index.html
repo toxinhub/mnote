@@ -1620,18 +1620,23 @@ function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show')
 function showComposer(){if(!composerOpen){composerOpen=true;composerHistory=true;history.pushState({mnoteComposer:true},'',location.href)}$('composer').classList.add('open');$('composeMark').classList.add('hidden');$('expand').classList.add('hidden')}
 function receiveShareTarget(){
 const params=new URLSearchParams(location.search);
-if(params.get('share')!=='1')return;
-const rawUrl=params.get('url')||'';
-const sharedText=params.get('text')||'';
-const candidate=rawUrl||(sharedText.replaceAll(String.fromCharCode(9),' ').replaceAll(String.fromCharCode(10),' ').split(' ').find(function(part){return part.indexOf('https://')===0||part.indexOf('http://')===0})||'').replace(/[),.;]+$/,'');
-let safeUrl='';
-try{const parsed=new URL(candidate);if(parsed.protocol==='https:'||parsed.protocol==='http:')safeUrl=parsed.href}catch(e){}
+const rawUrl=String(params.get('url')||'').trim();
+const sharedText=String(params.get('text')||'').trim();
 const sharedTitle=String(params.get('title')||'').trim().slice(0,180);
-const sharedNote=safeUrl?'':sharedText.trim().slice(0,2000);
+const hasShareData=params.has('share')||params.has('url')||params.has('text')||params.has('title');
+if(!hasShareData)return;
+const candidates=[rawUrl,sharedText,sharedTitle];
+let safeUrl='';
+for(const value of candidates){
+const match=value.match(/https?:\/\/[^\s<>"']+/i);
+const candidate=(match?match[0]:value).replace(/[),.;]+$/,'');
+try{const parsed=new URL(candidate);if(parsed.protocol==='https:'||parsed.protocol==='http:'){safeUrl=parsed.href;break}}catch(e){}
+}
+const sharedNote=safeUrl?'':sharedText.slice(0,2000);
 params.delete('share');params.delete('url');params.delete('text');params.delete('title');
 const clean=location.pathname+(params.toString()?'?'+params.toString():'')+location.hash;
 history.replaceState(history.state,'',clean);
-if(!safeUrl&&!sharedTitle&&!sharedNote){toast('No song link was received.');return}
+if(!safeUrl&&!sharedTitle&&!sharedNote){toast('m}note opened, but no shared link was received. Please try Share again.');return}
 composerOpen=true;composerHistory=false;$('composer').classList.add('open');$('composeMark').classList.add('hidden');$('expand').classList.add('hidden');
 if(safeUrl){
 $('quickUrl').value=safeUrl;
