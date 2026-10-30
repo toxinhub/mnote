@@ -632,7 +632,7 @@
    const data=await response.json().catch(()=>({}));if(token!==editClassifyToken)return;if(!response.ok)throw new Error(data.error||"Could not generate the inspiration note.");
    $("#f-inspiration").value=String(data.text||"").slice(0,5000);$("#edit-link-status").textContent="Inspiration guide created. Review it, then save.";
   }catch(error){if(token===editClassifyToken)$("#edit-link-status").textContent=String(error.message||"AI request failed.").slice(0,180)}
-  finally{if(token===editClassifyToken){button.disabled=false;button.textContent=old}}
+  finally{button.disabled=false;if(token===editClassifyToken)button.textContent=old}
  }
  $("#generate-inspiration").addEventListener("click",generateInspirationNote);
  let editClassifyTimer=0,editClassifyToken=0,editClassifyLastUrl="";
