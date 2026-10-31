@@ -552,13 +552,13 @@
     try{res=await fetch("https://ekaxlxudxpkkozbyslub.supabase.co/functions/v1/mnote-ai",{method:"POST",signal:controller.signal,headers:{apikey:"sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX",Authorization:"Bearer sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX","Content-Type":"application/json"},body:JSON.stringify({action:"classify",context:{title:patch.title||entry.title||"",song_url:url}})});data=await res.json().catch(()=>({}))}
     finally{clearTimeout(timeout)}
     if(res.status===429){
-     const retryHeader=res.headers.get("Retry-After"),retrySeconds=retryHeader&&/^\d+$/.test(retryHeader)?Number(retryHeader):0;
+     const retryHeader=res.headers.get("Retry-After"),retrySeconds=retryHeader?( /^\d+$/.test(retryHeader)?Number(retryHeader):Math.max(0,Math.ceil((Date.parse(retryHeader)-Date.now())/1000)) ):0;
      updateRun.retryAfter=Date.now()+Math.max(605000,retrySeconds*1000);
      if(applyVerifiedArtist(entry,data,patch,name))changed=true;
      if(Object.keys(patch).length){await writeAuto(entry,patch);updateRun.pendingChanged[String(id)]=true}
      const attempt=(Number(updateRun.retryCount)||0)+1;updateRun.retryCount=attempt;const delay=retrySeconds?Math.max(60000,retrySeconds*1000):Math.min(3600000,Math.max(605000,Math.pow(2,Math.min(attempt,5))*60000));updateRun.retryAfter=Date.now()+delay;updateRun.pausedByApi=true;updateRun.running=true;updateRun.paused=false;if(applyVerifiedArtist(entry,data,patch,name))changed=true;if(Object.keys(patch).length){await writeAuto(entry,patch);updateRun.pendingChanged[String(id)]=true}updateRun.info="Rate limit reached. The same song will retry automatically after cooldown.";updateRun.currentStep="Waiting for API recovery — "+Math.ceil(delay/60000)+" min";eventRun(name+": rate limit (429); automatic retry scheduled in "+Math.ceil(delay/60000)+" minute(s).","warn");persistRun();return"retry";
     }
-    if(!res.ok)throw Error(data.error||("AI request failed (HTTP "+res.status+")"));
+    if(!res.ok){const failure=Error(data.error||("AI request failed (HTTP "+res.status+")"));failure.status=res.status;throw failure;}
     if(!data||!Array.isArray(data.genre)||!Array.isArray(data.mood)||!Array.isArray(data.tags))throw Error("AI response format was incomplete; this song can be retried.");
     if(applyVerifiedArtist(entry,data,patch,name))changed=true;
     const genres=data.genre.filter(x=>typeof x==="string"),tags=[...genres,...data.tags.filter(x=>typeof x==="string")],moods=data.mood.filter(x=>typeof x==="string");
