@@ -510,13 +510,13 @@
    $("#login").classList.add("hidden");$("#workspace").classList.remove("hidden");await load();
   }catch(err){$("#login").classList.remove("hidden");$("#workspace").classList.add("hidden");msg("#login-msg","Could not verify admin access: "+(err?.message||"Unknown error"),true)}
  }
- let editTitleTimer=0,editTitleToken=0,lastEditAutoTitle="",editInitialUrl="",editLookupTitleSnapshot="",editMode="edit";
+ let editTitleTimer=0,editTitleToken=0,lastEditAutoTitle="",lastEditAutoArtist="",editInitialUrl="",editLookupTitleSnapshot="",editMode="edit";
  function edit(id){
   editClassifyToken++;clearTimeout(editClassifyTimer);
   const r=rows.find(x=>String(x.id)===String(id));if(!r)return;editMode="edit";$("#editor-title").textContent="Edit song note";$("#editor-subtitle").textContent="Keep the song, memory and labels in sync.";$("#edit-form").querySelector('button[type="submit"]').textContent="Save changes";
   $("#edit-id").value=r.id;
   for(const [k,v] of Object.entries({title:r.title,artist:r.artist,idea:r.idea,url:r.song_url,start:r.start_time,tags:r.tags,mood:r.mood}))$("#f-"+k).value=v||"";$("#f-inspiration").value=r.inspiration_note||"";
-  lastEditAutoTitle="";editInitialUrl=String(r.song_url||"").trim();editLookupTitleSnapshot=String(r.title||"").trim();$("#edit-link-status").textContent="";hideEditLabelSuggestions();
+  lastEditAutoTitle="";lastEditAutoArtist="";editInitialUrl=String(r.song_url||"").trim();editLookupTitleSnapshot=String(r.title||"").trim();$("#edit-link-status").textContent="";hideEditLabelSuggestions();
   $("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-title").focus(),30);
   if($("#f-url").value.trim())lookupEditTitle($("#f-url").value);
  }
@@ -524,7 +524,7 @@
   editClassifyToken++;clearTimeout(editClassifyTimer);
   editMode="create";$("#edit-id").value="";
   for(const id of ["title","artist","idea","url","start","tags","mood"])$("#f-"+id).value="";$("#f-inspiration").value="";
-  lastEditAutoTitle="";editInitialUrl="";editLookupTitleSnapshot="";editTitleToken++;clearTimeout(editTitleTimer);
+  lastEditAutoTitle="";lastEditAutoArtist="";editInitialUrl="";editLookupTitleSnapshot="";editTitleToken++;clearTimeout(editTitleTimer);
   $("#edit-link-status").textContent="";$("#editor-title").textContent="Add song note";$("#editor-subtitle").textContent="Paste a song link to fetch its title automatically.";$("#edit-form").querySelector('button[type="submit"]').textContent="Add to review queue";
   hideEditLabelSuggestions();$("#modal").classList.add("open");document.body.style.overflow="hidden";setTimeout(()=>$("#f-url").focus(),30);
  }
@@ -577,7 +577,7 @@
   if(title.value.trim()&&title.value.trim()!==lastEditAutoTitle&&!linkChanged){hint.textContent="";return}
   editLookupTitleSnapshot=title.value.trim();
   hint.textContent="Finding song title…";
-  editTitleTimer=setTimeout(async()=>{try{const response=await fetch(lookupUrl,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error();const data=await response.json(),found=cleanSongMetadataTitle(data.title,data.author_name);if(token!==editTitleToken||!found)return;const current=title.value.trim();if(!current||current===lastEditAutoTitle||current===editLookupTitleSnapshot){title.value=found;lastEditAutoTitle=found;hint.textContent="Title found — you can edit it."}else hint.textContent="Title found. Your edited title was kept."}catch(e){if(token===editTitleToken)hint.textContent="Couldn’t fetch title automatically. You can type it."}},350);
+  editTitleTimer=setTimeout(async()=>{try{const response=await fetch(lookupUrl,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error();const data=await response.json(),found=cleanSongMetadataTitle(data.title,data.author_name),foundArtist=String(data.author_name||"").replace(/\s+/g," ").trim().replace(/\s*(?:-|\|)?\s*(?:Topic|VEVO)\s*$/i,"").trim();if(token!==editTitleToken||!found)return;const artistInput=$("#f-artist"),currentArtist=artistInput.value.trim();if(foundArtist&&(!currentArtist||currentArtist===lastEditAutoArtist)){artistInput.value=foundArtist;lastEditAutoArtist=foundArtist}const current=title.value.trim();if(!current||current===lastEditAutoTitle||current===editLookupTitleSnapshot){title.value=found;lastEditAutoTitle=found;hint.textContent="Title found — you can edit it."}else hint.textContent="Title found. Your edited title was kept."}catch(e){if(token===editTitleToken)hint.textContent="Couldn’t fetch title automatically. You can type it."}},350);
  }
  let editOpener=null;
  function closeEdit(){editClassifyToken++;clearTimeout(editClassifyTimer);editTitleToken++;clearTimeout(editTitleTimer);if(!$("#modal").classList.contains("open"))return;$("#modal").classList.remove("open");document.body.style.overflow="";if(editOpener&&editOpener.isConnected)editOpener.focus();editOpener=null}
@@ -645,7 +645,7 @@
   if(!title&&!url){msg("#msg","Add a song title or link first.",true);return}
   const old=button.textContent;button.disabled=true;button.textContent="Writing…";$("#edit-link-status").textContent="Creating the song inspiration guide…";
   try{
-   const response=await fetch("https://ekaxlxudxpkkozbyslub.supabase.co/functions/v1/mnote-ai",{method:"POST",headers:{apikey:"sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX",Authorization:"Bearer sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX","Content-Type":"application/json"},body:JSON.stringify({action:"inspire",context:{title,song_url:url,note:$("#f-idea").value.trim(),mood:$("#f-mood").value.trim(),tags:$("#f-tags").value.trim(),favorite_moment:$("#f-start").value.trim()}})});
+   const response=await fetch("https://ekaxlxudxpkkozbyslub.supabase.co/functions/v1/mnote-ai",{method:"POST",headers:{apikey:"sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX",Authorization:"Bearer sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX","Content-Type":"application/json"},body:JSON.stringify({action:"inspire",context:{title,artist:$("#f-artist").value.trim(),song_url:url,note:$("#f-idea").value.trim(),mood:$("#f-mood").value.trim(),tags:$("#f-tags").value.trim(),favorite_moment:$("#f-start").value.trim()}})});
    const data=await response.json().catch(()=>({}));if(token!==editClassifyToken)return;if(!response.ok)throw new Error(data.error||"Could not generate the inspiration note.");
    $("#f-inspiration").value=String(data.text||"").slice(0,5000);$("#edit-link-status").textContent="Inspiration guide created. Review it, then save.";
   }catch(error){if(token===editClassifyToken)$("#edit-link-status").textContent=String(error.message||"AI request failed.").slice(0,180)}
