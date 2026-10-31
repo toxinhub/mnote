@@ -1801,7 +1801,15 @@ body .topbar .search .glass{font-size:20px!important}
 }
 </style>
 
-</head>
+<style>
+#composer .compose-details-group .fields{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr) minmax(0,.9fr);gap:9px}
+#composer #quickMood{width:100%;min-width:0}
+#composer .auto-label-panel{border-radius:12px}
+#composer .auto-label-chip{cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+#composer .auto-label-chip.selected{border-color:#83a98a;background:#e7f1e8;color:#315b38}
+:root[data-theme=dark] #composer .auto-label-chip.selected{border-color:#64876b;background:#293a2c;color:#c6e2ca}
+@media(max-width:560px){#composer .compose-details-group .fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#composer .compose-details-group .fields>div:first-child{grid-column:1/-1}}
+</style></head>
 <body>
 <div id="launchScreen" role="status" aria-label="Opening m}note">
 <div class="launch-layout">
@@ -1827,13 +1835,13 @@ body .topbar .search .glass{font-size:20px!important}
 <div class="compose-body" id="composeBody">
 <div class="form-group compose-song-group"><label class="form-label" for="quickUrl">Song link</label><div class="fields song-link-field"><input class="field" id="quickUrl" type="url" placeholder="Paste a YouTube, Spotify, or SoundCloud link" aria-label="Song link"></div><div class="link-status" id="linkStatus" aria-live="polite"></div>
 <div class="auto-label-panel hidden" id="autoLabelPanel" aria-live="polite">
-  <div class="auto-label-head"><strong>AI label suggestions</strong><span id="autoLabelStatus">Analysing song…</span></div>
+  <div class="auto-label-head"><strong>Smart tag & mood suggestions</strong><span id="autoLabelStatus">Analysing song…</span></div>
   <div id="autoLabelChoices"></div>
-  <div class="auto-label-foot"><small>Review and select the labels you want to keep.</small><button type="button" class="text-btn primary" id="applyAutoLabels">Add selected</button></div>
+  <div class="auto-label-foot"><small>Suggestions are optional. Choose only what feels right.</small><button type="button" class="text-btn primary" id="applyAutoLabels">Add selected</button></div>
 </div></div>
 <div class="form-group compose-memory-group"><div class="compose-section-kicker" aria-hidden="true"><span>02</span> Personal note</div><label class="form-label" for="quickIdea">Your note about this song</label><textarea class="field" id="quickIdea" placeholder="What feeling or memory does this song bring back?" aria-label="Memory"></textarea></div>
-<div class="form-group compose-details-group"><div class="compose-section-kicker" aria-hidden="true"><span>03</span> Make it easy to find</div><div class="fields"><div class="label-suggest-wrap"><label class="form-label desktop-field-label" for="quickTags">Labels</label><input class="field" id="quickTags" placeholder="Labels, separated by commas" aria-label="Labels" autocomplete="off" aria-autocomplete="list" aria-controls="labelSuggestions"><div class="label-suggestions hidden" id="labelSuggestions" role="listbox" aria-label="Previously used labels"></div></div><div><label class="form-label desktop-field-label" for="quickStart">Favorite moment</label><input class="field" id="quickStart" placeholder="Favorite moment (e.g. 1:23)" aria-label="Favorite moment"></div></div></div>
-<input type="hidden" id="quickMood" value=""><input type="hidden" id="quickInspiration" value="">
+<div class="form-group compose-details-group"><div class="compose-section-kicker" aria-hidden="true"><span>03</span> Make it easy to find</div><div class="fields"><div class="label-suggest-wrap"><label class="form-label desktop-field-label" for="quickTags">Labels</label><input class="field" id="quickTags" placeholder="Labels, separated by commas" aria-label="Labels" autocomplete="off" aria-autocomplete="list" aria-controls="labelSuggestions"><div class="label-suggestions hidden" id="labelSuggestions" role="listbox" aria-label="Previously used labels"></div></div><div><label class="form-label desktop-field-label" for="quickMood">Mood</label><input class="field" id="quickMood" placeholder="e.g. nostalgic, peaceful" aria-label="Mood" autocomplete="off"></div><div><label class="form-label desktop-field-label" for="quickStart">Favorite moment</label><input class="field" id="quickStart" placeholder="Favorite moment (e.g. 1:23)" aria-label="Favorite moment"></div></div></div>
+<input type="hidden" id="quickInspiration" value="">
 <div class="compose-foot"><small>Your note will appear once an admin approves it.</small><button class="text-btn" id="closeComposer">Cancel</button><button class="text-btn primary" id="saveNote">Submit note</button></div>
 </div></section>
 <div class="section-head"><span id="sectionTitle">Notes</span><span class="result-count" id="resultCount"></span></div><section class="grid" id="notesGrid" aria-live="polite"><div class="loading-state" role="status"><div class="loading-intro"><div class="loading-music-orb"><span class="loading-music-emoji" aria-hidden="true">🎵</span><span class="loading-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="loading-copy"><strong>Loading your songs</strong><span>Every song has a story…</span></div></div><div class="loading-skeletons" aria-hidden="true"><div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line short"></div><div class="skeleton-thumb"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div></div><div class="loading-skeleton-card"><div class="skeleton-title medium"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div><div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line medium"></div><div class="skeleton-thumb"></div><div class="skeleton-line short"></div></div><div class="loading-skeleton-card"><div class="skeleton-title short"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div></div></div></section></div></main></div>
@@ -1946,14 +1954,32 @@ await saveNote();
 function hideComposer(fromPop){const shouldGoBack=!fromPop&&composerHistory&&history.state&&history.state.mnoteComposer;composerHistory=false;composerOpen=false;$('composer').classList.remove('open');$('composeMark').classList.remove('hidden');$('expand').classList.remove('hidden');['quickTitle','quickUrl','quickIdea','quickTags','quickStart','quickMood'].forEach(function(id){$(id).value=''});lastAutoTitle='';clearTimeout(titleLookupTimer);titleLookupToken++;$('linkStatus').textContent='';clearTimeout(autoClassifyTimer);autoClassifyToken++;$('autoLabelPanel').classList.add('hidden');$('autoLabelChoices').innerHTML='';if(shouldGoBack)history.back()}
 
 let autoClassifyTimer=0,autoClassifyToken=0,autoLabelSelection=[];
+function localLabelIdeas(){
+ const text=[$('quickTitle').value,$('quickIdea').value,$('quickUrl').value].join(' ').toLowerCase();
+ const rules=[
+ ['Genre',[['Pop','pop'],['Rock','rock guitar band'],['Indie','indie alternative'],['Classical','classical piano orchestra'],['Hip-hop','hip hop rap'],['Electronic','edm electronic synth'],['Acoustic','acoustic unplugged'],['R&B','r&b soul'],['Folk','folk country'],['Lo-fi','lofi lo-fi']]],
+ ['Mood',[['Nostalgic','nostalgia nostalgic old days childhood পুরোনো শৈশব স্মৃতি আগের দিন'],['Melancholic','sad lonely heartbreak miss you বিষণ্ণ মন খারাপ কষ্ট বিরহ'],['Peaceful','peaceful calm quiet relax শান্ত নিরিবিলি'],['Romantic','love lover romantic প্রেম ভালোবাসা'],['Hopeful','hope dream future আশা স্বপ্ন'],['Energetic','energy dance party excited উচ্ছ্বসিত'],['Reflective','thinking reflect memory life অতীত ভাবনা'],['Uplifting','motivation inspire strength অনুপ্রেরণা'],['Dreamy','dreamy night moon stars স্বপ্নিল রাত'],['Playful','fun funny playful হাসি মজা']]],
+ ['Tags',[['Memories','memory memories remember nostalgia স্মৃতি মনে পড়ে'],['Late night','night midnight রাত নিশি'],['Rainy days','rain rainy বৃষ্টি'],['Travel','travel journey road trip ভ্রমণ পথ'],['Friendship','friend friends বন্ধু বন্ধুত্ব'],['Love story','love lover প্রেম ভালোবাসা'],['Moving on','moving on goodbye farewell বিদায়'],['Focus','focus study work পড়াশোনা মনোযোগ'],['Celebration','birthday celebrate party উৎসব'],['Personal favorite','favorite favourite প্রিয়']]]
+ ];
+ const found=[];
+ rules.forEach(function(group){const matches=group[1].filter(function(rule){return rule[1].split(' ').some(function(word){return text.indexOf(word)!==-1})}).map(function(rule){return rule[0]});if(matches.length)found.push([group[0],matches.slice(0,5)])});
+ const tokens=text.match(/[a-z0-9\u0980-\u09ff]+/g)||[];
+ const known=getKnownLabels().filter(function(value){const low=value.toLowerCase();return tokens.some(function(token){return token.length>3&&(low.indexOf(token)!==-1||token.indexOf(low)!==-1)})}).slice(0,3);
+ if(known.length){const tags=found.find(function(group){return group[0]==='Tags'});if(tags)tags[1]=Array.from(new Set(tags[1].concat(known))).slice(0,6);else found.push(['Tags',known])}
+ return found;
+}
+function renderAutoLabelGroups(groups,status){
+ autoLabelSelection=[];
+ $('autoLabelChoices').innerHTML=groups.map(function(group){return'<div class="auto-label-group"><span class="auto-label-kind">'+esc(group[0])+'</span><div class="auto-label-chips">'+group[1].map(function(value){const item={kind:group[0],value:String(value)};autoLabelSelection.push(item);return'<button type="button" class="auto-label-chip" aria-pressed="false" data-auto-label="'+esc(item.value)+'" data-auto-kind="'+esc(item.kind)+'">'+esc(item.value)+'</button>'}).join('')+'</div></div>'}).join('');
+ $('autoLabelStatus').textContent=status;$('autoLabelPanel').classList.toggle('hidden',!autoLabelSelection.length);
+}
 function scheduleAutoClassify(rawUrl){
- clearTimeout(autoClassifyTimer);const token=++autoClassifyToken;
- const url=String(rawUrl||'').trim(),panel=$('autoLabelPanel');
- if(!url){panel.classList.add('hidden');panel.innerHTML=panel.innerHTML;return}
+ clearTimeout(autoClassifyTimer);const token=++autoClassifyToken,url=String(rawUrl||'').trim(),local=localLabelIdeas();
+ renderAutoLabelGroups(local,local.length?'Quick suggestions from your title and note':'Add a title or a few words about the song to get suggestions');
  let valid=false;try{const u=new URL(url),h=u.hostname.toLowerCase();valid=!!videoId(url)||h==='open.spotify.com'||h.endsWith('.open.spotify.com')||h==='soundcloud.com'||h.endsWith('.soundcloud.com')}catch(e){}
- if(!valid){panel.classList.add('hidden');return}
- panel.classList.remove('hidden');$('autoLabelStatus').textContent='Analysing song…';$('autoLabelChoices').innerHTML='';
- autoClassifyTimer=setTimeout(function(){runAutoClassify(url,token)},2100);
+ if(!valid)return;
+ $('autoLabelStatus').textContent=local.length?'Checking for more song-specific ideas…':'Analysing song link…';
+ autoClassifyTimer=setTimeout(function(){runAutoClassify(url,token)},1600);
 }
 async function runAutoClassify(url,token){
  const title=$('quickTitle').value.trim(),note=$('quickIdea').value.trim();
@@ -1961,13 +1987,11 @@ async function runAutoClassify(url,token){
   const response=await fetch(SUPABASE_URL+'/functions/v1/mnote-ai',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'classify',context:{title:title,song_url:url,note:note,mood:$('quickMood').value,tags:$('quickTags').value,favorite_moment:$('quickStart').value}})});
   const data=await response.json().catch(function(){return{}});
   if(token!==autoClassifyToken||$('quickUrl').value.trim()!==url)return;
-  if(!response.ok)throw new Error(data.error||'Could not suggest labels.');
-  autoLabelSelection=[];
-  const groups=[['Genre',data.genre||[]],['Mood',data.mood||[]],['Tags',data.tags||[]]];
-  $('autoLabelChoices').innerHTML=groups.map(function(group){if(!group[1].length)return'';return'<div class="auto-label-group"><span class="auto-label-kind">'+esc(group[0])+'</span><div class="auto-label-chips">'+group[1].map(function(value){const item={kind:group[0],value:String(value)};autoLabelSelection.push(item);return'<button type="button" class="auto-label-chip selected" aria-pressed="true" data-auto-label="'+esc(item.value)+'" data-auto-kind="'+esc(item.kind)+'">'+esc(item.value)+'</button>'}).join('')+'</div></div>'}).join('');
-  if(!autoLabelSelection.length)throw new Error('No reliable labels found for this song.');
-  $('autoLabelStatus').textContent='Suggestions ready';
- }catch(error){if(token===autoClassifyToken)$('autoLabelStatus').textContent=String(error.message||'Label suggestions unavailable.').slice(0,120)}
+  if(!response.ok)throw new Error(data.error||'AI suggestions unavailable');
+  const ai=[['Genre',data.genre||[]],['Mood',data.mood||[]],['Tags',data.tags||[]]],local=localLabelIdeas();
+  const merged=['Genre','Mood','Tags'].map(function(kind){const remote=ai.find(function(group){return group[0]===kind})[1],base=local.find(function(group){return group[0]===kind});return[kind,Array.from(new Set((base?base[1]:[]).concat(remote.map(String)))).slice(0,7)]}).filter(function(group){return group[1].length});
+  renderAutoLabelGroups(merged,'Song-specific suggestions ready · review before adding');
+ }catch(error){if(token===autoClassifyToken)$('autoLabelStatus').textContent='Quick suggestions ready · AI unavailable right now'}
 }
 $('autoLabelChoices').addEventListener('click',function(ev){const chip=ev.target.closest('[data-auto-label]');if(!chip)return;const selected=chip.classList.toggle('selected');chip.setAttribute('aria-pressed',String(selected))});
 function applySelectedAutoLabels(showFeedback){
@@ -2096,7 +2120,7 @@ function archiveNote(id){archived.add(id);trashed.delete(id);saveSet('mnote:arch
 function closeSidebar(){$('sidebar').classList.remove('open');$('backdrop').classList.remove('show')}
 function setView(v){view=v;label='';closeSidebar();render()}
 function menuToggle(){if(matchMedia('(max-width:760px)').matches){$('sidebar').classList.toggle('open');$('backdrop').classList.toggle('show',$('sidebar').classList.contains('open'))}else $('app').classList.toggle('mini')}
-$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value);scheduleAutoClassify(this.value)});
+$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value);scheduleAutoClassify(this.value)});$('quickTitle').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});$('quickIdea').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});
 $('quickTags').addEventListener('input',updateLabelSuggestions);
 $('quickTags').addEventListener('focus',updateLabelSuggestions);
 $('quickTags').addEventListener('keydown',function(ev){if(ev.key==='ArrowDown'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(1)}else if(ev.key==='ArrowUp'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(-1)}else if(ev.key==='Enter'&&!$('labelSuggestions').classList.contains('hidden')){const items=$('labelSuggestions').querySelectorAll('[data-label-suggestion]');if(activeLabelSuggestion>=0&&items[activeLabelSuggestion]){ev.preventDefault();chooseLabelSuggestion(items[activeLabelSuggestion].dataset.labelSuggestion)}}else if(ev.key==='Escape'&&!$('labelSuggestions').classList.contains('hidden')){ev.stopPropagation();hideLabelSuggestions()}});
