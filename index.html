@@ -1837,7 +1837,7 @@ body .topbar .search .glass{font-size:20px!important}
 <div class="auto-label-panel hidden" id="autoLabelPanel" aria-live="polite">
   <div class="auto-label-head"><strong>Smart tag & mood suggestions</strong><span id="autoLabelStatus">Analysing song…</span></div>
   <div id="autoLabelChoices"></div>
-  <div class="auto-label-foot"><small>Suggestions are optional. Choose only what feels right.</small><button type="button" class="text-btn primary" id="applyAutoLabels">Add selected</button></div>
+  <div class="auto-label-foot"><small>Suggestions are added to your draft automatically. Edit or remove them anytime.</small></div>
 </div></div>
 <div class="form-group compose-memory-group"><div class="compose-section-kicker" aria-hidden="true"><span>02</span> Personal note</div><label class="form-label" for="quickIdea">Your note about this song</label><textarea class="field" id="quickIdea" placeholder="What feeling or memory does this song bring back?" aria-label="Memory"></textarea></div>
 <div class="form-group compose-details-group"><div class="compose-section-kicker" aria-hidden="true"><span>03</span> Make it easy to find</div><div class="fields"><div class="label-suggest-wrap"><label class="form-label desktop-field-label" for="quickTags">Labels</label><input class="field" id="quickTags" placeholder="Labels, separated by commas" aria-label="Labels" autocomplete="off" aria-autocomplete="list" aria-controls="labelSuggestions"><div class="label-suggestions hidden" id="labelSuggestions" role="listbox" aria-label="Previously used labels"></div></div><div><label class="form-label desktop-field-label" for="quickMood">Mood</label><input class="field" id="quickMood" placeholder="e.g. nostalgic, peaceful" aria-label="Mood" autocomplete="off"></div><div><label class="form-label desktop-field-label" for="quickStart">Favorite moment</label><input class="field" id="quickStart" placeholder="Favorite moment (e.g. 1:23)" aria-label="Favorite moment"></div></div></div>
@@ -1970,8 +1970,9 @@ function localLabelIdeas(){
 }
 function renderAutoLabelGroups(groups,status){
  autoLabelSelection=[];
- $('autoLabelChoices').innerHTML=groups.map(function(group){return'<div class="auto-label-group"><span class="auto-label-kind">'+esc(group[0])+'</span><div class="auto-label-chips">'+group[1].map(function(value){const item={kind:group[0],value:String(value)};autoLabelSelection.push(item);return'<button type="button" class="auto-label-chip" aria-pressed="false" data-auto-label="'+esc(item.value)+'" data-auto-kind="'+esc(item.kind)+'">'+esc(item.value)+'</button>'}).join('')+'</div></div>'}).join('');
+ $('autoLabelChoices').innerHTML=groups.map(function(group){return'<div class="auto-label-group"><span class="auto-label-kind">'+esc(group[0])+'</span><div class="auto-label-chips">'+group[1].map(function(value){const item={kind:group[0],value:String(value)};autoLabelSelection.push(item);return'<button type="button" class="auto-label-chip selected" aria-pressed="true" data-auto-label="'+esc(item.value)+'" data-auto-kind="'+esc(item.kind)+'">'+esc(item.value)+'</button>'}).join('')+'</div></div>'}).join('');
  $('autoLabelStatus').textContent=status;$('autoLabelPanel').classList.toggle('hidden',!autoLabelSelection.length);
+ if(autoLabelSelection.length)applySelectedAutoLabels(false);
 }
 function scheduleAutoClassify(rawUrl){
  clearTimeout(autoClassifyTimer);const token=++autoClassifyToken,url=String(rawUrl||'').trim(),local=localLabelIdeas();
@@ -2004,7 +2005,7 @@ function applySelectedAutoLabels(showFeedback){
  if(showFeedback&&selected.length){$('autoLabelStatus').textContent='Selected labels added to your draft';toast('AI labels added. They will be saved with your note.')}
  return selected.length;
 }
-$('applyAutoLabels').addEventListener('click',function(){applySelectedAutoLabels(true)});
+if($('applyAutoLabels'))$('applyAutoLabels').addEventListener('click',function(){applySelectedAutoLabels(true)});
 function cleanSongMetadataTitle(rawTitle,rawArtist){
  let title=String(rawTitle||"").replace(/\s+/g," ").trim();
  let artist=String(rawArtist||"").replace(/\s+/g," ").trim();
