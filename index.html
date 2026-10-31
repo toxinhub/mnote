@@ -2302,6 +2302,47 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
     margin:12px -24px 14px!important;
   }
 }
+
+/* Contain the live YouTube player inside the modal; no negative side margins. */
+@media screen and (min-width:761px){
+  #detailOverlay{box-sizing:border-box!important;overflow:auto!important}
+  #detailOverlay #detailDialog{
+    box-sizing:border-box!important;
+    max-width:calc(100vw - 48px)!important;
+    overflow-x:hidden!important;
+  }
+  #detailOverlay #detailDialog .desktop-detail-layout,
+  #detailOverlay #detailDialog .desktop-detail-media{
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:hidden!important;
+  }
+  #detailOverlay #detailDialog .desktop-detail-media .dialog-video,
+  #detailOverlay #detailDialog .dialog-video{
+    display:block!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    height:auto!important;
+    aspect-ratio:16/9!important;
+    max-height:none!important;
+    margin:0 0 16px!important;
+    overflow:hidden!important;
+  }
+  #detailOverlay #detailDialog .dialog-video iframe,
+  #detailOverlay #detailDialog .dialog-video img{
+    display:block!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    border:0!important;
+  }
+}
 </style>
 </body>
 </html>
