@@ -2086,7 +2086,7 @@ async function lookupLyricsForNote(e){
   lrclibNextRequestAt=Date.now()+300;
   if(response.status===429){
    const retry=response.headers.get('Retry-After');
-   let delay=retry&&/^\\d+(?:\\.\\d+)?$/.test(retry)?Number(retry)*1000:(retry?Math.max(0,Date.parse(retry)-Date.now()):30000);
+   let delay=retry&&/^\d+(?:\.\d+)?$/.test(retry)?Number(retry)*1000:(retry?Math.max(0,Date.parse(retry)-Date.now()):30000);
    if(!Number.isFinite(delay)||delay<=0)delay=30000;
    lrclibRetryAt=Date.now()+delay;
    throw new Error('RATE_LIMIT');
