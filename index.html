@@ -2167,8 +2167,7 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 function finishLaunchScreen(){const screen=document.getElementById('launchScreen');if(!screen||screen.dataset.finished==='1')return;screen.dataset.finished='1';const wait=Math.max(0,700-(Date.now()-(window.__mnoteLaunchStarted||Date.now())));window.setTimeout(function(){screen.classList.add('is-leaving');window.setTimeout(function(){screen.remove()},380)},wait)}
 window.__mnoteLaunchStarted=Date.now();window.setTimeout(finishLaunchScreen,12000);
 receiveShareTarget();
-/* Warm the YouTube player before the first user play gesture. */
-ensureYouTubeApi(createPersistentPlayer);
+/* YouTube playback now uses a direct iframe created on the user's Play tap. */
 load().finally(finishLaunchScreen);
 })();
 </script><script src="public-desktop.js?v=20261029-minimize-detail" defer></script>
