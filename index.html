@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#fff">
-<!-- Pages cache-refresh: 2026-10-31-direct-iframe-player-1 -->
+<!-- Pages cache-refresh: 2026-10-31-youtube-player-min-size-fix-1 -->
 <title>m}note — Song Notes</title>
 <link rel="icon" type="image/svg+xml" href="./mnote-icon.svg?v=20261030-2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2143,8 +2143,11 @@ function createPersistentPlayer(){
  window.mnotePlayerReady=false;
  const playerHost=$('persistentPlayerHost');
  if(playerHost&&!window.mnotePlayerIframeObserver){window.mnotePlayerIframeObserver=new MutationObserver(function(){const frame=playerHost.querySelector('iframe');if(frame){frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');frame.setAttribute('allow','autoplay; encrypted-media; picture-in-picture; fullscreen');}});window.mnotePlayerIframeObserver.observe(playerHost,{childList:true,subtree:true});}
+ /* YouTube's embedded player must be initialized at least 200×200.
+    The dock is visually 60×60, so 100% here created an undersized 52×52
+    iframe and caused the same playback failure for every video. */
  window.mnoteYTPlayer=new YT.Player('persistentPlayerHost',{
-  width:'100%',height:'100%',
+  width:320,height:200,
   playerVars:{autoplay:0,playsinline:1,rel:0,enablejsapi:1,origin:location.origin},
   events:{
    onReady:function(event){try{const frame=event.target.getIframe();if(frame)frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin')}catch(e){}window.mnotePlayerReady=true;if(window.mnotePendingPlay)playPendingPlayerRequest()},
