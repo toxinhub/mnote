@@ -2321,6 +2321,7 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
   }
   #detailOverlay #detailDialog .desktop-detail-media .dialog-video,
   #detailOverlay #detailDialog .dialog-video{
+    position:relative!important;
     display:block!important;
     box-sizing:border-box!important;
     width:100%!important;
@@ -2329,17 +2330,22 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
     height:auto!important;
     aspect-ratio:16/9!important;
     max-height:none!important;
-    margin:0 0 16px!important;
+    margin:0 0 14px!important;
+    padding:0!important;
     overflow:hidden!important;
+    border-radius:12px!important;
   }
   #detailOverlay #detailDialog .dialog-video iframe,
   #detailOverlay #detailDialog .dialog-video img{
+    position:absolute!important;
+    inset:0!important;
     display:block!important;
     box-sizing:border-box!important;
     width:100%!important;
     max-width:100%!important;
     height:100%!important;
     min-height:0!important;
+    object-fit:contain!important;
     border:0!important;
   }
 }
