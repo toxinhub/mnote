@@ -2014,7 +2014,7 @@ function cleanSongMetadataTitle(rawTitle,rawArtist){
  const meta=/(?:official(?:\s+(?:music\s+)?video|\s+audio)?|music\s+video|lyric(?:s|\s+video)?|audio|visuali[sz]er|4k|1080p|720p|hd|remaster(?:ed)?|live(?:\s+version)?|performance|dance\s+practice|color\s+coded|stage\s+mix|mv)(?:\s+(?:official|version))?/i;
  title=title.replace(/\s*\[([^\]]*)\]\s*/g,function(part,inside){return meta.test(inside)?" ":" "+part+" "});
  title=title.replace(/\s*\(([^)]*)\)\s*/g,function(part,inside){return meta.test(inside)?" ":" "+part+" "});
- title=title.replace(/\s*(?:\||:|—)\s*(?:official\b|music\s+video\b|lyrics?\b|audio\b|visuali[sz]er\b|4k\b|1080p\b|720p\b|hd\b|remaster(?:ed)?\b|live\b|mv\b).*/i,"");
+ title=title.replace(/\s*[-–—|:]\s*(?:official\b|music\s+video\b|lyrics?\b|lyric\s+video\b|audio\b|visuali[sz]er\b|4k\b|1080p\b|720p\b|hd\b|remaster(?:ed)?\b|live\b|mv\b|performance\b|dance\s+practice\b|color\s+coded\b|stage\s+mix\b).*/i,"");
  title=title.replace(/\s+#(?:[\w-]+)(?:\s+#?[\w-]+)*\s*$/,"").replace(/\s+/g," ").trim();
  if(artist){
   const lower=title.toLocaleLowerCase(),a=artist.toLocaleLowerCase();
