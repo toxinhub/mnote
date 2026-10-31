@@ -1898,7 +1898,7 @@ $('quickTitle').value=sharedTitle;
 $('linkStatus').textContent='Saving shared song…';
 saveSharedEntry(safeUrl,sharedTitle);
 }else{
-if(sharedTitle)$('quickTitle').value=sharedTitle;
+if(sharedTitle)$('quickTitle').value=cleanSongMetadataTitle(sharedTitle,'');
 if(sharedNote)$('quickIdea').value=sharedNote;
 toast('Shared content received. Review it and submit your note.');
 }
@@ -2009,18 +2009,20 @@ function applySelectedAutoLabels(showFeedback){
 }
 if($('applyAutoLabels'))$('applyAutoLabels').addEventListener('click',function(){applySelectedAutoLabels(true)});
 function cleanSongMetadataTitle(rawTitle,rawArtist){
- let title=String(rawTitle||"").replace(/\s+/g," ").trim();
- const artist=String(rawArtist||"").replace(/\s+/g," ").trim().replace(/\s*(?:-|[|])?\s*(?:Topic|VEVO)\s*$/i,"").trim();
- title=title.replace(/\s*\[[^\]]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version)[^\]]*\]\s*/ig," ");
- title=title.replace(/\s*\([^)]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version|lyric video)[^)]*\)\s*/ig," ");
- title=title.replace(/\s*(?:\||:)\s*(?:official\b|music video\b|lyrics?\b|audio\b|visuali[sz]er\b|4k\b|hd\b|lyric video\b).*/i,"");
- title=title.replace(/\s*#[\w-]+(?:\s+#?[\w-]+)*\s*$/,"").replace(/\s+/g," ").trim();
+ let title=String(rawTitle||"").replace(/[\u200B-\u200D\uFEFF]/g,"").replace(/\s+/g," ").trim();
+ const artist=String(rawArtist||"").replace(/\s+/g," ").trim().replace(/\s*(?:-|\|)?\s*(?:Topic|VEVO)\s*$/i,"").trim();
+ const meta=/(?:official(?:\s+(?:music\s+)?video|\s+audio)?|music\s+video|lyric(?:s|\s+video)?|audio|visuali[sz]er|4k|1080p|720p|hd|remaster(?:ed)?|live(?:\s+version)?|performance|dance\s+practice|color\s+coded|stage\s+mix|mv)(?:\s+(?:official|version))?/i;
+ title=title.replace(/\s*\[([^\]]*)\]\s*/g,function(part,inside){return meta.test(inside)?" ":" "+part+" "});
+ title=title.replace(/\s*\(([^)]*)\)\s*/g,function(part,inside){return meta.test(inside)?" ":" "+part+" "});
+ title=title.replace(/\s*(?:\||:|—)\s*(?:official\b|music\s+video\b|lyrics?\b|audio\b|visuali[sz]er\b|4k\b|1080p\b|720p\b|hd\b|remaster(?:ed)?\b|live\b|mv\b).*/i,"");
+ title=title.replace(/\s+#(?:[\w-]+)(?:\s+#?[\w-]+)*\s*$/,"").replace(/\s+/g," ").trim();
  if(artist){
-  const parts=title.split(/\s+[-–—|:]\s+/).map(function(part){return part.trim()});
-  if(parts.length>1&&parts[0].toLocaleLowerCase()===artist.toLocaleLowerCase())title=parts.slice(1).join(" - ");
-  else if(parts.length>1&&parts[parts.length-1].toLocaleLowerCase()===artist.toLocaleLowerCase())title=parts.slice(0,-1).join(" - ");
-  else {const suffix=" by "+artist;if(title.toLocaleLowerCase().endsWith(suffix.toLocaleLowerCase()))title=title.slice(0,-suffix.length).trim()}
+  const lower=title.toLocaleLowerCase(),a=artist.toLocaleLowerCase();
+  if(lower.startsWith(a+" - ")||lower.startsWith(a+" – ")||lower.startsWith(a+" — ")||lower.startsWith(a+" | ")||lower.startsWith(a+": "))title=title.slice(artist.length).replace(/^\s*[-–—|:]\s*/,"");
+  else if(lower.endsWith(" - "+a)||lower.endsWith(" – "+a)||lower.endsWith(" — "+a)||lower.endsWith(" | "+a)||lower.endsWith(": "+a))title=title.slice(0,title.length-artist.length).replace(/\s*[-–—|:]\s*$/,"");
+  else if(lower.endsWith(" by "+a))title=title.slice(0,-(artist.length+4)).trim();
  }
+ title=title.replace(/\s+(?:feat(?:uring)?|ft)\.?\s+.+$/i,"");
  return title.replace(/^[\s\-–—|:]+|[\s\-–—|:]+$/g,"").replace(/\s+/g," ").trim().slice(0,180);
 }
  function lookupSongTitle(rawUrl){clearTimeout(titleLookupTimer);titleLookupToken++;const url=String(rawUrl||'').trim(),titleInput=$('quickTitle'),status=$('linkStatus');if(!url){status.textContent='';return}let provider='',lookupUrl='';const vid=videoId(url);try{const u=new URL(url),host=u.hostname.toLowerCase();if(vid){provider='YouTube';lookupUrl='https://www.youtube.com/oembed?format=json&url='+encodeURIComponent('https://www.youtube.com/watch?v='+vid)}else if(host==='open.spotify.com'||host.endsWith('.open.spotify.com')){provider='Spotify';lookupUrl='https://open.spotify.com/oembed?url='+encodeURIComponent(url)}else if(host==='soundcloud.com'||host.endsWith('.soundcloud.com')){provider='SoundCloud';lookupUrl='https://soundcloud.com/oembed?format=json&url='+encodeURIComponent(url)}}catch(e){}if(!provider){status.textContent='';return}const token=titleLookupToken;status.textContent='Finding song title…';titleLookupTimer=setTimeout(async function(){try{const response=await fetch(lookupUrl,{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Title unavailable');const data=await response.json(),artist=String(data.author_name||'').replace(/\s+/g,' ').replace(/\s*(?:-)?\s*(?:Topic|VEVO)\s*$/i,'').trim(),found=cleanSongMetadataTitle(data.title,data.author_name);if(token!==titleLookupToken)return;const artistInput=$('quickArtist'),currentArtist=artistInput?artistInput.value.trim():'';if(artistInput&&artist&&(!currentArtist||currentArtist===lastAutoArtist)){artistInput.value=artist;lastAutoArtist=artist}if(!found)throw new Error('Title unavailable');const current=titleInput.value.trim();if(!current||current===lastAutoTitle){titleInput.value=found;lastAutoTitle=found;status.textContent='Title found — you can edit it.';scheduleAutoClassify(url)}else status.textContent='Title found. Your edited title was kept.'}catch(e){if(token===titleLookupToken)status.textContent='Couldn’t fetch the title. You can enter it manually.'}},350)}
