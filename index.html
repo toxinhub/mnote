@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#fff">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#fff">
 <!-- Pages cache-refresh: 2026-10-30 -->
 <title>m}note — Song Notes</title>
 <link rel="icon" type="image/svg+xml" href="./mnote-icon.svg?v=20261030-2">
@@ -2116,9 +2116,9 @@ function createPersistentPlayer(){
   width:'100%',height:'100%',
   playerVars:{autoplay:0,playsinline:1,rel:0,enablejsapi:1,origin:location.origin},
   events:{
-   onReady:function(){window.mnotePlayerReady=true;if(window.mnotePendingPlay)playPendingPlayerRequest()},
+   onReady:function(event){try{const frame=event.target.getIframe();if(frame)frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin')}catch(e){}window.mnotePlayerReady=true;if(window.mnotePendingPlay)playPendingPlayerRequest()},
    onStateChange:onYouTubePlayerStateChange,
-   onError:function(){clearPlayerProgressTimer();window.mnotePlayerReady=true;window.mnotePendingPlay=null;playingDetailId=null;playingVideoId=null;window.mnoteLoadedVideoId=null;window.mnoteYouTubeIsPlaying=false;resetDockGeometry();$('miniDetailDock').classList.toggle('show',minimizedDetailId!==null);$('miniPlayerOrb').classList.remove('is-playing');toast('This video could not be played. Try another link.')}
+   onError:function(event){clearPlayerProgressTimer();window.mnotePlayerReady=true;window.mnotePendingPlay=null;playingDetailId=null;playingVideoId=null;window.mnoteLoadedVideoId=null;window.mnoteYouTubeIsPlaying=false;resetDockGeometry();$('miniDetailDock').classList.toggle('show',minimizedDetailId!==null);$('miniPlayerOrb').classList.remove('is-playing');toast('YouTube playback error '+(event&&event.data?event.data:'')+'. Check the connection or open on YouTube.')}
   }
  });
 }
