@@ -528,7 +528,31 @@
  async function writeAuto(entry,patch){if(!Object.keys(patch).length)return;const {data,error}=await db.from("entries").update(patch).eq("id",entry.id).eq("status","approved").select("id").maybeSingle();if(error)throw error;if(!data)throw Error("Entry is no longer approved or could not be found; no update was applied.");Object.assign(entry,patch)}
  async function waitAi(){while(updateRun.running&&!updateRun.paused){const left=Math.max(AI_GAP-(Date.now()-(updateRun.lastAiAt||0)),(updateRun.retryAfter||0)-Date.now());if(left<=0){updateRun.pausedByApi=false;return true}updateRun.currentStep=(updateRun.pausedByApi?"Waiting for API recovery — ":"AI request interval — ")+Math.ceil(left/1000)+"s";updateRun.info=updateRun.pausedByApi?"Temporary API limit/error. The same song remains queued and will retry automatically.":"Rate-safe queue: waiting for the next request window.";persistRun();drawRun();await new Promise(r=>setTimeout(r,Math.min(1000,left)))}return false}
  async function getUpdateEntry(id){let entry=rows.find(x=>String(x.id)===String(id));if(entry)return entry;const {data,error}=await db.from("entries").select("id,title,artist,mood,idea,inspiration_note,favorite_moment,song_url,platform,tags,status").eq("id",id).maybeSingle();if(error)throw error;if(!data)return null;return data}
- async function updateOne(id){
+ function normalizeMusicMatch(value){
+ return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[’‘]/g,"'").replace(/[^\p{L}\p{N}]+/gu," ").trim().replace(/\s+/g," ");
+}
+async function verifyTitleWithMusicBrainz(candidate,artist){
+ const title=String(candidate||"").trim(),credit=String(artist||"").trim();
+ if(!title||!credit)return{matched:false,reason:"title or artist missing"};
+ const esc=v=>String(v).replace(/\\/g,"\\\\").replace(/"/g,'\\"');
+ const query='recording:"'+esc(title)+'" AND artist:"'+esc(credit)+'"';
+ const endpoint="https://musicbrainz.org/ws/2/recording/?fmt=json&limit=8&query="+encodeURIComponent(query);
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);
+ try{
+  const response=await fetch(endpoint,{signal:controller.signal,headers:{Accept:"application/json"}});
+  if(!response.ok)throw Error("MusicBrainz HTTP "+response.status);
+  const data=await response.json(),items=Array.isArray(data.recordings)?data.recordings:[];
+  const wantTitle=normalizeMusicMatch(title),wantArtist=normalizeMusicMatch(credit);
+  const exact=items.filter(item=>{
+   if(normalizeMusicMatch(item.title)!==wantTitle||Number(item.score)<95)return false;
+   const credits=Array.isArray(item["artist-credit"])?item["artist-credit"].map(c=>typeof c==="string"?c:(c&&c.name)||"").filter(Boolean):[];
+   return credits.map(normalizeMusicMatch).includes(wantArtist);
+  });
+  if(exact.length===1)return{matched:true,title:String(exact[0].title||title),recordingId:exact[0].id,score:Number(exact[0].score)||0};
+  return{matched:false,reason:exact.length>1?"multiple exact recording matches":"no high-confidence exact recording match"};
+ }finally{clearTimeout(timer)}
+}
+async function updateOne(id){
   const entry=await getUpdateEntry(id);
   if(!entry||entry.status!=="approved"){updateRun.skipped++;eventRun("Skipped: song is missing or no longer approved; no database change made.","warn");return"done"}
   const name=entry.title||"Untitled song",url=safeUrl(entry.song_url);
@@ -538,8 +562,17 @@
    const nextPlatform=platformFor(url);
    if(nextPlatform&&nextPlatform!==String(entry.platform||"")){patch.platform=nextPlatform;changed=true}
    if(isSupported(url)){
-    try{const meta=await sourceTitle(url),title=cleanSongMetadataTitle(meta.title,entry.artist||"");if(title&&title!==String(entry.title||"").trim()){patch.title=title;changed=true;eventRun(name+": verified title refreshed from link metadata.","ok")}}
-    catch(e){eventRun(name+": source title not refreshed — "+(e.message||"metadata unavailable")+"; existing title kept.","warn")}
+    try{
+     const meta=await sourceTitle(url),candidate=cleanSongMetadataTitle(meta.title,entry.artist||"");
+     if(candidate){
+      const match=await verifyTitleWithMusicBrainz(candidate,entry.artist||"");
+      if(match.matched&&match.title!==String(entry.title||"").trim()){
+       patch.title=match.title;changed=true;eventRun(name+": title matched to MusicBrainz recording (confidence "+match.score+"); source title verified.","ok");
+      }else if(!match.matched){
+       eventRun(name+": title candidate not accepted ("+match.reason+"); saved title kept for safety.","warn");
+      }
+     }
+    }catch(e){eventRun(name+": title verification unavailable — "+(e.message||"metadata unavailable")+"; existing title kept.","warn")}
    }
   }
   if(url&&isSupported(url)){
