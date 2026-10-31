@@ -2286,6 +2286,22 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
   #detailOverlay #detailDialog .dialog-body{padding:20px 24px 12px!important}
   #detailOverlay #detailDialog .dialog-video{width:min(100%,700px)!important;margin:12px auto 14px!important}
 }
+
+/* Desktop video should use the full dialog width, not the padded text column. */
+@media screen and (min-width:761px){
+  #detailOverlay #detailDialog .dialog-body{overflow-x:hidden!important}
+  #detailOverlay #detailDialog .dialog-video{
+    width:calc(100% + 88px)!important;
+    max-width:none!important;
+    margin:16px -44px 18px!important;
+  }
+}
+@media screen and (min-width:761px) and (max-width:1023px){
+  #detailOverlay #detailDialog .dialog-video{
+    width:calc(100% + 48px)!important;
+    margin:12px -24px 14px!important;
+  }
+}
 </style>
 </body>
 </html>
