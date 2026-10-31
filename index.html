@@ -2350,5 +2350,51 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
   }
 }
 </style>
+
+<style id="desktop-detail-video-compact-v2">
+/* Compact desktop media so song notes and other details remain easy to scan. */
+@media screen and (min-width:761px){
+  #detailOverlay #detailDialog .desktop-detail-media{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    justify-content:center!important;
+    margin:0 auto 10px!important;
+  }
+  #detailOverlay #detailDialog .desktop-detail-media .dialog-video,
+  #detailOverlay #detailDialog .dialog-video{
+    width:min(100%,480px)!important;
+    max-width:480px!important;
+    min-width:0!important;
+    height:auto!important;
+    aspect-ratio:16/9!important;
+    max-height:270px!important;
+    margin:0 auto 12px!important;
+    border-radius:10px!important;
+    overflow:hidden!important;
+  }
+  #detailOverlay #detailDialog .dialog-video iframe,
+  #detailOverlay #detailDialog .dialog-video img{
+    position:absolute!important;
+    inset:0!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    min-height:0!important;
+    object-fit:contain!important;
+    border:0!important;
+  }
+}
+@media screen and (min-width:761px) and (max-width:1023px){
+  #detailOverlay #detailDialog .desktop-detail-media .dialog-video,
+  #detailOverlay #detailDialog .dialog-video{
+    width:min(100%,440px)!important;
+    max-width:440px!important;
+    max-height:248px!important;
+  }
+}
+</style>
+
 </body>
 </html>
