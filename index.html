@@ -2254,5 +2254,38 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
 }
 </style>
 
+
+
+<style id="desktop-detail-video-balance-v1">
+/* Balance desktop song-detail geometry without cropping or distorting the source video. */
+@media screen and (min-width:761px){
+  #detailOverlay{padding:24px!important}
+  #detailOverlay #detailDialog{
+    width:min(780px,calc(100vw - 72px))!important;
+    max-height:min(88dvh,900px)!important;
+  }
+  #detailOverlay #detailDialog .dialog-body{
+    padding:clamp(20px,2.4vw,30px) clamp(24px,3vw,38px) 14px!important;
+  }
+  #detailOverlay #detailDialog .dialog-video{
+    width:min(100%,680px)!important;
+    max-height:none!important;
+    aspect-ratio:16/9!important;
+    height:auto!important;
+    margin:16px auto 18px!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+  }
+  #detailOverlay #detailDialog .dialog-video img,
+  #detailOverlay #detailDialog .dialog-video iframe{
+    display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;
+  }
+}
+@media screen and (min-width:761px) and (max-width:1023px){
+  #detailOverlay #detailDialog{width:min(720px,calc(100vw - 48px))!important}
+  #detailOverlay #detailDialog .dialog-body{padding:20px 24px 12px!important}
+  #detailOverlay #detailDialog .dialog-video{width:100%!important;margin:12px auto 14px!important}
+}
+</style>
 </body>
 </html>
