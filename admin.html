@@ -548,20 +548,20 @@
   hideEditLabelSuggestions();input.focus();input.dispatchEvent(new Event("input",{bubbles:true}));
  }
  function cleanSongMetadataTitle(rawTitle,rawArtist){
- let title=String(rawTitle||"").replace(/\\s+/g," ").trim();
- const artist=String(rawArtist||"").replace(/\\s+/g," ").trim().replace(/\\s*(?:-|\\|)?\\s*(?:Topic|VEVO)\\s*$/i,"").trim();
- title=title.replace(/\\s*\\[[^\\]]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version)[^\\]]*\\]\\s*/ig," ");
- title=title.replace(/\\s*\\([^)]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version|lyric video)[^)]*\\)\\s*/ig," ");
- title=title.replace(/\\s*(?:\\||:)\\s*(?:official\\b|music video\\b|lyrics?\\b|audio\\b|visuali[sz]er\\b|4k\\b|hd\\b|lyric video\\b).*/i,"");
- title=title.replace(/\\s*#[\\w-]+(?:\\s+#?[\\w-]+)*\\s*$/,"").replace(/\\s+/g," ").trim();
- const split=title.match(/^(.{2,70}?)\\s+[-–—]\\s+(.{2,100})$/);
- if(split&&!/^(?:feat\\.?|ft\\.?|with)\\b/i.test(split[2])&&artist){
-  const left=split[1].trim(),right=split[2].trim();
-  if(artist.toLowerCase()===left.toLowerCase())title=right;
-  else if(artist.toLowerCase()===right.toLowerCase())title=left;
+ let title=String(rawTitle||"").replace(/\s+/g," ").trim();
+ const artist=String(rawArtist||"").replace(/\s+/g," ").trim().replace(/\s*(?:-|[|])?\s*(?:Topic|VEVO)\s*$/i,"").trim();
+ title=title.replace(/\s*\[[^\]]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version)[^\]]*\]\s*/ig," ");
+ title=title.replace(/\s*\([^)]*(?:official|music video|lyrics?|audio|visuali[sz]er|4k|hd|remaster(?:ed)?|live version|lyric video)[^)]*\)\s*/ig," ");
+ title=title.replace(/\s*(?:\||:)\s*(?:official\b|music video\b|lyrics?\b|audio\b|visuali[sz]er\b|4k\b|hd\b|lyric video\b).*/i,"");
+ title=title.replace(/\s*#[\w-]+(?:\s+#?[\w-]+)*\s*$/,"").replace(/\s+/g," ").trim();
+ if(artist){
+  const parts=title.split(/\s+[-–—|:]\s+/).map(function(part){return part.trim()});
+  if(parts.length>1&&parts[0].toLocaleLowerCase()===artist.toLocaleLowerCase())title=parts.slice(1).join(" - ");
+  else if(parts.length>1&&parts[parts.length-1].toLocaleLowerCase()===artist.toLocaleLowerCase())title=parts.slice(0,-1).join(" - ");
+  else {const suffix=" by "+artist;if(title.toLocaleLowerCase().endsWith(suffix.toLocaleLowerCase()))title=title.slice(0,-suffix.length).trim()}
  }
- return title.slice(0,180);
- }
+ return title.replace(/^[\s\-–—|:]+|[\s\-–—|:]+$/g,"").replace(/\s+/g," ").trim().slice(0,180);
+}
  function lookupEditTitle(rawUrl){
   clearTimeout(editTitleTimer);const token=++editTitleToken,url=String(rawUrl||"").trim(),title=$("#f-title"),hint=$("#edit-link-status");
   if(!url){hint.textContent="";return}
@@ -697,7 +697,7 @@
  $("#edit-form").addEventListener("submit",async e=>{
   e.preventDefault();if(busy)return;
   const submit=$("#edit-form").querySelector('button[type="submit"]');
-  const p={title:$("#f-title").value.trim(),artist:$("#f-artist").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),tags:$("#f-tags").value.trim(),mood:$("#f-mood").value.trim(),inspiration_note:$("#f-inspiration").value.trim()};
+  const p={title:cleanSongMetadataTitle($("#f-title").value.trim(),$("#f-artist").value.trim()),artist:$("#f-artist").value.trim(),idea:$("#f-idea").value.trim(),song_url:$("#f-url").value.trim(),start_time:$("#f-start").value.trim(),tags:$("#f-tags").value.trim(),mood:$("#f-mood").value.trim(),inspiration_note:$("#f-inspiration").value.trim()};
   const songUrl=safeUrl(p.song_url);if(p.song_url&&!songUrl){msg("#msg","Please enter a valid http or https song URL.",true);return}
   submit.disabled=true;submit.textContent="Saving…";
   try{
