@@ -2064,7 +2064,7 @@ function studioStorageWrite(key,value){try{localStorage.setItem(key,JSON.stringi
 function copyStudioText(value){const text=String(value||'').trim();if(!text)return;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){toast('Copied to clipboard')}).catch(function(){fallbackCopy(text)})}else fallbackCopy(text)}
 function renderStudioPack(pack){
  const results=$('studioResults');if(!results)return;
- const blocks=[['Caption',pack.caption],['Personal expression',pack.expression],['Visual direction',pack.visual_prompt],['Memory prompts',(pack.memory_prompts||[]).map(function(q,i){return(i+1)+'. '+q}).join('\\n')]];
+ const blocks=[['Caption',pack.caption],['Visual direction',pack.visual_prompt]];
  results.innerHTML=blocks.map(function(item,i){return'<article class="studio-output"><div class="studio-output-head"><strong>'+esc(item[0])+'</strong><button type="button" class="studio-copy" data-studio-copy="'+i+'">Copy</button></div><p>'+esc(item[1])+'</p></article>'}).join('');
  results.classList.remove('hidden');
  results.querySelectorAll('[data-studio-copy]').forEach(function(button){button.onclick=function(){const block=blocks[Number(button.dataset.studioCopy)];copyStudioText(block?block[1]:'')}});
