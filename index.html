@@ -1844,7 +1844,7 @@ body .topbar .search .glass{font-size:20px!important}
 (function(){
 'use strict';
 const SUPABASE_URL='https://ekaxlxudxpkkozbyslub.supabase.co';const SUPABASE_KEY='sb_publishable_sT0mSJ1Rp2J5PeLhBZGJFg_dAeS9xfX';
-const $=function(id){return document.getElementById(id)};
+const $=function(id){return document.getElementById(id)};const playerDock=$('miniDetailDock');const playerDockHome=playerDock&&playerDock.parentNode;const playerDockHomeMarker=playerDockHome&&document.createComment('mnote-player-dock-home');if(playerDockHome&&playerDockHomeMarker)playerDockHome.insertBefore(playerDockHomeMarker,playerDock);
 let entries=[],view='all',label='',composerOpen=false,composerHistory=false,detailHistory=false,activeDetail=null,minimizedDetailId=null,playingDetailId=null,playingVideoId=null,lastAutoTitle='',titleLookupTimer=0,titleLookupToken=0,shareTargetLaunch=false;
 let pins=new Set(readArray('mnote:pinned')),archived=new Set(readArray('mnote:archived')),trashed=new Set(readArray('mnote:trash'));
 function readArray(k){try{const a=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(a)?a.map(String):[]}catch(e){return[]}}
@@ -2008,9 +2008,9 @@ function loadingMarkup(){return '<div class="loading-state" role="status"><div c
 async function load(){$('notesGrid').innerHTML=loadingMarkup();try{const response=await fetch(SUPABASE_URL+'/rest/v1/entries?select=*&status=eq.approved&order=updated_at.desc&limit=500',{method:'GET',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,Accept:'application/json'}});const body=await response.json().catch(function(){return{message:'Supabase returned an unreadable response.'}});if(!response.ok){const message=body.message||body.error_description||body.hint||('HTTP '+response.status);$('notesGrid').innerHTML='<div class="empty"><div class="empty-icon">♪</div><strong>Couldn’t load your notes</strong><p>'+esc(message)+'</p><button class="text-btn primary" id="retry">Try again</button></div>';return}entries=Array.isArray(body)?body:[];render()}catch(error){$('notesGrid').innerHTML='<div class="empty"><div class="empty-icon">♪</div><strong>Couldn’t connect to your notes</strong><p>'+esc(error&&error.message||'Please check your connection and try again.')+'</p><button class="text-btn primary" id="retry">Try again</button></div>'}}
 function getPersistentPlayer(){return window.mnoteYTPlayer&&typeof window.mnoteYTPlayer.getIframe==='function'?window.mnoteYTPlayer.getIframe():null}
 function clearPlayerProgressTimer(){if(window.mnoteProgressTimer){clearInterval(window.mnoteProgressTimer);window.mnoteProgressTimer=null}}
-function resetDockGeometry(){const dock=$('miniDetailDock');['left','top','width','height','bottom'].forEach(function(k){dock.style[k]=''});dock.classList.remove('inline-player-mode')}
+function resetDockGeometry(){const dock=$('miniDetailDock');if(playerDockHome&&playerDockHomeMarker&&playerDockHomeMarker.parentNode===playerDockHome&&dock.parentNode!==playerDockHome)playerDockHome.insertBefore(dock,playerDockHomeMarker.nextSibling);['left','top','width','height','bottom','position'].forEach(function(k){dock.style[k]=''});dock.classList.remove('inline-player-mode')}
 function setPlayerProgress(progress){const value=Math.max(0,Math.min(1,Number(progress)||0));const ring=$('miniPlayerProgress');if(ring)ring.style.strokeDashoffset=String(276.46*(1-value));const dot=$('miniPlayerProgressDot');if(dot){const angle=value*Math.PI*2;dot.setAttribute('cx',String(50+44*Math.cos(angle)));dot.setAttribute('cy',String(50+44*Math.sin(angle)))}}
-function setPlayerInline(target){const dock=$('miniDetailDock');if(!target||!target.isConnected||!getPersistentPlayer())return;const rect=target.getBoundingClientRect();if(rect.width<40||rect.height<30)return;dock.style.left=Math.max(0,rect.left)+'px';dock.style.top=Math.max(0,rect.top)+'px';dock.style.width=Math.max(120,rect.width)+'px';dock.style.height=Math.max(68,rect.height)+'px';dock.style.bottom='auto';dock.classList.add('inline-player-mode','show');$('miniPlayerOrb').classList.toggle('is-playing',!!window.mnoteYouTubeIsPlaying)}
+function setPlayerInline(target){const dock=$('miniDetailDock');if(!target||!target.isConnected||!getPersistentPlayer())return;target.style.position='relative';if(dock.parentNode!==target)target.appendChild(dock);dock.style.position='absolute';dock.style.left='0';dock.style.top='0';dock.style.width='100%';dock.style.height='100%';dock.style.bottom='auto';dock.classList.add('inline-player-mode','show');$('miniPlayerOrb').classList.toggle('is-playing',!!window.mnoteYouTubeIsPlaying)}
 function updateInlinePlayerPosition(){const target=window.inlinePlayerTarget;if(target&&target.isConnected&&$('miniDetailDock').classList.contains('inline-player-mode'))setPlayerInline(target)}
 function parkPlayer(){const frame=getPersistentPlayer();window.inlinePlayerTarget=null;resetDockGeometry();if(frame&&(playingVideoId||minimizedDetailId!==null))$('miniDetailDock').classList.add('show');$('miniPlayerOrb').classList.toggle('is-playing',!!window.mnoteYouTubeIsPlaying)}
 function stopPlayback(){clearPlayerProgressTimer();window.inlinePlayerTarget=null;window.mnotePendingPlay=null;if(window.mnoteYTPlayer&&window.mnotePlayerReady&&typeof window.mnoteYTPlayer.stopVideo==='function'){try{window.mnoteYTPlayer.stopVideo()}catch(e){}}resetDockGeometry();window.mnoteYouTubeIsPlaying=false;$('miniPlayerOrb').classList.remove('is-playing');playingDetailId=null;playingVideoId=null;window.mnoteLoadedVideoId=null;setPlayerProgress(0);$('miniDetailDock').classList.toggle('show',minimizedDetailId!==null)}
@@ -2398,5 +2398,21 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
 }
 </style>
 
+
+<style id="modal-inline-player-scroll-attachment-v1">
+/* Keep the live YouTube iframe inside the modal's scrolling video frame. */
+#detailOverlay #detailDialog .dialog-video{position:relative!important;isolation:isolate}
+#detailOverlay #detailDialog .dialog-video > .mini-detail-dock.inline-player-mode{
+  position:absolute!important;inset:0!important;left:0!important;top:0!important;
+  width:100%!important;height:100%!important;bottom:auto!important;
+  z-index:4!important;max-width:none!important;max-height:none!important;
+  margin:0!important;transform:none!important;transition:none!important;
+}
+#detailOverlay #detailDialog .dialog-video > .mini-detail-dock.inline-player-mode .mini-player-orb,
+#detailOverlay #detailDialog .dialog-video > .mini-detail-dock.inline-player-mode #persistentPlayerHost{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  border-radius:inherit!important;overflow:hidden!important;
+}
+</style>
 </body>
 </html>
