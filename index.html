@@ -1440,11 +1440,11 @@
 .mini-player-progress .progress-track{stroke:color-mix(in srgb,var(--focus) 16%,var(--line));stroke-dashoffset:0}
 .mini-player-glyph{position:absolute;inset:0;z-index:3;display:grid;place-items:center;color:var(--focus);font-size:21px;pointer-events:none;text-shadow:0 1px 4px var(--surface)}
 .mini-player-restore{position:absolute;inset:0;z-index:4;width:100%;height:100%;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer}
-.mini-detail-dock.inline-player-mode{bottom:auto;left:0;top:0;width:300px;height:169px;filter:none;animation:none;transform:none;transition:none}
+.mini-detail-dock.inline-player-mode{bottom:auto;left:0;top:0;width:100%;height:100%;min-width:200px;min-height:200px;filter:none;animation:none;transform:none;transition:none}
 .mini-detail-dock.inline-player-mode .mini-player-orb{border:0;border-radius:6px;background:transparent;box-shadow:none}
 .mini-detail-dock.mnote-player-warming,.mini-detail-dock.mnote-player-warming #persistentPlayerHost,.mini-detail-dock.mnote-player-warming #persistentPlayerHost iframe{opacity:.01!important;pointer-events:none!important}
 .mini-detail-dock.inline-player-mode #persistentPlayerHost{inset:0;border-radius:6px;background:transparent;opacity:1;pointer-events:auto}
-.mini-detail-dock.inline-player-mode #persistentPlayerHost iframe{opacity:1;pointer-events:auto;border-radius:6px}
+.mini-detail-dock.inline-player-mode #persistentPlayerHost iframe{width:100%;height:100%;min-width:200px;min-height:200px;opacity:1;pointer-events:auto;border-radius:6px}
 .mini-detail-dock.inline-player-mode .mini-player-progress,.mini-detail-dock.inline-player-mode .mini-player-glyph,.mini-detail-dock.inline-player-mode .mini-player-restore,.mini-detail-dock.inline-player-mode .mini-detail-close{display:none}
 .mini-detail-close{position:absolute;top:-3px;right:-4px;z-index:5;display:grid;place-items:center;width:23px;height:23px;padding:0;border:1px solid var(--surface);border-radius:50%;background:var(--ink);color:var(--surface);font:18px/1 Arial,sans-serif;box-shadow:0 1px 4px #0003;cursor:pointer}
 .mini-detail-close:hover{transform:scale(1.06)}
