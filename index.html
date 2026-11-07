@@ -2036,12 +2036,12 @@ document.addEventListener('load',function(ev){if(ev.target&&ev.target.tagName===
 let mnotePlaylist=[],mnotePlaylistIndex=-1,mnoteQueueActive=false,mnoteQueueSwitching=false;
 function getPlayablePlaylist(){return entries.filter(function(e){return!archived.has(String(e.id))&&!trashed.has(String(e.id))&&!!videoId(e.song_url||'')})}
 function renderListenPanel(){
- const list=getPlayablePlaylist(),count=$('listenCount'),tracks=$('listenTrackList'),now=$('listenNowPlaying');
+ const library=entries.filter(function(e){return!archived.has(String(e.id))&&!trashed.has(String(e.id))}),list=getPlayablePlaylist(),count=$('listenCount'),tracks=$('listenTrackList'),now=$('listenNowPlaying');
  if(!count||!tracks)return;
- count.textContent=list.length+' YouTube '+(list.length===1?'song':'songs');
+ count.textContent=library.length+' songs · '+list.length+' playable';
  const current=mnoteQueueActive&&mnotePlaylistIndex>=0?entries.find(function(e){return String(e.id)===String(mnotePlaylist[mnotePlaylistIndex])}):entries.find(function(e){return String(e.id)===String(playingDetailId)});
  now.textContent=current?(current.title||'Untitled song')+(current.artist?' · '+current.artist:''):'Choose a song to start';
- tracks.innerHTML=list.length?list.map(function(e){const active=current&&String(current.id)===String(e.id);return'<button type="button" class="listen-track '+(active?'is-current':'')+'" data-queue-play="'+esc(e.id)+'"><span class="listen-track-art" aria-hidden="true">♫</span><span class="listen-track-copy"><strong>'+esc(e.title||'Untitled song')+'</strong><small>'+esc(e.artist||'Unknown artist')+'</small></span><span class="listen-track-state">'+(active?'♫':'▶')+'</span></button>'}).join(''):'<div class="listen-empty">No playable YouTube songs yet.</div>';
+ tracks.innerHTML=library.length?library.map(function(e){const active=current&&String(current.id)===String(e.id),url=String(e.song_url||''),lower=url.toLowerCase(),source=lower.indexOf('youtube')>=0||lower.indexOf('youtu.be')>=0?'YouTube':lower.indexOf('soundcloud')>=0?'SoundCloud':lower.indexOf('spotify')>=0?'Spotify':url?'Link':'No link',playable=!!videoId(url);return'<button type="button" class="listen-track '+(active?'is-current ':'')+(playable?'':'is-unavailable')+'" '+(playable?'data-queue-play="'+esc(e.id)+'"':'disabled aria-disabled="true"')+'><span class="listen-track-art" aria-hidden="true">♫</span><span class="listen-track-copy"><strong>'+esc(e.title||'Untitled song')+'</strong><small>'+esc(e.artist||'Unknown artist')+' · '+source+'</small></span><span class="listen-track-state">'+(active?'♫':playable?'▶':'—')+'</span></button>'}).join(''):'<div class="listen-empty">Your approved songs will appear here.</div>';
  const play=$('listenPlayPause');if(play)play.textContent=window.mnoteYouTubeIsPlaying?'Ⅱ':'▶';
 }
 function playPlaylistAt(index){
