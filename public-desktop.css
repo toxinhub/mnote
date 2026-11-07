@@ -1943,3 +1943,46 @@
     width:27px!important;
   }
 }
+
+
+/* Desktop open playlist: the sidebar is the sole scroll container.
+   This keeps every song reachable and places Admin Login after the full queue. */
+@media screen and (min-width:1024px){
+ #sidebar:has(.listen-module.is-open){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  height:calc(100vh - 64px)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  scrollbar-gutter:stable;
+  padding-bottom:20px!important;
+ }
+ #sidebar:has(.listen-module.is-open) .listen-module{
+  flex:0 0 auto!important;
+ }
+ #sidebar:has(.listen-module.is-open) .listen-panel{
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:visible!important;
+  max-height:none!important;
+ }
+ #sidebar:has(.listen-module.is-open) .listen-track-list{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+  overflow:visible!important;
+  overscroll-behavior:auto!important;
+  scrollbar-width:none!important;
+ }
+ #sidebar:has(.listen-module.is-open) .side-foot{
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  margin:22px 14px 0!important;
+  padding:13px 8px 8px!important;
+  border-top:1px solid var(--line)!important;
+ }
+}
