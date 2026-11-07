@@ -1844,3 +1844,42 @@
     max-height:clamp(190px,32vh,270px)!important;
   }
 }
+
+
+/* Desktop sidebar: align playback actions as a compact, deliberate control group. */
+@media screen and (min-width:1024px){
+ #sidebar .listen-panel-top{gap:7px!important}
+ #sidebar .listen-top-actions{gap:5px!important}
+ #sidebar .listen-queue-clear{width:27px;height:27px;flex-basis:27px;border-radius:9px}
+ #sidebar .listen-play-all{width:30px;height:30px;flex-basis:30px;border-radius:10px}
+ #sidebar .listen-controls{
+  justify-content:center!important;gap:clamp(5px,.65vw,9px)!important;
+  padding:7px 0 8px!important;
+ }
+ #sidebar .listen-controls button{
+  width:32px!important;height:32px!important;flex:0 0 32px!important;
+  border-radius:50%!important;font-size:12px!important;
+ }
+ #sidebar .listen-controls button[data-queue-action="seek-back"],
+ #sidebar .listen-controls button[data-queue-action="seek-forward"]{
+  width:36px!important;flex-basis:36px!important;border-radius:10px!important;
+  font-size:8px!important;
+ }
+ #sidebar .listen-controls button[data-queue-action="toggle"]{
+  width:40px!important;height:40px!important;flex-basis:40px!important;
+  border-radius:13px!important;font-size:14px!important;
+ }
+ #sidebar .listen-extra-controls{
+  display:flex!important;align-items:center!important;gap:6px!important;
+  min-height:34px!important;margin:0 1px 7px!important;padding:3px 5px!important;
+  border:1px solid var(--line)!important;border-radius:11px!important;
+ }
+ #sidebar .listen-extra-controls>button{
+  width:27px!important;height:27px!important;flex:0 0 27px!important;
+  border-radius:9px!important;font-size:13px!important;
+ }
+ #sidebar .listen-volume{gap:4px!important;padding-left:3px!important}
+ #sidebar .listen-volume>button{width:25px!important;height:25px!important;flex-basis:25px!important}
+ #sidebar .listen-timeline{gap:5px!important;margin:0 2px 3px!important}
+ #sidebar .listen-timeline input{height:16px!important}
+}
