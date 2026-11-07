@@ -2157,7 +2157,7 @@ setupMnoteMediaSession();
 function openListenPanel(){const panel=$('listenPanel');if(panel&&panel.hidden){panel.hidden=false;$('listenToggle').setAttribute('aria-expanded','true');$('listenModule').classList.add('is-open')}syncSidebarPlayerVisibility()}
 function playPlaylistAt(index){
  if(!mnotePlaylist.length)return;
- if(index<0||index>=mnotePlaylist.length){mnoteQueueActive=false;mnotePlaylistIndex=-1;mnoteQueueCurrentId=null;if(playingVideoId){mnoteQueueSwitching=true;try{stopPlayback()}finally{mnoteQueueSwitching=false}}renderListenPanel();return}
+ if(index<0||index>=mnotePlaylist.length){mnoteQueueActive=false;mnotePlaylistIndex=-1;mnoteQueueCurrentId=null;if(playingVideoId||window.mnoteAudioPlayer){mnoteQueueSwitching=true;try{stopPlayback()}finally{mnoteQueueSwitching=false}}renderListenPanel();return}
  const entry=entries.find(function(e){return String(e.id)===String(mnotePlaylist[index])});
  if(!entry){playPlaylistAt(index+1);return}
  const video=videoId(entry.song_url||''),stage=$('listenVideoStage');if(!stage){playPlaylistAt(index+1);return}
@@ -2167,7 +2167,7 @@ function playPlaylistAt(index){
 }
 function startPlaylist(entryId){
  const list=getPlayablePlaylist();mnotePlaylistBase=list.map(function(e){return String(e.id)});mnotePlaylist=mnotePlaylistBase.slice();if(mnoteShuffle){for(let i=mnotePlaylist.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[mnotePlaylist[i],mnotePlaylist[j]]=[mnotePlaylist[j],mnotePlaylist[i]]}}
- if(!mnotePlaylist.length){toast('No approved YouTube songs are ready to play yet.');return}
+ if(!mnotePlaylist.length){toast('No approved playable songs are ready yet.');return}
  mnoteQueueActive=true;openListenPanel();
  const start=entryId?mnotePlaylist.indexOf(String(entryId)):0;playPlaylistAt(start>=0?start:0);
 }
@@ -2212,7 +2212,7 @@ function updateInlinePlayerPosition(){const target=window.inlinePlayerTarget,doc
 window.addEventListener('resize',updateInlinePlayerPosition,{passive:true});document.addEventListener('scroll',updateInlinePlayerPosition,true);
 function parkPlayer(){const frame=getPersistentPlayer();resetDockGeometry();window.inlinePlayerTarget=null;if(frame&&(playingVideoId||minimizedDetailId!==null))$('miniDetailDock').classList.add('show');$('miniPlayerOrb').classList.toggle('is-playing',!!window.mnoteYouTubeIsPlaying)}
 function stopPlayback(){if(mnoteQueueActive&&!mnoteQueueSwitching){mnoteQueueActive=false;mnotePlaylistIndex=-1}clearPlayerProgressTimer();const audio=window.mnoteAudioPlayer;if(audio){try{audio.pause();audio.removeAttribute('src');audio.load()}catch(e){}window.mnoteAudioPlayer=null}const frame=getPersistentPlayer(),player=window.mnoteYTPlayer;if(player&&window.mnotePlayerReady&&typeof player.stopVideo==='function'){try{player.stopVideo()}catch(e){}}if(frame){try{frame.src='about:blank';frame.remove()}catch(e){}}window.mnoteYTPlayer=null;window.mnotePlayerReady=false;window.mnoteDirectVideoId=null;resetDockGeometry();window.inlinePlayerTarget=null;window.mnotePendingPlay=null;window.mnoteYouTubeIsPlaying=false;$('miniPlayerOrb').classList.remove('is-playing');playingDetailId=null;playingVideoId=null;window.mnoteLoadedVideoId=null;syncMnoteMediaSession();window.mnoteMediaPositionSecond=null;setPlayerProgress(0);$('miniDetailDock').classList.toggle('show',minimizedDetailId!==null)}
-function syncMiniDock(){const frame=getPersistentPlayer();$('miniPlayerOrb').classList.toggle('is-playing',!!frame&&!!window.mnoteYouTubeIsPlaying);$('miniDetailDock').classList.toggle('show',!!playingVideoId||minimizedDetailId!==null||$('detailOverlay').classList.contains('minimized'))}
+function syncMiniDock(){const frame=getPersistentPlayer();$('miniPlayerOrb').classList.toggle('is-playing',!!window.mnoteAudioPlayer&&!!window.mnoteYouTubeIsPlaying||!!frame&&!!window.mnoteYouTubeIsPlaying);$('miniDetailDock').classList.toggle('show',!!playingVideoId||!!window.mnoteAudioPlayer||minimizedDetailId!==null||$('detailOverlay').classList.contains('minimized'))}
 function toggleModal(on,fromPop){const overlay=$('detailOverlay');if(on){overlay.classList.remove('minimized');if(!overlay.classList.contains('show')){detailHistory=true;history.pushState({mnoteDetail:true},'',location.href)}overlay.classList.add('show');document.body.style.overflow='hidden';return}
 const pending=window.mnotePendingPlay;if(pending&&pending.detailId!==null&&activeDetail!==null&&String(pending.detailId)===String(activeDetail))window.mnotePendingPlay=null;
 overlay.classList.remove('show','minimized');document.body.style.overflow='';
