@@ -738,3 +738,132 @@
   padding-top:8px!important;
  }
 }
+
+
+/* Full-screen playlist mode: hide navigation/admin and give the queue the whole workspace. */
+#app:has(#listenModule.is-open) #sidebar{
+ position:fixed!important;
+ z-index:60!important;
+ top:60px!important;
+ right:0!important;
+ bottom:0!important;
+ left:0!important;
+ width:auto!important;
+ height:auto!important;
+ min-height:0!important;
+ flex:0 0 auto!important;
+ overflow:hidden!important;
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:stretch!important;
+ padding:10px clamp(12px,2.6vw,36px) 14px!important;
+ background:var(--page)!important;
+ border-right:0!important;
+}
+#app:has(#listenModule.is-open) #sidebar>*:not(#listenModule){
+ display:none!important;
+}
+#app:has(#listenModule.is-open) .workspace{
+ display:none!important;
+}
+#app:has(#listenModule.is-open) #listenModule{
+ display:flex!important;
+ flex:1 1 auto!important;
+ flex-direction:column!important;
+ width:100%!important;
+ min-width:0!important;
+ min-height:0!important;
+ margin:0!important;
+ padding:0!important;
+ overflow:hidden!important;
+ border:0!important;
+ border-radius:0!important;
+ background:transparent!important;
+ box-shadow:none!important;
+}
+#app:has(#listenModule.is-open) #listenToggle{
+ display:flex!important;
+ flex:0 0 auto!important;
+ width:100%!important;
+ min-height:48px!important;
+ margin:0 0 8px!important;
+ padding:0 8px!important;
+ border-bottom:1px solid var(--line)!important;
+ border-radius:0!important;
+}
+#app:has(#listenModule.is-open) #listenToggle .listen-chevron{
+ transform:rotate(180deg);
+}
+#app:has(#listenModule.is-open) #listenPanel{
+ display:flex!important;
+ flex:1 1 auto!important;
+ flex-direction:column!important;
+ width:100%!important;
+ min-width:0!important;
+ min-height:0!important;
+ max-height:none!important;
+ overflow:hidden!important;
+}
+#app:has(#listenModule.is-open) #listenPanel[hidden]{
+ display:none!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-panel-top,
+#app:has(#listenModule.is-open) #listenPanel .listen-controls,
+#app:has(#listenModule.is-open) #listenPanel .listen-extra-controls,
+#app:has(#listenModule.is-open) #listenPanel .listen-video-stage,
+#app:has(#listenModule.is-open) #listenPanel .listen-timeline,
+#app:has(#listenModule.is-open) #listenPanel .listen-progress-track,
+#app:has(#listenModule.is-open) #listenPanel .listen-footnote{
+ flex:0 0 auto!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-video-stage{
+ width:100%!important;
+ height:clamp(120px,24vh,230px)!important;
+ max-height:230px!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-track-list{
+ display:flex!important;
+ flex:1 1 0!important;
+ flex-direction:column!important;
+ min-width:0!important;
+ min-height:80px!important;
+ width:100%!important;
+ height:auto!important;
+ max-height:none!important;
+ overflow-x:hidden!important;
+ overflow-y:auto!important;
+ overscroll-behavior:contain!important;
+ -webkit-overflow-scrolling:touch!important;
+ scrollbar-width:thin!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-track-list>*{
+ flex:0 0 auto!important;
+ min-width:0!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-track-row{
+ width:100%!important;
+ min-height:54px!important;
+}
+#app:has(#listenModule.is-open) #listenPanel .listen-footnote{
+ margin:7px 0 0!important;
+}
+@media(max-width:760px){
+ #app:has(#listenModule.is-open) #sidebar{
+  top:60px!important;
+  padding:7px 10px calc(8px + env(safe-area-inset-bottom,0px))!important;
+ }
+ #app:has(#listenModule.is-open) #listenToggle{
+  min-height:44px!important;
+  margin-bottom:5px!important;
+ }
+ #app:has(#listenModule.is-open) #listenPanel .listen-video-stage{
+  height:clamp(92px,17vh,145px)!important;
+  max-height:145px!important;
+ }
+ #app:has(#listenModule.is-open) #listenPanel .listen-track-list{
+  min-height:64px!important;
+ }
+ #app:has(#listenModule.is-open) #listenPanel .listen-track-row{
+  min-height:50px!important;
+ }
+}
