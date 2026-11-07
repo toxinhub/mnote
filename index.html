@@ -2001,7 +2001,7 @@ $('autoLabelChoices').addEventListener('click',function(ev){const chip=ev.target
 function applySelectedAutoLabels(showFeedback){
  const selected=Array.from($('autoLabelChoices').querySelectorAll('.auto-label-chip.selected'));
  if(!selected.length){if(showFeedback){$('autoLabelStatus').textContent='Select at least one suggestion first.';toast('Choose at least one suggestion to add.')}return 0;}
- const split=function(value){return String(value||'').split(/[,;\\n]/).map(function(x){return x.trim()}).filter(Boolean)};
+ const split=function(value){return String(value||'').split(/[,;\n]/).map(function(x){return x.trim()}).filter(Boolean)};
  const merge=function(current,items){const values=split(current),seen=new Set(values.map(function(x){return x.toLocaleLowerCase()}));items.forEach(function(x){const v=String(x||'').trim();if(v&&!seen.has(v.toLocaleLowerCase())){values.push(v);seen.add(v.toLocaleLowerCase())}});return values.join(', ')};
  $('quickTags').value=merge($('quickTags').value,selected.filter(function(b){return b.dataset.autoKind!=='Mood'}).map(function(b){return b.dataset.autoLabel}));
  $('quickMood').value=merge($('quickMood').value,selected.filter(function(b){return b.dataset.autoKind==='Mood'}).map(function(b){return b.dataset.autoLabel}));
