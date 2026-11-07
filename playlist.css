@@ -295,3 +295,20 @@
 
 /* Keep the collapsed panel truly collapsed after layout styling. */
 .listen-panel[hidden]{display:none!important}
+
+
+/* Mobile playlist list spacing improvement */
+@media(max-width:760px){
+ .listen-track-list{max-height:min(44dvh,380px);margin-top:8px;gap:6px;padding:2px 1px 5px;}
+ .listen-track{min-height:58px;padding:9px 10px;gap:10px;border-radius:13px;}
+ .listen-track-art{width:40px;height:40px;flex-basis:40px;border-radius:11px;font-size:17px;}
+ .listen-track-copy{gap:3px;}
+ .listen-track-copy strong{font-size:12px;line-height:1.35;}
+ .listen-track-copy small{font-size:10px;line-height:1.3;}
+ .listen-track-state{width:26px;height:26px;font-size:12px;}
+ .listen-track.is-current .listen-track-state{width:27px;height:27px;}
+}
+@media(max-width:380px){
+ .listen-track-list{max-height:min(42dvh,340px);}
+ .listen-track{min-height:56px;padding:8px;}
+}
