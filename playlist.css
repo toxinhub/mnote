@@ -396,3 +396,50 @@
   max-height:min(58dvh,520px);
  }
 }
+
+
+/* Mobile playlist: make the track list the independently scrollable area. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open){
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-module{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:0 0 auto!important;
+  min-height:0!important;
+  width:100%;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-panel{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:0!important;
+  overflow:visible!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:0 1 auto!important;
+  min-height:120px!important;
+  max-height:min(56dvh,560px)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y!important;
+  scrollbar-width:thin;
+  scrollbar-color:var(--muted) transparent;
+  padding-bottom:12px!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list::-webkit-scrollbar{width:4px}
+ .sidebar:has(.listen-module.is-open) .listen-track-list::-webkit-scrollbar-thumb{background:var(--muted);border-radius:8px}
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  flex:0 0 auto!important;
+  margin-top:10px!important;
+ }
+}
