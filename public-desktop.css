@@ -2141,3 +2141,26 @@
   color:#ffc1bd!important;background:#513b3b!important;border-color:#79504e!important;
  }
 }
+
+
+/* Desktop parity: distinct solid blue controls, yellow active state, coral removal. */
+@media screen and (min-width:1024px){
+ #listenModule{background:#f5f8fb!important;border-color:#d7e3ed!important}
+ #listenPanel .listen-play-all,
+ #listenPanel .listen-controls button[data-queue-action="toggle"]{background:#dceefa!important;color:#29465b!important;border-color:#a9cde5!important}
+ #listenPanel .listen-extra-controls>button.is-active{background:#fff3c9!important;color:#6d551b!important;border-color:#e9d48b!important}
+ #listenPanel .listen-queue-clear,
+ #listenPanel [data-queue-action="remove"],
+ #listenPanel .listen-track-remove{background:#ffefed!important;color:#a24f4b!important;border-color:#e9c2bf!important}
+ #listenPanel .listen-track.is-current{background:#fff3c9!important;border-color:#e9d48b!important}
+ #listenPanel .listen-video-stage{background:#263746!important;border-color:#d7e3ed!important}
+ :root[data-theme="dark"] #listenModule{background:#263441!important;border-color:#46596a!important}
+ :root[data-theme="dark"] #listenPanel .listen-play-all,
+ :root[data-theme="dark"] #listenPanel .listen-controls button[data-queue-action="toggle"]{background:#b9d9ed!important;color:#203647!important;border-color:#91bad5!important}
+ :root[data-theme="dark"] #listenPanel .listen-extra-controls>button.is-active,
+ :root[data-theme="dark"] #listenPanel .listen-track.is-current{background:#51472d!important;color:#ffedb5!important;border-color:#8b794b!important}
+ :root[data-theme="dark"] #listenPanel .listen-queue-clear,
+ :root[data-theme="dark"] #listenPanel [data-queue-action="remove"],
+ :root[data-theme="dark"] #listenPanel .listen-track-remove{background:#513b3b!important;color:#ffc1bd!important;border-color:#79504e!important}
+ :root[data-theme="dark"] #listenPanel .listen-video-stage{background:#121c25!important;border-color:#46596a!important}
+}
