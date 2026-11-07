@@ -2086,6 +2086,7 @@ function movePlaylist(step){if(!mnoteQueueActive){if(playingDetailId!==null)adop
 function togglePlaylistPlayback(){
  const p=window.mnoteYTPlayer;
  if(p&&window.mnotePlayerReady){try{if(window.mnoteYouTubeIsPlaying)p.pauseVideo();else p.playVideo();return}catch(e){}}
+ if(playingVideoId){toast('Player controls are connecting. Try again in a moment.');return}
  if(mnoteQueueActive&&mnotePlaylistIndex>=0){toast('Player controls are connecting. Try again in a moment.');return}
  startPlaylist();
 }
