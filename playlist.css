@@ -229,3 +229,66 @@
 :root[data-theme="dark"] .listen-extra-controls>button.is-active{background:color-mix(in srgb,var(--focus) 20%,var(--surface));color:var(--focus)}
 @media(max-width:760px){.listen-extra-controls{gap:7px;padding-bottom:10px}.listen-extra-controls>button{width:34px;height:34px;flex-basis:34px}.listen-volume{gap:5px;padding-left:5px}}
 @media(prefers-reduced-motion:reduce){.listen-extra-controls>button,.listen-volume>button{transition:none}}
+
+
+/* A complete, balanced player layout */
+.listen-panel{display:flex;flex-direction:column;gap:0}
+.listen-panel-top{order:1}
+.listen-video-stage{order:2;margin:8px 0 7px;aspect-ratio:16/9;min-height:0}
+.listen-progress-track{order:3}
+.listen-controls{order:4;justify-content:center;gap:12px;padding:12px 2px 9px}
+.listen-controls button{width:39px;height:39px;flex-basis:39px;border-radius:50%;font-size:15px}
+.listen-controls button[data-queue-action="toggle"]{width:49px;height:49px;flex-basis:49px;font-size:17px}
+.listen-controls .listen-source-note{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+.listen-extra-controls{order:5;margin:0 1px 9px;padding:0 2px 9px;border-bottom:1px solid var(--line)}
+.listen-track-list{order:6;margin-top:3px}
+.listen-footnote{order:7}
+.listen-panel-top{padding:11px 2px 8px}
+.listen-panel-top>div{min-width:0}
+.listen-panel-top strong{font-size:12px;letter-spacing:.01em}
+.listen-panel-top small{font-size:10px;max-width:190px}
+.listen-track-list{max-height:clamp(120px,27vh,220px)}
+
+/* The modal's minimized player becomes a compact companion to Listen. */
+.mini-detail-dock.show:not(.inline-player-mode){
+ width:min(310px,calc(100vw - 24px));height:76px;border-radius:23px;
+ background:color-mix(in srgb,var(--surface) 94%,var(--soft));
+ border:1px solid color-mix(in srgb,var(--line) 78%,var(--muted));
+ box-shadow:0 10px 32px rgba(18,24,20,.2),inset 0 1px 0 rgba(255,255,255,.65);
+ filter:drop-shadow(0 3px 8px #00000012);
+}
+.mini-detail-dock.show:not(.inline-player-mode) .mini-player-orb{
+ left:9px;top:10px;right:auto;bottom:auto;width:54px;height:54px;
+ border-radius:16px;border:1px solid var(--line);background:var(--soft);
+ box-shadow:inset 0 0 0 2px var(--surface),0 2px 6px rgba(0,0,0,.08);
+}
+.mini-detail-dock.show:not(.inline-player-mode) #persistentPlayerHost{border-radius:13px}
+.mini-dock-info{position:absolute;left:73px;right:94px;top:17px;display:flex;min-width:0;flex-direction:column;gap:3px;pointer-events:none}
+.mini-dock-info strong,.mini-dock-info span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini-dock-info strong{font-size:12px;line-height:1.35;font-weight:650;color:var(--ink)}
+.mini-dock-info span{font-size:10px;color:var(--muted)}
+.mini-dock-play{position:absolute;right:39px;top:19px;display:grid;place-items:center;width:37px;height:37px;border:1px solid var(--line);border-radius:50%;background:var(--ink);color:var(--surface);font-size:14px;font-weight:700;box-shadow:0 3px 8px rgba(0,0,0,.12)}
+.mini-dock-play:active{transform:scale(.94)}
+.mini-detail-dock.show:not(.inline-player-mode) .mini-player-restore{left:9px;top:10px;right:auto;bottom:auto;width:54px;height:54px;border-radius:16px}
+.mini-detail-dock.show:not(.inline-player-mode) .mini-detail-close{top:-6px;right:-5px;width:22px;height:22px;font-size:15px}
+.mini-detail-dock.inline-player-mode .mini-dock-info,.mini-detail-dock.inline-player-mode .mini-dock-play{display:none}
+.mini-detail-dock:not(.show) .mini-dock-info,.mini-detail-dock:not(.show) .mini-dock-play{display:none}
+@media(max-width:760px){
+ .listen-panel{padding:0 10px 11px}
+ .listen-video-stage{margin:7px 0 6px;border-radius:12px}
+ .listen-controls{gap:13px;padding:11px 0 8px}
+ .listen-controls button{width:40px;height:40px;flex-basis:40px}
+ .listen-controls button[data-queue-action="toggle"]{width:50px;height:50px;flex-basis:50px}
+ .listen-extra-controls{gap:9px;margin-bottom:8px;padding-bottom:8px}
+ .listen-extra-controls>button{width:35px;height:35px;flex-basis:35px}
+ .listen-volume{gap:6px}
+ .listen-track-list{max-height:min(26dvh,210px)}
+ .mini-detail-dock.show:not(.inline-player-mode){left:10px;bottom:calc(76px + var(--safe));width:min(300px,calc(100vw - 20px));height:72px;border-radius:21px}
+ .mini-detail-dock.show:not(.inline-player-mode) .mini-player-orb{left:8px;top:8px;width:54px;height:54px}
+ .mini-dock-info{left:70px;right:91px;top:15px}
+ .mini-dock-info strong{font-size:11.5px}
+ .mini-dock-play{right:35px;top:17px;width:36px;height:36px}
+ .mini-detail-dock.show:not(.inline-player-mode) .mini-player-restore{left:8px;top:8px;width:54px;height:54px}
+}
+@media(max-width:360px){.mini-detail-dock.show:not(.inline-player-mode){width:calc(100vw - 16px);left:8px}.mini-dock-info{right:86px;left:68px}.listen-volume input[type="range"]{min-width:36px}}
+@media(prefers-reduced-motion:reduce){.mini-dock-play{transition:none}}
