@@ -45,7 +45,7 @@ class MainActivity : Activity() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 if (view?.url?.let { Uri.parse(it).host == "toxinhub.github.io" } == true) {
-                    view.evaluateJavascript("window.__MNOTE_NATIVE_TOKEN='\${bridgeToken}';", null)
+                    view.evaluateJavascript("window.__MNOTE_NATIVE_TOKEN='${bridgeToken}';", null)
                 }
             }
         }
