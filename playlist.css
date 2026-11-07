@@ -44,3 +44,6 @@
  .app.mini .listen-heading-copy,.app.mini .listen-chevron{display:flex}
 }
 :root[data-theme=dark] .listen-play-all{background:#e8eaed;color:#202124}
+
+.listen-track.is-unavailable{opacity:.48;cursor:not-allowed}
+.listen-track.is-unavailable:hover{background:transparent}
