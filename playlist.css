@@ -58,3 +58,46 @@
 .listen-track.is-current .listen-track-art{background:var(--ink);color:var(--surface)}
 .listen-controls button:disabled{opacity:.45;cursor:wait}
 @media(max-width:760px){.listen-video-stage,.listen-stage-prompt{min-height:200px}}
+
+
+/* Listen player refresh — compact, premium controls and true 16:9 video. */
+.listen-module{margin:14px 12px 0 14px;border:1px solid color-mix(in srgb,var(--line) 82%,var(--muted));border-radius:16px;background:var(--surface);box-shadow:0 5px 18px rgba(30,35,32,.055);overflow:hidden}
+.listen-heading{min-height:54px;padding:8px 12px;gap:11px}
+.listen-heading-icon{width:34px;height:34px;flex-basis:34px;border-radius:11px;background:color-mix(in srgb,var(--focus) 10%,var(--soft));font-size:19px}
+.listen-heading-copy strong{font-size:13px;letter-spacing:-.15px}
+.listen-heading-copy small{font-size:10px}
+.listen-panel{padding:0 11px 12px}
+.listen-panel-top{padding:12px 2px 10px}
+.listen-panel-top strong{font-size:12px;letter-spacing:.1px}
+.listen-panel-top small{max-width:158px;font-size:10px}
+.listen-play-all{width:34px;height:34px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.12);transition:transform .16s,opacity .16s}
+.listen-play-all:hover{transform:translateY(-1px)}
+.listen-controls{gap:7px;padding:8px 0 10px}
+.listen-controls button{width:34px;height:32px;border-radius:11px;background:var(--surface);font-size:13px;transition:background .15s,transform .15s,border-color .15s}
+.listen-controls button:hover{transform:translateY(-1px);border-color:var(--muted)}
+.listen-controls button[data-queue-action="toggle"]{width:40px;background:var(--ink);border-color:var(--ink);color:var(--surface);font-size:14px}
+.listen-source-note{font-size:9px;letter-spacing:.02em}
+.listen-video-stage{display:block;position:relative;width:100%;height:auto;min-height:0;aspect-ratio:16/9;margin:8px 0 8px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#111;box-shadow:0 5px 16px rgba(0,0,0,.13);overflow:hidden}
+.listen-stage-prompt{min-height:0;height:100%;aspect-ratio:16/9;gap:6px;color:#c7cbd1;font-size:27px;background:radial-gradient(ellipse at 50% 45%,#30343a 0%,#17191d 65%,#101114 100%)}
+.listen-stage-prompt small{font-size:10px;color:#aeb4bd}
+.listen-progress-track{height:3px;margin:0 1px 8px;background:color-mix(in srgb,var(--muted) 18%,var(--soft))}
+.listen-progress-track span{background:var(--focus);box-shadow:0 0 8px color-mix(in srgb,var(--focus) 45%,transparent)}
+.listen-track-list{gap:3px;max-height:230px;margin-top:5px}
+.listen-track{min-height:46px;padding:6px 7px;border:1px solid transparent;border-radius:11px;transition:background .14s,border-color .14s}
+.listen-track:hover{background:var(--hover)}
+.listen-track.is-current{background:color-mix(in srgb,var(--focus) 8%,var(--soft));border-color:color-mix(in srgb,var(--focus) 20%,var(--line))}
+.listen-track-art{width:32px;height:32px;flex-basis:32px;border-radius:9px;background:var(--soft);font-size:15px}
+.listen-track-copy strong{font-size:11px;letter-spacing:-.08px}
+.listen-track-copy small{font-size:9px}
+.listen-track-state{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;font-size:11px}
+.listen-track.is-current .listen-track-state{background:var(--ink);color:var(--surface)}
+.listen-footnote{margin:9px 3px 0;font-size:9px;line-height:1.5}
+.mini-detail-dock.sidebar-player-hidden{display:none!important}
+.mini-detail-dock.inline-player-mode #persistentPlayerHost iframe{min-width:0!important;min-height:0!important}
+@media(max-width:760px){
+ .listen-module{margin:12px 10px 0 12px;border-radius:15px}
+ .listen-video-stage{min-height:0;height:auto;aspect-ratio:16/9}
+ .listen-stage-prompt{min-height:0;height:100%;aspect-ratio:16/9}
+ .listen-track-list{max-height:min(32dvh,240px)}
+}
+@media(hover:none){.listen-controls button:hover,.listen-play-all:hover{transform:none}}
