@@ -2099,3 +2099,45 @@
  :root[data-theme="dark"] #listenPanel .listen-controls button[data-queue-action="toggle"],:root[data-theme="dark"] #listenPanel .listen-play-all{border-color:#e0ad58!important;background:#e0ad58!important;color:#28251f!important}
  :root[data-theme="dark"] #listenPanel .listen-extra-controls>button.is-active{color:#f0c77f!important;border-color:#866536!important;background:#493b28!important}
 }
+
+
+/* Desktop overrides for the same pastel blue / yellow / coral system. */
+@media screen and (min-width:1024px){
+ #listenPanel .listen-controls button:focus-visible,
+ #listenPanel .listen-extra-controls>button:focus-visible,
+ #listenPanel .listen-top-actions button:focus-visible{outline-color:#8dbbd8!important}
+ #listenPanel .listen-controls button:not([data-queue-action="toggle"]),
+ #listenPanel .listen-extra-controls>button,
+ #listenPanel .listen-top-actions button{
+  color:#435568!important;background:#f9fcff!important;border-color:#d8e6f1!important;
+ }
+ #listenPanel .listen-controls button[data-queue-action="toggle"],
+ #listenPanel .listen-play-all{
+  color:#29465b!important;background:#dceefa!important;border-color:#b9d8ec!important;
+ }
+ #listenPanel .listen-extra-controls>button.is-active{
+  color:#735b20!important;background:#fff4cf!important;border-color:#f0d98f!important;
+ }
+ #listenPanel .listen-queue-clear,
+ #listenPanel [data-queue-action="remove"],
+ #listenPanel .listen-track-remove{
+  color:#a65f5b!important;background:#fff0ef!important;border-color:#f2d0ce!important;
+ }
+ :root[data-theme="dark"] #listenPanel .listen-controls button:not([data-queue-action="toggle"]),
+ :root[data-theme="dark"] #listenPanel .listen-extra-controls>button,
+ :root[data-theme="dark"] #listenPanel .listen-top-actions button{
+  color:#e6eff6!important;background:#354656!important;border-color:#526779!important;
+ }
+ :root[data-theme="dark"] #listenPanel .listen-controls button[data-queue-action="toggle"],
+ :root[data-theme="dark"] #listenPanel .listen-play-all{
+  color:#203647!important;background:#b9d9ed!important;border-color:#a4cbe3!important;
+ }
+ :root[data-theme="dark"] #listenPanel .listen-extra-controls>button.is-active{
+  color:#ffedb5!important;background:#514a35!important;border-color:#8b794b!important;
+ }
+ :root[data-theme="dark"] #listenPanel .listen-queue-clear,
+ :root[data-theme="dark"] #listenPanel [data-queue-action="remove"],
+ :root[data-theme="dark"] #listenPanel .listen-track-remove{
+  color:#ffc1bd!important;background:#513b3b!important;border-color:#79504e!important;
+ }
+}
