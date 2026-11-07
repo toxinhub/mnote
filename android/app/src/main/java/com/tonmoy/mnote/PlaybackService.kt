@@ -49,6 +49,7 @@ class PlaybackService : MediaSessionService() {
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? = mediaSession
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val startResult = super.onStartCommand(intent, flags, startId)
         when (intent?.action) {
             ACTION_PLAY -> {
                 val url = intent.getStringExtra(EXTRA_URL).orEmpty()
@@ -82,7 +83,7 @@ class PlaybackService : MediaSessionService() {
                 player.volume = if (muted) 0f else volume / 100f
             }
         }
-        return START_STICKY
+        return startResult
     }
 
     private fun isAllowedPath(raw: String): Boolean {
