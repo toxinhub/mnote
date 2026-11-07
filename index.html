@@ -2096,7 +2096,7 @@ function startYouTubePlayback(video,target,detailId,fromQueue){
  if(!/^[A-Za-z0-9_-]{11}$/.test(video)||!target||!target.isConnected||!detailId)return false;
  if(playingVideoId===video&&String(playingDetailId)===detailId){setPlayerInline(target);$('miniDetailDock').classList.add('show');if(window.mnoteYTPlayer&&window.mnotePlayerReady){try{window.mnoteYTPlayer.playVideo()}catch(e){}}return true}
  if(!fromQueue&&mnoteQueueActive){mnoteQueueActive=false;mnotePlaylistIndex=-1;mnoteQueueCurrentId=null}
- if(playingVideoId||getPersistentPlayer()){mnoteQueueSwitching=!!fromQueue;try{stopPlayback()}finally{mnoteQueueSwitching=false}}
+ if(playingVideoId||getPersistentPlayer()||window.mnoteAudioPlayer){mnoteQueueSwitching=!!fromQueue;try{stopPlayback()}finally{mnoteQueueSwitching=false}}
  preparePlayerInline(target);
  const dock=$('miniDetailDock');dock.classList.remove('mnote-player-warming');dock.style.opacity='1';dock.style.pointerEvents='auto';
  const host=$('persistentPlayerHost');if(!host)return false;
