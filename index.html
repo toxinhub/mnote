@@ -2038,7 +2038,7 @@ function getPlayablePlaylist(){return entries.filter(function(e){return!archived
 function startYouTubePlayback(video,target,detailId,fromQueue){
  video=String(video||'').trim();detailId=String(detailId==null?'':detailId);
  if(!/^[A-Za-z0-9_-]{11}$/.test(video)||!target||!target.isConnected||!detailId)return false;
- if(playingVideoId===video&&String(playingDetailId)===detailId){setPlayerInline(target);$('miniDetailDock').classList.add('show');return true}
+ if(playingVideoId===video&&String(playingDetailId)===detailId){setPlayerInline(target);$('miniDetailDock').classList.add('show');if(window.mnoteYTPlayer&&window.mnotePlayerReady){try{window.mnoteYTPlayer.playVideo()}catch(e){}}return true}
  if(!fromQueue&&mnoteQueueActive){mnoteQueueActive=false;mnotePlaylistIndex=-1;mnoteQueueCurrentId=null}
  if(playingVideoId||getPersistentPlayer()){mnoteQueueSwitching=!!fromQueue;try{stopPlayback()}finally{mnoteQueueSwitching=false}}
  preparePlayerInline(target);
@@ -2077,7 +2077,7 @@ function startPlaylist(entryId){
  mnoteQueueActive=true;openListenPanel();
  const start=entryId?mnotePlaylist.indexOf(String(entryId)):0;playPlaylistAt(start>=0?start:0);
 }
-function movePlaylist(step){if(!mnoteQueueActive){startPlaylist();return}playPlaylistAt(mnotePlaylistIndex+step)}
+function movePlaylist(step){if(!mnoteQueueActive){startPlaylist();return}playPlaylistAt(Math.max(0,mnotePlaylistIndex+step))}
 function togglePlaylistPlayback(){
  const p=window.mnoteYTPlayer;
  if(p&&window.mnotePlayerReady){try{if(window.mnoteYouTubeIsPlaying)p.pauseVideo();else p.playVideo();return}catch(e){}}
