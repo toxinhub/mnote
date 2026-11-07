@@ -946,3 +946,57 @@
 @media(prefers-reduced-motion:reduce){
  .mini-detail-dock:not(.inline-player-mode){transition:none!important}
 }
+
+
+/* Unified player palette: warm graphite + restrained amber. */
+#listenModule{
+ --surface:#fffdf8;--soft:#f4f0e7;--ink:#292821;--muted:#777164;
+ --line:#e6dfd2;--hover:#f7f0e2;--focus:#c58a2b;color:var(--ink);
+ background:linear-gradient(155deg,#fffdf9 0%,#faf7f0 100%)!important;
+ border-color:#e5dccd!important;
+}
+#listenModule .listen-heading-icon{color:#98702f;background:#f7ecd7;border-color:#ead9b8}
+#listenModule .listen-play-all,#listenModule .listen-controls button[data-queue-action="toggle"],#listenModule .listen-track.is-current .listen-track-state{
+ background:#292821!important;color:#fffdf8!important;border-color:#292821!important;
+}
+#listenModule .listen-controls button:not([data-queue-action="toggle"]),#listenModule .listen-extra-controls>button,#listenModule .listen-volume>button{
+ color:#514b40;border-color:#e4dccf;background:#fffdf8;
+}
+#listenModule .listen-controls button:hover,#listenModule .listen-extra-controls>button:hover,#listenModule .listen-volume>button:hover{
+ border-color:#c58a2b;background:#f7f0e2;
+}
+#listenModule .listen-extra-controls>button.is-active{color:#94651d;border-color:#d6ad68;background:#f7ecd7}
+#listenModule .listen-track.is-current{background:#f7ecd7!important;border-color:#e6c98f!important}
+#listenModule .listen-track.is-current .listen-track-art{background:#292821!important;color:#fffdf8!important;border-color:#292821!important}
+#listenModule .listen-track.is-current .listen-track-copy strong,#listenModule .listen-track.is-current .listen-track-state{color:#765019}
+#listenModule .listen-track-art{background:#f4f0e7;border-color:#e6dfd2;color:#777164}
+#listenModule .listen-progress-track{background:#e9e1d4}
+#listenModule .listen-progress-track span{background:#c58a2b;box-shadow:0 0 8px #c58a2b55}
+#listenModule .listen-video-stage{background:#171816;border-color:#37352f}
+#listenModule .listen-stage-prompt{color:#e9e2d5;background:radial-gradient(ellipse at 50% 42%,#39362e 0%,#22211d 64%,#171816 100%)}
+#listenModule .listen-stage-prompt small{color:#c3b9a7}
+#listenModule .listen-source-note{color:#786b55;background:#f7ecd7;border-color:#ead9b8}
+#listenModule button:focus-visible,#listenModule input:focus-visible,#listenModule .listen-track:focus-visible,#listenModule .listen-heading:focus-visible{outline-color:#c58a2b!important}
+:root[data-theme="dark"] #listenModule{
+ --surface:#2d2c28;--soft:#393730;--ink:#f1ede4;--muted:#b8b0a1;
+ --line:#4a463d;--hover:#403b31;--focus:#e0ad58;
+ background:linear-gradient(155deg,#302f2a 0%,#252521 100%)!important;border-color:#49443a!important;
+}
+:root[data-theme="dark"] #listenModule .listen-heading-icon{color:#e7bd77;background:#493b28;border-color:#655033}
+:root[data-theme="dark"] #listenModule .listen-play-all,:root[data-theme="dark"] #listenModule .listen-controls button[data-queue-action="toggle"],:root[data-theme="dark"] #listenModule .listen-track.is-current .listen-track-state{background:#e0ad58!important;color:#28251f!important;border-color:#e0ad58!important}
+:root[data-theme="dark"] #listenModule .listen-controls button:not([data-queue-action="toggle"]),:root[data-theme="dark"] #listenModule .listen-extra-controls>button,:root[data-theme="dark"] #listenModule .listen-volume>button{color:#eee8dc;background:#35332d;border-color:#514b40}
+:root[data-theme="dark"] #listenModule .listen-controls button:hover,:root[data-theme="dark"] #listenModule .listen-extra-controls>button:hover,:root[data-theme="dark"] #listenModule .listen-volume>button:hover{background:#403b31;border-color:#a77a38}
+:root[data-theme="dark"] #listenModule .listen-extra-controls>button.is-active{color:#f0c77f;background:#493b28;border-color:#866536}
+:root[data-theme="dark"] #listenModule .listen-track.is-current{background:#493b28!important;border-color:#80623a!important}
+:root[data-theme="dark"] #listenModule .listen-track.is-current .listen-track-copy strong,:root[data-theme="dark"] #listenModule .listen-track.is-current .listen-track-state{color:#f0c77f}
+:root[data-theme="dark"] #listenModule .listen-track-art{background:#393730;border-color:#4a463d;color:#b8b0a1}
+:root[data-theme="dark"] #listenModule .listen-progress-track{background:#49443a}
+:root[data-theme="dark"] #listenModule .listen-progress-track span{background:#e0ad58;box-shadow:0 0 9px #e0ad5855}
+:root[data-theme="dark"] #listenModule .listen-video-stage{background:#11110f;border-color:#49443a}
+:root[data-theme="dark"] #listenModule .listen-stage-prompt{color:#e9e2d5;background:radial-gradient(ellipse at 50% 42%,#39362e 0%,#22211d 64%,#11110f 100%)}
+:root[data-theme="dark"] #listenModule .listen-stage-prompt small{color:#c3b9a7}
+:root[data-theme="dark"] #listenModule .listen-source-note{color:#e0c18d;background:#493b28;border-color:#655033}
+.mini-detail-dock:not(.inline-player-mode) .mini-player-orb{border-color:#c58a2b!important;background:#292821!important;box-shadow:inset 0 0 0 2px #fffdf8,0 3px 10px #20212424!important}
+.mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#f4d49a!important}
+:root[data-theme="dark"] .mini-detail-dock:not(.inline-player-mode) .mini-player-orb{border-color:#e0ad58!important;background:#302f2a!important;box-shadow:inset 0 0 0 2px #252521,0 3px 12px #0008!important}
+:root[data-theme="dark"] .mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#f0c77f!important}
