@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="night-mode.css?v=20261029-2"><link rel="stylesheet" href="playlist.css?v=20261107-3">
+<link rel="stylesheet" href="night-mode.css?v=20261029-2"><link rel="stylesheet" href="playlist.css?v=20261107-4">
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{color-scheme:light;--page:#fff;--surface:#fff;--soft:#f1f3f4;--ink:#202124;--muted:#5f6368;--line:#e0e0e0;--hover:#f1f3f4;--accent:#fbbc04;--focus:#1a73e8;--shadow:0 1px 3px #3c40431a;--safe:env(safe-area-inset-bottom,0px)}
@@ -2033,7 +2033,7 @@ let gridLayoutFrame=0;function layoutNotesGrid(){const grid=$('notesGrid');if(!g
 window.addEventListener('resize',scheduleGridLayout,{passive:true});
 document.addEventListener('load',function(ev){if(ev.target&&ev.target.tagName==='IMG'&&ev.target.closest('#notesGrid'))scheduleGridLayout()},true);
 
-let mnotePlaylist=[],mnotePlaylistBase=[],mnotePlaylistIndex=-1,mnoteQueueActive=false,mnoteQueueSwitching=false,mnoteQueueCurrentId=null,mnoteShuffle=false,mnoteRepeat='off',mnoteVolume=100,mnoteMuted=false;
+let mnotePlaylist=[],mnotePlaylistBase=[],mnotePlaylistIndex=-1,mnoteQueueActive=false,mnoteQueueSwitching=false,mnoteQueueCurrentId=null,mnoteShuffle=false,mnoteRepeat='off',mnoteVolume=100,mnoteLastVolume=70,mnoteMuted=false;
 function getPlayablePlaylist(){return entries.filter(function(e){return!archived.has(String(e.id))&&!trashed.has(String(e.id))&&!!videoId(e.song_url||'')})}
 function startYouTubePlayback(video,target,detailId,fromQueue){
  video=String(video||'').trim();detailId=String(detailId==null?'':detailId);
@@ -2081,7 +2081,7 @@ function movePlaylist(step){if(!mnoteQueueActive){startPlaylist();return}if(!mno
  function applyPlaylistVolume(){const p=window.mnoteYTPlayer;if(!p||!window.mnotePlayerReady)return;try{if(mnoteMuted||mnoteVolume===0)p.mute();else{p.unMute();p.setVolume(mnoteVolume)}}catch(e){}}
  function togglePlaylistShuffle(){mnoteShuffle=!mnoteShuffle;if(mnoteQueueActive&&mnotePlaylist.length){const current=mnoteQueueCurrentId;if(mnoteShuffle){const rest=mnotePlaylist.filter(function(id){return id!==current});for(let i=rest.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[rest[i],rest[j]]=[rest[j],rest[i]]}mnotePlaylist=current?[current].concat(rest):rest;mnotePlaylistIndex=0}else{mnotePlaylist=mnotePlaylistBase.slice();mnotePlaylistIndex=current?mnotePlaylist.indexOf(current):0}}renderListenPanel()}
  function cyclePlaylistRepeat(){mnoteRepeat=mnoteRepeat==='off'?'all':mnoteRepeat==='all'?'one':'off';renderListenPanel()}
- function togglePlaylistMute(){mnoteMuted=!mnoteMuted;applyPlaylistVolume();renderListenPanel()}
+ function togglePlaylistMute(){if(mnoteMuted||mnoteVolume===0){mnoteMuted=false;mnoteVolume=mnoteLastVolume||70}else{mnoteLastVolume=mnoteVolume;mnoteMuted=true}applyPlaylistVolume();renderListenPanel()}
 function togglePlaylistPlayback(){
  const p=window.mnoteYTPlayer;
  if(p&&window.mnotePlayerReady){try{if(window.mnoteYouTubeIsPlaying)p.pauseVideo();else p.playVideo();return}catch(e){}}
@@ -2185,7 +2185,7 @@ function archiveNote(id){archived.add(id);trashed.delete(id);saveSet('mnote:arch
 function closeSidebar(){$('sidebar').classList.remove('open');$('backdrop').classList.remove('show');syncSidebarPlayerVisibility()}
 function setView(v){view=v;label='';artistFilter='';closeSidebar();render()}
 function menuToggle(){if(matchMedia('(max-width:760px)').matches){$('sidebar').classList.toggle('open');$('backdrop').classList.toggle('show',$('sidebar').classList.contains('open'))}else $('app').classList.toggle('mini');syncSidebarPlayerVisibility()}
-$('listenVolume').addEventListener('input',function(){mnoteVolume=Math.max(0,Math.min(100,Number(this.value)||0));mnoteMuted=mnoteVolume===0;applyPlaylistVolume();renderListenPanel()});$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value);scheduleAutoClassify(this.value)});$('quickTitle').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});$('quickIdea').addEventListener('input',function(){const count=$('ideaCount');if(count)count.textContent=this.value.length.toLocaleString()+' / 2,000';scheduleAutoClassify($('quickUrl').value)});$('quickArtist').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});
+$('listenVolume').addEventListener('input',function(){mnoteVolume=Math.max(0,Math.min(100,Number(this.value)||0));if(mnoteVolume>0)mnoteLastVolume=mnoteVolume;mnoteMuted=mnoteVolume===0;applyPlaylistVolume();renderListenPanel()});$('quickUrl').addEventListener('input',function(){lookupSongTitle(this.value);scheduleAutoClassify(this.value)});$('quickTitle').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});$('quickIdea').addEventListener('input',function(){const count=$('ideaCount');if(count)count.textContent=this.value.length.toLocaleString()+' / 2,000';scheduleAutoClassify($('quickUrl').value)});$('quickArtist').addEventListener('input',function(){scheduleAutoClassify($('quickUrl').value)});
 $('quickTags').addEventListener('input',updateLabelSuggestions);
 $('quickTags').addEventListener('focus',updateLabelSuggestions);
 $('quickTags').addEventListener('keydown',function(ev){if(ev.key==='ArrowDown'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(1)}else if(ev.key==='ArrowUp'&&!$('labelSuggestions').classList.contains('hidden')){ev.preventDefault();moveLabelSuggestion(-1)}else if(ev.key==='Enter'&&!$('labelSuggestions').classList.contains('hidden')){const items=$('labelSuggestions').querySelectorAll('[data-label-suggestion]');if(activeLabelSuggestion>=0&&items[activeLabelSuggestion]){ev.preventDefault();chooseLabelSuggestion(items[activeLabelSuggestion].dataset.labelSuggestion)}}else if(ev.key==='Escape'&&!$('labelSuggestions').classList.contains('hidden')){ev.stopPropagation();hideLabelSuggestions()}});
