@@ -621,3 +621,21 @@
 @media(prefers-reduced-motion:reduce){
  .listen-controls button,.listen-queue-clear,.listen-play-all{transition:none}
 }
+
+
+/* Give the playlist more room and keep Admin Login clearly after it. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  min-height:190px!important;
+  height:auto!important;
+  max-height:min(66dvh,640px)!important;
+  flex:0 0 auto!important;
+  margin-top:5px!important;
+  padding-bottom:14px!important;
+ }
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  margin:26px 10px 0 20px!important;
+  padding:13px 0 calc(16px + env(safe-area-inset-bottom, 0px))!important;
+  flex:0 0 auto!important;
+ }
+}
