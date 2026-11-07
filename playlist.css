@@ -1131,3 +1131,72 @@
  box-shadow:inset 0 0 0 2px #293542,0 3px 12px #0008!important;
 }
 :root[data-theme="dark"] .mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#c4e1f3!important}
+
+
+/* Flat semantic palette: keep blue, yellow and coral in separate UI roles. */
+#listenModule{
+ background:#f5f8fb!important;
+ border-color:#d7e3ed!important;
+}
+#listenModule .listen-video-stage{
+ background:#263746!important;
+ border-color:#d7e3ed!important;
+}
+#listenModule .listen-stage-prompt{
+ background:#344b5d!important;
+}
+#listenModule .listen-play-all,
+#listenModule .listen-controls button[data-queue-action="toggle"]{
+ background:#dceefa!important;
+ color:#29465b!important;
+ border-color:#a9cde5!important;
+}
+#listenModule .listen-track.is-current,
+#listenModule .listen-extra-controls>button.is-active{
+ background:#fff3c9!important;
+ color:#6d551b!important;
+ border-color:#e9d48b!important;
+}
+#listenModule .listen-track.is-current .listen-track-art{
+ background:#ffe8a3!important;
+ color:#6d551b!important;
+ border-color:#e9d48b!important;
+}
+#listenModule .listen-queue-clear,
+#listenModule [data-queue-action="remove"],
+#listenModule .listen-track-remove{
+ background:#ffefed!important;
+ color:#a24f4b!important;
+ border-color:#e9c2bf!important;
+}
+#listenModule .listen-queue-clear:hover,
+#listenModule [data-queue-action="remove"]:hover,
+#listenModule .listen-track-remove:hover{
+ background:#fbdedb!important;
+ color:#873f3c!important;
+ border-color:#dca6a2!important;
+}
+#listenModule .listen-progress-track{background:#dce5ed!important}
+#listenModule .listen-progress-track span{background:#83b6d8!important;box-shadow:none!important}
+#listenModule .listen-source-note{background:#fff3c9!important;color:#6d551b!important;border-color:#e9d48b!important}
+:root[data-theme="dark"] #listenModule{background:#263441!important;border-color:#46596a!important}
+:root[data-theme="dark"] #listenModule .listen-video-stage{background:#121c25!important;border-color:#46596a!important}
+:root[data-theme="dark"] #listenModule .listen-stage-prompt{background:#263b4b!important}
+:root[data-theme="dark"] #listenModule .listen-play-all,
+:root[data-theme="dark"] #listenModule .listen-controls button[data-queue-action="toggle"]{background:#b9d9ed!important;color:#203647!important;border-color:#91bad5!important}
+:root[data-theme="dark"] #listenModule .listen-track.is-current,
+:root[data-theme="dark"] #listenModule .listen-extra-controls>button.is-active{background:#51472d!important;color:#ffedb5!important;border-color:#8b794b!important}
+:root[data-theme="dark"] #listenModule .listen-track.is-current .listen-track-art{background:#665735!important;color:#ffedb5!important;border-color:#8b794b!important}
+:root[data-theme="dark"] #listenModule .listen-queue-clear,
+:root[data-theme="dark"] #listenModule [data-queue-action="remove"],
+:root[data-theme="dark"] #listenModule .listen-track-remove{background:#513b3b!important;color:#ffc1bd!important;border-color:#79504e!important}
+:root[data-theme="dark"] #listenModule .listen-queue-clear:hover,
+:root[data-theme="dark"] #listenModule [data-queue-action="remove"]:hover,
+:root[data-theme="dark"] #listenModule .listen-track-remove:hover{background:#624342!important;color:#ffe0dd!important;border-color:#a66a66!important}
+:root[data-theme="dark"] #listenModule .listen-progress-track{background:#46596a!important}
+:root[data-theme="dark"] #listenModule .listen-progress-track span{background:#9bc9e5!important;box-shadow:none!important}
+:root[data-theme="dark"] #listenModule .listen-source-note{background:#51472d!important;color:#ffedb5!important;border-color:#8b794b!important}
+.mini-detail-dock:not(.inline-player-mode) .mini-player-orb{background:#dceefa!important;border-color:#83b6d8!important;box-shadow:0 2px 8px #26374622!important}
+.mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#365f7a!important}
+:root[data-theme="dark"] .mini-detail-dock:not(.inline-player-mode) .mini-player-orb{background:#334b5d!important;border-color:#9bc9e5!important;box-shadow:0 2px 8px #0006!important}
+:root[data-theme="dark"] .mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#d4eafa!important}
