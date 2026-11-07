@@ -2086,3 +2086,16 @@
  #app:not(.mini):has(#listenModule.is-open) #listenPanel .listen-track-row{width:100%!important;min-height:52px!important}
  #app:not(.mini):has(#listenModule.is-open) #listenPanel .listen-footnote{flex:0 0 auto!important;margin:6px 0 0!important}
 }
+
+
+/* Desktop player palette parity: warm graphite + restrained amber. */
+@media screen and (min-width:1024px){
+ #listenModule{--focus:#c58a2b!important}
+ #listenPanel .listen-controls button:focus-visible,#listenPanel .listen-extra-controls>button:focus-visible,#listenPanel .listen-top-actions button:focus-visible{outline-color:#c58a2b!important}
+ #listenPanel .listen-controls button:not([data-queue-action="toggle"]),#listenPanel .listen-extra-controls>button,#listenPanel .listen-top-actions button{border-color:#e4dccf!important;background:#fffdf8!important;color:#514b40!important}
+ #listenPanel .listen-controls button[data-queue-action="toggle"],#listenPanel .listen-play-all{border-color:#292821!important;background:#292821!important;color:#fffdf8!important}
+ #listenPanel .listen-extra-controls>button.is-active{color:#94651d!important;border-color:#d6ad68!important;background:#f7ecd7!important}
+ :root[data-theme="dark"] #listenPanel .listen-controls button:not([data-queue-action="toggle"]),:root[data-theme="dark"] #listenPanel .listen-extra-controls>button,:root[data-theme="dark"] #listenPanel .listen-top-actions button{border-color:#514b40!important;background:#35332d!important;color:#eee8dc!important}
+ :root[data-theme="dark"] #listenPanel .listen-controls button[data-queue-action="toggle"],:root[data-theme="dark"] #listenPanel .listen-play-all{border-color:#e0ad58!important;background:#e0ad58!important;color:#28251f!important}
+ :root[data-theme="dark"] #listenPanel .listen-extra-controls>button.is-active{color:#f0c77f!important;border-color:#866536!important;background:#493b28!important}
+}
