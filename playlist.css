@@ -213,3 +213,19 @@
 @media(prefers-reduced-motion:reduce){
  .listen-controls button,.listen-play-all,.listen-track{transition:none}
 }
+
+
+/* Shuffle, repeat and volume controls */
+.listen-extra-controls{display:flex;align-items:center;gap:8px;min-height:38px;padding:1px 2px 9px;border-bottom:1px solid var(--line)}
+.listen-extra-controls>button,.listen-volume>button{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--muted);font-size:16px;font-weight:600;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.listen-extra-controls>button:hover,.listen-volume>button:hover{background:var(--hover);border-color:var(--muted);transform:translateY(-1px)}
+.listen-extra-controls>button.is-active{background:color-mix(in srgb,var(--focus) 12%,var(--surface));border-color:color-mix(in srgb,var(--focus) 42%,var(--line));color:var(--focus)}
+.listen-extra-controls>button[data-mode="one"]{font-size:13px}
+.listen-volume{display:flex;align-items:center;gap:8px;min-width:0;flex:1;margin-left:auto;padding:0 3px 0 8px}
+.listen-volume>button{flex-basis:30px;width:30px;height:30px;border:0;background:transparent;font-size:15px}
+.listen-volume input[type="range"]{display:block;width:100%;min-width:45px;height:4px;margin:0;accent-color:var(--focus);cursor:pointer;touch-action:pan-y}
+.listen-extra-controls button:focus-visible,.listen-volume input:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+:root[data-theme="dark"] .listen-extra-controls>button{background:color-mix(in srgb,var(--surface) 88%,white 12%);color:var(--ink)}
+:root[data-theme="dark"] .listen-extra-controls>button.is-active{background:color-mix(in srgb,var(--focus) 20%,var(--surface));color:var(--focus)}
+@media(max-width:760px){.listen-extra-controls{gap:7px;padding-bottom:10px}.listen-extra-controls>button{width:34px;height:34px;flex-basis:34px}.listen-volume{gap:5px;padding-left:5px}}
+@media(prefers-reduced-motion:reduce){.listen-extra-controls>button,.listen-volume>button{transition:none}}
