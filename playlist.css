@@ -377,3 +377,22 @@
  .sidebar:has(.listen-module.is-open) .listen-track-state{width:21px;height:21px;font-size:10px}
  .sidebar:has(.listen-module.is-open) .listen-footnote{margin-top:5px;font-size:8px}
 }
+
+
+/* Mobile Listen: keep Admin Login below the playlist instead of removing it. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  display:block!important;
+  margin:18px 10px 0 20px!important;
+  padding:10px 0 calc(12px + env(safe-area-inset-bottom, 0px))!important;
+  border-top:1px solid var(--line);
+  flex:0 0 auto;
+ }
+ .sidebar:has(.listen-module.is-open) .side-foot .admin-link{
+  min-height:32px;
+  opacity:.72;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  max-height:min(58dvh,520px);
+ }
+}
