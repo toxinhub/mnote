@@ -23,3 +23,7 @@ To build locally, open this android directory in Android Studio with JDK 17 and 
 The APK is written to android/app/build/outputs/apk/debug/app-debug.apk.
 
 A debug APK can be installed directly on a personal Android device. Play Store publication requires a separate release-signing and publishing process.
+
+## CI
+
+Every Android source change triggers the Android APK workflow. The debug APK is published as a downloadable workflow artifact after a successful build.
