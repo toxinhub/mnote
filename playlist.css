@@ -347,3 +347,33 @@
   -webkit-overflow-scrolling:touch;
  }
 }
+
+
+/* Mobile compact player: prioritize visible playlist rows over player chrome. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open) .listen-panel{padding:0 8px 9px}
+ .sidebar:has(.listen-module.is-open) .listen-panel-top{padding:7px 2px 5px}
+ .sidebar:has(.listen-module.is-open) .listen-panel-top strong{font-size:11px}
+ .sidebar:has(.listen-module.is-open) .listen-panel-top small{font-size:9px}
+ .sidebar:has(.listen-module.is-open) .listen-play-all{width:29px;height:29px;border-radius:9px}
+ .sidebar:has(.listen-module.is-open) .listen-video-stage{
+  height:88px;min-height:0;aspect-ratio:auto;margin:5px 0 4px;border-radius:10px;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-stage-prompt{min-height:0;height:100%;aspect-ratio:auto;font-size:20px}
+ .sidebar:has(.listen-module.is-open) .listen-progress-track{height:3px;margin:0 1px 3px}
+ .sidebar:has(.listen-module.is-open) .listen-controls{gap:9px;padding:5px 0 5px}
+ .sidebar:has(.listen-module.is-open) .listen-controls button{width:32px;height:32px;flex-basis:32px;font-size:12px}
+ .sidebar:has(.listen-module.is-open) .listen-controls button[data-queue-action="toggle"]{width:38px;height:38px;flex-basis:38px;font-size:14px}
+ .sidebar:has(.listen-module.is-open) .listen-extra-controls{min-height:30px;gap:6px;margin:0 1px 5px;padding:0 1px 5px}
+ .sidebar:has(.listen-module.is-open) .listen-extra-controls>button{width:29px;height:29px;flex-basis:29px;font-size:14px}
+ .sidebar:has(.listen-module.is-open) .listen-volume>button{width:27px;height:27px;flex-basis:27px}
+ .sidebar:has(.listen-module.is-open) .listen-volume input[type="range"]{min-width:35px}
+ .sidebar:has(.listen-module.is-open) .listen-track-list{max-height:min(52dvh,460px);min-height:150px;margin-top:2px;gap:4px}
+ .sidebar:has(.listen-module.is-open) .listen-track{min-height:49px;padding:6px 7px;gap:8px;border-radius:10px}
+ .sidebar:has(.listen-module.is-open) .listen-track-art{width:34px;height:34px;flex-basis:34px;border-radius:9px;font-size:14px}
+ .sidebar:has(.listen-module.is-open) .listen-track-copy{gap:2px}
+ .sidebar:has(.listen-module.is-open) .listen-track-copy strong{font-size:11px;line-height:1.25}
+ .sidebar:has(.listen-module.is-open) .listen-track-copy small{font-size:9px;line-height:1.2}
+ .sidebar:has(.listen-module.is-open) .listen-track-state{width:21px;height:21px;font-size:10px}
+ .sidebar:has(.listen-module.is-open) .listen-footnote{margin-top:5px;font-size:8px}
+}
