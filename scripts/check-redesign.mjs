@@ -68,6 +68,11 @@ const responsiveCss = fs.readFileSync('public-responsive.css', 'utf8');
 const admin = fs.readFileSync('admin.html', 'utf8');
 const adminCss = fs.readFileSync('admin-redesign.css', 'utf8');
 
+if (index.includes('split(/[,;\\\\n]/)')) fail('AI label parsing contains an escaped backslash+n character class; it must split on actual newlines, not the letter n.');
+if (!index.includes('split(/[,;\\n]/)')) fail('AI label parsing must split on commas, semicolons, and newlines.');
+if (!index.includes('id="applyAutoLabels"') || index.includes('if(autoLabelSelection.length)applySelectedAutoLabels(false);')) fail('AI suggestions must wait for the user to choose Add selected; they must not be applied automatically.');
+if (!index.includes('mnotePlaylistIndex=current?mnotePlaylist.indexOf(current):-1')) fail('Shuffle must preserve the -1 queue index when no track is currently playing.');
+
 if (!/<link\b(?=[^>]*\bhref=["']public-desktop\.css(?:\?[^"']*)?["'])(?=[^>]*\bmedia=["']\(min-width:\s*1024px\)["'])[^>]*>/i.test(index)) fail('Public desktop CSS must be media-qualified at 1024px; cache-busting query strings are allowed.');
 if (!/<link\b(?=[^>]*\bhref=["']public-responsive\.css(?:\?[^"']*)?["'])[^>]*>/i.test(index)) fail('Public responsive detail stylesheet is missing.');
 if (!/<script\b(?=[^>]*\bsrc=["']public-desktop\.js(?:\?[^"']*)?["'])(?=[^>]*\bdefer(?:\s|>|=))[^>]*>/i.test(index)) fail('Public desktop enhancement script is missing; cache-busting query strings are allowed.');
