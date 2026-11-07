@@ -2073,7 +2073,7 @@ let mnotePlaylist=[],mnotePlaylistBase=[],mnotePlaylistIndex=-1,mnoteQueueActive
 function isDirectAudioEntry(entry){const raw=String(entry&&entry.song_url||'').trim();if(!/^https:\/\//i.test(raw))return false;try{return /\.(mp3|m4a|aac|ogg|opus|wav|flac|webm)$/.test(new URL(raw).pathname.toLowerCase())}catch(e){return false}}
 function isPlayableEntry(entry){return!!(entry&&(/^[A-Za-z0-9_-]{11}$/.test(videoId(entry.song_url||''))||isDirectAudioEntry(entry)))}
 function createMnoteNativeAudio(entry){
- const bridge=window.MnoteNativeAudio;let source='',started=false,lastPlaying=false,lastEnded=false,pollId=0;
+ const bridge=window.MnoteNativeAudio,token=window.__MNOTE_NATIVE_TOKEN||'';let source='',started=false,lastPlaying=false,lastEnded=false,pollId=0;
  const listeners={};
  const fire=function(type){(listeners[type]||[]).slice().forEach(function(fn){try{fn.call(audio,{type:type,target:audio})}catch(e){}})};
  const audio={
@@ -2081,30 +2081,30 @@ function createMnoteNativeAudio(entry){
   addEventListener:function(type,fn){if(typeof fn==='function')(listeners[type]||(listeners[type]=[])).push(fn)},
   removeEventListener:function(type,fn){if(listeners[type])listeners[type]=listeners[type].filter(function(x){return x!==fn})},
   get src(){return source},set src(v){source=String(v||'')},
-  get duration(){return Math.max(0,Number(bridge.duration())||0)/1000},
-  get currentTime(){return Math.max(0,Number(bridge.position())||0)/1000},
-  set currentTime(v){bridge.seekTo(Math.max(0,Math.round(Number(v||0)*1000)))},
-  get paused(){return !bridge.isPlaying()},
-  get volume(){return Math.max(0,Math.min(1,(Number(bridge.getVolume())||0)/100))},
-  set volume(v){bridge.setVolume(Math.round(Math.max(0,Math.min(1,Number(v)||0))*100))},
-  get muted(){return !!bridge.isMuted()},
-  set muted(v){bridge.setMuted(!!v)},
+  get duration(){return Math.max(0,Number(bridge.duration(token))||0)/1000},
+  get currentTime(){return Math.max(0,Number(bridge.position(token))||0)/1000},
+  set currentTime(v){bridge.seekTo(token,Math.max(0,Math.round(Number(v||0)*1000)))},
+  get paused(){return !bridge.isPlaying(token)},
+  get volume(){return Math.max(0,Math.min(1,(Number(bridge.getVolume(token))||0)/100))},
+  set volume(v){bridge.setVolume(token,Math.round(Math.max(0,Math.min(1,Number(v)||0))*100))},
+  get muted(){return !!bridge.isMuted(token)},
+  set muted(v){bridge.setMuted(token,!!v)},
   load:function(){},
-  removeAttribute:function(name){if(name==='src'){source='';started=false;bridge.stop();if(pollId)clearInterval(pollId);pollId=0;lastPlaying=false}},
+  removeAttribute:function(name){if(name==='src'){source='';started=false;bridge.stop(token);if(pollId)clearInterval(pollId);pollId=0;lastPlaying=false}},
   play:function(){
    if(!source)return Promise.reject(new Error('No audio source'));
-   const ok=started?bridge.resume():bridge.play(source,String(entry&&entry.title||'m}note'),String(entry&&entry.artist||''));
+   const ok=started?bridge.resume(token):bridge.play(token,source,String(entry&&entry.title||'m}note'),String(entry&&entry.artist||''));
    if(!ok)return Promise.reject(new Error('Native audio service rejected this source'));
    started=true;lastEnded=false;
    if(!pollId)pollId=setInterval(function(){
-    const playing=!!bridge.isPlaying(),duration=audio.duration,position=audio.currentTime;
+    const playing=!!bridge.isPlaying(token),duration=audio.duration,position=audio.currentTime;
     if(playing!==lastPlaying){lastPlaying=playing;fire(playing?'play':'pause')}
     fire('timeupdate');
     if(!playing&&duration>0&&position>=duration-0.35&&!lastEnded){lastEnded=true;fire('ended')}
    },500);
    return Promise.resolve();
   },
-  pause:function(){if(started)bridge.pause()}
+  pause:function(){if(started)bridge.pause(token)}
  };
  return audio;
 }
@@ -2114,7 +2114,7 @@ function startDirectAudioPlayback(entry,target,detailId,fromQueue){
  if(!isDirectAudioEntry(entry)||!target||!target.isConnected||!detailId)return false;
  if(!fromQueue&&mnoteQueueActive){mnoteQueueActive=false;mnotePlaylistIndex=-1;mnoteQueueCurrentId=null}
  if(playingVideoId||getPersistentPlayer()||window.mnoteAudioPlayer){mnoteQueueSwitching=!!fromQueue;try{stopPlayback()}finally{mnoteQueueSwitching=false}}
- const audio=window.MnoteNativeAudio?createMnoteNativeAudio(entry):new Audio();audio.preload='metadata';audio.playsInline=true;audio.volume=Math.max(0,Math.min(1,mnoteVolume/100));audio.muted=mnoteMuted||mnoteVolume===0;
+ const audio=window.MnoteNativeAudio&&window.__MNOTE_NATIVE_TOKEN?createMnoteNativeAudio(entry):new Audio();audio.preload='metadata';audio.playsInline=true;audio.volume=Math.max(0,Math.min(1,mnoteVolume/100));audio.muted=mnoteMuted||mnoteVolume===0;
  window.mnoteAudioPlayer=audio;playingVideoId=null;playingDetailId=detailId;window.mnoteYouTubeIsPlaying=false;window.inlinePlayerTarget=target;
  audio.addEventListener('play',function(){if(window.mnoteAudioPlayer!==audio)return;window.mnoteYouTubeIsPlaying=true;syncMnoteMediaSession();$('miniPlayerOrb').classList.add('is-playing');$('miniDetailDock').classList.add('show');renderListenPanel()});
  audio.addEventListener('pause',function(){if(window.mnoteAudioPlayer!==audio)return;window.mnoteYouTubeIsPlaying=false;syncMnoteMediaSession();$('miniPlayerOrb').classList.remove('is-playing');renderListenPanel()});
