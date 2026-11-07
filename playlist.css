@@ -292,3 +292,6 @@
 }
 @media(max-width:360px){.mini-detail-dock.show:not(.inline-player-mode){width:calc(100vw - 16px);left:8px}.mini-dock-info{right:86px;left:68px}.listen-volume input[type="range"]{min-width:36px}}
 @media(prefers-reduced-motion:reduce){.mini-dock-play{transition:none}}
+
+/* Keep the collapsed panel truly collapsed after layout styling. */
+.listen-panel[hidden]{display:none!important}
