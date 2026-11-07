@@ -687,3 +687,54 @@
   padding-bottom:8px!important;
  }
 }
+
+
+/* Fixed player chrome with an independently scrollable song list. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open){
+  height:calc(100dvh - 60px)!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-module{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow:hidden!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-panel{
+  display:flex!important;
+  flex:1 1 auto!important;
+  flex-direction:column!important;
+  min-height:0!important;
+  overflow:hidden!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-panel-top,
+ .sidebar:has(.listen-module.is-open) .listen-video-stage,
+ .sidebar:has(.listen-module.is-open) .listen-timeline,
+ .sidebar:has(.listen-module.is-open) .listen-progress-track,
+ .sidebar:has(.listen-module.is-open) .listen-controls,
+ .sidebar:has(.listen-module.is-open) .listen-extra-controls,
+ .sidebar:has(.listen-module.is-open) .listen-footnote{
+  flex:0 0 auto!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  flex:1 1 0!important;
+  min-height:72px!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:thin!important;
+  padding-bottom:8px!important;
+ }
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  flex:0 0 auto!important;
+  margin-top:8px!important;
+  padding-top:8px!important;
+ }
+}
