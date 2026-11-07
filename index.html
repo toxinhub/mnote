@@ -2568,5 +2568,119 @@ html:root[data-theme="dark"] body header.topbar.topbar.is-scrolled {
   border:0!important;border-radius:8px!important;
 }
 </style>
+
+<style id="player-flat-semantic-final">
+/* Last-layer player palette: solid fills only; each accent has one clear purpose. */
+html body #app #sidebar #listenModule{
+  color:#293746!important;
+  background-color:#f5f8fb!important;
+  background-image:none!important;
+  border-color:#d7e3ed!important;
+}
+html body #app #sidebar #listenModule .listen-heading-icon{
+  color:#365f7a!important;background:#dceefa!important;border-color:#a9cde5!important;
+}
+html body #app #sidebar #listenModule .listen-controls button[data-queue-action="toggle"],
+html body #app #sidebar #listenModule .listen-play-all{
+  color:#29465b!important;background:#dceefa!important;border:1px solid #a9cde5!important;
+  box-shadow:none!important;
+}
+html body #app #sidebar #listenModule .listen-controls button:not([data-queue-action="toggle"]),
+html body #app #sidebar #listenModule .listen-extra-controls>button,
+html body #app #sidebar #listenModule .listen-volume>button,
+html body #app #sidebar #listenModule .listen-top-actions button{
+  color:#435568!important;background:#ffffff!important;border:1px solid #d8e2eb!important;
+  box-shadow:none!important;
+}
+html body #app #sidebar #listenModule .listen-extra-controls>button.is-active,
+html body #app #sidebar #listenModule .listen-track.is-current,
+html body #app #sidebar #listenModule .listen-source-note{
+  color:#6d551b!important;background:#fff3c9!important;border-color:#e9d48b!important;
+}
+html body #app #sidebar #listenModule .listen-track.is-current .listen-track-art{
+  color:#6d551b!important;background:#ffe8a3!important;border-color:#e9d48b!important;
+}
+html body #app #sidebar #listenModule .listen-track.is-current .listen-track-copy strong,
+html body #app #sidebar #listenModule .listen-track.is-current .listen-track-state{color:#6d551b!important}
+html body #app #sidebar #listenModule .listen-queue-clear,
+html body #app #sidebar #listenModule [data-queue-action="remove"],
+html body #app #sidebar #listenModule .listen-track-remove{
+  color:#a24f4b!important;background:#ffefed!important;border-color:#e9c2bf!important;
+  box-shadow:none!important;
+}
+html body #app #sidebar #listenModule .listen-video-stage{
+  background:#263746!important;background-image:none!important;border-color:#d7e3ed!important;
+}
+html body #app #sidebar #listenModule .listen-stage-prompt{
+  color:#edf4fa!important;background:#344b5d!important;background-image:none!important;
+}
+html body #app #sidebar #listenModule .listen-stage-prompt small{color:#d7e7f2!important}
+html body #app #sidebar #listenModule .listen-progress-track{background:#dce5ed!important}
+html body #app #sidebar #listenModule .listen-progress-track span{background:#83b6d8!important;box-shadow:none!important}
+html body #app #sidebar #listenModule button:focus-visible,
+html body #app #sidebar #listenModule input:focus-visible{outline-color:#83b6d8!important}
+html body .mini-detail-dock:not(.inline-player-mode) .mini-player-orb{
+  background:#dceefa!important;background-image:none!important;border-color:#83b6d8!important;
+  box-shadow:0 2px 8px #26374622!important;
+}
+html body .mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#365f7a!important}
+:root[data-theme="dark"] html body #app #sidebar #listenModule{
+  color:#edf4fa!important;background:#263441!important;background-image:none!important;border-color:#46596a!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-controls button:not([data-queue-action="toggle"]),
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-extra-controls>button,
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-volume>button,
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-top-actions button{
+  color:#e6eff6!important;background:#354656!important;border-color:#526779!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-controls button[data-queue-action="toggle"],
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-play-all{
+  color:#203647!important;background:#b9d9ed!important;border-color:#91bad5!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-extra-controls>button.is-active,
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-track.is-current,
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-source-note{
+  color:#ffedb5!important;background:#51472d!important;border-color:#8b794b!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-track.is-current .listen-track-art{
+  color:#ffedb5!important;background:#665735!important;border-color:#8b794b!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-track.is-current .listen-track-copy strong,
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-track.is-current .listen-track-state{color:#ffedb5!important}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-queue-clear,
+:root[data-theme="dark"] html body #app #sidebar #listenModule [data-queue-action="remove"],
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-track-remove{
+  color:#ffc1bd!important;background:#513b3b!important;border-color:#79504e!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-video-stage{
+  background:#121c25!important;background-image:none!important;border-color:#46596a!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-stage-prompt{
+  color:#edf4fa!important;background:#263b4b!important;background-image:none!important;
+}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-progress-track{background:#46596a!important}
+:root[data-theme="dark"] html body #app #sidebar #listenModule .listen-progress-track span{background:#9bc9e5!important;box-shadow:none!important}
+:root[data-theme="dark"] html body .mini-detail-dock:not(.inline-player-mode) .mini-player-orb{
+  background:#334b5d!important;background-image:none!important;border-color:#9bc9e5!important;
+}
+:root[data-theme="dark"] html body .mini-detail-dock:not(.inline-player-mode) .mini-player-glyph{color:#d4eafa!important}
+@media screen and (min-width:1024px){
+ html body #app #sidebar #listenPanel .listen-controls button[data-queue-action="toggle"],
+ html body #app #sidebar #listenPanel .listen-play-all{background:#dceefa!important;color:#29465b!important;border-color:#a9cde5!important}
+ html body #app #sidebar #listenPanel .listen-extra-controls>button.is-active,
+ html body #app #sidebar #listenPanel .listen-track.is-current{background:#fff3c9!important;color:#6d551b!important;border-color:#e9d48b!important}
+ html body #app #sidebar #listenPanel .listen-queue-clear,
+ html body #app #sidebar #listenPanel [data-queue-action="remove"],
+ html body #app #sidebar #listenPanel .listen-track-remove{background:#ffefed!important;color:#a24f4b!important;border-color:#e9c2bf!important}
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-controls button[data-queue-action="toggle"],
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-play-all{background:#b9d9ed!important;color:#203647!important;border-color:#91bad5!important}
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-extra-controls>button.is-active,
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-track.is-current{background:#51472d!important;color:#ffedb5!important;border-color:#8b794b!important}
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-queue-clear,
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel [data-queue-action="remove"],
+ :root[data-theme="dark"] html body #app #sidebar #listenPanel .listen-track-remove{background:#513b3b!important;color:#ffc1bd!important;border-color:#79504e!important}
+}
+</style>
+
 </body>
 </html>
