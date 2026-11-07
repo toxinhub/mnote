@@ -1907,3 +1907,39 @@
  }
  #sidebar .side-foot{margin-top:22px!important}
 }
+
+
+/* Desktop playlist rows: prevent flexbox from squeezing queue entries into the viewport.
+   The list itself scrolls; each song row keeps its natural readable height. */
+@media screen and (min-width:1024px){
+  #sidebar .listen-track-list{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    scrollbar-gutter:stable!important;
+  }
+  #sidebar .listen-track-list > *{
+    flex:0 0 auto!important;
+    min-width:0!important;
+  }
+  #sidebar .listen-track-list > .listen-track-row{
+    display:flex!important;
+    align-items:center!important;
+    width:100%!important;
+    min-height:52px!important;
+    flex:0 0 auto!important;
+  }
+  #sidebar .listen-track-row .listen-track{
+    flex:1 0 auto!important;
+    min-width:0!important;
+    min-height:51px!important;
+    width:auto!important;
+  }
+  #sidebar .listen-track-row .listen-track-queue{
+    flex:0 0 27px!important;
+    width:27px!important;
+  }
+}
