@@ -639,3 +639,51 @@
   flex:0 0 auto!important;
  }
 }
+
+
+/* Open playlist drawer: let the sidebar scroll as one continuous page.
+   Keep Admin Login after the complete song list instead of hiding it or
+   trapping the songs inside a short nested scroll region. */
+@media(max-width:760px){
+ .sidebar:has(.listen-module.is-open){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-gutter:stable;
+  padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))!important;
+ }
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  display:block!important;
+  order:20!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  margin:18px 16px 0 20px!important;
+  padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))!important;
+  border-top:1px solid var(--line)!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-module{
+  order:10!important;
+  flex:0 0 auto!important;
+  margin:10px 10px 0 12px!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-panel{
+  display:flex!important;
+  flex-direction:column!important;
+  max-height:none!important;
+  overflow:visible!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+  overflow:visible!important;
+  overscroll-behavior:auto!important;
+  padding-bottom:8px!important;
+ }
+}
