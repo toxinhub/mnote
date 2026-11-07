@@ -1,0 +1,46 @@
+/* m}note Listen sidebar module — scoped so existing notes and mobile navigation remain intact. */
+.listen-module{margin:12px 12px 0 16px;border:1px solid var(--line);border-radius:13px;background:var(--surface);overflow:hidden}
+.listen-heading{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:7px 11px;text-align:left;color:var(--ink)}
+.listen-heading:hover{background:var(--hover)}
+.listen-heading-icon{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--soft);font-size:18px;color:var(--muted)}
+.listen-heading-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:1px}
+.listen-heading-copy strong{font-size:13px;font-weight:600}
+.listen-heading-copy small{font-size:10px;color:var(--muted)}
+.listen-chevron{color:var(--muted);font-size:17px;transition:transform .18s}
+.listen-module.is-open .listen-chevron{transform:rotate(180deg)}
+.listen-panel{padding:0 10px 10px;border-top:1px solid var(--line)}
+.listen-panel[hidden]{display:none}
+.listen-panel-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 1px 8px}
+.listen-panel-top>div{display:flex;min-width:0;flex-direction:column;gap:2px}
+.listen-panel-top strong{font-size:12px}
+.listen-panel-top small{overflow:hidden;color:var(--muted);font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.listen-play-all{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--surface);font-size:12px}
+.listen-controls{display:flex;align-items:center;gap:5px;padding:6px 0 8px;border-bottom:1px solid var(--line)}
+.listen-controls button{display:grid;place-items:center;width:29px;height:29px;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:12px}
+.listen-controls button:hover{background:var(--hover)}
+.listen-source-note{margin-left:auto;color:var(--muted);font-size:9px;white-space:nowrap}
+.listen-track-list{display:flex;flex-direction:column;gap:2px;max-height:230px;margin-top:6px;overflow:auto;overscroll-behavior:contain}
+.listen-track{display:flex;align-items:center;gap:8px;width:100%;min-height:43px;padding:5px 6px;border-radius:9px;text-align:left;color:var(--ink)}
+.listen-track:hover{background:var(--hover)}
+.listen-track.is-current{background:var(--soft)}
+.listen-track-art{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:7px;background:var(--soft);color:var(--muted);font-size:16px}
+.listen-track-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:1px}
+.listen-track-copy strong,.listen-track-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.listen-track-copy strong{font-size:11px;font-weight:600}
+.listen-track-copy small{color:var(--muted);font-size:10px}
+.listen-track-state{color:var(--muted);font-size:11px}
+.listen-track.is-current .listen-track-state{color:var(--ink)}
+.listen-empty{padding:15px 6px;color:var(--muted);font-size:11px;text-align:center}
+.listen-footnote{margin:8px 2px 0;color:var(--muted);font-size:9px;line-height:1.45}
+.app.mini .listen-module{margin:12px 8px 0}
+.app.mini .listen-heading{justify-content:center;padding:7px 3px}
+.app.mini .listen-heading-copy,.app.mini .listen-chevron{display:none}
+.app.mini .listen-panel{display:none!important}
+@media(max-width:760px){
+ .listen-module{margin:12px 12px 0 16px}
+ .listen-panel{padding-bottom:12px}
+ .listen-track-list{max-height:min(34dvh,260px)}
+ .app.mini .listen-heading{justify-content:flex-start;padding:7px 11px}
+ .app.mini .listen-heading-copy,.app.mini .listen-chevron{display:flex}
+}
+:root[data-theme=dark] .listen-play-all{background:#e8eaed;color:#202124}
