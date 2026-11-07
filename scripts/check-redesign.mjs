@@ -71,6 +71,8 @@ const adminCss = fs.readFileSync('admin-redesign.css', 'utf8');
 if (index.includes('split(/[,;\\\\n]/)')) fail('AI label parsing contains an escaped backslash+n character class; it must split on actual newlines, not the letter n.');
 if (!index.includes('split(/[,;\\n]/)')) fail('AI label parsing must split on commas, semicolons, and newlines.');
 if (!index.includes('id="applyAutoLabels"') || index.includes('if(autoLabelSelection.length)applySelectedAutoLabels(false);')) fail('AI suggestions must wait for the user to choose Add selected; they must not be applied automatically.');
+if (index.includes("function saveNote(){if(!$('autoLabelPanel').classList.contains('hidden'))applySelectedAutoLabels(false);")) fail('Submitting a note must not silently apply unconfirmed AI suggestions.');
+if (!index.includes("if($('applyAutoLabels'))$('applyAutoLabels').addEventListener('click'")) fail('The Add selected AI suggestion control must have an active click handler.');
 if (!index.includes('mnotePlaylistIndex=current?mnotePlaylist.indexOf(current):-1')) fail('Shuffle must preserve the -1 queue index when no track is currently playing.');
 
 if (!/<link\b(?=[^>]*\bhref=["']public-desktop\.css(?:\?[^"']*)?["'])(?=[^>]*\bmedia=["']\(min-width:\s*1024px\)["'])[^>]*>/i.test(index)) fail('Public desktop CSS must be media-qualified at 1024px; cache-busting query strings are allowed.');
