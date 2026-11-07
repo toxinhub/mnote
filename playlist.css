@@ -312,3 +312,38 @@
  .listen-track-list{max-height:min(42dvh,340px);}
  .listen-track{min-height:56px;padding:8px;}
 }
+
+
+/* Mobile: give the Listen playlist its own usable space inside the drawer. */
+@media(max-width:760px){
+ .sidebar{
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable;
+ }
+ .sidebar:has(.listen-module.is-open) .side-nav,
+ .sidebar:has(.listen-module.is-open) > .side-head,
+ .sidebar:has(.listen-module.is-open) > .labels,
+ .sidebar:has(.listen-module.is-open) .side-foot{
+  display:none!important;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-module{
+  flex:0 0 auto;
+  margin-top:10px;
+  margin-bottom:14px;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-panel{
+  display:flex;
+  max-height:none;
+  overflow:visible;
+ }
+ .sidebar:has(.listen-module.is-open) .listen-track-list{
+  max-height:min(48dvh,420px);
+  min-height:120px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+ }
+}
