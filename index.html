@@ -1810,6 +1810,36 @@ body .topbar .search .glass{font-size:20px!important}
 #composer .auto-label-chip.selected{border-color:#83a98a;background:#e7f1e8;color:#315b38}
 :root[data-theme=dark] #composer .auto-label-chip.selected{border-color:#64876b;background:#293a2c;color:#c6e2ca}
 @media(max-width:560px){#composer .compose-details-group .fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#composer .compose-details-group .fields>div:first-child{grid-column:1/-1}}
+
+/* Desktop-only composer atmosphere: override the later shared !important surface reset. */
+@media (min-width:761px){
+  #composer.open{
+    background-color:var(--surface)!important;
+    background-image:
+      radial-gradient(ellipse at 8% 12%,rgba(244,197,66,.22),transparent 36%),
+      radial-gradient(ellipse at 92% 76%,rgba(193,164,111,.17),transparent 40%),
+      linear-gradient(145deg,rgba(255,250,235,.58),transparent 58%)!important;
+  }
+  #composer.open::before{
+    opacity:.42!important;
+    background:
+      radial-gradient(ellipse at 78% 18%,transparent 0 34px,rgba(190,151,75,.19) 35px 36px,transparent 37px 48px,rgba(190,151,75,.13) 49px 50px,transparent 51px),
+      radial-gradient(ellipse at 18% 82%,transparent 0 42px,rgba(190,151,75,.15) 43px 44px,transparent 45px 58px,rgba(190,151,75,.10) 59px 60px,transparent 61px)!important;
+  }
+  #composer.open .compose-head,
+  #composer.open .compose-body{background:transparent!important}
+}
+:root[data-theme=dark] @media (min-width:761px){}
+@media (min-width:761px){
+  :root[data-theme=dark] #composer.open{
+    background-color:var(--surface)!important;
+    background-image:
+      radial-gradient(ellipse at 8% 12%,rgba(229,189,103,.19),transparent 38%),
+      radial-gradient(ellipse at 92% 76%,rgba(165,137,91,.14),transparent 42%),
+      linear-gradient(145deg,rgba(229,189,103,.055),transparent 60%)!important;
+  }
+  :root[data-theme=dark] #composer.open::before{opacity:.48!important}
+}
 </style><style id="artist-sidebar-disclosure">#artists{display:none!important;flex-direction:column;gap:2px;padding:2px 0 0}#artists.labels-open{display:flex!important;animation:labelsIn .16s ease-out}#sidebar .artists .nav{min-height:34px;padding:0 14px;gap:14px}#sidebar .artists .nav-label{font-size:12px;line-height:1.25;font-weight:400}@media(max-width:760px){#sidebar .artists .nav{min-height:32px}#sidebar .artists .nav-label{font-size:11.5px}}.app.mini #artists.labels-open{display:none!important}</style>
 <style id="animated-sidebar-menu-icon">
   body .topbar .menu-btn .menu-icon{overflow:visible}
