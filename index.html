@@ -3042,88 +3042,49 @@ html[data-theme="dark"] body .mini-detail-dock:not(.inline-player-mode) .mini-pl
 
 
 <style id="mnote-typography-and-text-contrast">
-/* Clear type hierarchy and stronger text contrast across light and dark themes. */
+/* Consistent type scale: 12 / 14 / 16 / 20 / 24px. */
 :root{
-  --muted:#687066;
-  --focus:#a87522;
+ --type-xs:12px;--type-sm:14px;--type-base:14px;
+ --type-lg:16px;--type-xl:20px;--type-2xl:24px;
+ --muted:#687066;--focus:#a87522;
 }
-:root[data-theme="dark"]{
-  --muted:#b5beb6;
-  --focus:#e8c875;
-}
-html{ text-rendering:optimizeLegibility; }
-body{
-  font-family:"Google Sans","Noto Sans Bengali",Arial,sans-serif;
-  font-size:14.5px;
-  line-height:1.62;
-  letter-spacing:0;
-  color:var(--ink);
-}
+:root[data-theme="dark"]{--muted:#b5beb6;--focus:#e8c875}
+html{text-rendering:optimizeLegibility}
+body{font-family:"Google Sans","Noto Sans Bengali",Arial,sans-serif;font-size:var(--type-base);line-height:1.6;letter-spacing:0;color:var(--ink)}
 button,input,textarea,select{font-family:inherit}
-.brand-name{font-weight:650;letter-spacing:-.035em}
-.compose-title{font-size:16.5px;font-weight:600;line-height:1.45}
-.field{font-size:14.5px;line-height:1.65}
-.search input{font-size:15px;line-height:1.5}
-.nav{font-size:13.5px;line-height:1.45}
+.brand-name{font-size:var(--type-xl);font-weight:650;letter-spacing:-.03em}
+.compose-title{font-size:var(--type-lg);font-weight:600;line-height:1.5}
+.field,.idea,.detail-section{font-size:var(--type-base);line-height:1.7}
+.search input{font-size:var(--type-base);line-height:1.5}
+.nav{font-size:var(--type-sm);line-height:1.5}
 .nav-label{font-weight:500}
 .nav.active .nav-label{font-weight:650}
-.side-head,.section-head{
-  color:var(--muted);
-  font-size:11.5px;
-  font-weight:650;
-  letter-spacing:.045em;
+.side-head,.section-head,.field-meta,.detail-section label,.detail-label{
+ color:var(--muted);font-size:var(--type-xs);font-weight:650;line-height:1.5;letter-spacing:.02em
 }
-.side-foot,.form-hint,.compose-foot small{color:var(--muted);font-size:12px;line-height:1.6}
-.field-meta{color:var(--muted);font-size:11.5px;line-height:1.5}
-.note-title{font-size:15.5px;line-height:1.48;font-weight:650;letter-spacing:-.012em}
-.artist,.moment{color:var(--muted);font-size:12.5px;line-height:1.55}
-.idea{color:var(--ink);font-size:14px;line-height:1.68}
-.tag,.mood{font-size:11.5px;line-height:1.45;font-weight:500}
-.dialog-head h2,.detail-hero h2{
-  color:var(--ink);
-  font-size:21px;
-  line-height:1.35;
-  font-weight:700;
-  letter-spacing:-.025em;
+.side-foot,.form-hint,.compose-foot small,.artist,.moment,.dialog-artist{
+ color:var(--muted);font-size:var(--type-xs);line-height:1.6
 }
-.dialog-artist{color:var(--muted);font-size:13px;line-height:1.55}
-.detail-section{
-  color:var(--ink);
-  font-size:14px;
-  line-height:1.75;
-}
-.detail-section label,.detail-label{
-  color:var(--muted);
-  font-size:11.5px;
-  font-weight:650;
-  letter-spacing:.025em;
-}
-.detail-section .feelings-label{color:var(--muted)}
-.empty strong{color:var(--ink);font-size:17px;font-weight:650}
-.empty p{color:var(--muted);font-size:13px;line-height:1.65}
-.result-count,.count{color:var(--muted)}
-.text-btn{font-size:13px;font-weight:650}
-.toast{font-size:13px;line-height:1.5;font-weight:500}
-:root[data-theme="dark"] .nav.active,
-:root[data-theme="dark"] .nav.active .nav-icon{color:#f6e4b0}
-:root[data-theme="dark"] .tag,
-:root[data-theme="dark"] .mood{color:#d6e2d7!important}
-:root[data-theme="dark"] .detail-section label,
-:root[data-theme="dark"] .detail-section .feelings-label{color:#c0c9c1}
+.note-title{font-size:var(--type-lg);line-height:1.5;font-weight:650;letter-spacing:-.01em}
+.tag,.mood{font-size:var(--type-xs);line-height:1.5;font-weight:500}
+.dialog-head h2,.detail-hero h2{color:var(--ink);font-size:var(--type-xl);line-height:1.35;font-weight:700;letter-spacing:-.02em}
+.empty strong{color:var(--ink);font-size:var(--type-lg);font-weight:650}
+.empty p{color:var(--muted);font-size:var(--type-sm);line-height:1.65}
+.text-btn{font-size:var(--type-sm);font-weight:650}
+.toast{font-size:var(--type-sm);line-height:1.5;font-weight:500}
+:root[data-theme="dark"] .nav.active,:root[data-theme="dark"] .nav.active .nav-icon{color:#f6e4b0}
+:root[data-theme="dark"] .tag,:root[data-theme="dark"] .mood{color:#d6e2d7!important}
+:root[data-theme="dark"] .detail-section label,:root[data-theme="dark"] .detail-section .feelings-label{color:#c0c9c1}
 @media(max-width:760px){
-  body{font-size:14px;line-height:1.65}
-  .note-title{font-size:14.25px;line-height:1.48}
-  .idea{font-size:13.5px;line-height:1.68}
-  .artist,.moment{font-size:12px}
-  .dialog-head h2,.detail-hero h2{font-size:20px;line-height:1.32}
-  .detail-section{font-size:13.5px;line-height:1.75}
-  .detail-section label,.detail-label{font-size:11.5px}
-  .nav{font-size:13.5px}
+ body{font-size:var(--type-sm);line-height:1.65}
+ .note-title{font-size:15px;line-height:1.5}
+ .idea,.detail-section{font-size:var(--type-sm);line-height:1.7}
+ .dialog-head h2,.detail-hero h2{font-size:var(--type-xl);line-height:1.35}
+ .nav{font-size:var(--type-sm)}
 }
 @media(max-width:390px){
-  .note-title{font-size:14px}
-  .idea{font-size:13.25px}
-  .dialog-head h2,.detail-hero h2{font-size:19px}
+ .note-title{font-size:15px}
+ .dialog-head h2,.detail-hero h2{font-size:19px}
 }
 </style>
 
