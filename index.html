@@ -3175,26 +3175,10 @@ button,input,textarea,select{font-family:inherit}
 }
 
 
-/* Desktop-only outer page-gutter pattern: visible beside the open composer, never inside the card. */
+/* Desktop-only outer gutter pattern. The composer itself stays solid and untouched. */
 @media (min-width:761px){
-  html body #composer.composer.open{
-    position:relative!important;
-    isolation:isolate!important;
-    background:#fffaf0!important;
-    background-image:none!important;
-  }
-  html body #composer.composer.open::before{
-    content:""!important;
-    display:block!important;
-    position:absolute!important;
-    top:0!important;
-    bottom:0!important;
-    left:50%!important;
-    width:100vw!important;
-    transform:translateX(-50%)!important;
-    z-index:-1!important;
-    pointer-events:none!important;
-    opacity:1!important;
+  html body .workspace:has(>#dummy) { background-image:none; }
+  html body .workspace:has(#composer.composer.open){
     background-color:transparent!important;
     background-image:
       repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(151,105,24,.13) 19px 20px,transparent 21px 34px),
@@ -3203,19 +3187,9 @@ button,input,textarea,select{font-family:inherit}
     background-position:calc(50% - 340px - 132px) center,calc(50% + 340px) center!important;
     background-repeat:no-repeat!important;
   }
-  html body #composer.composer.open .compose-head,
-  html body #composer.composer.open .compose-body{
-    position:relative!important;
-    z-index:1!important;
-    background:transparent!important;
-  }
 }
 @media (min-width:761px){
-  :root[data-theme="dark"] html body #composer.composer.open{
-    background:#232923!important;
-    background-image:none!important;
-  }
-  :root[data-theme="dark"] html body #composer.composer.open::before{
+  :root[data-theme="dark"] html body .workspace:has(#composer.composer.open){
     background-image:
       repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px),
       repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px)!important;
