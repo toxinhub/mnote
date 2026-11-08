@@ -1013,3 +1013,56 @@ body{font-size:14px;line-height:1.5}
 :root[data-theme="dark"] textarea,
 :root[data-theme="dark"] select{color-scheme:dark}
 :root[data-theme="dark"] ::selection{background:#66572e;color:#fff4d1}
+
+/* Final admin palette alignment with the public m}note experience. */
+:root{
+ --page:#f7f7f3;--surface:#fffefa;--soft:#f0f0e9;--ink:#292c27;
+ --muted:#74796f;--line:#e2e5dc;--hover:#eff1e9;--focus:#b9852d;
+ --accent:#edbd55;--shadow:0 2px 8px rgba(38,43,34,.07);
+}
+:root[data-theme="dark"]{
+ --page:#191d1a;--surface:#232923;--soft:#2c342d;--ink:#edf1e9;
+ --muted:#adb8aa;--line:#3d493e;--hover:#303a32;--focus:#e5bd67;
+ --accent:#e5bd67;--shadow:0 3px 12px rgba(0,0,0,.22);
+}
+:root[data-theme="dark"] body{background:var(--page)!important;color:var(--ink)!important}
+:root[data-theme="dark"] .top,
+:root[data-theme="dark"] .login,
+:root[data-theme="dark"] .admin-nav,
+:root[data-theme="dark"] .admin-search,
+:root[data-theme="dark"] .bulk-bar,
+:root[data-theme="dark"] .activity-row,
+:root[data-theme="dark"] .label-row,
+:root[data-theme="dark"] .summary-stat,
+:root[data-theme="dark"] .empty,
+:root[data-theme="dark"] #list .entry{
+ background:var(--surface)!important;border-color:var(--line)!important;color:var(--ink)!important;
+}
+:root[data-theme="dark"] #list .entry:hover{background:#29322b!important;border-color:#596957!important}
+:root[data-theme="dark"] .admin-nav .tab.active{
+ background:#403820!important;border-color:#77633a!important;color:#f2d991!important;
+}
+:root[data-theme="dark"] .admin-nav .tab.active .tab-count{background:#6d5a30!important;color:#fff0c4!important}
+:root[data-theme="dark"] .btn.primary,
+:root[data-theme="dark"] .dashboard-tools #add-entry,
+:root[data-theme="dark"] #edit-form>.actions #save-changes{
+ background:#e5bd67!important;border-color:#d1a84f!important;color:#302713!important;
+}
+:root[data-theme="dark"] .btn.primary:hover,
+:root[data-theme="dark"] .dashboard-tools #add-entry:hover,
+:root[data-theme="dark"] #edit-form>.actions #save-changes:hover{background:#f0cc7b!important}
+:root[data-theme="dark"] .admin-search input,
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select{background:#1d241f!important;border-color:var(--line)!important;color:var(--ink)!important}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder{color:#9da99b!important}
+:root[data-theme="dark"] .notice{background:#29372d!important;border-color:#465d49!important;color:#d0e1d0!important}
+:root[data-theme="dark"] .notice.error{background:#402b29!important;border-color:#67413c!important;color:#f0b0a8!important}
+:root[data-theme="dark"] #labels-view .label-open{background:#332f22!important;border-color:#645635!important;color:#ead18a!important}
+:root[data-theme="dark"] #modal .edit-modal-head{background:linear-gradient(110deg,#302d22 0%,var(--surface) 78%)!important}
+:root[data-theme="dark"] #modal .edit-section{background:#252d27!important;border-color:var(--line)!important}
+:root[data-theme="dark"] #modal .field input:focus,
+:root[data-theme="dark"] #modal .field textarea:focus,
+:root[data-theme="dark"] #modal .field select:focus{border-color:#a6b98f!important;box-shadow:0 0 0 3px rgba(166,185,143,.14)!important}
+:root[data-theme="dark"] ::selection{background:#66552f;color:#fff4d5}
