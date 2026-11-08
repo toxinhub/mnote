@@ -54,8 +54,6 @@ body{font-size:14px;line-height:1.5}
 .admin-nav{gap:5px;margin-bottom:20px;padding:5px;border:1px solid var(--line);border-radius:13px;background:var(--surface);box-shadow:var(--shadow)}
 .admin-nav .tab{position:relative;min-height:40px;padding:0 14px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap}
 .admin-nav .tab:hover{background:var(--hover);color:var(--ink)}
-.admin-nav .tab.active{background:#fff3c4;color:#5b4800;border-color:#f4e2a0}
-:root[data-theme=dark] .admin-nav .tab.active{background:#4a4024;color:#ffdf7b;border-color:#68582d}
 .admin-nav .tab.active:after{display:none}
 .tab-count{background:var(--accent);color:#4a3b00;border-radius:6px}
 .list-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 13px;font-size:14px;font-weight:700;letter-spacing:-.15px}
@@ -91,8 +89,6 @@ body{font-size:14px;line-height:1.5}
  #workspace>.dashboard-tools{grid-area:tools;max-width:100%;margin-bottom:22px}
  #workspace>.admin-nav{grid-area:nav;position:sticky;top:82px;align-self:start;display:flex;flex-direction:column;align-items:stretch;gap:5px;margin:0;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);overflow:visible}
  #workspace>.admin-nav .tab{justify-content:flex-start;min-height:44px;padding:0 12px;text-align:left}
- #workspace>.admin-nav .tab.active{background:#fff3c4;border-color:transparent;color:#5b4800}
- :root[data-theme=dark] #workspace>.admin-nav .tab.active{background:#4a4024;color:#ffdf7b}
  #workspace>.admin-nav .tab.active:after{display:block;left:0;right:auto;top:9px;bottom:9px;width:3px;height:auto;border-radius:0 3px 3px 0;background:var(--accent)}
  #workspace>#entries-view,#workspace>#labels-view,#workspace>#activity-view{grid-area:content;min-width:0}
  #workspace .list-head{margin-top:2px}
@@ -126,8 +122,6 @@ body{font-size:14px;line-height:1.5}
  .admin-nav{position:static;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:4px;overflow-x:auto;overflow-y:hidden;margin:0 0 16px;padding:0 0 9px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
  .admin-nav::-webkit-scrollbar{display:none}
  .admin-nav .tab{flex:0 0 auto;min-width:max-content;min-height:37px;padding:0 11px;border-radius:9px;font-size:11px}
- .admin-nav .tab.active{background:#fff3c4;border-color:#f4e2a0}
- :root[data-theme=dark] .admin-nav .tab.active{background:#4a4024;border-color:#68582d}
  #list{grid-template-columns:minmax(0,1fr);gap:10px}
  #list .entry{border-radius:13px}
  #list .entry-copy{padding:13px}
