@@ -1912,7 +1912,19 @@ html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress .progre
   html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress circle{stroke-width:12!important}
 }
 </style>
-</head>
+<style id="mobile-nav-icon-consistency">
+@media(max-width:760px){
+  .mobile-nav .mobile-symbol{min-width:54px;height:27px}
+  .mobile-nav .mobile-symbol svg{display:block;width:20px;height:20px;overflow:visible}
+  .mobile-nav button{min-width:54px;gap:3px;transition:color .16s ease,background-color .16s ease}
+  .mobile-nav button:active{transform:scale(.96)}
+}
+@media(max-width:390px){
+  .mobile-nav .mobile-symbol{min-width:48px}
+  .mobile-nav button{min-width:48px}
+}
+@media(prefers-reduced-motion:reduce){.mobile-nav button{transition:none!important}}
+</style></head>
 <body>
 <div id="launchScreen" role="status" aria-label="Opening m}note">
 <div class="launch-layout">
@@ -1949,7 +1961,13 @@ html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress .progre
 </div></section>
 <div class="section-head"><span id="sectionTitle">Notes</span><span class="result-count" id="resultCount"></span></div><section class="grid" id="notesGrid" aria-live="polite"><div class="loading-state" role="status"><div class="loading-intro"><div class="loading-music-orb"><span class="loading-music-emoji" aria-hidden="true">🎵</span><span class="loading-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><div class="loading-copy"><strong>Loading your songs</strong><span>Every song has a story…</span></div></div><div class="loading-skeletons" aria-hidden="true"><div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line short"></div><div class="skeleton-thumb"></div><div class="skeleton-line"></div><div class="skeleton-line medium"></div></div><div class="loading-skeleton-card"><div class="skeleton-title medium"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div><div class="loading-skeleton-card"><div class="skeleton-title"></div><div class="skeleton-line medium"></div><div class="skeleton-thumb"></div><div class="skeleton-line short"></div></div><div class="loading-skeleton-card"><div class="skeleton-title short"></div><div class="skeleton-thumb tall"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div></div></div></div></section></div></main></div>
 <button class="mobile-create" id="mobileCreate" aria-label="Create a song note" title="New note">＋</button>
-<nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-view="all"><span class="mobile-symbol">▤</span><span>Notes</span></button><button data-view="pinned"><span class="mobile-symbol">♧</span><span>Pinned</span></button><button id="mobileAdd"><span class="mobile-symbol">＋</span><span>New</span></button><button data-view="archive"><span class="mobile-symbol">▣</span><span>Archive</span></button><button data-view="trash"><span class="mobile-symbol">♲</span><span>Trash</span></button></nav>
+<nav class="mobile-nav" aria-label="Mobile navigation">
+<button class="active" data-view="all" aria-label="Notes"><span class="mobile-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 3.5h8.8L19 7.7v12.8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Zm8 1.8v3.5h3.5"/><path d="M8 12h8M8 15.5h8M8 19h5" fill="none" stroke="var(--surface)" stroke-width="1.5" stroke-linecap="round"/></svg></span><span>Notes</span></button>
+<button data-view="pinned" aria-label="Pinned"><span class="mobile-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 3.5h8l-.7 5 3.2 3.2v2H5.5v-2l3.2-3.2L8 3.5Zm4.9 10.2v6.8l-.9 1-1-1v-6.8h1.9Z"/></svg></span><span>Pinned</span></button>
+<button id="mobileAdd" aria-label="New song note"><span class="mobile-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.5 3.5h3v7h7v3h-7v7h-3v-7h-7v-3h7z"/></svg></span><span>New</span></button>
+<button data-view="archive" aria-label="Archive"><span class="mobile-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16l1 4v2H3V8l1-4Zm.5 7.5h15v8a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-8Zm5 2v2h5v-2h-5Z"/></svg></span><span>Archive</span></button>
+<button data-view="trash" aria-label="Trash"><span class="mobile-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 3h8l1 2h4v2H3V5h4l1-2Zm-2 6h12l-1 12H7L6 9Zm3 2v8h1.6v-8H9Zm4 0v8h1.6v-8H13Z"/></svg></span><span>Trash</span></button>
+</nav>
 <div class="overlay" id="detailOverlay" role="dialog" aria-modal="true" aria-label="Song details"><section class="dialog" id="detailDialog"></section></div><aside id="miniDetailDock" class="mini-detail-dock" aria-label="Minimized song player"><div class="mini-player-orb" id="miniPlayerOrb"><div id="persistentPlayerHost"></div><svg class="mini-player-progress" viewBox="0 0 100 100" aria-hidden="true"><circle class="progress-track" cx="50" cy="50" r="42"></circle><circle id="miniPlayerProgress" cx="50" cy="50" r="42"></circle><circle id="miniPlayerProgressDot" class="progress-dot" cx="92" cy="50" r="3.7"></circle></svg><span class="mini-player-glyph" aria-hidden="true"><span class="mini-player-banana" aria-hidden="true">🍌</span></span></div><button type="button" id="restoreDetail" class="mini-player-restore" aria-label="Restore song note" title="Restore song note"></button><div class="mini-dock-info" id="miniDockInfo"><strong id="miniDockTitle">Now playing</strong><span id="miniDockArtist">m}note</span></div><button type="button" id="miniDockPlay" class="mini-dock-play" aria-label="Pause playback" title="Pause or resume">Ⅱ</button><button type="button" id="miniDockNext" class="mini-dock-next" aria-label="Next song" title="Next song">⏭</button><button type="button" id="closeMiniDetail" class="mini-detail-close" aria-label="Close and stop playback" title="Close and stop playback">×</button></aside><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
