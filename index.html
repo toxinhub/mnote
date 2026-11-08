@@ -1924,6 +1924,82 @@ html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress .progre
   .mobile-nav button{min-width:48px}
 }
 @media(prefers-reduced-motion:reduce){.mobile-nav button{transition:none!important}}
+</style><style id="mnote-balanced-color-system">
+/* Unified warm-neutral palette: calm surfaces, readable text, restrained amber accents. */
+:root{
+ color-scheme:light;
+ --page:#f7f7f3;
+ --surface:#fffefa;
+ --soft:#f0f0e9;
+ --ink:#292c27;
+ --muted:#74796f;
+ --line:#e2e5dc;
+ --hover:#eff1e9;
+ --focus:#b9852d;
+ --accent:#edbd55;
+ --shadow:0 2px 8px rgba(38,43,34,.07);
+}
+:root[data-theme="dark"]{
+ color-scheme:dark;
+ --page:#191d1a;
+ --surface:#232923;
+ --soft:#2c342d;
+ --ink:#edf1e9;
+ --muted:#adb8aa;
+ --line:#3d493e;
+ --hover:#303a32;
+ --focus:#e5bd67;
+ --accent:#e5bd67;
+ --shadow:0 3px 12px rgba(0,0,0,.22);
+}
+body{background:var(--page)!important;color:var(--ink)}
+.topbar,.sidebar,.mobile-nav{background:var(--surface)!important;border-color:var(--line)!important}
+.search,.admin-icon,.compose-mark{background:var(--soft)!important;color:var(--muted)}
+.search:focus-within{border-color:var(--focus)!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--focus) 16%,transparent)!important}
+.nav.active{background:#f5e9c8!important;color:#4b3b19!important}
+.nav.active .nav-icon{color:#806322!important}
+:root[data-theme="dark"] .nav.active{background:#403820!important;color:#f2d991!important}
+:root[data-theme="dark"] .nav.active .nav-icon{color:#f2d991!important}
+.composer,.note,#detailDialog,.dialog,.listen-module{background:var(--surface)!important;border-color:var(--line)!important;color:var(--ink)}
+.composer:focus-within{border-color:color-mix(in srgb,var(--focus) 62%,var(--line))!important;box-shadow:0 4px 18px color-mix(in srgb,var(--ink) 8%,transparent)!important}
+.note:hover,.note:focus-within{border-color:color-mix(in srgb,var(--focus) 38%,var(--line))}
+.tag,.mood{background:var(--soft)!important;border-color:var(--line)!important;color:var(--muted)!important}
+.tag:hover{background:var(--hover)!important;color:var(--ink)!important}
+.text-btn.primary,.composer:not(.open) #quickLink,.mobile-create{background:#edbd55!important;border-color:#d5a43f!important;color:#302713!important}
+.text-btn.primary:hover,.composer:not(.open) #quickLink:hover,.mobile-create:hover{background:#f3ca70!important}
+.composer .text-btn#closeComposer{background:#f8e9e6!important;border-color:#e8c5bf!important;color:#a13d35!important}
+.mobile-nav button.active .mobile-symbol{background:#f5e9c8!important;color:#6e531b!important}
+:root[data-theme="dark"] .mobile-nav button.active .mobile-symbol{background:#403820!important;color:#f2d991!important}
+:root[data-theme="dark"] .text-btn.primary,
+:root[data-theme="dark"] .composer:not(.open) #quickLink,
+:root[data-theme="dark"] .mobile-create{background:#e5bd67!important;border-color:#cda44e!important;color:#302713!important}
+:root[data-theme="dark"] .composer .text-btn#closeComposer{background:#452e2b!important;border-color:#704640!important;color:#f0b5aa!important}
+:root[data-theme="dark"] .overlay{background:rgba(8,12,9,.72)!important}
+:root[data-theme="dark"] #detailDialog .detail-section{background:color-mix(in srgb,var(--surface) 88%,var(--soft))!important;border-color:var(--line)!important}
+:root[data-theme="dark"] #detailDialog .memory-section{background:linear-gradient(135deg,#29352b,var(--surface))!important;border-color:#405442!important}
+:root[data-theme="dark"] #detailDialog .moment-section{background:linear-gradient(110deg,#393323,var(--surface))!important;border-color:#5d5132!important}
+:root[data-theme="dark"] #detailDialog .tag{background:#303a31!important;border-color:#485649!important;color:#cbd9c8!important}
+:root[data-theme="dark"] #listenModule{
+ --surface:#252d28;--soft:#303a33;--ink:#edf1e9;--muted:#b1bbae;
+ --line:#465247;--hover:#354138;--focus:#e5bd67;
+ background:#252d28!important;border-color:#465247!important;color:#edf1e9!important;
+}
+:root[data-theme="dark"] #listenModule .listen-play-all,
+:root[data-theme="dark"] #listenModule .listen-controls button[data-queue-action="toggle"]{
+ background:#e5bd67!important;border-color:#d1a84f!important;color:#302713!important;
+}
+:root[data-theme="dark"] #listenModule .listen-track.is-current,
+:root[data-theme="dark"] #listenModule .listen-extra-controls>button.is-active{
+ background:#403820!important;border-color:#77633a!important;color:#f2d991!important;
+}
+:root[data-theme="dark"] #listenModule .listen-video-stage{background:#171e19!important;border-color:#465247!important}
+:root[data-theme="dark"] #listenModule .listen-progress-track{background:#465247!important}
+:root[data-theme="dark"] #listenModule .listen-progress-track span{background:#e5bd67!important;box-shadow:0 0 8px #e5bd6740!important}
+:root[data-theme="dark"] .toast{background:#303a32!important;color:#f0f2eb!important;border:1px solid #4a574b}
+:root[data-theme="dark"] .loading-skeleton-card{background:var(--surface)!important;border-color:var(--line)!important}
+:root[data-theme="dark"] .skeleton-title,:root[data-theme="dark"] .skeleton-line,:root[data-theme="dark"] .skeleton-thumb{background:#303a32!important}
+::selection{background:#ead49a;color:#292c27}
+:root[data-theme="dark"] ::selection{background:#66552f;color:#fff4d5}
 </style></head>
 <body>
 <div id="launchScreen" role="status" aria-label="Opening m}note">
