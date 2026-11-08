@@ -3086,6 +3086,52 @@ button,input,textarea,select{font-family:inherit}
  .note-title{font-size:15px}
  .dialog-head h2,.detail-hero h2{font-size:19px}
 }
+
+/* Add composer: subtle musical atmosphere, scoped only to the expanded form. */
+#composer.open{
+  isolation:isolate;
+  overflow:auto;
+  background-color:var(--surface);
+  background-image:
+    radial-gradient(ellipse at 8% 12%,rgba(244,197,66,.16),transparent 34%),
+    radial-gradient(ellipse at 92% 76%,rgba(193,164,111,.12),transparent 38%),
+    linear-gradient(145deg,rgba(255,250,235,.42),transparent 54%);
+}
+#composer.open::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    radial-gradient(ellipse at 78% 18%,transparent 0 34px,rgba(190,151,75,.13) 35px 36px,transparent 37px 48px,rgba(190,151,75,.09) 49px 50px,transparent 51px),
+    radial-gradient(ellipse at 18% 82%,transparent 0 42px,rgba(190,151,75,.10) 43px 44px,transparent 45px 58px,rgba(190,151,75,.07) 59px 60px,transparent 61px);
+}
+#composer.open .compose-head,
+#composer.open .compose-body{
+  position:relative;
+  z-index:1;
+  background:transparent;
+}
+:root[data-theme=dark] #composer.open{
+  background-color:var(--surface);
+  background-image:
+    radial-gradient(ellipse at 8% 12%,rgba(229,189,103,.13),transparent 36%),
+    radial-gradient(ellipse at 92% 76%,rgba(165,137,91,.10),transparent 40%),
+    linear-gradient(145deg,rgba(229,189,103,.035),transparent 56%);
+}
+:root[data-theme=dark] #composer.open::before{
+  opacity:.28;
+  background:
+    radial-gradient(ellipse at 78% 18%,transparent 0 34px,rgba(229,189,103,.12) 35px 36px,transparent 37px 48px,rgba(229,189,103,.08) 49px 50px,transparent 51px),
+    radial-gradient(ellipse at 18% 82%,transparent 0 42px,rgba(229,189,103,.09) 43px 44px,transparent 45px 58px,rgba(229,189,103,.06) 59px 60px,transparent 61px);
+}
+@media(prefers-reduced-motion:reduce){
+  #composer.open{scroll-behavior:auto}
+}
+
 </style>
 
 </body>
