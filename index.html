@@ -3174,6 +3174,51 @@ button,input,textarea,select{font-family:inherit}
   #composer.open{scroll-behavior:auto}
 }
 
+
+/* FINAL desktop composer pattern override: deliberately last to beat legacy composer rules. */
+@media (min-width:761px){
+  html body #composer.composer.open{
+    position:relative!important;
+    isolation:isolate!important;
+    background:#fffaf0!important;
+    background-image:none!important;
+  }
+  html body #composer.composer.open::before{
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    inset:0!important;
+    z-index:0!important;
+    pointer-events:none!important;
+    opacity:1!important;
+    background-color:transparent!important;
+    background-image:
+      repeating-radial-gradient(circle at 0% 50%,transparent 0 17px,rgba(151,105,24,.48) 18px 20px,transparent 21px 34px),
+      repeating-radial-gradient(circle at 100% 50%,transparent 0 17px,rgba(151,105,24,.48) 18px 20px,transparent 21px 34px)!important;
+    background-size:88px 176px,88px 176px!important;
+    background-position:left center,right center!important;
+    background-repeat:repeat-y!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+  html body #composer.composer.open .compose-head,
+  html body #composer.composer.open .compose-body{
+    position:relative!important;
+    z-index:1!important;
+    background:transparent!important;
+  }
+}
+@media (min-width:761px){
+  :root[data-theme="dark"] html body #composer.composer.open{
+    background:#232923!important;
+    background-image:none!important;
+  }
+  :root[data-theme="dark"] html body #composer.composer.open::before{
+    background-image:
+      repeating-radial-gradient(circle at 0% 50%,transparent 0 17px,rgba(245,202,111,.58) 18px 20px,transparent 21px 34px),
+      repeating-radial-gradient(circle at 100% 50%,transparent 0 17px,rgba(245,202,111,.58) 18px 20px,transparent 21px 34px)!important;
+  }
+}
 </style>
 
 </body>
