@@ -1066,3 +1066,43 @@ body{font-size:14px;line-height:1.5}
 :root[data-theme="dark"] #modal .field textarea:focus,
 :root[data-theme="dark"] #modal .field select:focus{border-color:#a6b98f!important;box-shadow:0 0 0 3px rgba(166,185,143,.14)!important}
 :root[data-theme="dark"] ::selection{background:#66552f;color:#fff4d5}
+
+/* Typography and readable text hierarchy, aligned with the public app. */
+:root{--muted:#687066;--focus:#a87522}
+:root[data-theme="dark"]{--muted:#b5beb6;--focus:#e8c875}
+html{ text-rendering:optimizeLegibility; }
+body{
+ font-family:"Google Sans","Noto Sans Bengali",Arial,sans-serif;
+ font-size:14.5px;line-height:1.62;letter-spacing:0;color:var(--ink);
+}
+button,input,textarea,select{font-family:inherit}
+.top>b{font-size:19px;font-weight:650;letter-spacing:-.035em}
+.login h1{font-size:26px;line-height:1.32;font-weight:700;letter-spacing:-.025em}
+.login>p{font-size:13px;line-height:1.65;color:var(--muted)}
+.field label{font-size:12.5px;line-height:1.5;font-weight:650;color:var(--muted)}
+.field input,.field textarea,.field select{font-size:14px;line-height:1.6}
+.field small,.field-hint,.save-hint{font-size:11.5px;line-height:1.6;color:var(--muted)}
+.btn{font-size:12.5px;font-weight:650;line-height:1.4}
+.admin-nav .tab{font-size:13px;font-weight:600}
+.list-head,.view-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.045em;color:var(--muted)}
+.view-title{font-size:22px;line-height:1.35;font-weight:700;letter-spacing:-.025em}
+.entry-meta,.entry-date,.entry-mood,.detail-label,.muted,.optional{
+ color:var(--muted);
+}
+.entry-meta,.entry-date{font-size:12px;line-height:1.55}
+.entry-mood,.entry-tag,.badge{font-size:11.5px;line-height:1.45}
+.detail-value{font-size:14px;line-height:1.7;color:var(--ink)}
+.empty{font-size:14px;line-height:1.65}
+:root[data-theme="dark"] .entry-meta,
+:root[data-theme="dark"] .entry-date,
+:root[data-theme="dark"] .detail-label,
+:root[data-theme="dark"] .muted,
+:root[data-theme="dark"] .field label,
+:root[data-theme="dark"] .field-hint,
+:root[data-theme="dark"] .save-hint{color:#b5beb6}
+@media(max-width:600px){
+ body{font-size:14px;line-height:1.65}
+ .view-title{font-size:20px}
+ .entry-meta,.entry-date{font-size:11.75px}
+}
+
