@@ -1857,6 +1857,61 @@ html body .mini-detail-dock:not(.inline-player-mode) .mini-player-progress .prog
 html body .mini-detail-dock:not(.inline-player-mode) .mini-player-progress .progress-dot{fill:#ef4444!important;stroke:transparent!important;stroke-width:0!important;}
 @media(max-width:600px){html body .mini-detail-dock:not(.inline-player-mode){width:46px!important;height:46px!important;filter:none!important;}html body .mini-detail-dock:not(.inline-player-mode) .mini-player-orb{box-shadow:none!important;}}
 </style>
+
+<style id="mini-player-final-transparency-fix">
+/* Final mini-player override: no opaque orb, inset ring, or pale outer halo. */
+html body #miniDetailDock:not(.inline-player-mode){
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  outline:0!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-orb{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:50%!important;
+  box-shadow:none!important;
+  outline:0!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-orb::before,
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-orb::after{
+  content:none!important;
+  display:none!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) #persistentPlayerHost{
+  background:transparent!important;
+  border:0!important;
+  border-radius:50%!important;
+  box-shadow:none!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress{
+  background:transparent!important;
+  filter:none!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress circle{
+  stroke:#F4C542!important;
+  stroke-width:12!important;
+  stroke-linecap:round!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress .progress-track{
+  stroke:#F4C54235!important;
+  stroke-width:12!important;
+}
+html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress .progress-dot{
+  fill:#EF4444!important;
+  stroke:none!important;
+  stroke-width:0!important;
+}
+@media(max-width:600px){
+  html body #miniDetailDock:not(.inline-player-mode) .mini-player-orb{box-shadow:none!important}
+  html body #miniDetailDock:not(.inline-player-mode) .mini-player-progress circle{stroke-width:12!important}
+}
+</style>
 </head>
 <body>
 <div id="launchScreen" role="status" aria-label="Opening m}note">
