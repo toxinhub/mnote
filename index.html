@@ -3175,7 +3175,7 @@ button,input,textarea,select{font-family:inherit}
 }
 
 
-/* FINAL desktop composer pattern override: deliberately last to beat legacy composer rules. */
+/* Desktop-only outer page-gutter pattern: visible beside the open composer, never inside the card. */
 @media (min-width:761px){
   html body #composer.composer.open{
     position:relative!important;
@@ -3187,19 +3187,21 @@ button,input,textarea,select{font-family:inherit}
     content:""!important;
     display:block!important;
     position:absolute!important;
-    inset:0!important;
-    z-index:0!important;
+    top:0!important;
+    bottom:0!important;
+    left:50%!important;
+    width:100vw!important;
+    transform:translateX(-50%)!important;
+    z-index:-1!important;
     pointer-events:none!important;
     opacity:1!important;
     background-color:transparent!important;
     background-image:
-      repeating-radial-gradient(circle at 0% 50%,transparent 0 17px,rgba(151,105,24,.20) 18px 20px,transparent 21px 34px),
-      repeating-radial-gradient(circle at 100% 50%,transparent 0 17px,rgba(151,105,24,.20) 18px 20px,transparent 21px 34px)!important;
-    background-size:88px 176px,88px 176px!important;
-    background-position:left center,right center!important;
-    background-repeat:repeat-y!important;
-    -webkit-mask-image:none!important;
-    mask-image:none!important;
+      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(151,105,24,.13) 19px 20px,transparent 21px 34px),
+      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(151,105,24,.13) 19px 20px,transparent 21px 34px)!important;
+    background-size:132px 100%,132px 100%!important;
+    background-position:calc(50% - 340px - 132px) center,calc(50% + 340px) center!important;
+    background-repeat:no-repeat!important;
   }
   html body #composer.composer.open .compose-head,
   html body #composer.composer.open .compose-body{
@@ -3215,8 +3217,8 @@ button,input,textarea,select{font-family:inherit}
   }
   :root[data-theme="dark"] html body #composer.composer.open::before{
     background-image:
-      repeating-radial-gradient(circle at 0% 50%,transparent 0 17px,rgba(245,202,111,.22) 18px 20px,transparent 21px 34px),
-      repeating-radial-gradient(circle at 100% 50%,transparent 0 17px,rgba(245,202,111,.22) 18px 20px,transparent 21px 34px)!important;
+      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px),
+      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px)!important;
   }
 }
 </style>
