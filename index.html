@@ -3175,23 +3175,33 @@ button,input,textarea,select{font-family:inherit}
 }
 
 
-/* Desktop-only outer gutter pattern. The composer itself stays solid and untouched. */
+/* Desktop-only pattern painted on the workspace layer, masked away beneath the composer. */
 @media (min-width:761px){
-  html body .workspace:has(#composer.composer.open){
-    background-color:transparent!important;
-    background-image:
-      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(151,105,24,.13) 19px 20px,transparent 21px 34px),
-      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(151,105,24,.13) 19px 20px,transparent 21px 34px)!important;
-    background-size:132px 100%,132px 100%!important;
-    background-position:calc(50% - 340px - 132px) center,calc(50% + 340px) center!important;
-    background-repeat:no-repeat!important;
+  html body .workspace{
+    position:relative!important;
+    isolation:isolate!important;
+  }
+  html body .workspace:has(#composer.composer.open)::before{
+    content:""!important;
+    position:absolute!important;
+    inset:0!important;
+    z-index:0!important;
+    display:block!important;
+    pointer-events:none!important;
+    background-image:repeating-linear-gradient(135deg,rgba(151,105,24,.18) 0 1.2px,transparent 1.2px 12px)!important;
+    -webkit-mask-image:linear-gradient(to right,#000 0%,#000 calc(50% - 350px),transparent calc(50% - 300px),transparent calc(50% + 300px),#000 calc(50% + 350px),#000 100%)!important;
+    mask-image:linear-gradient(to right,#000 0%,#000 calc(50% - 350px),transparent calc(50% - 300px),transparent calc(50% + 300px),#000 calc(50% + 350px),#000 100%)!important;
+    opacity:.8!important;
+  }
+  html body .workspace:has(#composer.composer.open)>.inside{
+    position:relative!important;
+    z-index:1!important;
   }
 }
 @media (min-width:761px){
-  :root[data-theme="dark"] html body .workspace:has(#composer.composer.open){
-    background-image:
-      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px),
-      repeating-radial-gradient(ellipse at 50% 50%,transparent 0 18px,rgba(245,202,111,.15) 19px 20px,transparent 21px 34px)!important;
+  :root[data-theme="dark"] html body .workspace:has(#composer.composer.open)::before{
+    background-image:repeating-linear-gradient(135deg,rgba(245,202,111,.22) 0 1.2px,transparent 1.2px 12px)!important;
+    opacity:.85!important;
   }
 }
 </style>
